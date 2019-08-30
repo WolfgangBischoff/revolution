@@ -28,12 +28,18 @@ public class Main extends Application
         consoleWindow.setScene(new Scene(simulation.getConsole()));
         consoleWindow.show();
 
+        GameWindow gameWindowController = GameWindow.getSingleton();
+        gameWindowController.createNextScene("../fxml/mainMenu.fxml");
+        gameWindowController.showWindow();
 
+        //gameWindowController.createNextScene("../fxml/societyOverview.fxml");
 
+        /*
+        //FXML Testing
         Parent gameroot = load(getClass().getResource("../fxml/mainMenu.fxml"));
         Scene gamescene = new Scene(gameroot, 300,275);
         gameWindow.setScene(gamescene);
-
+*/
 
         GuiPersonGrid guiPersonGrid = new GuiPersonGrid(new Person(new PersonName("Hans Hubertus"), 42, EducationalLayer.fromInt(2),12345));
 
@@ -46,7 +52,7 @@ public class Main extends Application
 */
 
         gameWindow.setTitle("SeGame");
-        gameWindow.show();
+        //gameWindow.show();
 
     }
 }

@@ -1,5 +1,6 @@
 package Core.GuiController;
 
+import Core.GameWindow;
 import Core.Interpreter;
 import Core.Simulation;
 import javafx.event.ActionEvent;
@@ -14,8 +15,8 @@ public class mainMenuController
     @FXML
     protected void gotoSocietyButton(ActionEvent event)
     {
-
         System.out.println("Soc Button");
+        GameWindow.getSingleton().createNextScene("../fxml/societyOverview.fxml");
     }
 
     @FXML protected void gotoEconomyButton(ActionEvent event) {
