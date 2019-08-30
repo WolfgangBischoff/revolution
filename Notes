@@ -1,5 +1,6 @@
 
 KNOWN BUGS:
+    Change Soc Stat should not always be new if pop because Obverver get lost. Delete observer if Scene invalid
 
 TODOS:
     Add Interpreter:
@@ -9,12 +10,6 @@ TODOS:
             eco print/pop/add/pay
             person print
             comp print/pay
-
-    Add first interface that print things
-        Check listener pattern
-        Build fxml Loader
-    https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/TilePane.html
-    https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
 
     Add companies produce Goods with border prices (Food, Commodities), consider effectivsness dependent on infrastructure and personal
         - marketCompany (Gets money through goods, sets price by demand and cost)

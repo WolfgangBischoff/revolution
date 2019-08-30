@@ -1,13 +1,10 @@
 package Core;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static Core.Util.*;
 
-public abstract class Statistics
+public abstract class Statistics extends Observable
 {
     static Double calcAvg(ArrayList<Integer> data)
     {

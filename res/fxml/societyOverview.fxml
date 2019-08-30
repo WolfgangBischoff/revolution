@@ -21,8 +21,18 @@
     <Text text="#placeholder"
            GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
+    <Label text="Avg gross income"
+           GridPane.columnIndex="0" GridPane.rowIndex="2"
+    />
+
+    <Text text="#NumberPeople" fx:id="numberPeople"
+          GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+
+    <Button fx:id="populateSociety" text="Populate Society" GridPane.columnIndex="0" GridPane.rowIndex="3" onAction="#populate"/>
+
     <Button fx:id="BttnbackToMenu" text="Back to Menu"
-            GridPane.columnIndex="1" GridPane.rowIndex="3"
+            GridPane.columnIndex="1" GridPane.rowIndex="4"
             onAction="#backToMenu"
     />
 </GridPane>

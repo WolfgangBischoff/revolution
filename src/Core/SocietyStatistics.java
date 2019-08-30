@@ -1,8 +1,8 @@
 package Core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
+
+import java.util.*;
 
 public class SocietyStatistics extends Statistics
 {
@@ -21,11 +21,15 @@ public class SocietyStatistics extends Statistics
     Double unemploymentRate;
 
 
+    public ArrayList<Person> getPersons()
+    {
+        return persons;
+    }
+
     //Constructors
     public SocietyStatistics(Society soc)
     {
         persons = soc.getPeople();
-        //System.out.println("PPP" + persons);
         calcAll();
     }
 
@@ -35,6 +39,11 @@ public class SocietyStatistics extends Statistics
         calcIncomes();
         calcEmploymentRate();
         calcEnumStatsViews();
+        System.out.println("FIRE " + countObservers());
+
+        //Observer
+        setChanged();
+        notifyObservers();
     }
 
     void calcEmploymentRate()
@@ -141,6 +150,7 @@ public class SocietyStatistics extends Statistics
     {
         return avgGrossIncome;
     }
+
 
 
 }
