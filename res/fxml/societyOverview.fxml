@@ -21,7 +21,7 @@
     <Text text="#placeholder"
            GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-    <Label text="Avg gross income"
+    <Label text="Number Persons"
            GridPane.columnIndex="0" GridPane.rowIndex="2"
     />
 

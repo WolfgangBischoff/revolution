@@ -8,12 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Observable;
 import java.util.Observer;
 
 import static Core.Util.*;
 
-public class societyOverviewController implements Observer
+public class societyOverviewController implements PropertyChangeListener
 {
     @FXML
     Text numberPeople;
@@ -21,19 +23,16 @@ public class societyOverviewController implements Observer
     @FXML
     private void initialize()
     {
-        Society.getSociety().getSocietyStatistics().addObserver(this);
+        Society.getSociety().getSocietyStatistics().addPropertyChangeListener(this);
         numberPeople.setText("" + Society.getSociety().getSocietyStatistics().getPersons().size());
     }
 
+
     @Override
-    public void update(Observable o, Object arg)
+    public void propertyChange(PropertyChangeEvent evt)
     {
-        if(o instanceof SocietyStatistics)
-        {
-            numberPeople.setText("" + ((SocietyStatistics) o).getPersons().size());
-        }
-        else
-            System.out.println("Not");
+        if(evt.getPropertyName() == "numberPersons")
+            numberPeople.setText(evt.getNewValue().toString());
     }
 
 
@@ -41,6 +40,7 @@ public class societyOverviewController implements Observer
     protected void backToMenu(ActionEvent event)
     {
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
+        Society.getSociety().getSocietyStatistics().removePropertyChangeListener(this);
         System.out.println("back to Menu");
     }
 
@@ -49,6 +49,7 @@ public class societyOverviewController implements Observer
     {
         Simulation.getSingleton().getSociety().populateSociety(NUM_PERS_DEFAULT);
     }
+
 
 
 }

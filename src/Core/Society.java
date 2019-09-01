@@ -69,7 +69,8 @@ public class Society {
                     new Person(
                             EducationalLayer.fromInt(Statistics.randomWithRatio(ratios))));
         }
-        societyStatistics =  new SocietyStatistics(this);
+        //societyStatistics =  new SocietyStatistics(this);
+        societyStatistics.calcAll();
     }
 
     public void populateSociety(Integer baseEdu, Integer apprEdu, Integer higherEdu, Integer unicEdu)
@@ -92,7 +93,8 @@ public class Society {
         {
             people.add(new Person(EducationalLayer.EDU_UNIVERSITY));
         }
-        societyStatistics = new SocietyStatistics(this);
+        //societyStatistics = new SocietyStatistics(this);
+        societyStatistics.calcAll();
     }
 
     public void addPersonRnd(Integer numberPersons)

@@ -4,7 +4,7 @@ import java.util.*;
 
 import static Core.Util.*;
 
-public abstract class Statistics extends Observable
+public abstract class Statistics
 {
     static Double calcAvg(ArrayList<Integer> data)
     {

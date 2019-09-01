@@ -2,11 +2,17 @@ package Core;
 
 
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.*;
 
 public class SocietyStatistics extends Statistics
 {
+    Society society;
     ArrayList<Person> persons;
+    private PropertyChangeSupport propertyChangeSupport; //https://www.baeldung.com/java-observer-pattern
+
+    Integer numberPersons;
     Map<EducationalLayer, Double> eduStat = new HashMap<>();
     Map<EducationalLayer, Integer> eduStatAbsolut;
     Map<PoliticalOpinion, Double> polStat = new HashMap<>();
@@ -29,21 +35,41 @@ public class SocietyStatistics extends Statistics
     //Constructors
     public SocietyStatistics(Society soc)
     {
-        persons = soc.getPeople();
+        society = soc;
+        propertyChangeSupport = new PropertyChangeSupport(this);
         calcAll();
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener)
+    {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener)
+    {
+        propertyChangeSupport.removePropertyChangeListener(listener);
     }
 
     //Calculations
     public void calcAll()
     {
+        persons = society.getPeople();
+        calcPeopleNumber();
         calcIncomes();
         calcEmploymentRate();
         calcEnumStatsViews();
-        System.out.println("FIRE " + countObservers());
+    }
 
-        //Observer
-        setChanged();
-        notifyObservers();
+    public Integer getNumberPersons() {
+        return numberPersons;
+    }
+
+    void calcPeopleNumber()
+    {
+        Integer newNumberPersons = 0;
+        propertyChangeSupport.firePropertyChange("numberPersons", newNumberPersons, (Integer)persons.size());
+        System.out.println("Listeners: "  + propertyChangeSupport.getPropertyChangeListeners().length);
+        numberPersons = persons.size();
     }
 
     void calcEmploymentRate()
