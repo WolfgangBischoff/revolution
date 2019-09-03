@@ -2,7 +2,6 @@ package Core;
 
 import static Core.Util.*;
 
-
 public class Person
 {
     private static Integer nextId = 1;
@@ -14,7 +13,6 @@ public class Person
     Workposition worksAt;
     private Integer deposit;
 
-
     EconomicLayer economicLayer;
     EducationalLayer educationalLayer;
     PoliticalOpinion politicalOpinion;
@@ -22,7 +20,7 @@ public class Person
     //Constructor and Creators
     public Person (EducationalLayer definedEdu)
     {
-        this(new PersonName(chooseRandomFirstname(), chooseRandomLastname()), getRandom().nextInt(100) , definedEdu, PERSON_DEFAULT_DEPOSIT);
+        this(new PersonName(chooseRandomFirstname(), chooseRandomLastname()), getRandom().nextInt(75) , definedEdu, PERSON_DEFAULT_DEPOSIT);
     }
     public Person(PersonName name)
     {
@@ -44,10 +42,6 @@ public class Person
         initState();
     }
 
-    public PersonName getName()
-    {
-        return name;
-    }
 
     //Init und Calculate
     void initState()
@@ -188,5 +182,10 @@ public class Person
 
     public Integer getDeposit() {
         return deposit;
+    }
+
+    public PersonName getName()
+    {
+        return name;
     }
 }

@@ -677,9 +677,9 @@ public class Interpreter
 
     public static Interpreter getInterpreter(Simulation simulation)
     {
-        Society soc = simulation.society;
-        Economy eco = simulation.economy;
-        Government gov = simulation.government;
+        Society soc = simulation.getSociety();
+        Economy eco = simulation.getEconomy();
+        Government gov = simulation.getGovernment();
 
         if (instance != null)
             throw new RuntimeException("Interpreter already initialized");

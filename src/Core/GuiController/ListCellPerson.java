@@ -26,7 +26,6 @@ public class ListCellPerson extends ListCell<Person>
 
     class PersonData
     {
-
         @FXML
         private GridPane gridpane;
         @FXML

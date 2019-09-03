@@ -20,7 +20,7 @@ public class GuiSociety extends GridPane
     public GuiSociety()
     {
         simulation = Simulation.getSingleton();
-        society = simulation.society;
+        society = simulation.getSociety();
 
         Text headline = new Text("Society Overview");
         headline.setFont(Font.font("Verdana", FontWeight.BOLD, 25));

@@ -26,13 +26,13 @@ public class PersonName {
 
         firstname = nameParts[0];
         StringBuilder sblastname = new StringBuilder();
-        //Concatinate all parts of lastname
+        //Concatenate all parts of lastname
         for (int i = 1; i < nameParts.length; i++)
         {
             if (i == nameParts.length - 1)
                 sblastname.append(nameParts[i]);
             else
-                sblastname.append(nameParts[i] + " ");
+                sblastname.append(nameParts[i]).append(" ");
         }
         lastname = sblastname.toString();
     }

@@ -6,8 +6,8 @@ import static Core.Util.*;
 
 public class Company {
     private String name;
-    private Integer deposit = 0;
-    private ArrayList<Workposition> workpositions = new ArrayList();
+    private Integer deposit;
+    private ArrayList<Workposition> workpositions = new ArrayList<>();
 
     //Constructors
     public Company(String name)
@@ -68,7 +68,7 @@ public class Company {
 
     static String getRandomCompanyName()
     {
-        String[] names = {"HOFER", "Capgemini", "Allianz", "Löwenherz", "SwingKitchen", "PWC", "Kiss Bar", "Segafredo", "Merkur", "Maran Vegan", "Lenovo", "Bayer", "Young Living"};
+        String[] names = {"HOFER", "Capgemini", "Allianz", "Löwenherz", "SwingKitchen", "PWC", "Kiss Bar", "Segafredo", "Merkur", "Maran Vegan", "Lenovo", "Bayer", "Young Living", "Samsung", "Wiener Linien"};
         return names[Util.getRandom().nextInt(names.length)];
     }
 

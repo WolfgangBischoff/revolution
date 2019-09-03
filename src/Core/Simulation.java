@@ -1,13 +1,12 @@
 package Core;
 
-
 public class Simulation
 {
     private static Simulation singleton;
-    Society society;
-    Economy economy;
-    Government government;
-    Console console;
+    private Society society;
+    private Economy economy;
+    private Government government;
+    private Console console;
 
     public Society getSociety()
     {
