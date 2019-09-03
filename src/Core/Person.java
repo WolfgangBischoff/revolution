@@ -151,7 +151,7 @@ public class Person
     }
 
     //Getter and Setter
-    public int getGrossIncome()
+    public Integer getGrossIncome()
     {
         if(worksAt != null)
             return worksAt.grossIncomeWork;
@@ -187,5 +187,21 @@ public class Person
     public PersonName getName()
     {
         return name;
+    }
+
+    public Integer getEffectiveHappiness() {
+        return effectiveHappiness;
+    }
+
+    public EconomicLayer getEconomicLayer() {
+        return economicLayer;
+    }
+
+    public EducationalLayer getEducationalLayer() {
+        return educationalLayer;
+    }
+
+    public PoliticalOpinion getPoliticalOpinion() {
+        return politicalOpinion;
     }
 }

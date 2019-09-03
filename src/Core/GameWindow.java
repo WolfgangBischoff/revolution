@@ -38,6 +38,11 @@ public class GameWindow extends Stage
         return null;
     }
 
+    public void createNextScene(Parent parent)
+    {
+        gameStage.setScene(new Scene(parent, 555, 555));
+    }
+
     public void showWindow()
     {
         gameStage.show();

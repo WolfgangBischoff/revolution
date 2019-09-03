@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:id="gridpane" hgap="5">
+
+    <Text fx:id="name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <Label text="Age:" GridPane.columnIndex="0" GridPane.rowIndex="1"/><Text fx:id="age" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <Label text="Effective Happiness:" GridPane.columnIndex="0" GridPane.rowIndex="2"/><Text fx:id="effectivehappiness" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <Label text="Education:" GridPane.columnIndex="0" GridPane.rowIndex="3"/><Text fx:id="edu" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <Label text="Deposit:" GridPane.columnIndex="0" GridPane.rowIndex="4"/><Text fx:id="deposit" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <Label text="Gross Income:" GridPane.columnIndex="0" GridPane.rowIndex="5"/><Text fx:id="grossincome" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <Label text="Works at:" GridPane.columnIndex="0" GridPane.rowIndex="6"/><Text fx:id="worksat" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+    <Button fx:id="back" text="back" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+
+</GridPane>
+
+
