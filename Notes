@@ -13,7 +13,7 @@ TODOS:
 
     Add GUI:
         Person List => Detail
-        Nicer List: https://docs.oracle.com/javafx/2/fxml_get_started/fxml_tutorial_intermediate.htm
+        Nicer List: https://docs.oracle.com/javafx/2/fxml_get_started/fxml_tutorial_intermediate.html
 
     Add companies produce Goods with border prices (Food, Commodities), consider effectivsness dependent on infrastructure and personal
         - marketCompany (Gets money through goods, sets price by demand and cost)
@@ -37,6 +37,8 @@ Ideas:
     Society Politics: autoritan or liberal
     Money politics
     Migration, Player can emigrate
+
+    Map with time constraints. Different buildings interesting dependent from game mode
 
     Gameplay:
     1) Define your layers (first easy grow)

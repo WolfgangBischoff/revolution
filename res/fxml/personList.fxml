@@ -5,15 +5,16 @@
 
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
-          fx:controller="Core.GuiController.personListController">
+<GridPane xmlns:fx="http://javafx.com/fxml" alignment="CENTER" vgap="5"
+            fx:controller="Core.GuiController.personListController">
 
     <stylesheets>
         <URL value="@/css/personList.css"/>
     </stylesheets>
 
-    <Text text="Society Members" fx:id="headline" AnchorPane.topAnchor="5.0" AnchorPane.leftAnchor="5.0"/>
-    <ListView fx:id="listView" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="10.0"/>
-    <Button fx:id="backToSocOverview" text="Back to Overview" AnchorPane.bottomAnchor ="5" AnchorPane.rightAnchor="5" onAction="#backToOverview" />
+    <Text text="Society Members" fx:id="headline" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <ListView fx:id="listView" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <Button fx:id="backToSocOverview" text="Back to Overview" GridPane.rowIndex="2" GridPane.columnIndex="0"
+            onAction="#backToOverview" GridPane.halignment="CENTER"/>
 
-</AnchorPane>
+</GridPane>
