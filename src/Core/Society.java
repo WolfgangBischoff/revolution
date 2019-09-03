@@ -67,7 +67,7 @@ public class Society {
             Integer[] ratios = {RATION_BASIC_EDU,RATION_APP_EDU,RATION_HIGHER_EDU,RATION_UNIVERSITY_EDU};
             people.add(
                     new Person(
-                            EducationalLayer.fromInt(Statistics.randomWithRatio(ratios))));
+                            EducationalLayer.fromInt(1+ Statistics.randomWithRatio(ratios)))); //To avoid children
         }
         societyStatistics.calcAll();
     }
