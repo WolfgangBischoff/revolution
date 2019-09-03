@@ -19,6 +19,7 @@
           GridPane.columnIndex="0" GridPane.rowIndex="0"
     />
 
+    <ListView fx:id="listView"/>
 
     <Button fx:id="backToSocOverview" text="Back to Overview" GridPane.columnIndex="1" GridPane.rowIndex="5" onAction="#backToOverview" />
 </GridPane>
