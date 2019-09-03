@@ -1,6 +1,7 @@
 package Core.GuiController;
 
 import Core.GameWindow;
+import Core.Person;
 import Core.Simulation;
 import Core.Society;
 import javafx.collections.FXCollections;
@@ -27,6 +28,7 @@ public class personListController implements PropertyChangeListener
     @FXML private ListView listView;
     private List<String> stringList = new ArrayList<>(5);
     private ObservableList observableList = FXCollections.observableArrayList();
+    private List<Person> personList;
 
 
     public void setListView(){
@@ -51,6 +53,7 @@ public class personListController implements PropertyChangeListener
     private void initialize()
     {
         Society.getSociety().getSocietyStatistics().addPropertyChangeListener(this);
+        personList = Society.getSociety().getPeople();
 
         setListView();
     }
