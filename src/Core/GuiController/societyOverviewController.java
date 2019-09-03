@@ -54,9 +54,8 @@ public class societyOverviewController implements PropertyChangeListener
     @FXML
     protected void personDetails(ActionEvent event)
     {
-        System.out.println("Goto person Details");
-        //GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
-        //Society.getSociety().getSocietyStatistics().removePropertyChangeListener(this);
+        GameWindow.getSingleton().createNextScene("../fxml/personList.fxml");
+        Society.getSociety().getSocietyStatistics().removePropertyChangeListener(this);
     }
 
 
