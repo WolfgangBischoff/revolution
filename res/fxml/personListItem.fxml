@@ -3,9 +3,15 @@
 <?import javafx.scene.text.Text?>
 
 
-    <GridPane xmlns:fx="http://javafx.com/fxml" fx:id="gridpane" hgap="5">
+<?import javafx.scene.control.Button?>
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:id="gridpane" hgap="5">
+
+    <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0" hgap="5">
         <Text fx:id="name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
             <Text fx:id="age" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
         <Text text="Deposit: " GridPane.columnIndex="0" GridPane.rowIndex="1"/>
             <Text fx:id="deposit" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    </GridPane>
+    <Button text="Detail" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
     </GridPane>

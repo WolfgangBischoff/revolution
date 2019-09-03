@@ -13,6 +13,7 @@ TODOS:
 
     Add GUI:
         Person List => Detail
+        Nicer List: https://docs.oracle.com/javafx/2/fxml_get_started/fxml_tutorial_intermediate.htm
 
     Add companies produce Goods with border prices (Food, Commodities), consider effectivsness dependent on infrastructure and personal
         - marketCompany (Gets money through goods, sets price by demand and cost)
