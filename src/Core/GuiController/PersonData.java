@@ -3,18 +3,24 @@ package Core.GuiController;
 import Core.Person;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+
 import java.io.IOException;
 
 public class PersonData
 {
     @FXML
-    private HBox hBox;
+    private HBox hbox;
     @FXML
-    private Label label1;
+    private GridPane gridpane;
     @FXML
-    private Label label2;
+    private Text name;
+    @FXML
+    private Text age;
+    @FXML
+    private Text deposit;
 
     Person person;
 
@@ -35,12 +41,18 @@ public class PersonData
 
     public void setInfo()
     {
-        label1.setText(""+ person.getName());
-        label2.setText("" + person.getAge());
+        name.setText(""+ person.getName());
+        age.setText("" + person.getAge());
+        deposit.setText("" + person.getDeposit());
     }
 
-    public HBox getBox()
+    public HBox gethbox()
     {
-        return hBox;
+        return hbox;
+    }
+
+    public GridPane getGridpane()
+    {
+        return gridpane;
     }
 }
