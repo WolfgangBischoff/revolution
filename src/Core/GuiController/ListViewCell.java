@@ -11,6 +11,7 @@ public class ListViewCell extends ListCell<String>
 @Override
     public void updateItem(String string, boolean empty)
     {
+        /*
         super.updateItem(string,empty);
         if(string != null)
         {
@@ -18,5 +19,6 @@ public class ListViewCell extends ListCell<String>
             data.setInfo(string);
             setGraphic(data.getBox());
         }
+        */
     }
 }

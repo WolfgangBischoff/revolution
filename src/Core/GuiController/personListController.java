@@ -29,10 +29,11 @@ public class personListController implements PropertyChangeListener
     private List<String> stringList = new ArrayList<>(5);
     private ObservableList observableList = FXCollections.observableArrayList();
     private List<Person> personList;
+    private ObservableList observableListPerson = FXCollections.observableArrayList();
 
 
     public void setListView(){
-
+/*
         stringList.add("String 1");
         stringList.add("String 2");
         stringList.add("String 3");
@@ -41,12 +42,24 @@ public class personListController implements PropertyChangeListener
         observableList.setAll(stringList);
         listView.setItems(observableList);
         listView.setCellFactory(
-                new Callback<ListView<String>, javafx.scene.control.ListCell<String>>() {
+                new Callback<ListView<String>, ListCell<String>>() {
                     @Override
                     public ListCell<String> call(ListView<String> listView) {
                         return new ListViewCell();
                     }
-                });
+                });*/
+
+        observableListPerson.setAll(personList);
+        listView.setItems(observableListPerson);
+
+        listView.setCellFactory(new Callback<ListView<Person>, ListCell<Person>>()
+        {
+            @Override
+            public ListCell<Person> call(ListView<Person> param)
+            {
+                return new ListCellPerson();
+            }
+        });
     }
 
     @FXML

@@ -44,6 +44,11 @@ public class Person
         initState();
     }
 
+    public PersonName getName()
+    {
+        return name;
+    }
+
     //Init und Calculate
     void initState()
     {

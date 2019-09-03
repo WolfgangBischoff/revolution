@@ -1,12 +1,13 @@
 package Core.GuiController;
 
+import Core.Person;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import java.io.IOException;
 
-public class Data
+public class PersonData
 {
     @FXML
     private HBox hBox;
@@ -15,7 +16,9 @@ public class Data
     @FXML
     private Label label2;
 
-    public Data()
+    Person person;
+
+    public PersonData(Person person)
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../fxml/personListItem.fxml"));
         fxmlLoader.setController(this);
@@ -27,12 +30,13 @@ public class Data
         {
             throw new RuntimeException(e);
         }
+        this.person = person;
     }
 
-    public void setInfo(String string)
+    public void setInfo()
     {
-        label1.setText(string);
-        label2.setText(string);
+        label1.setText(""+ person.getName());
+        label2.setText("" + person.getAge());
     }
 
     public HBox getBox()
