@@ -68,7 +68,7 @@ public class SocietyStatistics extends Statistics
     {
         Integer newNumberPersons = 0;
         propertyChangeSupport.firePropertyChange("numberPersons", newNumberPersons, (Integer)persons.size());
-        System.out.println("Listeners: "  + propertyChangeSupport.getPropertyChangeListeners().length);
+        //System.out.println("Listeners: "  + propertyChangeSupport.getPropertyChangeListeners().length);
         numberPersons = persons.size();
     }
 
@@ -91,6 +91,7 @@ public class SocietyStatistics extends Statistics
 
     void calcIncomes()
     {
+        Integer tmpDepositSumPeople = depositSumPeople;
         depositSumPeople = 0;
         ArrayList<Integer> grossIncomes = new ArrayList<>();
         ArrayList<Integer> netIncomes = new ArrayList<>();
@@ -105,6 +106,8 @@ public class SocietyStatistics extends Statistics
         medianGrossIncome = Statistics.calcMedian(grossIncomes);
         avgNetIncome = Statistics.calcAvg(netIncomes);
         medianNetIncome = Statistics.calcMedian(netIncomes);
+
+        propertyChangeSupport.firePropertyChange("depositSumPeople", tmpDepositSumPeople, depositSumPeople);
     }
 
     void calcEnumStatsViews()
@@ -177,6 +180,43 @@ public class SocietyStatistics extends Statistics
         return avgGrossIncome;
     }
 
+    public Integer getDepositSumPeople()
+    {
+        return depositSumPeople;
+    }
 
+    public Double getAvgGrossIncome()
+    {
+        return avgGrossIncome;
+    }
 
+    public Double getMedianGrossIncome()
+    {
+        return medianGrossIncome;
+    }
+
+    public Double getAvgNetIncome()
+    {
+        return avgNetIncome;
+    }
+
+    public Double getMedianNetIncome()
+    {
+        return medianNetIncome;
+    }
+
+    public Integer getUnemployedNumber()
+    {
+        return unemployedNumber;
+    }
+
+    public Integer getEmployedNumber()
+    {
+        return employedNumber;
+    }
+
+    public Double getUnemploymentRate()
+    {
+        return unemploymentRate;
+    }
 }

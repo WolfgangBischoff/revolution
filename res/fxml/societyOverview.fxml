@@ -7,32 +7,33 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
+<?import java.net.URL?>
 <GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10"
           fx:controller="Core.GuiController.societyOverviewController">
+
+    <stylesheets>
+        <URL value="@/css/societyOverview.css"/>
+    </stylesheets>
 
     <Text text="Society Overview" fx:id="headline"
           GridPane.columnIndex="0" GridPane.rowIndex="0"
           />
 
     <Label text="Number Persons"
-          GridPane.columnIndex="0" GridPane.rowIndex="1"
-          />
+           GridPane.columnIndex="0" GridPane.rowIndex="1"
+    />
+    <Text text="#NumberPeople" fx:id="numberPeople"
+          GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-    <Text text="#placeholder"
-           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
-    <Label text="Number Persons"
+    <Label text="Deposits People"
            GridPane.columnIndex="0" GridPane.rowIndex="2"
     />
-
-    <Text text="#NumberPeople" fx:id="numberPeople"
+    <Text text="#depositsPeople" fx:id="depositsPeople"
           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
 
     <Button fx:id="populateSociety" text="Populate Society" GridPane.columnIndex="0" GridPane.rowIndex="3" onAction="#populate"/>
 
-    <Button fx:id="BttnbackToMenu" text="Back to Menu"
-            GridPane.columnIndex="1" GridPane.rowIndex="4"
-            onAction="#backToMenu"
-    />
+    <Button fx:id="personDetail" text="Person Details" GridPane.columnIndex="1" GridPane.rowIndex="4" onAction="#personDetails" />
+
+    <Button fx:id="BttnbackToMenu" text="Back to Menu" GridPane.columnIndex="1" GridPane.rowIndex="5" onAction="#backToMenu" />
 </GridPane>

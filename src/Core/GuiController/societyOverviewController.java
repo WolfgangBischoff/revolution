@@ -18,30 +18,31 @@ import static Core.Util.*;
 public class societyOverviewController implements PropertyChangeListener
 {
     @FXML
-    Text numberPeople;
+    Text numberPeople, depositsPeople;
 
     @FXML
     private void initialize()
     {
         Society.getSociety().getSocietyStatistics().addPropertyChangeListener(this);
-        numberPeople.setText("" + Society.getSociety().getSocietyStatistics().getPersons().size());
-    }
 
+        numberPeople.setText("" + Society.getSociety().getSocietyStatistics().getPersons().size());
+        depositsPeople.setText("" + Society.getSociety().getSocietyStatistics().getDepositSumPeople());
+    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
         if(evt.getPropertyName() == "numberPersons")
             numberPeople.setText(evt.getNewValue().toString());
+        else if(evt.getPropertyName() == "depositSumPeople")
+            depositsPeople.setText(evt.getNewValue().toString());
     }
-
 
     @FXML
     protected void backToMenu(ActionEvent event)
     {
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
         Society.getSociety().getSocietyStatistics().removePropertyChangeListener(this);
-        System.out.println("back to Menu");
     }
 
     @FXML
@@ -50,6 +51,13 @@ public class societyOverviewController implements PropertyChangeListener
         Simulation.getSingleton().getSociety().populateSociety(NUM_PERS_DEFAULT);
     }
 
+    @FXML
+    protected void personDetails(ActionEvent event)
+    {
+        System.out.println("Goto person Details");
+        //GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
+        //Society.getSociety().getSocietyStatistics().removePropertyChangeListener(this);
+    }
 
 
 }
