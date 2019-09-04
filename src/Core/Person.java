@@ -171,9 +171,23 @@ public class Person
             return 0;
     }
 
+    /*
     public void setWorksAt(Workposition worksAt)
     {
         this.worksAt = worksAt;
+    }
+    */
+
+    public void startAtWorkposition(Workposition workposition)
+    {
+        this.worksAt = workposition;
+        calcState();
+    }
+
+    public void endAtWorkposition()
+    {
+        this.worksAt = null;
+        calcState();
     }
 
     public Integer getId() {

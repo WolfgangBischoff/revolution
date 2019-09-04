@@ -55,13 +55,32 @@ public class Company {
         return returnSum;
     }
 
-    boolean hireWorker(Workposition workposition, Person p)
+    boolean employWorker(Workposition workposition, Person p)
     {
         if (workposition.isWorkerAppropriate(p))
         {
             workposition.worker = p;
-            p.setWorksAt(workposition);
-            p.calcState();
+            p.startAtWorkposition(workposition);
+            //p.setWorksAt(workposition);
+            //p.calcState();
+            return true;
+        }
+        else
+            return false;
+    }
+
+    void unemployAllWorkers()
+    {
+        for(Workposition workpositions : workpositions)
+            unemployWorker(workpositions);
+    }
+
+    boolean unemployWorker(Workposition workposition)
+    {
+        if (workposition.worker != null)
+        {
+            workposition.worker.endAtWorkposition();
+            workposition.worker = null;
             return true;
         }
         else

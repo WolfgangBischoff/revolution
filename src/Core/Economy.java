@@ -16,6 +16,13 @@ public class Economy
     }
 
     //Calculations
+    public void calc()
+    {
+        //Companies calc
+
+        economyStatistics.calcState();
+    }
+
     public String createUniqueCompanyName(String nameBase)
     {
         String name = nameBase;
@@ -63,8 +70,15 @@ public class Economy
         return sum;
     }
 
+    private void clearWorkplaces()
+    {
+        for(Company company : companies)
+            company.unemployAllWorkers();
+    }
+
     public void populateEconomy(Integer numberComp)
     {
+        clearWorkplaces();
         companies.clear();
         for(int i=0; i<numberComp; i++)
         {
@@ -80,7 +94,7 @@ public class Economy
         {
             for(Person person : worker)
             {
-                if(person.worksAt == null && company.hireWorker(workposition, person))
+                if(person.worksAt == null && company.employWorker(workposition, person))
                 {break;}
             }
         }

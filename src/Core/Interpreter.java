@@ -451,10 +451,10 @@ public class Interpreter
         //Case no options
         if (options.size() == 0)
         {
-            print(economy.economyBaseData());//System.out.println(economy.economyBaseData());
+            print(economy.economyBaseData());
         }
         if (options.containsKey("-companies"))
-            print(economy.getCompanies());//System.out.println(economy.getCompanies());
+            print(economy.getCompanies());
 
     }
 
@@ -510,10 +510,14 @@ public class Interpreter
         //Case all companies
         if (options.containsKey("-all"))
         {
+            economy.companiesPaySalary();
+            /*
             for (Company company : economy.getCompanies())
                 company.paySalaries();
-            print("All Companies payed loans");//System.out.println("All Companies payed loans");
+                */
+            print("All Companies payed loans");
             society.calcSociety();
+            economy.calc();
             return;
         }
 
