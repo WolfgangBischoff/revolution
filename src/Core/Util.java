@@ -1,6 +1,6 @@
 package Core;
 
-import Core.EducationalLayer;
+import Core.Enums.EducationalLayer;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Random;

@@ -1,5 +1,8 @@
 package Core;
 
+import Core.Enums.EducationalLayer;
+import Core.Enums.Paygrade;
+
 public class Workposition
 {
     EducationalLayer neededEducation;

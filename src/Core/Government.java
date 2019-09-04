@@ -1,5 +1,7 @@
 package Core;
 
+import Core.Enums.PoliticalOpinion;
+
 public class Government
 {
     private static Government singleton = null;

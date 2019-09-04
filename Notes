@@ -12,8 +12,8 @@ TODOS:
             comp print/pay
 
     Add GUI:
-        Person List => Detail
-        Nicer List: https://docs.oracle.com/javafx/2/fxml_get_started/fxml_tutorial_intermediate.html
+        Economy Overview
+        Company View
 
     Add companies produce Goods with border prices (Food, Commodities), consider effectivsness dependent on infrastructure and personal
         - marketCompany (Gets money through goods, sets price by demand and cost)
@@ -25,7 +25,7 @@ TODOS:
     Add socialWellfare
 
 Ideas:
-    Influences:
+    Happiness Influences:
     Tax, Housing Cost and other Goods, MedialFocus/Ownership of Media, Gini-coefficent, scope(City/Country)
 
     Opinion Influences:
@@ -37,19 +37,18 @@ Ideas:
     Society Politics: autoritan or liberal
     Money politics
     Migration, Player can emigrate
-
-    Map with time constraints. Different buildings interesting dependent from game mode
+    Dayly goals with small benefits
 
     Gameplay:
-    1) Define your layers (first easy grow)
-    2) Grow by anpassung or change their minds (several instruments that work different on different layers)
-    3) Overcome foes
+    1) Start as person, not much influence and decisions
+    2) Find your way: Company/Party/community
+    3) Grow by anpassung or change their minds (several instruments that work different on different layers)
+    4) Overcome foes
+    5) Held status quo Winconditions: Small, core law implementet, smash party, big: time of dominance, Putsch
     
     Alternative Gameplay:
     1) Achieve personal goals like education, money or move to another country
 
-    Winconditions: Small, core law implementet, smash party, big: time of dominance, Putsch
-
     Minigame: WriteSpeechw with Stilmittel/ActualNews/AndGeschicklichkeit
-
+               Map with time constraints. Different buildings interesting dependent from game mode
 

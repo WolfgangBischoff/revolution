@@ -2,6 +2,9 @@ package Core;
 
 
 
+import Core.Enums.EducationalLayer;
+import Core.Enums.PoliticalOpinion;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;

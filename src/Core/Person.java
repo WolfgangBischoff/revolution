@@ -1,5 +1,9 @@
 package Core;
 
+import Core.Enums.EconomicLayer;
+import Core.Enums.EducationalLayer;
+import Core.Enums.PoliticalOpinion;
+
 import static Core.Util.*;
 
 public class Person
