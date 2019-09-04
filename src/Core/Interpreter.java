@@ -439,7 +439,7 @@ public class Interpreter
 
     private void societyPopulate()
     {
-        society.populateSociety(INTER_DEF_NUM_EDU_BASE, INTER_DEF_NUM_EDU_APPR, INTER_DEF_NUM_EDU_HIGH, INTER_DEF_NUM_EDU_UNIV);
+        society.populateSociety(DEFAULT_NUM_EDU_BASE, DEFAULT_NUM_EDU_APPR, DEFAULT_NUM_EDU_HIGH, DEFAULT_NUM_EDU_UNIV);
         society.calcSociety();
     }
 
@@ -460,7 +460,7 @@ public class Interpreter
 
     private void economyPopulate()
     {
-        economy.populateEconomy(INTER_DEF_NUM_COMPANIES);
+        economy.populateEconomy(DEFAULT_NUM_COMPANIES);
     }
 
     private void economyHire(String[] inputOptions)
@@ -490,9 +490,9 @@ public class Interpreter
         //Map<String, String> options = readOptionParameter(inputOptions);
 
         Integer depPeople = society.getSocietyStatistics().depositSumPeople;
-        Integer depComp = economy.getEconomyStatistics().calcSumCompanyDeposits();
+        Integer depComp = economy.getEconomyStatistics().getSumCompanyDeposits();
         Integer depGov = government.getDeposit();
-        print("Society: " + depPeople + "\nCompanies: " + depComp + "\nGovernment: " + depGov + "\nSum: " + (depPeople + depGov + depComp));//System.out.println("Society: " + depPeople + "\nCompanies: " + depComp + "\nGovernment: " + depGov + "\nSum: " + (depPeople + depGov + depComp));
+        print("Society: " + depPeople + "\nCompanies: " + depComp + "\nGovernment: " + depGov + "\nSum: " + (depPeople + depGov + depComp));
     }
 
     private void companyPay(String[] inputOptions)

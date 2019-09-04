@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import java.net.URL?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10"
+          fx:controller="Core.GuiController.economyOverviewController">
+
+    <stylesheets>
+        <URL value="@/css/grayBackgroundAndButton.css"/>
+    </stylesheets>
+
+    <Text text="Economy Overview" fx:id="headline"
+          GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+    <Label text="Number Companies"
+           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+    <Text text="#NumberCompanies" fx:id="numberCompanies"
+          GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+    <Label text="Deposits Companies"
+           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+
+    <Text text="#depositsCompany" fx:id="depositsCompanies"
+          GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+    <Button text="Populate Economy" GridPane.columnIndex="0" GridPane.rowIndex="3" onAction="#populate"/>
+    <Button text="Hire people" GridPane.columnIndex="0" GridPane.rowIndex="4" onAction="#hire"/>
+    <Button text="Companies" GridPane.columnIndex="0" GridPane.rowIndex="5" onAction="#companyList" />
+    <Button text="Back to Menu" GridPane.columnIndex="1" GridPane.rowIndex="6" onAction="#backToMenu" />
+
+</GridPane>

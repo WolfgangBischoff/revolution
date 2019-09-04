@@ -65,11 +65,12 @@ public class Economy
 
     public void populateEconomy(Integer numberComp)
     {
-        companies = new ArrayList<>();
+        companies.clear();
         for(int i=0; i<numberComp; i++)
         {
             addCompanyByName(Company.getRandomCompanyName());
         }
+        economyStatistics.calcState();
     }
 
     public void fillWorkplaces(Company company)
@@ -83,6 +84,7 @@ public class Economy
                 {break;}
             }
         }
+
     }
 
     public void fillWorkplaces()
@@ -91,6 +93,7 @@ public class Economy
         {
             fillWorkplaces(company);
         }
+        economyStatistics.calcState();
     }
 
 
@@ -104,7 +107,7 @@ public class Economy
     {
         if(companies.size()==0)
             return "Economy has no Companies";
-        return "#Companies: " + companies.size() + " #FreeWorkplaces: " + calcNumberFreeWorkpositions() + " CompanyDeposits: " + economyStatistics.calcSumCompanyDeposits();
+        return "#Companies: " + companies.size() + " #FreeWorkplaces: " + calcNumberFreeWorkpositions() + " CompanyDeposits: " + economyStatistics.getSumCompanyDeposits();
     }
 
     public String economyBaseCompanyData()

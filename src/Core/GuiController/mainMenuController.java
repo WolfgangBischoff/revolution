@@ -15,12 +15,12 @@ public class mainMenuController
     @FXML
     protected void gotoSocietyButton(ActionEvent event)
     {
-        System.out.println("Soc Button");
         GameWindow.getSingleton().createNextScene("../fxml/societyOverview.fxml");
     }
 
-    @FXML protected void gotoEconomyButton(ActionEvent event) {
-        System.out.println("Eco Button");
+    @FXML protected void gotoEconomyButton(ActionEvent event)
+    {
+        GameWindow.getSingleton().createNextScene("../fxml/economyOverview.fxml");
     }
 
 }

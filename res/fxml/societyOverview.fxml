@@ -12,7 +12,7 @@
           fx:controller="Core.GuiController.societyOverviewController">
 
     <stylesheets>
-        <URL value="@/css/societyOverview.css"/>
+        <URL value="@/css/grayBackgroundAndButton.css"/>
     </stylesheets>
 
     <Text text="Society Overview" fx:id="headline"

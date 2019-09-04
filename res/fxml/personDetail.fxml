@@ -4,7 +4,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
+<?import java.net.URL?>
 <GridPane xmlns:fx="http://javafx.com/fxml" fx:id="gridpane" hgap="5">
+
+    <stylesheets>
+        <URL value="@/css/grayBackgroundAndButton.css"/>
+    </stylesheets>
 
     <Text fx:id="name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
     <Label text="Age:" GridPane.columnIndex="0" GridPane.rowIndex="1"/><Text fx:id="age" GridPane.columnIndex="1" GridPane.rowIndex="1"/>

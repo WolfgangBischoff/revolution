@@ -69,9 +69,8 @@ public class SocietyStatistics extends Statistics
 
     void calcPeopleNumber()
     {
-        Integer newNumberPersons = 0;
+        Integer newNumberPersons = numberPersons;
         propertyChangeSupport.firePropertyChange("numberPersons", newNumberPersons, (Integer)persons.size());
-        //System.out.println("Listeners: "  + propertyChangeSupport.getPropertyChangeListeners().length);
         numberPersons = persons.size();
     }
 
