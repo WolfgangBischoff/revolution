@@ -12,8 +12,9 @@ TODOS:
             comp print/pay
 
     Add GUI:
-        Economy Overview
-        Company View
+        Goverments View
+        Company List View
+        Company Detail
 
     Add companies produce Goods with border prices (Food, Commodities), consider effectivsness dependent on infrastructure and personal
         - marketCompany (Gets money through goods, sets price by demand and cost)
