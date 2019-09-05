@@ -72,7 +72,6 @@ public class Society {
     public void populateSociety(Integer numberPersons)
     {
         clear();
-        //people.clear();
         //Create People
         for(int i=0; i<numberPersons; i++)
         {
@@ -88,7 +87,6 @@ public class Society {
     public void populateSociety(Integer baseEdu, Integer apprEdu, Integer higherEdu, Integer unicEdu)
     {
         clear();
-        //people.clear();
 
         for(int i=0; i < baseEdu; i++)
         {

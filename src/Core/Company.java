@@ -10,7 +10,6 @@ public class Company
 {
     private String name;
     private Integer deposit;
-    //private Integer numberEmployees = 0;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
 
     //Constructors
@@ -63,7 +62,6 @@ public class Company
         {
             workposition.worker = p;
             p.startAtWorkposition(workposition);
-            //numberEmployees++;
             return true;
         }
         else
@@ -96,7 +94,6 @@ public class Company
         {
             workposition.worker.getUnemployedAtWorkposition();
             workposition.worker = null;
-            //numberEmployees--;
             return true;
         }
         else

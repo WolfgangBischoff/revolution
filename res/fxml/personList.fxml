@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
 <GridPane xmlns:fx="http://javafx.com/fxml" alignment="CENTER" vgap="5"
@@ -16,5 +15,4 @@
     <ListView fx:id="listView" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
     <Button fx:id="backToSocOverview" text="Back to Overview" GridPane.rowIndex="2" GridPane.columnIndex="0"
             onAction="#backToOverview" GridPane.halignment="CENTER"/>
-
 </GridPane>
