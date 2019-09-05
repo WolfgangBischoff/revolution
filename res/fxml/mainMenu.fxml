@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<!--fx:controller="Core.GuiController.mainMenuController"-->
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="Core.GuiController.mainMenuController"
           alignment="center" hgap="10" vgap="10">
 
@@ -14,11 +15,17 @@
         <URL value="@/css/mainMenu.css"/>
     </stylesheets>
 
+    <ImageView fx:id="testimage" fitHeight="50" fitWidth="50" GridPane.rowIndex="0" GridPane.columnIndex="1" >
+        <image>
+            <Image url="@/img/capital.png"/>
+        </image>
+    </ImageView>
+
     <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
 
     <Text text="SeGame" fx:id="headline"
           GridPane.columnIndex="0" GridPane.rowIndex="0"
-          GridPane.columnSpan="2"/>
+          />
 
     <Label text="Society:"
            GridPane.columnIndex="0" GridPane.rowIndex="1"/>
