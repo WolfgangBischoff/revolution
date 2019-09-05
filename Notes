@@ -4,7 +4,6 @@ KNOWN BUGS:
 
 TODOS:
     Add Interpreter:
-        add person 10 -rnd (check options at first?)
         change grammar: no options, keywords that need #para
             soc print/pop/add(def/rnd)
             eco print/pop/add/pay

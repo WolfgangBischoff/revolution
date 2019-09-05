@@ -22,6 +22,10 @@ public class Person
     PoliticalOpinion politicalOpinion;
 
     //Constructor and Creators
+    public Person()
+    {
+        this(DEFAULT_EDU);
+    }
     public Person (EducationalLayer definedEdu)
     {
         this(new PersonName(chooseRandomFirstname(), chooseRandomLastname()), getRandom().nextInt(75) , definedEdu, PERSON_DEFAULT_DEPOSIT);

@@ -27,7 +27,8 @@ public class Interpreter
         government = gov;
     }
 
-    public void setConsole(Console console) {
+    public void setConsole(Console console)
+    {
         this.console = console;
     }
 
@@ -57,6 +58,26 @@ public class Interpreter
         }
     }
 
+    //Helptext
+    private void printGeneralHelp()
+    {
+
+        print(
+                "Instructions:\n" +
+                        "person print\n" +
+                        "society print [income, persons]\n" +
+                        "society add\n" +
+                        "society populate\n" +
+                        "economy print [companies]\n" +
+                        "economy add\n" +
+                        "economy populate\n" +
+                        "economy pay\n" +
+                        "government print\n" +
+                        "company print\n" +
+                        "company pay\n" +
+                        "testCash cash\n"
+        );
+    }
 
     private String normalizeFirstParameter(String rawInput)
     {
@@ -107,47 +128,15 @@ public class Interpreter
             case "a":
                 return "add";
             case "cash":
-                return "cash"; //test()
+                return "cash";
             case "pay":
-                return "pay"; //company
+                return "pay";
             case "hire":
-                return "hire"; //economy
+                return "hire";
             case "calc":
-                return "calc"; //society
+                return "calc";
             default:
                 throw new InterpreterUndefindedOptionException(methodName, rawInput);
-        }
-    }
-
-    private String normalizeOption(String inputString)
-    {
-        String methodName = "normalizeOption";
-
-        switch (inputString.toLowerCase())
-        {
-            case "-name":
-            case "-n":
-                return "-name";
-            case "-firstname":
-            case "-fn":
-                return "-firstname";
-            case "-lastname":
-            case "-ln":
-                return "-lastname";
-            case "-age":
-                return "-age";
-            case "-all":
-            case "-a":
-                return "-all";
-            case "-income":
-            case "-inc":
-                return "-income";
-            case "-companies":
-            case "-comp":
-            case "-c":
-                return "-companies";
-            default:
-                throw new InterpreterUndefindedOptionException(methodName, inputString);
         }
     }
 
@@ -182,7 +171,7 @@ public class Interpreter
                 printGeneralHelp();
                 break;
             case "quit":
-                exit();//run = false;
+                exit();
                 break;
             default:
                 throw new InterpreterUndefindedOptionException(methodName, parameter);
@@ -207,9 +196,6 @@ public class Interpreter
         //Switch to second param
         switch (parameter)
         {
-            case "add":
-                personAdd(newParam);
-                break;
             case "print":
                 personPrint(newParam);
                 break;
@@ -233,6 +219,9 @@ public class Interpreter
         String parameter = normalizeSecondParameter(inputParameters[0].toLowerCase());
         switch (parameter)
         {
+            case "add":
+                personAdd(newParam);
+                break;
             case "print":
                 societyPrint(newParam);
                 break;
@@ -254,7 +243,7 @@ public class Interpreter
         //Just: company
         if (inputParameters.length == 0)
         {
-            print(methodName + " Further arguments needed");//System.out.println("Further arguments needed");
+            print(methodName + " Further arguments needed");
             return;
         }
 
@@ -267,10 +256,6 @@ public class Interpreter
             case "pay":
                 companyPay(optionPara);
                 break;
-            case "add":
-                companyAdd(optionPara);
-                break;
-
             default:
                 throw new InterpreterUndefindedOptionException(methodName, inputParameters[0].toLowerCase());
         }
@@ -282,7 +267,7 @@ public class Interpreter
         String[] optionPara = cutFirstIndexPositions(inputParameters, 1);
         if (inputParameters.length == 0)
         {
-            print(methodName + " Further arguments needed");//System.out.println("Further arguments needed");
+            print(methodName + " Further arguments needed");
             return;
         }
 
@@ -304,20 +289,26 @@ public class Interpreter
         //Just: Economy
         if (inputParameters.length == 0)
         {
-            print(methodName + " Further arguments needed");//System.out.println("Further arguments needed");
+            print(methodName + " Further arguments needed");
             return;
         }
         String parameter = normalizeSecondParameter(inputParameters[0].toLowerCase());
         switch (parameter)
         {
+            case "add":
+                companyAdd(optionPara);
+                break;
             case "print":
-                enconomyPrint(optionPara);
+                economyPrint(optionPara);
                 break;
             case "populate":
                 economyPopulate();
                 break;
             case "hire":
                 economyHire(optionPara);
+                break;
+            case "pay":
+                economyPaySalary(optionPara);
                 break;
             default:
                 throw new InterpreterUndefindedOptionException(methodName, inputParameters[0]);
@@ -333,7 +324,7 @@ public class Interpreter
         //Just: test
         if (inputParameters.length == 0)
         {
-            print(methodName + " Further arguments needed");//System.out.println("Further arguments needed");
+            print(methodName + " Further arguments needed");
             return;
         }
 
@@ -353,30 +344,19 @@ public class Interpreter
     private void personAdd(String[] inputOptions)
     {
         String methodname = "personAdd()";
-        Map<String, String> options = readOptionParameter(inputOptions);
         //Case no options
-        if (options.size() == 0)
+        if (inputOptions.length == 0)
         {
-            print("No Person specified. Did you forget -name or -all?");//System.out.println("No Person specified. Did you forget -name or -all?");
+            Person newPerson = new Person();
+            society.addPerson(newPerson);
+            print("Added Person: " + newPerson);
             return;
         }
-
-        //case name
-        if (options.containsKey("-name"))
+        else if (inputOptions.length >= 2)
         {
-            Person newPerson = new Person(new PersonName(options.get("-name")));
+            Person newPerson = new Person(new PersonName(inputOptions[0], inputOptions[1]));
             society.addPerson(newPerson);
-            print("Added Person: " + newPerson);//System.out.println("Added Person: " + newPerson);
-            return;
-        }
-
-        //case first and lastname
-        if (options.containsKey("-firstname") && options.containsKey("-lastname"))
-        {
-            PersonName name = new PersonName(options.get("-firstname"), options.get("-lastname"));
-            Person newPerson = new Person(name);
-            society.addPerson(newPerson);
-            print("Added Person: " + newPerson);//System.out.println("Added Person: " + newPerson);
+            print("Added Person: " + newPerson);
             return;
         }
 
@@ -386,33 +366,25 @@ public class Interpreter
     private void personPrint(String[] inputOptions)
     {
         String methodname = "personPrint()";
-        Map<String, String> options = readOptionParameter(inputOptions);
 
-        String forbiddenParam = notContainsForbiddenOptionParameter(options, new String[]{"-all"});
-        if (forbiddenParam != null)
-            throw new InterpreterNoParametersAlloweException(methodname, forbiddenParam);
-
-        //Case no options
-        if (options.size() == 0)
+        if (inputOptions.length == 0)
         {
-            print("No Person specified. Did you forget -name?");//System.out.println("No Person specified. Did you forget -name?");
+            print("No Person specified. Example: person print Hans Hubertus");
             return;
         }
-        //case all persons
-        if (options.containsKey("-all"))
+        else if (inputOptions.length >= 2)
         {
-            print(society.printSocPeople());
-            return;
-        }
-        //case some persons
-        //TODO implement search function in Society and then use all options
-        if (options.containsKey("-name"))
-        {
+            boolean foundPerson = false;
             for (Person person : society.getPeople())
             {
-                if (person.name.equals(new PersonName(options.get("-name"))))
-                    print(person);//System.out.println(person);
+                if (person.name.equals(new PersonName(inputOptions[0], inputOptions[1])))
+                {
+                    print(person);
+                    foundPerson = true;
+                }
             }
+            if(!foundPerson)
+                print("No person found with name: " + inputOptions[0] + " " + inputOptions[1]);
             return;
         }
 
@@ -422,13 +394,21 @@ public class Interpreter
     private void societyPrint(String[] inputOptions)
     {
         String methodname = "personPrint()";
-        Map<String, String> options = readOptionParameter(inputOptions);
-        //Case no options
-        if (options.size() == 0)
-            print(society.getSocietyStatistics().printBase());//System.out.println(society.getSocietyStatistics().printBase());
+        if (inputOptions.length == 0)
+        {
+            print(society.getSocietyStatistics().printBase());
+            return;
+        }
+        if (inputOptions[0].equals("income"))
+        {
+            print(society.getSocietyStatistics().printIncomeStat()); return;
+        }
+        if (inputOptions[0].equals("persons"))
+        {
+            print(society.printSocPeople()); return;
+        }
 
-        if (options.containsKey("-income"))
-            print(society.getSocietyStatistics().printIncomeStat());//System.out.println(society.getSocietyStatistics().printIncomeStat());
+        throw new InterpreterInvalidOptionCombination(methodname, inputOptions);
     }
 
     private void societyCalc()
@@ -441,19 +421,19 @@ public class Interpreter
     {
         society.populateSociety(DEFAULT_NUM_EDU_BASE, DEFAULT_NUM_EDU_APPR, DEFAULT_NUM_EDU_HIGH, DEFAULT_NUM_EDU_UNIV);
         society.calcSociety();
+        print("Populated Societey");
     }
 
-    private void enconomyPrint(String[] inputOptions)
+    private void economyPrint(String[] inputOptions)
     {
         String methodname = "economyPrint()";
-        Map<String, String> options = readOptionParameter(inputOptions);
 
         //Case no options
-        if (options.size() == 0)
+        if (inputOptions.length == 0)
         {
             print(economy.economyBaseData());
         }
-        if (options.containsKey("-companies"))
+        else if (inputOptions[0].equals("companies"))
             print(economy.getCompanies());
 
     }
@@ -466,20 +446,6 @@ public class Interpreter
     private void economyHire(String[] inputOptions)
     {
         String methodname = "economyHire()";
-        Map<String, String> options = readOptionParameter(inputOptions);
-
-        if (options.containsKey("-name"))
-        {
-            if (economy.getCompanyByName(options.get("-name")) == null)
-            {
-                print("Company with name " + options.get("-name") + " does not exist");//System.out.println("Company with name " + options.get("-name") + " does not exist");
-                return;
-            }
-            Company hires = economy.getCompanyByName(options.get("-name"));
-            economy.fillWorkplaces(hires);
-            return;
-        }
-
         economy.fillWorkplaces();
 
     }
@@ -493,69 +459,54 @@ public class Interpreter
         print("Society: " + depPeople + "\nCompanies: " + depComp + "\nGovernment: " + depGov + "\nSum: " + (depPeople + depGov + depComp));
     }
 
+    private void economyPaySalary(String[] inputOptions)
+    {
+        economy.companiesPaySalary();
+        society.calcSociety();
+        economy.calc();
+        print("All Companies payed loans");
+        return;
+    }
     private void companyPay(String[] inputOptions)
     {
         String methodname = "companyPay()";
-        Map<String, String> options = readOptionParameter(inputOptions);
 
         //Case no options
-        if (options.size() == 0)
+        if (inputOptions.length == 0)
         {
-            print("No Company specified. Did you forget -name?");
+            print("No Company specified. Please specify name");
             return;
         }
 
-        //Case all companies
-        if (options.containsKey("-all"))
+        Company pays =  economy.getCompanyByName(inputOptions[0]);
+        if(pays != null)
         {
-            economy.companiesPaySalary();
-            /*
-            for (Company company : economy.getCompanies())
-                company.paySalaries();
-                */
-            print("All Companies payed loans");
+            pays.paySalaries();
+            print("Company paid");
             society.calcSociety();
             economy.calc();
-            return;
         }
-
-        //Case name given
-        if (options.containsKey("-name"))
-        {
-            economy.getCompanyByName(options.get("-name")).paySalaries();
-            return;
-        }
-
-        throw new InterpreterInvalidOptionCombination(methodname, inputOptions);
+        else
+            print("Company not found");
     }
 
     private void companyPrint(String[] inputOptions)
     {
         String methodname = "companyAdd()";
-        Map<String, String> options = readOptionParameter(inputOptions);
-
-        String forbiddenParam = notContainsForbiddenOptionParameter(options, new String[]{"-all"});
-        if (forbiddenParam != null)
-            throw new InterpreterNoParametersAlloweException(methodname, forbiddenParam);
-
         //Case no options
-        if (options.size() == 0)
+        if (inputOptions.length == 0)
         {
-            print("No Company specified. Did you forget -name?");//System.out.println("No Company specified. Did you forget -name?");
+            print("No Company specified. Did you forget to specify a name?");//System.out.println("No Company specified. Did you forget -name?");
             return;
         }
-
-        //Case print all companies
-        if (options.containsKey("-all"))
-        {
-            print(economy.economyBaseCompanyData());//System.out.println(economy.economyBaseCompanyData());
-            return;
-        }
-
         //Case print company with name
-        if (options.containsKey("-name"))
+        if (inputOptions.length >= 1)
         {
-            print(economy.getCompanyByName(options.get("-name")));
+            Company company = economy.getCompanyByName(inputOptions[0]);
+            if(company != null)
+                print(company.baseData());
+            else
+                print("No Company found");
             return;
         }
 
@@ -565,19 +516,16 @@ public class Interpreter
     private void companyAdd(String[] inputOptions)
     {
         String methodname = "companyAdd()";
-        Map<String, String> options = readOptionParameter(inputOptions);
-
         //Case no options
-        if (options.size() == 0)
+        if (inputOptions.length == 0)
         {
-            print("No Company specified. Did you forget -name?");
+            print("Please specify name");
             return;
         }
-
         //Case name given
-        if (options.containsKey("-name"))
+        if (inputOptions.length >= 1)
         {
-            print(economy.addCompanyByName(options.get("-name")));
+            print(economy.addCompanyByName(inputOptions[0]));
             return;
         }
 
@@ -596,74 +544,6 @@ public class Interpreter
         for (int i = 0; i < ret.length; i++)
             ret[i] = input[i + NumberCutPostions];
         return ret;
-    }
-
-    /**
-     * Checks if options which should not have parameter really dont have parameter. Example: -all parmeter => forbidden
-     *
-     * @param options                   option/parameter pairs
-     * @param parameterForbiddenOptions options which should not have parameter
-     * @return forbidden parameter or null
-     */
-    private String notContainsForbiddenOptionParameter(Map<String, String> options, String[] parameterForbiddenOptions)
-    {
-        for (String forbiddenParameterOption : parameterForbiddenOptions)
-            if (options.get(forbiddenParameterOption) != null)
-                return options.get(forbiddenParameterOption);
-
-        return null;
-    }
-
-    private Map<String, String> readOptionParameter(String[] params)
-    {
-        String methodname = "readOptionParameter()";
-
-        //Iterate params and create Map
-        Map<String, String> results = new HashMap<>();
-        String[] residualParams = params;
-
-        while (residualParams.length > 0)
-        {
-            //Next Token is parameter type
-            if (residualParams[0].contains("-"))
-            {
-                //paramter type with parameter value (-n Wolfgang)
-                if (residualParams.length >= 2 && !residualParams[1].contains("-"))
-                {
-                    results.put(normalizeOption(residualParams[0]), residualParams[1]);
-                    residualParams = cutFirstIndexPositions(residualParams, 2);
-                }
-                else
-                //just parameter type (-all)
-                {
-                    results.put(normalizeOption(residualParams[0]), null);
-                    residualParams = cutFirstIndexPositions(residualParams, 1);
-                }
-            }
-            else
-            {
-                throw new InterpreterUndefindedOptionException(methodname, residualParams[0]);
-            }
-        }
-        return results;
-    }
-
-    //Helptext
-    private void printGeneralHelp()
-    {
-
-        print(
-                "Existing Instructions:\n" +
-                        "Person print -name -all\n" +
-                        "Person add -name -firstname -lastname\n" +
-                        "economy print -companies\n" +
-                        "society print -income\n" +
-                        "society populate\n" +
-                        "government print\n" +
-                        "company print -name -all\n" +
-                        "company pay -name -all\n" +
-                        "testCash cash\n"
-        );
     }
 
     //Getter
