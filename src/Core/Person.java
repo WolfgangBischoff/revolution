@@ -171,22 +171,28 @@ public class Person
             return 0;
     }
 
-    /*
-    public void setWorksAt(Workposition worksAt)
-    {
-        this.worksAt = worksAt;
-    }
-    */
-
     public void startAtWorkposition(Workposition workposition)
     {
         this.worksAt = workposition;
         calcState();
     }
 
-    public void endAtWorkposition()
+    boolean quitWorkposition()
     {
-        this.worksAt = null;
+        if(this.worksAt != null)
+        {
+            this.worksAt.company.employeeQuitted(worksAt);
+            worksAt = null;
+            calcState();
+            return true;
+        }
+        else return false;
+
+    }
+
+    public void getUnemployedAtWorkposition()
+    {
+        worksAt = null;
         calcState();
     }
 

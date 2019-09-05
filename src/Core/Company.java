@@ -4,12 +4,13 @@ import Core.Enums.EducationalLayer;
 
 import java.util.ArrayList;
 
-import static Core.Util.*;
+import static Core.Util.COMP_DEFAULT_DEPOSIT;
 
-public class Company {
+public class Company
+{
     private String name;
     private Integer deposit;
-    private Integer numberEmployees = 0;
+    //private Integer numberEmployees = 0;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
 
     //Constructors
@@ -36,7 +37,7 @@ public class Company {
     void paySalaries()
     {
         for (Workposition workposition : workpositions)
-            if(workposition.worker != null)
+            if (workposition.worker != null)
                 paySalary(workposition);
     }
 
@@ -62,7 +63,7 @@ public class Company {
         {
             workposition.worker = p;
             p.startAtWorkposition(workposition);
-            numberEmployees++;
+            //numberEmployees++;
             return true;
         }
         else
@@ -71,17 +72,31 @@ public class Company {
 
     void unemployAllWorkers()
     {
-        for(Workposition workpositions : workpositions)
+        for (Workposition workpositions : workpositions)
             unemployWorker(workpositions);
+    }
+
+    public void employeeQuitted(Workposition workposition)
+    {
+        workposition.worker = null;
+    }
+
+    Integer calcNumberWorkers()
+    {
+        Integer sum = 0;
+        for (Workposition wp : workpositions)
+            if (wp.worker != null)
+                sum++;
+        return sum;
     }
 
     boolean unemployWorker(Workposition workposition)
     {
         if (workposition.worker != null)
         {
-            workposition.worker.endAtWorkposition();
+            workposition.worker.getUnemployedAtWorkposition();
             workposition.worker = null;
-            numberEmployees--;
+            //numberEmployees--;
             return true;
         }
         else
@@ -94,14 +109,6 @@ public class Company {
         return names[Util.getRandom().nextInt(names.length)];
     }
 
-    private Integer calcNumberWorkers()
-    {
-        Integer sum = 0;
-        for (Workposition workposition : workpositions)
-            if (workposition.worker != null)
-                sum++;
-        return sum;
-    }
 
     //Prints
     @Override
@@ -119,20 +126,23 @@ public class Company {
     }
 
     //Getter and Setter
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public Integer getDeposit() {
+    public Integer getDeposit()
+    {
         return deposit;
     }
 
-    public ArrayList<Workposition> getWorkpositions() {
+    public ArrayList<Workposition> getWorkpositions()
+    {
         return workpositions;
     }
 
     public Integer getNumberEmployees()
     {
-        return numberEmployees;
+        return calcNumberWorkers();
     }
 }
