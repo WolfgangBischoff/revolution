@@ -9,6 +9,7 @@ import static Core.Util.*;
 public class Company {
     private String name;
     private Integer deposit;
+    private Integer numberEmployees = 0;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
 
     //Constructors
@@ -61,8 +62,7 @@ public class Company {
         {
             workposition.worker = p;
             p.startAtWorkposition(workposition);
-            //p.setWorksAt(workposition);
-            //p.calcState();
+            numberEmployees++;
             return true;
         }
         else
@@ -81,6 +81,7 @@ public class Company {
         {
             workposition.worker.endAtWorkposition();
             workposition.worker = null;
+            numberEmployees--;
             return true;
         }
         else
@@ -89,7 +90,7 @@ public class Company {
 
     static String getRandomCompanyName()
     {
-        String[] names = {"HOFER", "Capgemini", "Allianz", "Löwenherz", "SwingKitchen", "PWC", "Kiss Bar", "Segafredo", "Merkur", "Maran Vegan", "Lenovo", "Bayer", "Young Living", "Samsung", "Wiener Linien", "Dachser"};
+        String[] names = {"HOFER", "Capgemini", "Allianz", "Löwenherz", "Swing Kitchen", "PWC", "Kiss Bar", "Segafredo", "Merkur", "Maran Vegan", "Lenovo", "Bayer", "Young Living", "Samsung", "Wiener Linien", "Dachser"};
         return names[Util.getRandom().nextInt(names.length)];
     }
 
@@ -128,5 +129,10 @@ public class Company {
 
     public ArrayList<Workposition> getWorkpositions() {
         return workpositions;
+    }
+
+    public Integer getNumberEmployees()
+    {
+        return numberEmployees;
     }
 }

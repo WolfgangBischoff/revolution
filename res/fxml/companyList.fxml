@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import java.net.URL?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml" alignment="CENTER" vgap="5"
+          fx:controller="Core.GuiController.companyListController">
+
+    <stylesheets>
+        <URL value="@/css/personList.css"/>
+    </stylesheets>
+
+    <Text text="Companies" fx:id="headline" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <ListView fx:id="listView" GridPane.columnIndex="0" GridPane.rowIndex="1" prefWidth="500"/>
+    <Button fx:id="backToSocOverview" text="Back to Overview" GridPane.rowIndex="2" GridPane.columnIndex="0"
+            onAction="#backToOverview" GridPane.halignment="CENTER"/>
+
+</GridPane>

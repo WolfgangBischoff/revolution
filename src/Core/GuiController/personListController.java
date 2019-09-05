@@ -11,13 +11,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
-
-import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.List;
 
-public class personListController implements PropertyChangeListener {
+public class personListController
+{
     @FXML
     private ListView listView;
     private List<Person> personList;
@@ -41,42 +38,38 @@ public class personListController implements PropertyChangeListener {
     @FXML
     private void initialize()
     {
-        Society.getSociety().getSocietyStatistics().addPropertyChangeListener(this);
+        //Society.getSociety().getSocietyStatistics().addPropertyChangeListener(this);
         personList = Society.getSociety().getPeople();
         listView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent mouseEvent)
             {
-                //System.out.println("clicked on " + listView.getSelectionModel().getSelectedItem());
-                personDetail((Person)listView.getSelectionModel().getSelectedItem());
+                showPersonDetail((Person)listView.getSelectionModel().getSelectedItem());
             }
         });
         setListView();
     }
 
-    @Override
+    /*@Override
     public void propertyChange(PropertyChangeEvent evt)
     {
 
-    }
+    }*/
 
     @FXML
     protected void backToOverview(ActionEvent event)
     {
         GameWindow.getSingleton().createNextScene("../fxml/societyOverview.fxml");
-        Society.getSociety().getSocietyStatistics().removePropertyChangeListener(this);
+        //Society.getSociety().getSocietyStatistics().removePropertyChangeListener(this);
     }
 
 
-    protected void personDetail(Person person)
+    protected void showPersonDetail(Person person)
     {
-        System.out.println("clicked on " + listView.getSelectionModel().getSelectedItem());
-
         //Create PersonDetailViewController which can pass a parameter
         PersonDetailController personDetailController = new PersonDetailController(person);
         GameWindow.getSingleton().createNextScene(personDetailController.load());
-
-        Society.getSociety().getSocietyStatistics().removePropertyChangeListener(this);
+        //Society.getSociety().getSocietyStatistics().removePropertyChangeListener(this);
     }
 
 }

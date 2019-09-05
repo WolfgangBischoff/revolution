@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.control.Label?>
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:id="gridpane" >
+
+        <VBox>
+            <HBox>
+                <Text fx:id="name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            </HBox>
+
+            <HBox spacing="5">
+                <Label text="Employees:"/>
+                <Text fx:id="numberEmployees" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            </HBox>
+
+            <HBox spacing="5">
+                <Label text="Deposit:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <Text fx:id="deposit" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label text="Number Workplaces:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <Text fx:id="numberWorkplaces"/>
+            </HBox>
+        </VBox>
+
+</GridPane>

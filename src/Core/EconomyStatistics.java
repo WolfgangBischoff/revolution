@@ -28,7 +28,6 @@ public class EconomyStatistics extends Statistics
     public void addPropertyChangeListener(PropertyChangeListener listener)
     {
         propertyChangeSupport.addPropertyChangeListener(listener);
-        System.out.println("ADDED");
     }
 
     public void removePropertyChangeListener(PropertyChangeListener listener)

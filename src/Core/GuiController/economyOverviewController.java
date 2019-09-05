@@ -29,7 +29,6 @@ public class economyOverviewController implements PropertyChangeListener
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
-        System.out.println("evtProp " + evt.getPropertyName() + " " + evt.getNewValue().toString());
         switch (evt.getPropertyName())
         {
             case EconomyStatistics.NAME_NUMBER_COMPANIES:
@@ -54,22 +53,20 @@ public class economyOverviewController implements PropertyChangeListener
     @FXML
     private void hire(ActionEvent event)
     {
-        //System.out.println("Hire");
         economy.fillWorkplaces();
-
     }
 
     @FXML
     private void populate(ActionEvent event)
     {
-        //System.out.println("Populate");
         economy.populateEconomy(Util.DEFAULT_NUM_COMPANIES);
     }
 
     @FXML
     private void companyList(ActionEvent event)
     {
-        System.out.println("Company Details");
+        GameWindow.getSingleton().createNextScene("../fxml/companyList.fxml");
+        economy.getEconomyStatistics().removePropertyChangeListener(this);
     }
 
 }
