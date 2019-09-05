@@ -6,11 +6,12 @@ import java.util.ArrayList;
 
 import static Core.Util.COMP_DEFAULT_DEPOSIT;
 
-public class Company
+public class Company implements ProductOwner
 {
     private String name;
     private Integer deposit;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
 
     //Constructors
     public Company(String name)
@@ -33,6 +34,12 @@ public class Company
     }
 
     //Calculations
+    private void produceProduct()
+    {
+        products.add(new Product(name + "`product", this, this));
+    }
+
+
     void paySalaries()
     {
         for (Workposition workposition : workpositions)

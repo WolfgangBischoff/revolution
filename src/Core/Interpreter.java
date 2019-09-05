@@ -487,8 +487,6 @@ public class Interpreter
     private void testCash()
     {
         String methodname = "testCash()";
-        //Map<String, String> options = readOptionParameter(inputOptions);
-
         Integer depPeople = society.getSocietyStatistics().depositSumPeople;
         Integer depComp = economy.getEconomyStatistics().getSumCompanyDeposits();
         Integer depGov = government.getDeposit();
@@ -503,7 +501,7 @@ public class Interpreter
         //Case no options
         if (options.size() == 0)
         {
-            print("No Company specified. Did you forget -name?");//System.out.println("No Company specified. Did you forget -name?");
+            print("No Company specified. Did you forget -name?");
             return;
         }
 
