@@ -39,6 +39,19 @@ public class Company implements ProductOwner
         products.add(new Product(name + "`product", this, this));
     }
 
+    private Double calcProductionEffectivness()
+    {
+        return (double) calcNumberWorkers() / workpositions.size();
+    }
+
+    protected void produce()
+    {
+        int capacity = 10;
+        int effectiveProd = (int) (capacity * calcProductionEffectivness());
+        //System.out.println(" " + effectiveProd);
+        for (int i = 0; i < effectiveProd; i++)
+            produceProduct();
+    }
 
     void paySalaries()
     {
@@ -126,7 +139,7 @@ public class Company implements ProductOwner
 
     public String baseData()
     {
-        return "Name: " + name + " Workers: " + calcNumberWorkers() + " Deposit: " + deposit;
+        return "Name: " + name + " Workers: " + calcNumberWorkers() + " Deposit: " + deposit + " #Products: " + products.size();
     }
 
     //Getter and Setter

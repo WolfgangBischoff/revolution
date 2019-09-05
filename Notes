@@ -3,16 +3,12 @@ KNOWN BUGS:
 
 
 TODOS:
-    Add Interpreter:
-        change grammar: no options, keywords that need #para
-            soc print/pop/add(def/rnd)
-            eco print/pop/add/pay
-            person print
-            comp print/pay
-
     Add GUI:
-        Goverments View
+        Goverments View with picture dependent on var
         Company Detail
+        Quick pop
+
+    Add Market => Companies put Product on market, people buy goods from market (categorize)
 
     Add companies produce Goods with border prices (Food, Commodities), consider effectivsness dependent on infrastructure and personal
         - marketCompany (Gets money through goods, sets price by demand and cost)

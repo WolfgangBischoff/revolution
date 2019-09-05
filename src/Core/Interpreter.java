@@ -1,11 +1,7 @@
 package Core;
 
 import Core.Exceptions.InterpreterInvalidOptionCombination;
-import Core.Exceptions.InterpreterNoParametersAlloweException;
 import Core.Exceptions.InterpreterUndefindedOptionException;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static Core.Util.*;
 import static javafx.application.Platform.exit;
@@ -75,6 +71,7 @@ public class Interpreter
                         "government print\n" +
                         "company print\n" +
                         "company pay\n" +
+                        "company produce\n" +
                         "testCash cash\n"
         );
     }
@@ -135,6 +132,9 @@ public class Interpreter
                 return "hire";
             case "calc":
                 return "calc";
+            case "prod":
+            case "produce":
+                return "produce";
             default:
                 throw new InterpreterUndefindedOptionException(methodName, rawInput);
         }
@@ -256,9 +256,30 @@ public class Interpreter
             case "pay":
                 companyPay(optionPara);
                 break;
+            case "produce":
+                companyProduce(optionPara);
+                break;
             default:
                 throw new InterpreterUndefindedOptionException(methodName, inputParameters[0].toLowerCase());
         }
+    }
+
+    private void companyProduce(String[] optionPara)
+    {
+        if (optionPara.length == 0)
+        {
+            print("Specify company");
+            return;
+        }
+        Company company = economy.getCompanyByName(optionPara[0]);
+        if (company != null)
+        {
+            company.produce();
+            print(company.getName() + " produced");
+        }
+        else
+            print("No Company found");
+
     }
 
     private void processSecondParamAfterGovernment(String[] inputParameters)
@@ -383,7 +404,7 @@ public class Interpreter
                     foundPerson = true;
                 }
             }
-            if(!foundPerson)
+            if (!foundPerson)
                 print("No person found with name: " + inputOptions[0] + " " + inputOptions[1]);
             return;
         }
@@ -401,11 +422,13 @@ public class Interpreter
         }
         if (inputOptions[0].equals("income"))
         {
-            print(society.getSocietyStatistics().printIncomeStat()); return;
+            print(society.getSocietyStatistics().printIncomeStat());
+            return;
         }
         if (inputOptions[0].equals("persons"))
         {
-            print(society.printSocPeople()); return;
+            print(society.printSocPeople());
+            return;
         }
 
         throw new InterpreterInvalidOptionCombination(methodname, inputOptions);
@@ -467,6 +490,7 @@ public class Interpreter
         print("All Companies payed loans");
         return;
     }
+
     private void companyPay(String[] inputOptions)
     {
         String methodname = "companyPay()";
@@ -478,8 +502,8 @@ public class Interpreter
             return;
         }
 
-        Company pays =  economy.getCompanyByName(inputOptions[0]);
-        if(pays != null)
+        Company pays = economy.getCompanyByName(inputOptions[0]);
+        if (pays != null)
         {
             pays.paySalaries();
             print("Company paid");
@@ -503,7 +527,7 @@ public class Interpreter
         if (inputOptions.length >= 1)
         {
             Company company = economy.getCompanyByName(inputOptions[0]);
-            if(company != null)
+            if (company != null)
                 print(company.baseData());
             else
                 print("No Company found");
