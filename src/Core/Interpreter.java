@@ -220,7 +220,7 @@ public class Interpreter
         switch (parameter)
         {
             case "add":
-                personAdd(newParam);
+                societyAdd(newParam);
                 break;
             case "print":
                 societyPrint(newParam);
@@ -362,15 +362,31 @@ public class Interpreter
 
 
     //OPTIONS
-    private void personAdd(String[] inputOptions)
+    private void societyRandomAdd(String[] inputParams)
     {
-        String methodname = "personAdd()";
+        String methodname = "societyRandomAdd()";
+        if (inputParams.length == 0)
+            Society.getSociety().addPersonRnd(1);
+        else if (tryParseInt(inputParams[0]))
+            Society.getSociety().addPersonRnd(Integer.parseInt(inputParams[0]));
+        else throw new IllegalArgumentException("Not an Integer: " + inputParams[0]);
+    }
+
+    private void societyAdd(String[] inputOptions)
+    {
+        String methodname = "societyAdd()";
         //Case no options
         if (inputOptions.length == 0)
         {
             Person newPerson = new Person();
             society.addPerson(newPerson);
             print("Added Person: " + newPerson);
+            return;
+        }
+
+        if(inputOptions[0].toLowerCase().equals("rnd"))
+        {
+            societyRandomAdd(cutFirstIndexPositions(inputOptions, 1));
             return;
         }
         else if (inputOptions.length >= 2)
