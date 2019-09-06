@@ -162,4 +162,9 @@ public class Company implements ProductOwner
     {
         return calcNumberWorkers();
     }
+
+    public Integer calcNumberProducts()
+    {
+        return products.size();
+    }
 }

@@ -38,7 +38,6 @@ public class personListController
     @FXML
     private void initialize()
     {
-        //Society.getSociety().getSocietyStatistics().addPropertyChangeListener(this);
         personList = Society.getSociety().getPeople();
         listView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
@@ -50,17 +49,10 @@ public class personListController
         setListView();
     }
 
-    /*@Override
-    public void propertyChange(PropertyChangeEvent evt)
-    {
-
-    }*/
-
     @FXML
     protected void backToOverview(ActionEvent event)
     {
         GameWindow.getSingleton().createNextScene("../fxml/societyOverview.fxml");
-        //Society.getSociety().getSocietyStatistics().removePropertyChangeListener(this);
     }
 
 
@@ -69,7 +61,6 @@ public class personListController
         //Create PersonDetailViewController which can pass a parameter
         PersonDetailController personDetailController = new PersonDetailController(person);
         GameWindow.getSingleton().createNextScene(personDetailController.load());
-        //Society.getSociety().getSocietyStatistics().removePropertyChangeListener(this);
     }
 
 }
