@@ -1,19 +1,23 @@
 package Core;
 
-public class PersonName {
+public class PersonName
+{
     private String firstname;
     private String lastname;
     //private Title title;
 
-    public String getFirstname() {
+    public String getFirstname()
+    {
         return firstname;
     }
 
-    public String getLastname() {
+    public String getLastname()
+    {
         return lastname;
     }
 
-    public PersonName(String firstname, String lastname) {
+    public PersonName(String firstname, String lastname)
+    {
         this.firstname = firstname;
         this.lastname = lastname;
     }
@@ -46,7 +50,7 @@ public class PersonName {
     @Override
     public boolean equals(Object obj)
     {
-        if(obj instanceof PersonName)
+        if (obj instanceof PersonName)
         {
             PersonName other = (PersonName) obj;
             return other.firstname.equals(firstname) && other.lastname.equals(lastname);
@@ -54,11 +58,13 @@ public class PersonName {
         return false;
     }
 
-    public void setFirstname(String firstname) {
+    public void setFirstname(String firstname)
+    {
         this.firstname = firstname;
     }
 
-    public void setLastname(String lastname) {
+    public void setLastname(String lastname)
+    {
         this.lastname = lastname;
     }
 

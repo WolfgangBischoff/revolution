@@ -4,7 +4,7 @@ KNOWN BUGS:
 
 TODOS:
     Add GUI:
-        Goverments View with picture dependent on var
+        Goverments View with picture dependent on GovPol (add Interpreter Set)
 
     Add Market => Companies put Product on market, people buy goods from market (categorize)
 
@@ -18,6 +18,10 @@ TODOS:
     Add socialWellfare
 
 Ideas:
+    Setting:
+    Future Cyber Punk Polis (so single companies make more sense)
+
+
     Happiness Influences:
     Tax, Housing Cost and other Goods, MedialFocus/Ownership of Media, Gini-coefficent, scope(City/Country)
 

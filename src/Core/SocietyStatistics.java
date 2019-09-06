@@ -1,13 +1,14 @@
 package Core;
 
 
-
 import Core.Enums.EducationalLayer;
 import Core.Enums.PoliticalOpinion;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SocietyStatistics extends Statistics
 {
@@ -63,30 +64,31 @@ public class SocietyStatistics extends Statistics
         calcEnumStatsViews();
     }
 
-    public Integer getNumberPersons() {
+    public Integer getNumberPersons()
+    {
         return numberPersons;
     }
 
     void calcPeopleNumber()
     {
         Integer newNumberPersons = numberPersons;
-        propertyChangeSupport.firePropertyChange("numberPersons", newNumberPersons, (Integer)persons.size());
+        propertyChangeSupport.firePropertyChange("numberPersons", newNumberPersons, (Integer) persons.size());
         numberPersons = persons.size();
     }
 
     void calcEmploymentRate()
     {
         Integer employed = 0;
-        for(Person person : persons)
-            if(person.worksAt != null)
+        for (Person person : persons)
+            if (person.worksAt != null)
                 employed++;
 
-        if(persons.size() == 0)//prevent NaN
+        if (persons.size() == 0)//prevent NaN
             return;
         Double employmentRate = ((double) employed) / persons.size();
 
 
-        unemploymentRate = Util.roundTwoDigits((1-employmentRate));
+        unemploymentRate = Util.roundTwoDigits((1 - employmentRate));
         employedNumber = employed;
         unemployedNumber = persons.size() - employed;
     }
@@ -97,7 +99,7 @@ public class SocietyStatistics extends Statistics
         depositSumPeople = 0;
         ArrayList<Integer> grossIncomes = new ArrayList<>();
         ArrayList<Integer> netIncomes = new ArrayList<>();
-        for(Person p : persons)
+        for (Person p : persons)
         {
             grossIncomes.add(p.getGrossIncome());
             netIncomes.add(p.getNettIncome());
@@ -117,16 +119,16 @@ public class SocietyStatistics extends Statistics
         Map<PoliticalOpinion, Integer> polInput = new HashMap<>();
         Map<EducationalLayer, Integer> eduInput = new HashMap<>();
 
-        for(Person person : persons)
+        for (Person person : persons)
         {
             //Collect political Data
-            if(polInput.containsKey(person.politicalOpinion))
+            if (polInput.containsKey(person.politicalOpinion))
                 polInput.put(person.politicalOpinion, polInput.get(person.politicalOpinion) + 1);
             else
                 polInput.put(person.politicalOpinion, 1);
 
             //Collect Educational Data
-            if(eduInput.containsKey(person.educationalLayer))
+            if (eduInput.containsKey(person.educationalLayer))
                 eduInput.put(person.educationalLayer, eduInput.get(person.educationalLayer) + 1);
             else
                 eduInput.put(person.educationalLayer, 1);
@@ -137,9 +139,6 @@ public class SocietyStatistics extends Statistics
         eduStatAbsolut = eduInput;
         eduStat = Statistics.calcPercFromEnumCount(eduInput);
     }
-
-
-
 
 
     //Prints
@@ -156,14 +155,14 @@ public class SocietyStatistics extends Statistics
 
     String printBase()
     {
-        if(persons.size() == 0)
+        if (persons.size() == 0)
             return "Society has no people";
         return "Population: " + persons.size() + " Unemployed: " + unemploymentRate + " " + printPolStat();
     }
 
     String printIncomeStat()
     {
-        return "Incomes: " + "AvgGross: " + avgGrossIncome + " AvgNet: " + avgNetIncome + " MedianGross " + medianGrossIncome  + " SumDeposits: " + depositSumPeople;
+        return "Incomes: " + "AvgGross: " + avgGrossIncome + " AvgNet: " + avgNetIncome + " MedianGross " + medianGrossIncome + " SumDeposits: " + depositSumPeople;
     }
 
     String printPolStat()

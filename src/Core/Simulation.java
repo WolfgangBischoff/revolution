@@ -33,7 +33,7 @@ public class Simulation
 
     public static Simulation getSingleton()
     {
-        if(singleton == null)
+        if (singleton == null)
         {
             singleton = new Simulation();
         }

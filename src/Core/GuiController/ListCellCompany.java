@@ -14,8 +14,8 @@ public class ListCellCompany extends ListCell<Company>
     @Override
     public void updateItem(Company company, boolean empty)
     {
-        super.updateItem(company,empty);
-        if(company != null)
+        super.updateItem(company, empty);
+        if (company != null)
         {
             CompanyData data = new CompanyData(company);
             data.setInfo();
@@ -46,8 +46,7 @@ public class ListCellCompany extends ListCell<Company>
             try
             {
                 fxmlLoader.load();
-            }
-            catch (IOException e)
+            } catch (IOException e)
             {
                 throw new RuntimeException(e);
             }

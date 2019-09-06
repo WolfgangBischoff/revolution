@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
+
 import java.util.List;
 
 public class personListController
@@ -21,12 +22,14 @@ public class personListController
     private ObservableList observableListPerson = FXCollections.observableArrayList();
 
 
-    public void setListView() {
+    public void setListView()
+    {
 
         observableListPerson.setAll(personList);
         listView.setItems(observableListPerson);
 
-        listView.setCellFactory(new Callback<ListView<Person>, ListCell<Person>>() {
+        listView.setCellFactory(new Callback<ListView<Person>, ListCell<Person>>()
+        {
             @Override
             public ListCell<Person> call(ListView<Person> param)
             {
@@ -39,11 +42,12 @@ public class personListController
     private void initialize()
     {
         personList = Society.getSociety().getPeople();
-        listView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+        listView.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>()
+        {
             @Override
             public void handle(javafx.scene.input.MouseEvent mouseEvent)
             {
-                showPersonDetail((Person)listView.getSelectionModel().getSelectedItem());
+                showPersonDetail((Person) listView.getSelectionModel().getSelectedItem());
             }
         });
         setListView();

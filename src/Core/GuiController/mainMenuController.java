@@ -1,11 +1,13 @@
 package Core.GuiController;
 
-import Core.*;
+import Core.GameWindow;
+import Core.Simulation;
+import Core.Society;
+import Core.Util;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 
 public class mainMenuController
 {
@@ -27,24 +29,27 @@ public class mainMenuController
         GameWindow.getSingleton().createNextScene("../fxml/societyOverview.fxml");
     }
 
-    @FXML protected void gotoEconomyButton(ActionEvent event)
+    @FXML
+    protected void gotoEconomyButton(ActionEvent event)
     {
         GameWindow.getSingleton().createNextScene("../fxml/economyOverview.fxml");
     }
 
-    @FXML protected void gotoGovermentButton(ActionEvent event)
+    @FXML
+    protected void gotoGovermentButton(ActionEvent event)
     {
-        //System.out.println("TODO Goverment");
         GameWindow.getSingleton().createNextScene("../fxml/govermentOverview.fxml");
     }
 
-    @FXML protected void gotoMarketButton(ActionEvent event)
+    @FXML
+    protected void gotoMarketButton(ActionEvent event)
     {
         System.out.println("TODO market");
     }
 
 
-    @FXML protected void quickPop(ActionEvent event)
+    @FXML
+    protected void quickPop(ActionEvent event)
     {
         Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
         Simulation.getSingleton().getEconomy().populateEconomy(Util.DEFAULT_NUM_COMPANIES);

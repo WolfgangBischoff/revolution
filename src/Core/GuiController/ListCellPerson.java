@@ -15,8 +15,8 @@ public class ListCellPerson extends ListCell<Person>
     @Override
     public void updateItem(Person person, boolean empty)
     {
-        super.updateItem(person,empty);
-        if(person != null)
+        super.updateItem(person, empty);
+        if (person != null)
         {
             PersonData data = new PersonData(person);
             data.setInfo();
@@ -44,8 +44,7 @@ public class ListCellPerson extends ListCell<Person>
             try
             {
                 fxmlLoader.load();
-            }
-            catch (IOException e)
+            } catch (IOException e)
             {
                 throw new RuntimeException(e);
             }
@@ -54,7 +53,7 @@ public class ListCellPerson extends ListCell<Person>
 
         public void setInfo()
         {
-            name.setText(""+ person.getName());
+            name.setText("" + person.getName());
             age.setText("" + person.getAge());
             deposit.setText("" + person.getDeposit());
         }

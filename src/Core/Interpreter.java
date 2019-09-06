@@ -384,7 +384,7 @@ public class Interpreter
             return;
         }
 
-        if(inputOptions[0].toLowerCase().equals("rnd"))
+        if (inputOptions[0].toLowerCase().equals("rnd"))
         {
             societyRandomAdd(cutFirstIndexPositions(inputOptions, 1));
             return;
@@ -446,7 +446,7 @@ public class Interpreter
             print(society.printSocPeople());
             return;
         }
-        if(inputOptions[0].equals("education"))
+        if (inputOptions[0].equals("education"))
         {
             print(society.getSocietyStatistics().printEduStat());
             return;

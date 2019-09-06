@@ -3,9 +3,11 @@ package Core;
 import Core.Enums.EducationalLayer;
 
 import java.util.ArrayList;
+
 import static Core.Util.*;
 
-public class Society {
+public class Society
+{
 
     private static Society singleton = null;
     private ArrayList<Person> people = new ArrayList<>();
@@ -20,7 +22,7 @@ public class Society {
     //Calculations
     public void calcSociety()
     {
-        for(Person person : people)
+        for (Person person : people)
             person.calcState();
         societyStatistics.calcAll();
     }
@@ -36,14 +38,14 @@ public class Society {
 
     public String printSocPeople()
     {
-        if(people.size() == 0)
+        if (people.size() == 0)
             return "Society has no members";
 
         StringBuilder ret = new StringBuilder();
-        for(Person person : people)
+        for (Person person : people)
             ret.append("\nPerson: " +
                     person.printBasicData() + "\n\t" +
-                    person.printHappiness()  + "\n\t" +
+                    person.printHappiness() + "\n\t" +
                     person.printLayers() + "\n\t" +
                     person.printEconomical()
             );
@@ -52,7 +54,7 @@ public class Society {
 
     public void clear()
     {
-        for(Person person : people)
+        for (Person person : people)
         {
             person.quitWorkposition();
         }
@@ -72,19 +74,18 @@ public class Society {
     public void populateSociety(Integer numberPersons)
     {
         clear();
-        //Create People
         addPersonRnd(numberPersons);
     }
 
     public void addPersonRnd(Integer numberPersons)
     {
-        for(int i=0; i<numberPersons; i++)
+        for (int i = 0; i < numberPersons; i++)
         {
             //Random generation of EduLayer
-            Integer[] ratios = {RATION_BASIC_EDU,RATION_APP_EDU,RATION_HIGHER_EDU,RATION_UNIVERSITY_EDU};
+            Integer[] ratios = {RATION_BASIC_EDU, RATION_APP_EDU, RATION_HIGHER_EDU, RATION_UNIVERSITY_EDU};
             people.add(
                     new Person(
-                            EducationalLayer.fromInt(1+ Statistics.randomWithRatio(ratios)))); //To avoid children
+                            EducationalLayer.fromInt(1 + Statistics.randomWithRatio(ratios)))); //+1 To avoid children
         }
         societyStatistics.calcAll();
     }
@@ -94,25 +95,24 @@ public class Society {
     {
         clear();
 
-        for(int i=0; i < baseEdu; i++)
+        for (int i = 0; i < baseEdu; i++)
         {
             people.add(new Person(EducationalLayer.EDU_BASE));
         }
-        for(int i=0; i < apprEdu; i++)
+        for (int i = 0; i < apprEdu; i++)
         {
             people.add(new Person(EducationalLayer.EDU_APPRENTICESHIP));
         }
-        for(int i=0; i < higherEdu; i++)
+        for (int i = 0; i < higherEdu; i++)
         {
             people.add(new Person(EducationalLayer.EDU_HIGHER));
         }
-        for(int i=0; i < unicEdu; i++)
+        for (int i = 0; i < unicEdu; i++)
         {
             people.add(new Person(EducationalLayer.EDU_UNIVERSITY));
         }
         societyStatistics.calcAll();
     }
-
 
 
     public void addPerson(Person person)
@@ -135,7 +135,7 @@ public class Society {
 
     public static Society getSociety()
     {
-        if(singleton == null)
+        if (singleton == null)
         {
             singleton = new Society();
             return singleton;

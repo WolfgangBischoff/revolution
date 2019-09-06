@@ -26,10 +26,12 @@ public class Person
     {
         this(DEFAULT_EDU);
     }
-    public Person (EducationalLayer definedEdu)
+
+    public Person(EducationalLayer definedEdu)
     {
-        this(new PersonName(chooseRandomFirstname(), chooseRandomLastname()), getRandom().nextInt(75) , definedEdu, PERSON_DEFAULT_DEPOSIT);
+        this(new PersonName(chooseRandomFirstname(), chooseRandomLastname()), getRandom().nextInt(75), definedEdu, PERSON_DEFAULT_DEPOSIT);
     }
+
     public Person(PersonName name)
     {
         this(name, DEFAULT_AGE);
@@ -59,6 +61,7 @@ public class Person
         calculateEconomicLayer();
         calcPoliticalOpinion();
     }
+
     void calcState()
     {
 
@@ -69,11 +72,11 @@ public class Person
 
     void calculateEconomicLayer()
     {
-        if(getGrossIncome() < THRESHOLD_VERY_POOR)
+        if (getGrossIncome() < THRESHOLD_VERY_POOR)
             economicLayer = EconomicLayer.ECO_VERYPOOR;
-        else if(getGrossIncome() < THRESHOLD_POOR)
+        else if (getGrossIncome() < THRESHOLD_POOR)
             economicLayer = EconomicLayer.ECO_POOR;
-        else if(getGrossIncome() < THRESHOLD_MEDIUM)
+        else if (getGrossIncome() < THRESHOLD_MEDIUM)
             economicLayer = EconomicLayer.ECO_MIDDLE;
         else if (getGrossIncome() < THRESHOLD_RICH)
             economicLayer = EconomicLayer.ECO_RICH;
@@ -91,7 +94,7 @@ public class Person
         //calc on base of internal vars
         double avginc = Society.getSociety().getSocietyStatistics().getAvgIncome();
         effectiveHappiness = baseHappiness;
-        if(getGrossIncome() < avginc)
+        if (getGrossIncome() < avginc)
             effectiveHappiness -= 10;
         else
             effectiveHappiness += 10;
@@ -99,22 +102,23 @@ public class Person
 
     void calcPoliticalOpinion()
     {
-        if(effectiveHappiness < baseHappiness || worksAt == null)
-            politicalOpinion =  PoliticalOpinion.SocialDemocratic;
+        if (effectiveHappiness < baseHappiness || worksAt == null)
+            politicalOpinion = PoliticalOpinion.SocialDemocratic;
         else if (effectiveHappiness > baseHappiness)
-            politicalOpinion =  PoliticalOpinion.Conservativ;
-        else if(effectiveHappiness == baseHappiness)
+            politicalOpinion = PoliticalOpinion.Conservativ;
+        else if (effectiveHappiness == baseHappiness)
             politicalOpinion = PoliticalOpinion.Unpolitical;
     }
 
     void receiveSalary(Integer salary)
     {
-        deposit+= salary;
+        deposit += salary;
     }
 
     //Prints
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Person: " + printBasicData();
     }
 
@@ -125,12 +129,12 @@ public class Person
 
     public String printHappiness()
     {
-        return  "Base: " + baseHappiness + " effective: " + effectiveHappiness + " ";
+        return "Base: " + baseHappiness + " effective: " + effectiveHappiness + " ";
     }
 
     public String printWorksAt()
     {
-        if(worksAt == null)
+        if (worksAt == null)
             return "unemployed";
         else
             return worksAt.company.getName();
@@ -161,7 +165,7 @@ public class Person
     //Getter and Setter
     public Integer getGrossIncome()
     {
-        if(worksAt != null)
+        if (worksAt != null)
             return worksAt.grossIncomeWork;
         else
             return 0;
@@ -169,7 +173,7 @@ public class Person
 
     public Integer getNettIncome()
     {
-        if(worksAt != null)
+        if (worksAt != null)
             return worksAt.netIncomeWork;
         else
             return 0;
@@ -183,7 +187,7 @@ public class Person
 
     boolean quitWorkposition()
     {
-        if(this.worksAt != null)
+        if (this.worksAt != null)
         {
             this.worksAt.company.employeeQuitted(worksAt);
             worksAt = null;
@@ -200,15 +204,18 @@ public class Person
         calcState();
     }
 
-    public Integer getId() {
+    public Integer getId()
+    {
         return id;
     }
 
-    public Integer getAge() {
+    public Integer getAge()
+    {
         return age;
     }
 
-    public Integer getDeposit() {
+    public Integer getDeposit()
+    {
         return deposit;
     }
 
@@ -217,19 +224,23 @@ public class Person
         return name;
     }
 
-    public Integer getEffectiveHappiness() {
+    public Integer getEffectiveHappiness()
+    {
         return effectiveHappiness;
     }
 
-    public EconomicLayer getEconomicLayer() {
+    public EconomicLayer getEconomicLayer()
+    {
         return economicLayer;
     }
 
-    public EducationalLayer getEducationalLayer() {
+    public EducationalLayer getEducationalLayer()
+    {
         return educationalLayer;
     }
 
-    public PoliticalOpinion getPoliticalOpinion() {
+    public PoliticalOpinion getPoliticalOpinion()
+    {
         return politicalOpinion;
     }
 }
