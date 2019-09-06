@@ -43,8 +43,19 @@
                     onAction="#gotoEconomyButton"
     />
 
-    <Button fx:id="quickPop" text="Quickstart"
+
+    <Button fx:id="gotoGovermentButton" text="Goverment Overview"
             GridPane.columnIndex="1" GridPane.rowIndex="3"
+            onAction="#gotoGovermentButton"
+    />
+
+    <Button fx:id="gotoMarketButton" text="Market Overview"
+            GridPane.columnIndex="1" GridPane.rowIndex="4"
+            onAction="#gotoMarketButton"
+    />
+
+    <Button fx:id="quickPop" text="Quickstart"
+            GridPane.columnIndex="1" GridPane.rowIndex="5"
             onAction="#quickPop"
     />
 

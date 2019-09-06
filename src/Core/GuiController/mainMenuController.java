@@ -32,6 +32,17 @@ public class mainMenuController
         GameWindow.getSingleton().createNextScene("../fxml/economyOverview.fxml");
     }
 
+    @FXML protected void gotoGovermentButton(ActionEvent event)
+    {
+        System.out.println("TODO Goverment");
+    }
+
+    @FXML protected void gotoMarketButton(ActionEvent event)
+    {
+        System.out.println("TODO market");
+    }
+
+
     @FXML protected void quickPop(ActionEvent event)
     {
         Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
