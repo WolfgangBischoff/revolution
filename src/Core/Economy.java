@@ -29,7 +29,11 @@ public class Economy
         Integer counter = 2;
         while(!isCompanyNameUnique(name))
         {
-            name = name + counter;
+            if(isCompanyNameUnique(name + counter))
+            {
+                name = name + counter;
+                return name;
+            }
             counter++;
         }
         return name;
