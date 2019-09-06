@@ -43,5 +43,11 @@
                     onAction="#gotoEconomyButton"
     />
 
+    <Button fx:id="quickPop" text="Quickstart"
+            GridPane.columnIndex="1" GridPane.rowIndex="3"
+            onAction="#quickPop"
+    />
+
+
 
 </GridPane>
