@@ -34,7 +34,8 @@ public class mainMenuController
 
     @FXML protected void gotoGovermentButton(ActionEvent event)
     {
-        System.out.println("TODO Goverment");
+        //System.out.println("TODO Goverment");
+        GameWindow.getSingleton().createNextScene("../fxml/govermentOverview.fxml");
     }
 
     @FXML protected void gotoMarketButton(ActionEvent event)

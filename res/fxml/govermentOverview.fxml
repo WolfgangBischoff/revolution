@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import java.net.URL?>
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="Core.GuiController.GovermentViewController">
+
+    <stylesheets>
+        <URL value="@/css/grayBackgroundAndButton.css"/>
+    </stylesheets>
+
+    <Label fx:id="headline" text="Government Overview" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+    <Label text="Party at Power:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Text fx:id="partyAtPower" text="TODO" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <Label text="Deposit:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Text fx:id="deposit" text="TODO" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+    <Button text="back" GridPane.columnIndex="1" GridPane.rowIndex="3" onMouseClicked="#backtoMain"/>
+
+</GridPane>
