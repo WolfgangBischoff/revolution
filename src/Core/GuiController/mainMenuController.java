@@ -18,9 +18,9 @@ public class mainMenuController
     @FXML
     private void initialize()
     {
-        Image image = new Image("./img/enviro.jpg");
+        /*Image image = new Image("./img/enviro.jpg");
         testimage = new ImageView();
-        testimage.setImage(image);
+        testimage.setImage(image);*/
     }
 
     @FXML

@@ -5,6 +5,8 @@
 
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="Core.GuiController.GovermentViewController">
 
     <stylesheets>
@@ -19,5 +21,10 @@
         <Text fx:id="deposit" text="TODO" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
     <Button text="back" GridPane.columnIndex="1" GridPane.rowIndex="3" onMouseClicked="#backtoMain"/>
+
+
+    <ImageView fitHeight="50" fitWidth="50" GridPane.rowIndex="0" GridPane.columnIndex="1">
+            <Image fx:id="rulingPartyIcon" url="@/img/capital.png"/>
+    </ImageView>
 
 </GridPane>
