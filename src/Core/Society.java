@@ -73,6 +73,11 @@ public class Society {
     {
         clear();
         //Create People
+        addPersonRnd(numberPersons);
+    }
+
+    public void addPersonRnd(Integer numberPersons)
+    {
         for(int i=0; i<numberPersons; i++)
         {
             //Random generation of EduLayer
@@ -83,6 +88,7 @@ public class Society {
         }
         societyStatistics.calcAll();
     }
+
 
     public void populateSociety(Integer baseEdu, Integer apprEdu, Integer higherEdu, Integer unicEdu)
     {
@@ -107,18 +113,7 @@ public class Society {
         societyStatistics.calcAll();
     }
 
-    public void addPersonRnd(Integer numberPersons)
-    {
-        for(int i=0; i<numberPersons; i++)
-        {
-            //Random generation of EduLayer
-            Integer[] ratios = {RATION_BASIC_EDU,RATION_APP_EDU,RATION_HIGHER_EDU,RATION_UNIVERSITY_EDU};
-            people.add(
-                    new Person(
-                            EducationalLayer.fromInt(Statistics.randomWithRatio(ratios))));
-        }
-        societyStatistics.calcAll();
-    }
+
 
     public void addPerson(Person person)
     {

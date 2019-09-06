@@ -446,6 +446,11 @@ public class Interpreter
             print(society.printSocPeople());
             return;
         }
+        if(inputOptions[0].equals("education"))
+        {
+            print(society.getSocietyStatistics().printEduStat());
+            return;
+        }
 
         throw new InterpreterInvalidOptionCombination(methodname, inputOptions);
     }
