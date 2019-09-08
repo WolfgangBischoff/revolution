@@ -1,9 +1,6 @@
 package Core.GuiController;
 
-import Core.GameWindow;
-import Core.Simulation;
-import Core.Society;
-import Core.Util;
+import Core.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -44,7 +41,7 @@ public class mainMenuController
     @FXML
     protected void gotoMarketButton(ActionEvent event)
     {
-        System.out.println("TODO market");
+        System.out.println(Market.getMarket().productData());
     }
 
 

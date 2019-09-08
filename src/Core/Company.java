@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 import static Core.Util.COMP_DEFAULT_DEPOSIT;
 
-public class Company implements ProductOwner
-{
+public class Company implements ProductOwner {
     private String name;
     private Integer deposit;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
@@ -36,7 +35,9 @@ public class Company implements ProductOwner
     //Calculations
     private void produceProduct()
     {
-        products.add(new Product(name + "`product", this, this));
+        addProduct(new Product(name + "s product", this, this));
+        if(products.size()>=3)
+            Product.transfer(this, Market.getMarket(), products.get(2));
     }
 
     private Double calcProductionEffectivness()
@@ -48,9 +49,20 @@ public class Company implements ProductOwner
     {
         int capacity = 10;
         int effectiveProd = (int) (capacity * calcProductionEffectivness());
-        //System.out.println(" " + effectiveProd);
         for (int i = 0; i < effectiveProd; i++)
             produceProduct();
+        //System.out.println(name + "produced: " + effectiveProd);
+    }
+
+    @Override
+    public void addProduct(Product product)
+    {
+        products.add(product);
+    }
+
+    @Override
+    public void removeProduct(Product product) {
+        products.remove(product);
     }
 
     void paySalaries()
@@ -147,6 +159,7 @@ public class Company implements ProductOwner
     {
         return name;
     }
+
 
     public Integer getDeposit()
     {

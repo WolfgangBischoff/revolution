@@ -23,6 +23,12 @@ public class Economy
         economyStatistics.calcState();
     }
 
+    public void comaniesProduce()
+    {
+        for(Company company :companies)
+            company.produce();
+    }
+
     public String createUniqueCompanyName(String nameBase)
     {
         String name = nameBase;

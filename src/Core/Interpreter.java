@@ -256,7 +256,7 @@ public class Interpreter {
     private void processSecondParamAfterEconomy(String[] inputParameters)
     {
         String methodName = "processSecondParamAfterEconomy";
-        String possibleArguments = "[print, add, populate, hire, pay]";
+        String possibleArguments = "[print, add, populate, hire, pay, produce]";
         String[] optionPara = cutFirstIndexPositions(inputParameters, 1);
         //Just: Economy
         if (inputParameters.length == 0)
@@ -282,6 +282,8 @@ public class Interpreter {
                 case PAY:
                     economyPaySalary(optionPara);
                     return;
+                case PRODUCE:
+                    economy.comaniesProduce(); return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputParameters[0], possibleArguments);
     }
