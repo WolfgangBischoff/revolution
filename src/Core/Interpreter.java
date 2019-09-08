@@ -36,6 +36,7 @@ public class Interpreter {
     private Set<String> keywordsProduce = new HashSet<>(Arrays.asList("produce", "prod"));
     private Set<String> keywordsIncome = new HashSet<>(Arrays.asList("income", "inc"));
     private Set<String> keywordsEducation = new HashSet<>(Arrays.asList("education", "edu"));
+    private Set<String> keywordsBuy = new HashSet<>(Arrays.asList("buy"));
 
     private Map<InterpreterKeyword, Set<String>> keywords = new HashMap<>();
 
@@ -66,6 +67,7 @@ public class Interpreter {
         keywords.put(InterpreterKeyword.EXIT, keywordsExit);
         keywords.put(InterpreterKeyword.INCOME, keywordsIncome);
         keywords.put(InterpreterKeyword.EDUCATION, keywordsEducation);
+        keywords.put(InterpreterKeyword.BUY, keywordsBuy);
     }
 
     public void setConsole(Console console)
@@ -152,7 +154,7 @@ public class Interpreter {
     private void processSecondParamAfterPerson(String[] inputParameters)
     {
         String methodName = "processSecondParamAfterPerson()";
-        String possibleArguments = "[print]";
+        String possibleArguments = "[print, buy]";
         String[] newParam = cutFirstIndexPositions(inputParameters, 1);
 
         //just "person"
@@ -168,9 +170,13 @@ public class Interpreter {
                 case PRINT:
                     personPrint(newParam);
                     return;
+                case BUY:
+                    personBuy(newParam);
+                    return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputParameters[0], possibleArguments);
     }
+
 
     private void processSecondParamAfterSociety(String[] inputParameters)
     {
@@ -371,6 +377,34 @@ public class Interpreter {
                 if (person.name.equals(new PersonName(inputOptions[0], inputOptions[1])))
                 {
                     print(person);
+                    foundPerson = true;
+                }
+            }
+            if (!foundPerson)
+                print("No person found with name: " + inputOptions[0] + " " + inputOptions[1]);
+            return;
+        }
+
+        throw new InterpreterInvalidOptionCombination(methodname, inputOptions);
+    }
+
+    private void personBuy(String[] inputOptions)
+    {
+        String methodname = "personBuy()";
+
+        if (inputOptions.length == 0)
+        {
+            print("No Person specified. Example: person buy Hans Hubertus");
+            return;
+        }
+        else if (inputOptions.length >= 2)
+        {
+            boolean foundPerson = false;
+            for (Person person : society.getPeople())
+            {
+                if (person.name.equals(new PersonName(inputOptions[0], inputOptions[1])))
+                {
+                    person.shop();
                     foundPerson = true;
                 }
             }

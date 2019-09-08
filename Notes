@@ -1,11 +1,12 @@
 
 KNOWN BUGS:
+Check why Market Listener increses
 
 TODOS:
     Add GUI:
         Goverments View with picture dependent on GovPol (add Interpreter Set)
 
-    Add Market => Companies put Product on market, people buy goods from market (categorize)
+    Market implement different product types
 
     Add companies produce Goods with border prices (Food, Commodities), consider effectivsness dependent on infrastructure and personal
         - marketCompany (Gets money through goods, sets price by demand and cost)

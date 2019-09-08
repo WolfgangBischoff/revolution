@@ -65,6 +65,12 @@ public class Company implements ProductOwner {
         products.remove(product);
     }
 
+    @Override
+    public void getPaid(Integer amount)
+    {
+        deposit+=amount;
+    }
+
     void paySalaries()
     {
         for (Workposition workposition : workpositions)

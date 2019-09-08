@@ -18,8 +18,10 @@
     <Label text="Deposit:" GridPane.columnIndex="0" GridPane.rowIndex="4"/><Text fx:id="deposit" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     <Label text="Gross Income:" GridPane.columnIndex="0" GridPane.rowIndex="5"/><Text fx:id="grossincome" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
     <Label text="Works at:" GridPane.columnIndex="0" GridPane.rowIndex="6"/><Text fx:id="worksat" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    <Label text="Food:" GridPane.columnIndex="0" GridPane.rowIndex="7"/><Text fx:id="numberProducts" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
 
-    <Button fx:id="back" text="back" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+
+    <Button fx:id="back" text="back" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
 
 </GridPane>
 

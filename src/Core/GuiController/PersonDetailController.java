@@ -1,5 +1,6 @@
 package Core.GuiController;
 
+import Core.Enums.ProductType;
 import Core.GameWindow;
 import Core.Person;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ public class PersonDetailController
     @FXML
     private Button back;
     @FXML
-    private Text age, edu, deposit, grossincome, worksat, effectivehappiness;
+    private Text age, edu, deposit, grossincome, worksat, effectivehappiness, numberProducts;
 
 
     public PersonDetailController(Person person)
@@ -55,5 +56,6 @@ public class PersonDetailController
         deposit.setText(person.getDeposit().toString());
         grossincome.setText(person.getGrossIncome().toString());
         worksat.setText(person.printWorksAt());
+        numberProducts.setText(person.getNumberProducts(ProductType.FOOD).toString());
     }
 }

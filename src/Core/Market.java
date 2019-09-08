@@ -1,6 +1,7 @@
 package Core;
 
 
+import Core.Enums.ProductType;
 import javafx.beans.property.Property;
 
 import java.beans.PropertyChangeEvent;
@@ -14,7 +15,8 @@ public class Market implements ProductOwner {
     private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     public static final String NUMBER_PRODUCTS_NAME = "numberProducts";
 
-    List<Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
+    private Integer productPrice = 5;
 
     //Constructors
     private Market()
@@ -32,6 +34,15 @@ public class Market implements ProductOwner {
     {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
+
+    public Product getProduct(ProductType type)
+    {
+        if(!products.isEmpty())
+        return products.get(0);
+        else
+            return null;
+    }
+
 
     //Prints
     public String productData()
@@ -64,6 +75,12 @@ public class Market implements ProductOwner {
         propertyChangeSupport.firePropertyChange(NUMBER_PRODUCTS_NAME, products.size()+1, products.size());
     }
 
+    @Override
+    public void getPaid(Integer amount)
+    {
+        throw new RuntimeException("Should not happen");
+    }
+
     //Getter and Setter
     public static Market getMarket()
     {
@@ -77,4 +94,13 @@ public class Market implements ProductOwner {
         return products.size();
     }
 
+    public List<Product> getProducts()
+    {
+        return products;
+    }
+
+    public Integer getProductPrice()
+    {
+        return productPrice;
+    }
 }

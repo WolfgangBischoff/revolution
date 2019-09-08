@@ -33,6 +33,7 @@ public class Product
                 ", name='" + name + '\'' +
                 ", producent=" + producent.getName() +
                 ", owner=" + owner.getName() +
+                ", prev Owner: " + previousOwner.getName() +
                 '}';
     }
 

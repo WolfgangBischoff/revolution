@@ -3,10 +3,13 @@ package Core;
 import Core.Enums.EconomicLayer;
 import Core.Enums.EducationalLayer;
 import Core.Enums.PoliticalOpinion;
+import Core.Enums.ProductType;
+import java.util.ArrayList;
+import java.util.List;
 
 import static Core.Util.*;
 
-public class Person
+public class Person implements ProductOwner
 {
     private static Integer nextId = 1;
     private Integer id;
@@ -16,6 +19,7 @@ public class Person
     Integer effectiveHappiness;
     Workposition worksAt;
     private Integer deposit;
+    private List<Product> products = new ArrayList<>();
 
     EconomicLayer economicLayer;
     EducationalLayer educationalLayer;
@@ -115,6 +119,67 @@ public class Person
         deposit += salary;
     }
 
+    public void shop()
+    {
+        //Do budget calc
+
+        //Check availability
+
+        boolean isAvailable = isProductAvailability(ProductType.FOOD);
+        boolean isAffordable = isProductAffordable(ProductType.FOOD);
+        //Buy
+        if(isAvailable && isAffordable)
+            buyProduct(ProductType.FOOD);
+
+
+        //calc
+    }
+
+    private boolean isProductAvailability(ProductType type)
+    {
+        System.out.println("Availability: " + (Market.getMarket().getProducts().size() >= 1));
+        return Market.getMarket().getProducts().size() >= 1;
+    }
+
+    private boolean isProductAffordable(ProductType type)
+    {
+        System.out.println("Affordable: " + (Market.getMarket().getProductPrice() <= deposit));
+        return Market.getMarket().getProductPrice() <= deposit;
+    }
+
+    private void payProduct(Product product)
+    {
+        deposit -= Market.getMarket().getProductPrice();
+        product.owner.getPaid(Market.getMarket().getProductPrice());
+    }
+
+     @Override
+     public void getPaid(Integer amount)
+     {
+         throw new RuntimeException("Person GetPaid()");
+     }
+
+    private void buyProduct(ProductType type)
+    {
+        Product bought = Market.getMarket().getProduct(type);
+        payProduct(bought);
+        Product.transfer(Market.getMarket(), this, bought);
+        bought.owner = this;
+        System.out.println(this + " bought " + bought);
+    }
+
+    @Override
+    public void addProduct(Product product)
+    {
+        products.add(product);
+    }
+
+    @Override
+    public void removeProduct(Product product)
+    {
+        products.remove(product);
+    }
+
     //Prints
     @Override
     public String toString()
@@ -150,6 +215,7 @@ public class Person
         return "Edu: " + educationalLayer + " Eco: " + economicLayer + " Pol: " + politicalOpinion;
     }
 
+    //Helper
     static String chooseRandomFirstname()
     {
         String[] firstnames = {"Wolfgang", "Markus", "Hans", "Stefan", "Elisabeth", "Sebastian", "Juraj", "Anna", "Michael", "Eva", "Stefanie", "Tobias", "Alexander"};
@@ -219,9 +285,9 @@ public class Person
         return deposit;
     }
 
-    public PersonName getName()
+    public String getName()
     {
-        return name;
+        return name.toString();
     }
 
     public Integer getEffectiveHappiness()
@@ -242,5 +308,10 @@ public class Person
     public PoliticalOpinion getPoliticalOpinion()
     {
         return politicalOpinion;
+    }
+
+    public Integer getNumberProducts(ProductType type)
+    {
+        return products.size();
     }
 }
