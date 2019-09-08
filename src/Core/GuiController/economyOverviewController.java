@@ -15,15 +15,17 @@ public class economyOverviewController implements PropertyChangeListener
     EconomyStatistics economyStatistics = economy.getEconomyStatistics();
 
     @FXML
-    Text numberCompanies, depositsCompanies;
+    Text numberCompanies, depositsCompanies, productsOnMarket;
 
     @FXML
     private void initialize()
     {
         economy.getEconomyStatistics().addPropertyChangeListener(this);
+        Market.getMarket().addPropertyChangeListener(this);
 
         numberCompanies.setText("" + economy.getEconomyStatistics().getNumberCompanies());
         depositsCompanies.setText("" + economy.getEconomyStatistics().getSumCompanyDeposits());
+        productsOnMarket.setText("" + Market.getMarket().getNumberProducts());
     }
 
     @Override
@@ -37,6 +39,9 @@ public class economyOverviewController implements PropertyChangeListener
             case EconomyStatistics.NAME_SUM_COMPANY_DEPOSITS:
                 depositsCompanies.setText(evt.getNewValue().toString());
                 break;
+            case Market.NUMBER_PRODUCTS_NAME:
+                productsOnMarket.setText(evt.getNewValue().toString());
+                break;
             default:
                 throw new RuntimeException("PropertyChange() don´t know: " + evt.getPropertyName());
         }
@@ -48,6 +53,7 @@ public class economyOverviewController implements PropertyChangeListener
     {
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
         economy.getEconomyStatistics().removePropertyChangeListener(this);
+        Market.getMarket().removePropertyChangeListener(this);
     }
 
     @FXML
@@ -67,6 +73,12 @@ public class economyOverviewController implements PropertyChangeListener
     {
         GameWindow.getSingleton().createNextScene("../fxml/companyList.fxml");
         economy.getEconomyStatistics().removePropertyChangeListener(this);
+    }
+
+    @FXML
+    private void produce(ActionEvent event)
+    {
+        economy.comaniesProduce();
     }
 
 }
