@@ -1,12 +1,15 @@
 
 KNOWN BUGS:
+refactor personPrint()
 
 TODOS:
-    Add persons budget calculation over several product groups with own class BudgetCalculator also Savings, implement basic needs
-    Market implement different product types Food, Commodities, Health, Education, Housing
+    Market implement different product types with prices
+    Add Person product unit needs
+    Add persons budget calculation: if goods for basic needs to expensive for budget unhappy
+
     Add companies effectivsness dependent on infrastructure
     Add Time (calc stat after each period, delete old calcs)
-    Add socialWellfare
+    Add socialWellfare in kind to one type, or on all
 
 Ideas:
     Setting:
@@ -43,3 +46,6 @@ Ideas:
     Minigame: WriteSpeechw with Stilmittel/ActualNews/AndGeschicklichkeit
                Map with time constraints. Different buildings interesting dependent from game mode
 
+
+Notes:
+https://de.wikipedia.org/wiki/Dahrendorfh%C3%A4uschen

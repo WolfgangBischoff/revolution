@@ -39,6 +39,7 @@ public class Interpreter {
     private Set<String> keywordsEducation = new HashSet<>(Arrays.asList("education", "edu"));
     private Set<String> keywordsBuy = new HashSet<>(Arrays.asList("buy"));
     private Set<String> keywordsSet = new HashSet<>(Arrays.asList("set"));
+    private Set<String> keywordsBudget = new HashSet<>(Arrays.asList("budget", "bud"));
 
     private Map<InterpreterKeyword, Set<String>> keywords = new HashMap<>();
 
@@ -71,6 +72,7 @@ public class Interpreter {
         keywords.put(InterpreterKeyword.EDUCATION, keywordsEducation);
         keywords.put(InterpreterKeyword.BUY, keywordsBuy);
         keywords.put(InterpreterKeyword.SET, keywordsSet);
+        keywords.put(InterpreterKeyword.BUDGET, keywordsBudget);
     }
 
     public void setConsole(Console console)
@@ -370,12 +372,32 @@ public class Interpreter {
     private void personPrint(String[] inputOptions)
     {
         String methodname = "personPrint()";
-
+        String possibleArguments = "[budget]";
         if (inputOptions.length == 0)
         {
             print("No Person specified. Example: person print Hans Hubertus");
             return;
         }
+
+        if (isKeyword(inputOptions[0]))
+            switch (getKeyword(inputOptions[0]))
+            {
+                case BUDGET:
+                    boolean foundPerson = false;
+                    for (Person person : society.getPeople())
+                    {
+                        if (person.name.equals(new PersonName(inputOptions[1], inputOptions[2])))
+                        {
+                            print(person.budgetData());
+                            foundPerson = true;
+                        }
+                    }
+                    if (!foundPerson)
+                        print("No person found with name: " + inputOptions[1] + " " + inputOptions[2]);
+                    return;
+                default:
+                    throw new InterpreterInvalidArgumentException(methodname, inputOptions[0], possibleArguments);
+            }
         else if (inputOptions.length >= 2)
         {
             boolean foundPerson = false;
@@ -384,6 +406,7 @@ public class Interpreter {
                 if (person.name.equals(new PersonName(inputOptions[0], inputOptions[1])))
                 {
                     print(person);
+                    print(person.printEconomical());
                     foundPerson = true;
                 }
             }

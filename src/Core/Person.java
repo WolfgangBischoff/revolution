@@ -24,6 +24,7 @@ public class Person implements ProductOwner
     EconomicLayer economicLayer;
     EducationalLayer educationalLayer;
     PoliticalOpinion politicalOpinion;
+    BudgetPlan budgetPlan;
 
     //Constructor and Creators
     public Person()
@@ -62,16 +63,17 @@ public class Person implements ProductOwner
     {
         calcBaseHappiness();
         effectiveHappiness = baseHappiness;
+        budgetPlan = new BudgetPlan(this);
         calculateEconomicLayer();
         calcPoliticalOpinion();
     }
 
     void calcState()
     {
-
         calculateEconomicLayer();
         calcEffectiveHappiness();
         calcPoliticalOpinion();
+        budgetPlan.calcBudget();
     }
 
     void calculateEconomicLayer()
@@ -213,6 +215,11 @@ public class Person implements ProductOwner
     public String printLayers()
     {
         return "Edu: " + educationalLayer + " Eco: " + economicLayer + " Pol: " + politicalOpinion;
+    }
+
+    public String budgetData()
+    {
+        return budgetPlan.toString();
     }
 
     //Helper

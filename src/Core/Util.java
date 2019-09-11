@@ -26,6 +26,19 @@ public class Util
     public static final int THRESHOLD_MEDIUM = 2000;
     public static final int THRESHOLD_RICH = 3500;
 
+    public static final Integer BUDGET_DEFAULT_WEIGHT_FOOD = 13;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_CLOTHS = 4;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_HOUSING = 20;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_ENERGY = 13;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_ELECTRONICS = 5;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_HEALTH = 5;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_TRAFFIC = 14;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_EDUCATION = 1;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_NIGHTLIFE = 5;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_SPARETIME = 11;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_SAVING = 6;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_OTHER_AND_SERVICES = 3;
+
     //Company
     public static final Integer NUM_BASE_EDU_WORK = 3;
     public static final Integer NUM_APPR_EDU_WORK = 4;
