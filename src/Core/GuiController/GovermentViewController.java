@@ -1,5 +1,6 @@
 package Core.GuiController;
 
+import Core.Enums.PoliticalOpinion;
 import Core.GameWindow;
 import Core.Government;
 import javafx.fxml.FXML;
@@ -12,7 +13,8 @@ public class GovermentViewController
     @FXML
     Text partyAtPower, deposit;
     @FXML
-    Image rulingPartyIcon;
+    ImageView rulingPartyIcon;
+
 
     @FXML
     private void initialize()
@@ -22,7 +24,31 @@ public class GovermentViewController
         partyAtPower.setText(Government.getGoverment().getRulingParty().toString());
         deposit.setText(Government.getGoverment().getDeposit().toString());
 
-        //rulingPartyIcon = new Image("./img/enviro.jpg");
+        setImageBasedOnPartyOnPower();
+    }
+
+    private void setImageBasedOnPartyOnPower()
+    {
+        PoliticalOpinion ruling = Government.getGoverment().getRulingParty();
+
+        switch (ruling)
+        {
+            case SocialDemocratic:
+                rulingPartyIcon.setImage(new Image("/img/communist.gif"));
+                break;
+            case Enviromental:
+                rulingPartyIcon.setImage(new Image("/img/enviro.jpg"));
+                break;
+            case Conservativ:
+                rulingPartyIcon.setImage(new Image("/img/capital.png"));
+                break;
+            default:
+                rulingPartyIcon.setImage(new Image("/img/hammeSickle.jpg"));
+                break;
+
+        }
+
+
     }
 
     @FXML

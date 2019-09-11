@@ -22,9 +22,8 @@
 
     <Button text="back" GridPane.columnIndex="1" GridPane.rowIndex="3" onMouseClicked="#backtoMain"/>
 
-
-    <ImageView fitHeight="50" fitWidth="50" GridPane.rowIndex="0" GridPane.columnIndex="1">
-            <Image fx:id="rulingPartyIcon" url="@/img/capital.png"/>
+    <ImageView fx:id="rulingPartyIcon" fitHeight="50" fitWidth="50" GridPane.columnIndex="1" GridPane.rowIndex="0" >
+        <Image url="@/img/capital.png" backgroundLoading="true"/>
     </ImageView>
 
 </GridPane>

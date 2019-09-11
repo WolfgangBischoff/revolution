@@ -15,6 +15,10 @@ public class Government
         govermentStatistics = new GovermentStatistics(this);
     }
 
+    public void setRulingParty(PoliticalOpinion rulingParty)
+    {
+        this.rulingParty = rulingParty;
+    }
 
     public Integer getDeposit() {
         return deposit;
