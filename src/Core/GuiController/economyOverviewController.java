@@ -52,8 +52,7 @@ public class economyOverviewController implements PropertyChangeListener
     protected void backToMenu(ActionEvent event)
     {
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
-        economy.getEconomyStatistics().removePropertyChangeListener(this);
-        Market.getMarket().removePropertyChangeListener(this);
+        removePropertyListeners();
     }
 
     @FXML
@@ -72,13 +71,19 @@ public class economyOverviewController implements PropertyChangeListener
     private void companyList(ActionEvent event)
     {
         GameWindow.getSingleton().createNextScene("../fxml/companyList.fxml");
-        economy.getEconomyStatistics().removePropertyChangeListener(this);
+        removePropertyListeners();
     }
 
     @FXML
     private void produce(ActionEvent event)
     {
         economy.comaniesProduce();
+    }
+
+    private void removePropertyListeners()
+    {
+        economy.getEconomyStatistics().removePropertyChangeListener(this);
+        Market.getMarket().removePropertyChangeListener(this);
     }
 
 }

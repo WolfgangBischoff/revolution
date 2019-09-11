@@ -1,26 +1,24 @@
 
 KNOWN BUGS:
-Check why Market Listener increses
 
 TODOS:
     Add GUI:
         Goverments View with picture dependent on GovPol (add Interpreter Set)
 
-    Market implement different product types
+    Add persons budget calculation over several product groups with own class BudgetCalculator also Savings, implement basic needs
+
+    Market implement different product types Food, Commodities, Health, Education, Housing
 
     Add companies produce Goods with border prices (Food, Commodities), consider effectivsness dependent on infrastructure and personal
         - marketCompany (Gets money through goods, sets price by demand and cost)
         - govermentComany (gets money through goverment and goods, sets price based on politics)
         - CharityCompany (gets money from gov and people, goods are free)
-    Add person buy products from companies
     Add Time (calc stat after each period, delete old calcs)
-    Add Housing conditions (quality and price),
     Add socialWellfare
 
 Ideas:
     Setting:
     Future Cyber Punk Polis (so single companies make more sense)
-
 
     Happiness Influences:
     Tax, Housing Cost and other Goods, MedialFocus/Ownership of Media, Gini-coefficent, scope(City/Country)
