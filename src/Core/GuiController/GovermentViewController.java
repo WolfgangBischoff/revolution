@@ -15,15 +15,12 @@ public class GovermentViewController
     @FXML
     ImageView rulingPartyIcon;
 
-
     @FXML
     private void initialize()
     {
-        //Listener Init
         //Variable Init
         partyAtPower.setText(Government.getGoverment().getRulingParty().toString());
         deposit.setText(Government.getGoverment().getDeposit().toString());
-
         setImageBasedOnPartyOnPower();
     }
 
@@ -45,7 +42,6 @@ public class GovermentViewController
             default:
                 rulingPartyIcon.setImage(new Image("/img/hammeSickle.jpg"));
                 break;
-
         }
 
 

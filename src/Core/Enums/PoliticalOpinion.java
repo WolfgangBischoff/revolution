@@ -10,14 +10,14 @@ public enum PoliticalOpinion
         value = v;
     }
 
-    public PoliticalOpinion fromInt(int value)
+    public static PoliticalOpinion fromInt(int value)
     {
         switch (value)
         {
             case 0: return Unpolitical;
             case 1: return SocialDemocratic;
             case 2: return Conservativ;
-            case 4: return Enviromental;
+            case 3: return Enviromental;
             default: return Unpolitical;
         }
     }

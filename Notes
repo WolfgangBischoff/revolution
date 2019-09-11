@@ -2,17 +2,9 @@
 KNOWN BUGS:
 
 TODOS:
-    Add GUI:
-        Goverments View with picture dependent on GovPol (add Interpreter Set)
-
     Add persons budget calculation over several product groups with own class BudgetCalculator also Savings, implement basic needs
-
     Market implement different product types Food, Commodities, Health, Education, Housing
-
-    Add companies produce Goods with border prices (Food, Commodities), consider effectivsness dependent on infrastructure and personal
-        - marketCompany (Gets money through goods, sets price by demand and cost)
-        - govermentComany (gets money through goverment and goods, sets price based on politics)
-        - CharityCompany (gets money from gov and people, goods are free)
+    Add companies effectivsness dependent on infrastructure
     Add Time (calc stat after each period, delete old calcs)
     Add socialWellfare
 
@@ -33,6 +25,10 @@ Ideas:
     Money politics
     Migration, Player can emigrate
     Dayly goals with small benefits
+
+            - marketCompany (Gets money through goods, sets price by demand and cost)
+            - govermentComany (gets money through goverment and goods, sets price based on politics)
+            - CharityCompany (gets money from gov and people, goods are free)
 
     Gameplay:
     1) Start as person, not much influence and decisions

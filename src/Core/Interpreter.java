@@ -1,6 +1,7 @@
 package Core;
 
 import Core.Enums.InterpreterKeyword;
+import Core.Enums.PoliticalOpinion;
 import Core.Exceptions.InterpreterInvalidOptionCombination;
 import Core.Exceptions.InterpreterInvalidArgumentException;
 
@@ -37,6 +38,7 @@ public class Interpreter {
     private Set<String> keywordsIncome = new HashSet<>(Arrays.asList("income", "inc"));
     private Set<String> keywordsEducation = new HashSet<>(Arrays.asList("education", "edu"));
     private Set<String> keywordsBuy = new HashSet<>(Arrays.asList("buy"));
+    private Set<String> keywordsSet = new HashSet<>(Arrays.asList("set"));
 
     private Map<InterpreterKeyword, Set<String>> keywords = new HashMap<>();
 
@@ -68,6 +70,7 @@ public class Interpreter {
         keywords.put(InterpreterKeyword.INCOME, keywordsIncome);
         keywords.put(InterpreterKeyword.EDUCATION, keywordsEducation);
         keywords.put(InterpreterKeyword.BUY, keywordsBuy);
+        keywords.put(InterpreterKeyword.SET, keywordsSet);
     }
 
     public void setConsole(Console console)
@@ -243,6 +246,7 @@ public class Interpreter {
     {
         String methodName = "processSecondParamAfterGovernment";
         String possibleArguments = "[print, pay, produce]";
+        String[] cutParam = cutFirstIndexPositions(inputParameters,1);
         if (inputParameters.length == 0)
         {
             print(methodName + "\n" + POSSIBLE_ARGUMENTS + "[print]");
@@ -254,6 +258,9 @@ public class Interpreter {
             {
                 case PRINT:
                     print(government);
+                    return;
+                case SET:
+                    govermentSet(cutParam);
                     return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputParameters[0], possibleArguments);
@@ -579,6 +586,22 @@ public class Interpreter {
         }
 
         throw new InterpreterInvalidOptionCombination(methodname, inputOptions);
+
+    }
+
+    private void govermentSet(String[] inputParam)
+    {
+        PoliticalOpinion newRulingParty = PoliticalOpinion.Unpolitical;
+        if(tryParseInt(inputParam[0]))
+        {
+            newRulingParty = PoliticalOpinion.fromInt(Integer.parseInt(inputParam[0]));
+            government.setRulingParty(newRulingParty);
+            print("Gov set to: " + newRulingParty);
+        }
+        else
+        {
+            print("cannot resolve political party");
+        }
 
     }
 
