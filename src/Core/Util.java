@@ -39,8 +39,6 @@ public class Util
     public static final Integer BASIC_NEED_TRAFFIC = 15;
     public static final Integer BASIC_NEED_EDUCATION = 1;
     public static final Integer BASIC_NEED_SPARETIME = 10;
-    public static final Integer BASIC_NEED_SAVING = 1;
-    public static final Integer BASIC_NEED_OTHER_AND_SERVICES = 1;
 
     //Who much they want to spend
     public static final Integer BUDGET_DEFAULT_WEIGHT_FOOD = 13;
@@ -64,10 +62,6 @@ public class Util
     public static final IndustryType COMP_DEFAULT_INDUSTRY = IndustryType.FOOD;
 
     //Economy
-   /* public static final Integer DEFAULT_NUM_EDU_BASE = 3;
-    public static final Integer DEFAULT_NUM_EDU_APPR = 4;
-    public static final Integer DEFAULT_NUM_EDU_HIGH = 2;
-    public static final Integer DEFAULT_NUM_EDU_UNIV = 1;       */
     public static final Integer DEFAULT_NUM_COMPANIES = IndustryType.getEnumSize();
 
     //Government

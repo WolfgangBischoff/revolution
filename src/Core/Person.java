@@ -4,7 +4,12 @@ import Core.Enums.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
+import static Core.Enums.IndustryType.*;
+import static Core.Enums.IndustryType.EDUCATION;
+import static Core.Enums.IndustryType.SPARETIME;
 import static Core.Util.*;
 
 public class Person implements ProductOwner
@@ -17,7 +22,17 @@ public class Person implements ProductOwner
     Integer effectiveHappiness;
     Workposition worksAt;
     private Integer deposit;
-    private List<Product> products = new ArrayList<>();
+    //private List<Product> products = new ArrayList<>();
+    private Map<IndustryType, List<Product>> products = new TreeMap<>();
+    private Integer product_need_FOOD = 30;
+    private Integer product_need_CLOTHS = 2;
+    private Integer product_need_HOUSING = 1;
+    private Integer product_need_ENERGY = 30;
+    private Integer product_need_ELECTRONICS = 1;
+    private Integer product_need_HEALTH = 1;
+    private Integer product_need_TRAFFIC = 15;
+    private Integer product_need_EDUCATION = 1;
+    private Integer product_need_SPARETIME = 10;
 
     EconomicLayer economicLayer;
     EducationalLayer educationalLayer;
@@ -52,6 +67,26 @@ public class Person implements ProductOwner
         this.age = age;
         educationalLayer = edu;
         this.deposit = deposit;
+
+        List<Product> foodProducts = new ArrayList<>();
+        List<Product> clothsProducts = new ArrayList<>();
+        List<Product> housingProducts = new ArrayList<>();
+        List<Product> energyProducts = new ArrayList<>();
+        List<Product> electronicsProducts = new ArrayList<>();
+        List<Product> healthProducts = new ArrayList<>();
+        List<Product> trafficProducts = new ArrayList<>();
+        List<Product> educationProducts = new ArrayList<>();
+        List<Product> sparetimeProducts = new ArrayList<>();
+        products.put(FOOD, foodProducts);
+        products.put(CLOTHS, clothsProducts);
+        products.put(HOUSING, housingProducts);
+        products.put(ENERGY, energyProducts);
+        products.put(ELECTRONICS, electronicsProducts);
+        products.put(HEALTH, healthProducts);
+        products.put(TRAFFIC,trafficProducts);
+        products.put(EDUCATION, educationProducts);
+        products.put(SPARETIME, sparetimeProducts);
+
         initState();
     }
 
@@ -171,7 +206,7 @@ public class Person implements ProductOwner
     @Override
     public void addProduct(Product product)
     {
-        products.add(product);
+        products.get(product.type).add(product);
     }
 
     @Override
