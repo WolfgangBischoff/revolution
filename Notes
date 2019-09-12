@@ -1,13 +1,13 @@
 
 KNOWN BUGS:
-refactor personPrint()
 
 TODOS:
     Market implement different product types with prices
     Add Person product unit needs
-    Add persons budget calculation: if goods for basic needs to expensive for budget unhappy
+    Add persons budget calculation: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
 
     Add companies effectivsness dependent on infrastructure
+    Add companies price politics: Monopol, Competition, Kartell
     Add Time (calc stat after each period, delete old calcs)
     Add socialWellfare in kind to one type, or on all
 
