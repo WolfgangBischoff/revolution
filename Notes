@@ -2,8 +2,8 @@
 KNOWN BUGS:
 
 TODOS:
-    Market implement different product types with prices
     Add Person product unit needs
+    Add Person buy to get needs
     Add persons budget calculation: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
 
     Add companies effectivsness dependent on infrastructure

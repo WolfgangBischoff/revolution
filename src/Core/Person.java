@@ -1,9 +1,7 @@
 package Core;
 
-import Core.Enums.EconomicLayer;
-import Core.Enums.EducationalLayer;
-import Core.Enums.PoliticalOpinion;
-import Core.Enums.ProductType;
+import Core.Enums.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,23 +125,23 @@ public class Person implements ProductOwner
 
         //Check availability
 
-        boolean isAvailable = isProductAvailability(ProductType.FOOD);
-        boolean isAffordable = isProductAffordable(ProductType.FOOD);
+        boolean isAvailable = isProductAvailability(IndustryType.FOOD);
+        boolean isAffordable = isProductAffordable(BudgetPost.FOOD);
         //Buy
         if(isAvailable && isAffordable)
-            buyProduct(ProductType.FOOD);
+            buyProduct(IndustryType.FOOD);
 
 
         //calc
     }
 
-    private boolean isProductAvailability(ProductType type)
+    private boolean isProductAvailability(IndustryType type)
     {
-        System.out.println("Availability: " + (Market.getMarket().getProducts().size() >= 1));
-        return Market.getMarket().getProducts().size() >= 1;
+        //System.out.println("Availability: " + (Market.getMarket().getProducts().size() >= 1));
+        return Market.getMarket().getProducts(type).size() >= 1;
     }
 
-    private boolean isProductAffordable(ProductType type)
+    private boolean isProductAffordable(BudgetPost type)
     {
         System.out.println("Affordable: " + (Market.getMarket().getProductPrice() <= deposit));
         return Market.getMarket().getProductPrice() <= deposit;
@@ -161,9 +159,9 @@ public class Person implements ProductOwner
          throw new RuntimeException("Person GetPaid()");
      }
 
-    private void buyProduct(ProductType type)
+    private void buyProduct(IndustryType type)
     {
-        Product bought = Market.getMarket().getProduct(type);
+        Product bought = Market.getMarket().getProduct(type).get(0);
         payProduct(bought);
         Product.transfer(Market.getMarket(), this, bought);
         bought.owner = this;
@@ -317,7 +315,7 @@ public class Person implements ProductOwner
         return politicalOpinion;
     }
 
-    public Integer getNumberProducts(ProductType type)
+    public Integer getNumberProducts(BudgetPost type)
     {
         return products.size();
     }

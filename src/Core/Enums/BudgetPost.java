@@ -2,13 +2,13 @@ package Core.Enums;
 
 //https://www.musterhaushalt.de/durchschnitt/einkommen-und-ausgaben/singlehaushalt/
 //Assumtion all products are cosumer goods
-public enum ProductType
+public enum BudgetPost
 {
     FOOD, CLOTHS, HOUSING, ENERGY, ELECTRONICS, HEALTH, TRAFFIC, EDUCATION,
     SPARETIME,
     SAVING, OTHER_AND_SERVICES;
 
-    public static ProductType fromInt(int val)
+    public static BudgetPost fromInt(int val)
     {
         switch (val)
         {
@@ -35,11 +35,11 @@ public enum ProductType
             case 10:
                 return OTHER_AND_SERVICES;
             default:
-                throw new RuntimeException("ProductType unknown");
+                throw new RuntimeException("BudgetPost unknown");
         }
     }
     public static int getEnumSize()
     {
-        return ProductType.values().length;
+        return BudgetPost.values().length;
     }
 }

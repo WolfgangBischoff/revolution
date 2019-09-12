@@ -1,6 +1,7 @@
 package Core;
 
-import Core.Enums.ProductType;
+import Core.Enums.BudgetPost;
+import Core.Enums.IndustryType;
 
 public class Product
 {
@@ -10,9 +11,9 @@ public class Product
     Company producent;
     ProductOwner owner;
     ProductOwner previousOwner;
-    ProductType type;
+    IndustryType  type;
 
-    public Product(String name, Company producer, ProductOwner owner, ProductType type)
+    public Product(String name, Company producer, ProductOwner owner, IndustryType type)
     {
         this.productID = nextProductID++;
         this.name = name;

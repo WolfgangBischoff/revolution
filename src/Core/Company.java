@@ -1,7 +1,8 @@
 package Core;
 
+import Core.Enums.BudgetPost;
 import Core.Enums.EducationalLayer;
-import Core.Enums.ProductType;
+import Core.Enums.IndustryType;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import static Core.Util.COMP_DEFAULT_INDUSTRY;
 public class Company implements ProductOwner {
     private String name;
     private Integer deposit;
-    private ProductType industry;
+    private IndustryType industry;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
     private ArrayList<Product> products = new ArrayList<>();
 
@@ -21,12 +22,12 @@ public class Company implements ProductOwner {
         this(name, COMP_DEFAULT_INDUSTRY, COMP_DEFAULT_DEPOSIT);
     }
 
-    public Company(String name, ProductType industry)
+    public Company(String name, IndustryType industry)
     {
         this(name, industry, COMP_DEFAULT_DEPOSIT);
     }
 
-    public Company(String name, ProductType industry, Integer Initdeposit)
+    public Company(String name, IndustryType industry, Integer Initdeposit)
     {
         this.name = name;
         deposit = Initdeposit;
@@ -38,7 +39,7 @@ public class Company implements ProductOwner {
         this(name, COMP_DEFAULT_INDUSTRY, base, app, high, univ);
     }
 
-    public Company(String name, ProductType industry, Integer base, Integer app, Integer high, Integer univ)
+    public Company(String name, IndustryType  industry, Integer base, Integer app, Integer high, Integer univ)
     {
         this(name, industry);
         for (int i = 0; i < base; i++)
@@ -55,8 +56,8 @@ public class Company implements ProductOwner {
     private void produceProduct()
     {
         addProduct(new Product(name + "s product", this, this, industry));
-        if(products.size()>=3)
-            Product.transfer(this, Market.getMarket(), products.get(2));
+        //if(products.size()>=3)
+            Product.transfer(this, Market.getMarket(), products.get(0));
     }
 
     private Double calcProductionEffectivness()
@@ -66,7 +67,7 @@ public class Company implements ProductOwner {
 
     protected void produce()
     {
-        int capacity = 10;
+        int capacity = 3;
         int effectiveProd = (int) (capacity * calcProductionEffectivness());
         for (int i = 0; i < effectiveProd; i++)
             produceProduct();

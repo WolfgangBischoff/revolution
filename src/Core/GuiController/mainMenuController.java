@@ -8,16 +8,11 @@ import javafx.scene.image.ImageView;
 
 public class mainMenuController
 {
-    @FXML
-    private ImageView testimage;
-
 
     @FXML
     private void initialize()
     {
-        /*Image image = new Image("./img/enviro.jpg");
-        testimage = new ImageView();
-        testimage.setImage(image);*/
+
     }
 
     @FXML
@@ -48,6 +43,7 @@ public class mainMenuController
     @FXML
     protected void quickPop(ActionEvent event)
     {
+        Market.getMarket().clear();
         Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
         Simulation.getSingleton().getEconomy().populateEconomy(Util.DEFAULT_NUM_COMPANIES);
         Simulation.getSingleton().getEconomy().fillWorkplaces();

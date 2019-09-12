@@ -1,7 +1,8 @@
 package Core;
 
+import Core.Enums.BudgetPost;
 import Core.Enums.EducationalLayer;
-import Core.Enums.ProductType;
+import Core.Enums.IndustryType;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -60,14 +61,14 @@ public class Util
     public static final Integer NUM_HIGH_EDU_WORKPLACES = 1;
     public static final Integer NUM_UNIV_EDU_WORKPLACES = 0;
     public static final Integer COMP_DEFAULT_DEPOSIT = 100000;
-    public static final ProductType COMP_DEFAULT_INDUSTRY = ProductType.FOOD;
+    public static final IndustryType COMP_DEFAULT_INDUSTRY = IndustryType.FOOD;
 
     //Economy
    /* public static final Integer DEFAULT_NUM_EDU_BASE = 3;
     public static final Integer DEFAULT_NUM_EDU_APPR = 4;
     public static final Integer DEFAULT_NUM_EDU_HIGH = 2;
     public static final Integer DEFAULT_NUM_EDU_UNIV = 1;       */
-    public static final Integer DEFAULT_NUM_COMPANIES = ProductType.getEnumSize();
+    public static final Integer DEFAULT_NUM_COMPANIES = IndustryType.getEnumSize();
 
     //Government
 

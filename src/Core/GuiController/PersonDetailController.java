@@ -1,6 +1,6 @@
 package Core.GuiController;
 
-import Core.Enums.ProductType;
+import Core.Enums.BudgetPost;
 import Core.GameWindow;
 import Core.Person;
 import javafx.fxml.FXML;
@@ -56,6 +56,6 @@ public class PersonDetailController
         deposit.setText(person.getDeposit().toString());
         grossincome.setText(person.getGrossIncome().toString());
         worksat.setText(person.printWorksAt());
-        numberProducts.setText(person.getNumberProducts(ProductType.FOOD).toString());
+        numberProducts.setText(person.getNumberProducts(BudgetPost.FOOD).toString());
     }
 }

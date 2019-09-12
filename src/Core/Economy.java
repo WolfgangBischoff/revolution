@@ -1,6 +1,7 @@
 package Core;
 
-import Core.Enums.ProductType;
+import Core.Enums.BudgetPost;
+import Core.Enums.IndustryType;
 
 import java.util.ArrayList;
 
@@ -54,7 +55,7 @@ public class Economy
         return newCompany;
     }
 
-    public Company addCompany(ProductType industry)
+    public Company addCompany(IndustryType industry)
     {
         String UniqueName = createUniqueCompanyName(Company.getRandomCompanyName());
         Company newCompany = new Company(UniqueName, industry, NUM_BASE_EDU_WORKPLACES, NUM_APPR_EDU_WORKPLACES, NUM_HIGH_EDU_WORKPLACES, NUM_UNIV_EDU_WORKPLACES);
@@ -101,7 +102,7 @@ public class Economy
         companies.clear();
         for(int i=0; i<numberComp; i++)
         {
-            addCompany(ProductType.fromInt(i % ProductType.getEnumSize()));
+            addCompany(IndustryType.fromInt(i % IndustryType.getEnumSize()));
         }
         economyStatistics.calcState();
     }
