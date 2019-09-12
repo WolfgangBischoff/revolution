@@ -1,5 +1,7 @@
 package Core;
 
+import Core.Enums.ProductType;
+
 public class Product
 {
     private static Integer nextProductID = 1;
@@ -8,13 +10,15 @@ public class Product
     Company producent;
     ProductOwner owner;
     ProductOwner previousOwner;
+    ProductType type;
 
-    public Product(String name, Company producer, ProductOwner owner)
+    public Product(String name, Company producer, ProductOwner owner, ProductType type)
     {
         this.productID = nextProductID++;
         this.name = name;
         this.producent = producer;
         this.owner = owner;
+        this.type = type;
     }
 
     //Calculation
@@ -34,11 +38,12 @@ public class Product
                 ", producent=" + producent.getName() +
                 ", owner=" + owner.getName() +
                 ", prev Owner: " + previousOwner.getName() +
+                ", type: " + type +
                 '}';
     }
 
     public String baseData()
     {
-        return "ID: " + productID + " " + name;
+        return "ID: " + productID + " " + name + " Type: " + type;
     }
 }

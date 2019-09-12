@@ -1,27 +1,46 @@
 package Core;
 
 import Core.Enums.EducationalLayer;
+import Core.Enums.ProductType;
 
 import java.util.ArrayList;
 
 import static Core.Util.COMP_DEFAULT_DEPOSIT;
+import static Core.Util.COMP_DEFAULT_INDUSTRY;
 
 public class Company implements ProductOwner {
     private String name;
     private Integer deposit;
+    private ProductType industry;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
     private ArrayList<Product> products = new ArrayList<>();
 
     //Constructors
     public Company(String name)
     {
+        this(name, COMP_DEFAULT_INDUSTRY, COMP_DEFAULT_DEPOSIT);
+    }
+
+    public Company(String name, ProductType industry)
+    {
+        this(name, industry, COMP_DEFAULT_DEPOSIT);
+    }
+
+    public Company(String name, ProductType industry, Integer Initdeposit)
+    {
         this.name = name;
-        deposit = COMP_DEFAULT_DEPOSIT;
+        deposit = Initdeposit;
+        this.industry = industry;
     }
 
     public Company(String name, Integer base, Integer app, Integer high, Integer univ)
     {
-        this(name);
+        this(name, COMP_DEFAULT_INDUSTRY, base, app, high, univ);
+    }
+
+    public Company(String name, ProductType industry, Integer base, Integer app, Integer high, Integer univ)
+    {
+        this(name, industry);
         for (int i = 0; i < base; i++)
             workpositions.add(new Workposition(this, EducationalLayer.EDU_BASE));
         for (int i = 0; i < app; i++)
@@ -35,7 +54,7 @@ public class Company implements ProductOwner {
     //Calculations
     private void produceProduct()
     {
-        addProduct(new Product(name + "s product", this, this));
+        addProduct(new Product(name + "s product", this, this, industry));
         if(products.size()>=3)
             Product.transfer(this, Market.getMarket(), products.get(2));
     }
@@ -157,7 +176,7 @@ public class Company implements ProductOwner {
 
     public String baseData()
     {
-        return "Name: " + name + " Workers: " + calcNumberWorkers() + " Deposit: " + deposit + " #Products: " + products.size();
+        return "Name: " + name + " Workers: " + calcNumberWorkers() + " Deposit: " + deposit + " #Products: " + products.size() + " Industry: " + industry;
     }
 
     //Getter and Setter

@@ -16,7 +16,7 @@ public class BudgetPlan
     Integer healthBudget;
     Integer trafficBudget;
     Integer educationBudget;
-    Integer nightlifeBudget;
+  //  Integer nightlifeBudget;
     Integer sparetimeBudget;
     Integer savingsBudget;
     Integer otherAndServices;
@@ -41,7 +41,7 @@ public class BudgetPlan
         weighting.put(HEALTH, BUDGET_DEFAULT_WEIGHT_HEALTH);
         weighting.put(TRAFFIC, BUDGET_DEFAULT_WEIGHT_TRAFFIC);
         weighting.put(EDUCATION, BUDGET_DEFAULT_WEIGHT_EDUCATION);
-        weighting.put(NIGHTLIFE, BUDGET_DEFAULT_WEIGHT_NIGHTLIFE);
+        //weighting.put(NIGHTLIFE, BUDGET_DEFAULT_WEIGHT_NIGHTLIFE);
         weighting.put(SPARETIME, BUDGET_DEFAULT_WEIGHT_SPARETIME);
         weighting.put(SAVING, BUDGET_DEFAULT_WEIGHT_SAVING);
         weighting.put(OTHER_AND_SERVICES, BUDGET_DEFAULT_WEIGHT_OTHER_AND_SERVICES);
@@ -55,7 +55,7 @@ public class BudgetPlan
         healthBudget = (int) (percentageWeighted.get(HEALTH) * person.getNettIncome());
         trafficBudget = (int) (percentageWeighted.get(TRAFFIC) * person.getNettIncome());
         educationBudget = (int) (percentageWeighted.get(EDUCATION) * person.getNettIncome());
-        nightlifeBudget = (int) (percentageWeighted.get(NIGHTLIFE) * person.getNettIncome());
+        //nightlifeBudget = (int) (percentageWeighted.get(NIGHTLIFE) * person.getNettIncome());
         sparetimeBudget = (int) (percentageWeighted.get(SPARETIME) * person.getNettIncome());
         otherAndServices = (int) (percentageWeighted.get(OTHER_AND_SERVICES) * person.getNettIncome());
         savingsBudget = person.getNettIncome() - sumBudgetPostsWithoutSaving();
@@ -75,7 +75,7 @@ public class BudgetPlan
                 ", healthBudget=" + healthBudget +
                 ", trafficBudget=" + trafficBudget +
                 ", educationBudget=" + educationBudget +
-                ", nightlifeBudget=" + nightlifeBudget +
+      //          ", nightlifeBudget=" + nightlifeBudget +
                 ", sparetimeBudget=" + sparetimeBudget +
                 ", savingsBudget=" + savingsBudget +
                 ", otherAndServices=" + otherAndServices +
@@ -90,7 +90,7 @@ public class BudgetPlan
                 healthBudget +
                 trafficBudget +
                 educationBudget +
-                nightlifeBudget +
+      //          nightlifeBudget +
                 sparetimeBudget +
                 savingsBudget +
                 otherAndServices;
@@ -104,7 +104,7 @@ public class BudgetPlan
                 healthBudget +
                 trafficBudget +
                 educationBudget +
-                nightlifeBudget +
+       //         nightlifeBudget +
                 sparetimeBudget +
                 otherAndServices;
     }

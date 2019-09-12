@@ -479,7 +479,8 @@ public class Interpreter {
 
     private void societyPopulate()
     {
-        society.populateSociety(DEFAULT_NUM_EDU_BASE, DEFAULT_NUM_EDU_APPR, DEFAULT_NUM_EDU_HIGH, DEFAULT_NUM_EDU_UNIV);
+        Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
+        //society.populateSociety(DEFAULT_NUM_EDU_BASE, DEFAULT_NUM_EDU_APPR, DEFAULT_NUM_EDU_HIGH, DEFAULT_NUM_EDU_UNIV);
         society.calcSociety();
         print("Populated Societey");
     }
@@ -487,14 +488,20 @@ public class Interpreter {
     private void economyPrint(String[] inputOptions)
     {
         String methodname = "economyPrint()";
-
+        String possibleArguments = "[company]";
         //Case no options
         if (inputOptions.length == 0)
         {
             print(economy.economyBaseData());
         }
-        else if (inputOptions[0].equals("companies"))
-            print(economy.getCompanies());
+        else if (isKeyword(inputOptions[0]))
+            switch (getKeyword(inputOptions[0]))
+            {
+                case COMPANY:
+                    print(economy.economyBaseCompanyData());
+                    return;
+            }
+        throw new InterpreterInvalidArgumentException(methodname, inputOptions[0], possibleArguments);
 
     }
 
@@ -604,7 +611,7 @@ public class Interpreter {
         //Case name given
         if (inputOptions.length >= 1)
         {
-            print(economy.addCompanyByName(inputOptions[0]));
+            print(economy.addCompany(inputOptions[0]));
             return;
         }
 
