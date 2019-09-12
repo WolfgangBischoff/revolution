@@ -1,10 +1,12 @@
 package Core;
 
 import Core.Enums.IndustryType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 import static Core.Enums.IndustryType.*;
 
 public class ProductStorage
@@ -32,7 +34,7 @@ public class ProductStorage
         products.put(ENERGY, energyProducts);
         products.put(ELECTRONICS, electronicsProducts);
         products.put(HEALTH, healthProducts);
-        products.put(TRAFFIC,trafficProducts);
+        products.put(TRAFFIC, trafficProducts);
         products.put(EDUCATION, educationProducts);
         products.put(SPARETIME, sparetimeProducts);
     }
@@ -45,9 +47,22 @@ public class ProductStorage
             return null;
     }
 
+    public List<Product> getProduct(IndustryType type, Integer amount)
+    {
+        List<Product> allProducts = products.get(type);
+        List<Product> ret = new ArrayList<>();
+        if (products.get(type).size() < amount)
+            amount = products.get(type).size();
+
+        for (int i = 0; i < amount; i++)
+            ret.add(allProducts.get(i));
+
+        return ret;
+    }
+
     public void clear()
     {
-        for (Map.Entry<IndustryType,List<Product> > productgroup : products.entrySet())
+        for (Map.Entry<IndustryType, List<Product>> productgroup : products.entrySet())
             productgroup.getValue().clear();
     }
 
@@ -57,7 +72,7 @@ public class ProductStorage
     {
         StringBuilder stringBuilder = new StringBuilder("Storage of: " + owner.getName() + "\n\t");
 
-        for (Map.Entry<IndustryType,List<Product> > productgroup : products.entrySet())
+        for (Map.Entry<IndustryType, List<Product>> productgroup : products.entrySet())
             stringBuilder.append(productDataIndustry(productgroup.getKey()) + "\n\t");
         return stringBuilder.toString();
     }
@@ -66,7 +81,7 @@ public class ProductStorage
     {
         List<Product> industryProducts = products.get(industryType);
         StringBuilder stringBuilder = new StringBuilder(industryType + ": \n\t");
-        for(Product product : industryProducts)
+        for (Product product : industryProducts)
             stringBuilder.append(product.baseData() + "\n\t");
         return stringBuilder.toString();
     }
@@ -87,6 +102,7 @@ public class ProductStorage
     {
         return numberProducts;
     }
+
     public Integer size(IndustryType type)
     {
         return products.get(type).size();
@@ -100,7 +116,7 @@ public class ProductStorage
     private Integer countProducts()
     {
         Integer sum = 0;
-        for(Map.Entry<IndustryType, List<Product>> productgroup : products.entrySet())
+        for (Map.Entry<IndustryType, List<Product>> productgroup : products.entrySet())
             sum += productgroup.getValue().size();
         return sum;
     }

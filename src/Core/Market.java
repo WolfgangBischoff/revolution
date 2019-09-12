@@ -78,7 +78,13 @@ public class Market implements ProductOwner
     }
 
     @Override
-    public boolean pay(Product price)
+    public void pay(Product price)
+    {
+        throw new RuntimeException("Should not happen");
+    }
+
+    @Override
+    public void pay(List<Product> product)
     {
         throw new RuntimeException("Should not happen");
     }
@@ -109,6 +115,17 @@ public class Market implements ProductOwner
         System.out.println(buyer.getName() + " bought " + bought.name);
         return bought;
     }
+
+    public List<Product> sellProduct(IndustryType type, ProductOwner buyer, Integer amount)
+    {
+        List<Product> bought = productStorage.getProduct(type, amount);
+        buyer.pay(bought);
+        Product.transfer(this, buyer, bought);
+        System.out.println(buyer.getName() + " bought " + bought.toString());
+        return bought;
+    }
+
+
 
     public Integer getProductPrice()
     {

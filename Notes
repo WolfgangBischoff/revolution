@@ -2,13 +2,14 @@
 KNOWN BUGS:
 
 TODOS:
-    Add Person product unit needs
-    Add Person buy to get needs
+    Add different product prices
+    Add soc buy
+    Add not bought products in shop()
     Add persons budget calculation: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
 
     Add companies effectivsness dependent on infrastructure
     Add companies price politics: Monopol, Competition, Kartell
-    Add Time (calc stat after each period, delete old calcs)
+    Add Calender (calc stat after each period, delete old calcs)
     Add socialWellfare in kind to one type, or on all
 
     Add Wohnhouse, housing not just comsumer product but also owner

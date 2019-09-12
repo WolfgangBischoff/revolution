@@ -2,6 +2,8 @@ package Core;
 
 import Core.Enums.IndustryType;
 
+import java.util.List;
+
 public class Product
 {
     private static Integer nextProductID = 1;
@@ -27,6 +29,14 @@ public class Product
         product.previousOwner = product.owner;
         receipient.addProduct(product);
         sender.removeProduct(product);
+    }
+
+    public static void transfer(ProductOwner sender, ProductOwner receipient, List<Product> products)
+    {
+        for(Product p : products)
+        {
+            transfer(sender, receipient, p);
+        }
     }
 
     //Prints

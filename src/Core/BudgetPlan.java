@@ -1,25 +1,37 @@
 package Core;
 
 import Core.Enums.BudgetPost;
+import Core.Enums.IndustryType;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
+
 import static Core.Enums.BudgetPost.*;
 import static Core.Util.*;
 
 public class BudgetPlan
 {
-    Integer foodBudget;
-    Integer clothsBudget;
-    Integer housingBudget;
-    Integer energyBudget;
-    Integer electronicsBudget;
-    Integer healthBudget;
-    Integer trafficBudget;
-    Integer educationBudget;
-  //  Integer nightlifeBudget;
-    Integer sparetimeBudget;
-    Integer savingsBudget;
-    Integer otherAndServices;
+    private Integer product_need_FOOD = 30;
+    private Integer product_need_CLOTHS = 2;
+    private Integer product_need_HOUSING = 1;
+    private Integer product_need_ENERGY = 30;
+    private Integer product_need_ELECTRONICS = 1;
+    private Integer product_need_HEALTH = 1;
+    private Integer product_need_TRAFFIC = 15;
+    private Integer product_need_EDUCATION = 1;
+    private Integer product_need_SPARETIME = 10;
+    private Integer foodBudget;
+    private Integer clothsBudget;
+    private Integer housingBudget;
+    private Integer energyBudget;
+    private Integer electronicsBudget;
+    private Integer healthBudget;
+    private Integer trafficBudget;
+    private Integer educationBudget;
+    private Integer sparetimeBudget;
+    private Integer savingsBudget;
+    private Integer otherAndServices;
 
     Person person;
 
@@ -27,6 +39,23 @@ public class BudgetPlan
     {
         this.person = person;
         calcBudget();
+    }
+
+    public Map<IndustryType, Integer> getShoppingCart()
+    {
+        Map<IndustryType, Integer> shoppingCard = new TreeMap<>();
+        //time logic
+
+        //created basket for today
+        //for testing just a subset
+        shoppingCard.put(IndustryType.FOOD, 5);
+        shoppingCard.put(IndustryType.CLOTHS, 1);
+        shoppingCard.put(IndustryType.HOUSING, 1);
+        shoppingCard.put(IndustryType.ENERGY, 3);
+        shoppingCard.put(IndustryType.ELECTRONICS, 1);
+        shoppingCard.put(IndustryType.SPARETIME, 6);
+
+        return shoppingCard;
     }
 
     public void calcBudget()

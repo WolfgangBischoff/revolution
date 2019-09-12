@@ -2,6 +2,9 @@ package Core;
 
 import Core.Enums.*;
 
+import java.util.List;
+import java.util.Map;
+
 import static Core.Util.*;
 
 public class Person implements ProductOwner
@@ -15,16 +18,7 @@ public class Person implements ProductOwner
     Workposition worksAt;
     private Integer deposit;
     private ProductStorage productStorage;
-    //private Map<IndustryType, List<Product>> products = new TreeMap<>();
-    private Integer product_need_FOOD = 30;
-    private Integer product_need_CLOTHS = 2;
-    private Integer product_need_HOUSING = 1;
-    private Integer product_need_ENERGY = 30;
-    private Integer product_need_ELECTRONICS = 1;
-    private Integer product_need_HEALTH = 1;
-    private Integer product_need_TRAFFIC = 15;
-    private Integer product_need_EDUCATION = 1;
-    private Integer product_need_SPARETIME = 10;
+
 
     EconomicLayer economicLayer;
     EducationalLayer educationalLayer;
@@ -130,41 +124,42 @@ public class Person implements ProductOwner
 
     public void shop()
     {
-        //Do budget calc
+        //Do budget calc with time
 
-        //Check availability
-        boolean isAvailable = isProductAvailability(IndustryType.FOOD);
-        boolean isAffordable = isProductAffordable(IndustryType.FOOD);
-        //Buy
-        if(isAvailable && isAffordable)
-            Market.getMarket().sellProduct(IndustryType.FOOD, this);
+        Map<IndustryType, Integer> demand = budgetPlan.getShoppingCart();
+        for (Map.Entry<IndustryType, Integer> entry : demand.entrySet())
+        {
+            IndustryType type = entry.getKey();
+            Integer numberPieces = entry.getValue();
+            if (Market.getMarket().getProductPrice() * numberPieces <= deposit &&
+                    Market.getMarket().getNumberProducts(type) >= numberPieces)
+            {
+                Market.getMarket().sellProduct(type, this, numberPieces);
+            }
 
-
+        }
         //calc
     }
 
-    private boolean isProductAvailability(IndustryType type)
+    @Override
+    public void getPaid(Integer amount)
     {
-        return Market.getMarket().getNumberProducts() >= 1;
+        throw new RuntimeException("Person GetPaid()");
     }
-
-    private boolean isProductAffordable(IndustryType type)
-    {
-        return Market.getMarket().getProductPrice() <= deposit;
-    }
-
-     @Override
-     public void getPaid(Integer amount)
-     {
-         throw new RuntimeException("Person GetPaid()");
-     }
 
     @Override
-    public boolean pay(Product product)
+    public void pay(Product product)
     {
         deposit -= Market.getMarket().getProductPrice();
         product.owner.getPaid(Market.getMarket().getProductPrice());
-        return true;
+    }
+
+    @Override
+    public void pay(List<Product> products)
+    {
+        deposit -= Market.getMarket().getProductPrice() * products.size();
+        for (Product product : products)
+            product.owner.getPaid(Market.getMarket().getProductPrice());
     }
 
 
@@ -208,6 +203,11 @@ public class Person implements ProductOwner
     public String printEconomical()
     {
         return "Works at: " + printWorksAt() + " grossIncome: " + getGrossIncome() + " NettIncome: " + getNettIncome() + " Deposit: " + deposit;
+    }
+
+    public String storageData()
+    {
+        return productStorage.productData();
     }
 
     public String printLayers()

@@ -5,6 +5,7 @@ import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static Core.Util.COMP_DEFAULT_DEPOSIT;
 import static Core.Util.COMP_DEFAULT_INDUSTRY;
@@ -90,9 +91,15 @@ public class Company implements ProductOwner {
     }
 
     @Override
-    public boolean pay(Product price)
+    public void pay(Product price)
     {
-        return false;
+
+    }
+
+    @Override
+    public void pay(List<Product> product)
+    {
+
     }
 
     void paySalaries()
