@@ -56,8 +56,7 @@ public class Company implements ProductOwner {
     private void produceProduct()
     {
         addProduct(new Product(name + "s product", this, this, industry));
-        //if(products.size()>=3)
-            Product.transfer(this, Market.getMarket(), products.get(0));
+        Product.transfer(this, Market.getMarket(), products.get(0));
     }
 
     private Double calcProductionEffectivness()
@@ -71,7 +70,6 @@ public class Company implements ProductOwner {
         int effectiveProd = (int) (capacity * calcProductionEffectivness());
         for (int i = 0; i < effectiveProd; i++)
             produceProduct();
-        //System.out.println(name + "produced: " + effectiveProd);
     }
 
     @Override
@@ -89,6 +87,12 @@ public class Company implements ProductOwner {
     public void getPaid(Integer amount)
     {
         deposit+=amount;
+    }
+
+    @Override
+    public boolean pay(Product price)
+    {
+        return false;
     }
 
     void paySalaries()

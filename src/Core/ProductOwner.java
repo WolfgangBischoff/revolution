@@ -6,4 +6,5 @@ public interface ProductOwner
     void addProduct(Product product);
     void removeProduct(Product product);
     void getPaid(Integer amount);
+    boolean pay(Product price);
 }

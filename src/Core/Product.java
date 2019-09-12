@@ -1,6 +1,5 @@
 package Core;
 
-import Core.Enums.BudgetPost;
 import Core.Enums.IndustryType;
 
 public class Product

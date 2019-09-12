@@ -2,14 +2,6 @@ package Core;
 
 import Core.Enums.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import static Core.Enums.IndustryType.*;
-import static Core.Enums.IndustryType.EDUCATION;
-import static Core.Enums.IndustryType.SPARETIME;
 import static Core.Util.*;
 
 public class Person implements ProductOwner
@@ -22,8 +14,8 @@ public class Person implements ProductOwner
     Integer effectiveHappiness;
     Workposition worksAt;
     private Integer deposit;
-    //private List<Product> products = new ArrayList<>();
-    private Map<IndustryType, List<Product>> products = new TreeMap<>();
+    private ProductStorage productStorage;
+    //private Map<IndustryType, List<Product>> products = new TreeMap<>();
     private Integer product_need_FOOD = 30;
     private Integer product_need_CLOTHS = 2;
     private Integer product_need_HOUSING = 1;
@@ -67,25 +59,7 @@ public class Person implements ProductOwner
         this.age = age;
         educationalLayer = edu;
         this.deposit = deposit;
-
-        List<Product> foodProducts = new ArrayList<>();
-        List<Product> clothsProducts = new ArrayList<>();
-        List<Product> housingProducts = new ArrayList<>();
-        List<Product> energyProducts = new ArrayList<>();
-        List<Product> electronicsProducts = new ArrayList<>();
-        List<Product> healthProducts = new ArrayList<>();
-        List<Product> trafficProducts = new ArrayList<>();
-        List<Product> educationProducts = new ArrayList<>();
-        List<Product> sparetimeProducts = new ArrayList<>();
-        products.put(FOOD, foodProducts);
-        products.put(CLOTHS, clothsProducts);
-        products.put(HOUSING, housingProducts);
-        products.put(ENERGY, energyProducts);
-        products.put(ELECTRONICS, electronicsProducts);
-        products.put(HEALTH, healthProducts);
-        products.put(TRAFFIC,trafficProducts);
-        products.put(EDUCATION, educationProducts);
-        products.put(SPARETIME, sparetimeProducts);
+        productStorage = new ProductStorage(this);
 
         initState();
     }
@@ -159,12 +133,11 @@ public class Person implements ProductOwner
         //Do budget calc
 
         //Check availability
-
         boolean isAvailable = isProductAvailability(IndustryType.FOOD);
-        boolean isAffordable = isProductAffordable(BudgetPost.FOOD);
+        boolean isAffordable = isProductAffordable(IndustryType.FOOD);
         //Buy
         if(isAvailable && isAffordable)
-            buyProduct(IndustryType.FOOD);
+            Market.getMarket().sellProduct(IndustryType.FOOD, this);
 
 
         //calc
@@ -172,20 +145,12 @@ public class Person implements ProductOwner
 
     private boolean isProductAvailability(IndustryType type)
     {
-        //System.out.println("Availability: " + (Market.getMarket().getProducts().size() >= 1));
-        return Market.getMarket().getProducts(type).size() >= 1;
+        return Market.getMarket().getNumberProducts() >= 1;
     }
 
-    private boolean isProductAffordable(BudgetPost type)
+    private boolean isProductAffordable(IndustryType type)
     {
-        System.out.println("Affordable: " + (Market.getMarket().getProductPrice() <= deposit));
         return Market.getMarket().getProductPrice() <= deposit;
-    }
-
-    private void payProduct(Product product)
-    {
-        deposit -= Market.getMarket().getProductPrice();
-        product.owner.getPaid(Market.getMarket().getProductPrice());
     }
 
      @Override
@@ -194,25 +159,25 @@ public class Person implements ProductOwner
          throw new RuntimeException("Person GetPaid()");
      }
 
-    private void buyProduct(IndustryType type)
+    @Override
+    public boolean pay(Product product)
     {
-        Product bought = Market.getMarket().getProduct(type).get(0);
-        payProduct(bought);
-        Product.transfer(Market.getMarket(), this, bought);
-        bought.owner = this;
-        System.out.println(this + " bought " + bought);
+        deposit -= Market.getMarket().getProductPrice();
+        product.owner.getPaid(Market.getMarket().getProductPrice());
+        return true;
     }
+
 
     @Override
     public void addProduct(Product product)
     {
-        products.get(product.type).add(product);
+        productStorage.add(product);
     }
 
     @Override
     public void removeProduct(Product product)
     {
-        products.remove(product);
+        productStorage.remove(product);
     }
 
     //Prints
@@ -350,8 +315,8 @@ public class Person implements ProductOwner
         return politicalOpinion;
     }
 
-    public Integer getNumberProducts(BudgetPost type)
+    public Integer getNumberProducts()
     {
-        return products.size();
+        return productStorage.size();
     }
 }

@@ -56,6 +56,6 @@ public class PersonDetailController
         deposit.setText(person.getDeposit().toString());
         grossincome.setText(person.getGrossIncome().toString());
         worksat.setText(person.printWorksAt());
-        numberProducts.setText(person.getNumberProducts(BudgetPost.FOOD).toString());
+        numberProducts.setText(person.getNumberProducts().toString());
     }
 }
