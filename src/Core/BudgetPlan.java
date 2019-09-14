@@ -56,23 +56,23 @@ public class BudgetPlan
             if(demand == 0)
                 continue;
 
-            System.out.println("TYPE: " + type);
+            //System.out.println("TYPE: " + type);
             //Not enough products
             if (demand > supply)
             {
-                System.out.println("Not enough Stock " + demand + " " + supply);
+                //System.out.println("Not enough Stock " + demand + " " + supply);
                 demandReduction += demand - supply;
                 demand -= demand - supply;
             }
-            System.out.println("Reduction1: " + demandReduction);
+            //System.out.println("Reduction1: " + demandReduction);
             //Not enough money
-            if (Market.getMarket().getProductPrice() * demand >= deposit)
+            if (Market.getMarket().getProductPrice() * demand > deposit)
             {
-                System.out.println("Not enough Money " + Market.getMarket().getProductPrice() * demand + " " + deposit);
+                //System.out.println("Not enough Money " + Market.getMarket().getProductPrice() * demand + " " + deposit);
                 demandReduction += demand - (deposit / Market.getMarket().getProductPrice());
                 demand -= demand - (deposit / Market.getMarket().getProductPrice());
             }
-            System.out.println("Reduction2: " + demandReduction);
+            //System.out.println("Reduction2: " + demandReduction);
             //reduceBudget
             deposit -= demand * Market.getMarket().getProductPrice();
 
@@ -114,10 +114,10 @@ public class BudgetPlan
     {
         Map<IndustryType, Integer> shoppingCart = getShoppingCartUnchecked();
         Map<IndustryType, Integer> notBuyable = findUnbuyableProducts(shoppingCart);
-        reduceShoppingCart(shoppingCart, notBuyable);
-        System.out.println("Shopping Cart: " + shoppingCart.toString());
+        System.out.println(person.getName() + " Shopping Cart: " + shoppingCart.toString());
         System.out.println("Not Buyable: " + notBuyable.toString());
-        System.out.println("Residual: " + shoppingCart.toString());
+        reduceShoppingCart(shoppingCart, notBuyable);
+        System.out.println("Residual: " + shoppingCart.toString() + " \n");
         return shoppingCart;
     }
 
@@ -150,7 +150,7 @@ public class BudgetPlan
         otherAndServices = (int) (percentageWeighted.get(OTHER_AND_SERVICES) * person.getNettIncome());
         savingsBudget = person.getNettIncome() - sumBudgetPostsWithoutSaving();
 
-        System.out.println("Calc Budget " + person.getName());
+        //System.out.println("Calc Budget " + person.getName());
     }
 
     @Override

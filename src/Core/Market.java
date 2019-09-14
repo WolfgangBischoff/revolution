@@ -134,7 +134,7 @@ public class Market implements ProductOwner
 
         buyer.pay(bought);
         Product.transfer(this, buyer, bought);
-        System.out.println(buyer.getName() + " bought " + bought.toString());
+        //System.out.println(buyer.getName() + " bought " + bought.toString());
         return bought;
     }
 

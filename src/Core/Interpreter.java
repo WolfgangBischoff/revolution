@@ -211,6 +211,9 @@ public class Interpreter {
                 case POPULATE:
                     societyPopulate();
                     return;
+                case BUY:
+                    societyBuy();
+                    return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputParameters[0], possibleArguments);
     }
@@ -481,9 +484,15 @@ public class Interpreter {
     private void societyPopulate()
     {
         Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
-        //society.populateSociety(DEFAULT_NUM_EDU_BASE, DEFAULT_NUM_EDU_APPR, DEFAULT_NUM_EDU_HIGH, DEFAULT_NUM_EDU_UNIV);
         society.calcSociety();
         print("Populated Societey");
+    }
+
+    private void societyBuy()
+    {
+        for(Person p : society.getPeople())
+            p.shop();
+        print("Society shopped");
     }
 
     private void economyPrint(String[] inputOptions)
