@@ -107,18 +107,31 @@ public class Market implements ProductOwner
         return productStorage.size(type);
     }
 
-   public Product sellProduct(IndustryType type, ProductOwner buyer)
+   public Product sellProductUnchecked(IndustryType type, ProductOwner buyer)
     {
         Product bought = productStorage.getProduct(type);
+        if(bought == null)
+        {
+            System.out.println(type + " not available");
+            return null;
+        }
         buyer.pay(bought);
         Product.transfer(this, buyer, bought);
         System.out.println(buyer.getName() + " bought " + bought.name);
         return bought;
     }
 
-    public List<Product> sellProduct(IndustryType type, ProductOwner buyer, Integer amount)
+    public List<Product> sellProductUnchecked(IndustryType type, ProductOwner buyer, Integer amount)
     {
         List<Product> bought = productStorage.getProduct(type, amount);
+        if (amount == 0)
+            return bought;
+        if(bought.size() == 0)
+        {
+            System.out.println(type + " not available");
+            return bought;
+        }
+
         buyer.pay(bought);
         Product.transfer(this, buyer, bought);
         System.out.println(buyer.getName() + " bought " + bought.toString());

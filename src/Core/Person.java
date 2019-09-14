@@ -124,19 +124,15 @@ public class Person implements ProductOwner
 
     public void shop()
     {
-        //Do budget calc with time
-
-        Map<IndustryType, Integer> demand = budgetPlan.getShoppingCart();
-        for (Map.Entry<IndustryType, Integer> entry : demand.entrySet())
+        //Get available shopping cart of day
+        Map<IndustryType, Integer> demands = budgetPlan.getShoppingCartChecked();
+        //Buy products
+        for (Map.Entry<IndustryType, Integer> entry : demands.entrySet())
         {
             IndustryType type = entry.getKey();
-            Integer numberPieces = entry.getValue();
-            if (Market.getMarket().getProductPrice() * numberPieces <= deposit &&
-                    Market.getMarket().getNumberProducts(type) >= numberPieces)
-            {
-                Market.getMarket().sellProduct(type, this, numberPieces);
-            }
-
+            Integer demand = entry.getValue();
+            if(demand > 0)
+                Market.getMarket().sellProductUnchecked(type, this, demand);
         }
         //calc
     }

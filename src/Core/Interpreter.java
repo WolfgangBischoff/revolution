@@ -435,6 +435,7 @@ public class Interpreter {
                 if (person.name.equals(new PersonName(inputOptions[0], inputOptions[1])))
                 {
                     person.shop();
+                    print(person.name + " shopped");
                     foundPerson = true;
                 }
             }

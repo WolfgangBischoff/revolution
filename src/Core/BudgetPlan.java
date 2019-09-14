@@ -35,27 +35,90 @@ public class BudgetPlan
 
     Person person;
 
+    //Constructor
     public BudgetPlan(Person person)
     {
         this.person = person;
         calcBudget();
     }
 
-    public Map<IndustryType, Integer> getShoppingCart()
+    private Map<IndustryType, Integer> findUnbuyableProducts(Map<IndustryType, Integer> demands)
     {
-        Map<IndustryType, Integer> shoppingCard = new TreeMap<>();
-        //time logic
+        Map<IndustryType, Integer> productsNotBuyable = new TreeMap<>();
+        Integer deposit = person.getDeposit();
 
-        //created basket for today
+        for (Map.Entry<IndustryType, Integer> entry : demands.entrySet())
+        {
+            IndustryType type = entry.getKey();
+            Integer demand = entry.getValue();
+            Integer supply = Market.getMarket().getNumberProducts(type);
+            Integer demandReduction = 0;
+            if(demand == 0)
+                continue;
+
+            System.out.println("TYPE: " + type);
+            //Not enough products
+            if (demand > supply)
+            {
+                System.out.println("Not enough Stock " + demand + " " + supply);
+                demandReduction += demand - supply;
+                demand -= demand - supply;
+            }
+            System.out.println("Reduction1: " + demandReduction);
+            //Not enough money
+            if (Market.getMarket().getProductPrice() * demand >= deposit)
+            {
+                System.out.println("Not enough Money " + Market.getMarket().getProductPrice() * demand + " " + deposit);
+                demandReduction += demand - (deposit / Market.getMarket().getProductPrice());
+                demand -= demand - (deposit / Market.getMarket().getProductPrice());
+            }
+            System.out.println("Reduction2: " + demandReduction);
+            //reduceBudget
+            deposit -= demand * Market.getMarket().getProductPrice();
+
+            if (demandReduction > 0)
+                productsNotBuyable.put(type, demandReduction);
+        }
+        return productsNotBuyable;
+    }
+
+    private Map<IndustryType, Integer> getShoppingCartUnchecked()
+    {
+        Map<IndustryType, Integer> shoppingCart = new TreeMap<>();
+        //time logic => random choose what to buy today
+
         //for testing just a subset
-        shoppingCard.put(IndustryType.FOOD, 5);
-        shoppingCard.put(IndustryType.CLOTHS, 1);
-        shoppingCard.put(IndustryType.HOUSING, 1);
-        shoppingCard.put(IndustryType.ENERGY, 3);
-        shoppingCard.put(IndustryType.ELECTRONICS, 1);
-        shoppingCard.put(IndustryType.SPARETIME, 6);
+        shoppingCart.put(IndustryType.FOOD, 5);
+        shoppingCart.put(IndustryType.CLOTHS, 1);
+        shoppingCart.put(IndustryType.HOUSING, 1);
+        shoppingCart.put(IndustryType.ENERGY, 3);
+        shoppingCart.put(IndustryType.ELECTRONICS, 1);
+        shoppingCart.put(IndustryType.SPARETIME, 6);
 
-        return shoppingCard;
+        return shoppingCart;
+    }
+
+    private void reduceShoppingCart(Map<IndustryType, Integer> shoppingCart, Map<IndustryType, Integer> notBuyable)
+    {
+        for (Map.Entry<IndustryType, Integer> notAvailable : notBuyable.entrySet())
+        {
+            if (shoppingCart.containsKey(notAvailable.getKey()))
+                shoppingCart.put(notAvailable.getKey(), shoppingCart.get(notAvailable.getKey()) - notAvailable.getValue());
+            else
+                throw new RuntimeException("reduceShoppingCart(): " + notAvailable.getKey() + " not found in shopping cart");
+
+        }
+    }
+
+    public Map<IndustryType, Integer> getShoppingCartChecked()
+    {
+        Map<IndustryType, Integer> shoppingCart = getShoppingCartUnchecked();
+        Map<IndustryType, Integer> notBuyable = findUnbuyableProducts(shoppingCart);
+        reduceShoppingCart(shoppingCart, notBuyable);
+        System.out.println("Shopping Cart: " + shoppingCart.toString());
+        System.out.println("Not Buyable: " + notBuyable.toString());
+        System.out.println("Residual: " + shoppingCart.toString());
+        return shoppingCart;
     }
 
     public void calcBudget()
