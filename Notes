@@ -2,10 +2,11 @@
 KNOWN BUGS:
 
 TODOS:
-    Add different product prices
-    Add soc buy
-    Add not bought products in shop()
-    Add persons budget calculation: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
+    Add different product prices => utility unit price is market price; product price = util unit price * size; people buy similar amount of products but price and util are different
+    Add persons shopping cart generation: constant amount of products for budget (different prices)
+    Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
+
+    Add product config txt
 
     Add companies effectivsness dependent on infrastructure
     Add companies price politics: Monopol, Competition, Kartell
