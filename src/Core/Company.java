@@ -1,6 +1,5 @@
 package Core;
 
-import Core.Enums.BudgetPost;
 import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
 
@@ -54,13 +53,13 @@ public class Company implements ProductOwner {
     }
 
     //Calculations
-    private void produceProduct()
+    private void produceProduct(Integer utilityUnits)
     {
-        addProduct(new Product(name + "s product", this, this, industry));
+        addProduct(new Product(name + "s product", this, this, industry, utilityUnits));
         Product.transfer(this, Market.getMarket(), products.get(0));
     }
 
-    private Double calcProductionEffectivness()
+    private Double calcProductionEffectivity()
     {
         return (double) calcNumberWorkers() / workpositions.size();
     }
@@ -68,9 +67,9 @@ public class Company implements ProductOwner {
     protected void produce()
     {
         int capacity = 3;
-        int effectiveProd = (int) (capacity * calcProductionEffectivness());
+        int effectiveProd = (int) (capacity * calcProductionEffectivity());
         for (int i = 0; i < effectiveProd; i++)
-            produceProduct();
+            produceProduct(i+1);
     }
 
     @Override

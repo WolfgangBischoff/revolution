@@ -13,14 +13,16 @@ public class Product
     ProductOwner owner;
     ProductOwner previousOwner;
     IndustryType  type;
+    Integer utilityUnits;
 
-    public Product(String name, Company producer, ProductOwner owner, IndustryType type)
+    public Product(String name, Company producer, ProductOwner owner, IndustryType type, Integer utilityUnits)
     {
         this.productID = nextProductID++;
         this.name = name;
         this.producent = producer;
         this.owner = owner;
         this.type = type;
+        this.utilityUnits = utilityUnits;
     }
 
     //Calculation
@@ -44,16 +46,17 @@ public class Product
     public String toString() {
         return "Product{" +
                 "productID=" + productID +
-                ", name='" + name + '\'' +
+                //", name='" + name + '\'' +
                 ", producent=" + producent.getName() +
-                ", owner=" + owner.getName() +
+                //", owner=" + owner.getName() +
                 ", prev Owner: " + previousOwner.getName() +
                 ", type: " + type +
+                ", utility: " + utilityUnits +
                 '}';
     }
 
     public String baseData()
     {
-        return "ID: " + productID + " " + name + " Type: " + type;
+        return "ID: " + productID + " " + name + " Type: " + type + " Utility: " + utilityUnits;
     }
 }

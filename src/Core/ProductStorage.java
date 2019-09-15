@@ -1,13 +1,19 @@
 package Core;
 
 import Core.Enums.IndustryType;
+import javafx.collections.transformation.SortedList;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static Core.Enums.IndustryType.*;
+
+class UtilityValueComparator implements Comparator<Product> {
+
+    @Override
+    public int compare(Product o1, Product o2) {
+        return o2.utilityUnits.compareTo(o1.utilityUnits); //descending
+    }
+}
 
 public class ProductStorage
 {
@@ -60,6 +66,11 @@ public class ProductStorage
         return ret;
     }
 
+    public List<Product> getAllProducts(IndustryType type)
+    {
+        return products.get(type);
+    }
+
     public void clear()
     {
         for (Map.Entry<IndustryType, List<Product>> productgroup : products.entrySet())
@@ -89,6 +100,7 @@ public class ProductStorage
     public void add(Product product)
     {
         products.get(product.type).add(product);
+        Collections.sort(products.get(product.type), new UtilityValueComparator());
         numberProducts++;
     }
 

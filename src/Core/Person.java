@@ -65,6 +65,7 @@ public class Person implements ProductOwner
         calcBaseHappiness();
         effectiveHappiness = baseHappiness;
         budgetPlan = new BudgetPlan(this);
+        budgetPlan.calcBudget();
         calculateEconomicLayer();
         calcPoliticalOpinion();
     }
@@ -125,15 +126,18 @@ public class Person implements ProductOwner
     public void shop()
     {
         //Get available shopping cart of day
-        Map<IndustryType, Integer> demands = budgetPlan.getShoppingCartChecked();
-        //Buy products
+        //Map<IndustryType, Integer> demands = budgetPlan.getShoppingCartChecked();
+        List<Product> shoppingCart = budgetPlan.getShoppingCartChecked();
+        List<Product> bought = Market.getMarket().sellProductsUnchecked(this, shoppingCart);
+        //System.out.println(getName() + " ShoppingCart: " + shoppingCart.toString());
+        /*/Buy products
         for (Map.Entry<IndustryType, Integer> entry : demands.entrySet())
         {
             IndustryType type = entry.getKey();
             Integer demand = entry.getValue();
             if(demand > 0)
                 Market.getMarket().sellProductUnchecked(type, this, demand);
-        }
+        }*/
         //calc
     }
 
@@ -213,7 +217,9 @@ public class Person implements ProductOwner
 
     public String budgetData()
     {
-        return budgetPlan.budgetData() + "\n" + budgetPlan.basicNeedsData();
+        return budgetPlan.budgetData()
+                //+ "\n" + budgetPlan.basicNeedsData()
+                ;
     }
 
     //Helper

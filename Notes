@@ -1,9 +1,11 @@
 
 KNOWN BUGS:
+    Pay lOans with Qucikstart, check if budget <= deposit
 
 TODOS:
-    Add persons shopping cart generation: constant amount of products for budget (different prices)
-    Add different product prices => utility unit price is market price; product price = util unit price * size; people buy similar amount of products but price and util are different
+    Update GUI with products
+    Add production sizes to Util
+
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
 
     Add product config txt

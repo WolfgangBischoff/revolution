@@ -134,14 +134,28 @@ public class Market implements ProductOwner
 
         buyer.pay(bought);
         Product.transfer(this, buyer, bought);
-        //System.out.println(buyer.getName() + " bought " + bought.toString());
         return bought;
     }
 
-
+    public List<Product> sellProductsUnchecked(ProductOwner buyer, List<Product> bought)
+    {
+        if(bought.size() == 0)
+        {
+            System.out.println("No products");
+            return bought;
+        }
+        buyer.pay(bought);
+        Product.transfer(this, buyer, bought);
+        return bought;
+    }
 
     public Integer getProductPrice()
     {
         return productPrice;
+    }
+
+    public List<Product> getAllProducts(IndustryType type)
+    {
+        return productStorage.getAllProducts(type);
     }
 }
