@@ -457,6 +457,7 @@ public class Interpreter {
         if (inputOptions.length == 0)
         {
             print(society.getSocietyStatistics().printBase());
+            print(POSSIBLE_ARGUMENTS + possibleArguments);
             return;
         }
         if (isKeyword(inputOptions[0]))
@@ -503,8 +504,10 @@ public class Interpreter {
         if (inputOptions.length == 0)
         {
             print(economy.economyBaseData());
+            print(POSSIBLE_ARGUMENTS + possibleArguments);
+            return;
         }
-        else if (isKeyword(inputOptions[0]))
+        if (isKeyword(inputOptions[0]))
             switch (getKeyword(inputOptions[0]))
             {
                 case COMPANY:

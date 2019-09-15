@@ -47,5 +47,6 @@ public class mainMenuController
         Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
         Simulation.getSingleton().getEconomy().populateEconomy(Util.DEFAULT_NUM_COMPANIES);
         Simulation.getSingleton().getEconomy().fillWorkplaces();
+        Simulation.getSingleton().getEconomy().comaniesProduce();
     }
 }

@@ -2,8 +2,8 @@
 KNOWN BUGS:
 
 TODOS:
-    Add different product prices => utility unit price is market price; product price = util unit price * size; people buy similar amount of products but price and util are different
     Add persons shopping cart generation: constant amount of products for budget (different prices)
+    Add different product prices => utility unit price is market price; product price = util unit price * size; people buy similar amount of products but price and util are different
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
 
     Add product config txt

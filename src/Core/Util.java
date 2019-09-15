@@ -22,7 +22,7 @@ public class Util
     public static final String DEFAULT_FIRSTNAME = "FIRSTNAME";
     public static final String DEFAULT_LASTNAME = "LASTNAME";
     public static final EducationalLayer DEFAULT_EDU = EducationalLayer.EDU_BASE;
-    public static final Integer PERSON_DEFAULT_DEPOSIT = 10;
+    public static final Integer PERSON_DEFAULT_DEPOSIT = 100;
     public static final int INIT_BASE_HAPPINESS = 100;
     public static final int THRESHOLD_VERY_POOR = 1000;
     public static final int THRESHOLD_POOR = 1400;
@@ -60,6 +60,13 @@ public class Util
     public static final Integer NUM_UNIV_EDU_WORKPLACES = 0;
     public static final Integer COMP_DEFAULT_DEPOSIT = 100000;
     public static final IndustryType COMP_DEFAULT_INDUSTRY = IndustryType.FOOD;
+    public static final Integer PAYGRADE_GROSS_INCOME_A = 1000;
+    public static final Integer PAYGRADE_GROSS_INCOME_B = 1300;
+    public static final Integer PAYGRADE_GROSS_INCOME_C = 1600;
+    public static final Integer PAYGRADE_GROSS_INCOME_D = 2000;
+    public static final Integer PAYGRADE_GROSS_INCOME_E = 3000;
+    public static final Integer PAYGRADE_GROSS_INCOME_F = 6000;
+
 
     //Economy
     public static final Integer DEFAULT_NUM_COMPANIES = IndustryType.getEnumSize();

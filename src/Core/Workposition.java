@@ -3,6 +3,8 @@ package Core;
 import Core.Enums.EducationalLayer;
 import Core.Enums.Paygrade;
 
+import static Core.Util.*;
+
 public class Workposition
 {
     EducationalLayer neededEducation;
@@ -28,6 +30,7 @@ public class Workposition
         calcGrossIncomeWorkOnPaygrade();
         calcNetIncome();
     }
+
     void calcNetIncome()
     {
         incomeTaxWork = Government.CalcIncomeTax(grossIncomeWork);
@@ -38,13 +41,20 @@ public class Workposition
     {
         switch (paygrade)
         {
-            case A: grossIncomeWork = 1000; break;
-            case B: grossIncomeWork = 1300; break;
-            case C: grossIncomeWork = 1600;break;
-            case D: grossIncomeWork = 2000;break;
-            case E: grossIncomeWork = 3000;break;
-            case F: grossIncomeWork = 6000;break;
-            default: grossIncomeWork = 0;break;
+            case A:
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_A; break;
+            case B:
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_B; break;
+            case C:
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_C; break;
+            case D:
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_D; break;
+            case E:
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_E; break;
+            case F:
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_F; break;
+            default:
+                grossIncomeWork = 0; break;
         }
     }
 
@@ -65,6 +75,7 @@ public class Workposition
 
     public void setPaygrade()
     {
+        //At them moment just A-D are used
         this.paygrade = Paygrade.fromInt(neededEducation.getInt());
     }
 
