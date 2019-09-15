@@ -453,7 +453,7 @@ public class Interpreter {
     private void societyPrint(String[] inputOptions)
     {
         String methodname = "societyPrint()";
-        String possibleArguments = "[income, person, education]";
+        String possibleArguments = "[income, person, education, budget]";
         if (inputOptions.length == 0)
         {
             print(society.getSocietyStatistics().printBase());
@@ -467,11 +467,13 @@ public class Interpreter {
                     print(society.getSocietyStatistics().printIncomeStat());
                     return;
                 case PERSON:
-                    print(society.printSocPeople());
+                    print(society.printSocPeople(null));
                     return;
                 case EDUCATION:
                     print(society.getSocietyStatistics().printEduStat());
                     return;
+                case BUDGET:
+                    print(society.printSocPeople(InterpreterKeyword.BUDGET)); return;
             }
         throw new InterpreterInvalidArgumentException(methodname, inputOptions[0], possibleArguments);
     }

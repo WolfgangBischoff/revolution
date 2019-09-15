@@ -1,6 +1,7 @@
 package Core;
 
 import Core.Enums.EducationalLayer;
+import Core.Enums.InterpreterKeyword;
 
 import java.util.ArrayList;
 
@@ -36,19 +37,26 @@ public class Society
                 '}';
     }
 
-    public String printSocPeople()
+    public String printSocPeople(InterpreterKeyword special)
     {
         if (people.size() == 0)
             return "Society has no members";
 
         StringBuilder ret = new StringBuilder();
         for (Person person : people)
-            ret.append("\nPerson: " +
-                    person.printBasicData() + "\n\t" +
-                    person.printHappiness() + "\n\t" +
-                    person.printLayers() + "\n\t" +
-                    person.printEconomical()
-            );
+        {
+            ret.append("\n\nPerson: ");
+            if (special == null)
+                ret.append(
+                        person.printBasicData() + "\n\t" +
+                                person.printHappiness() + "\n\t" +
+                                person.printLayers() + "\n\t" +
+                                person.printEconomical());
+            if (special == InterpreterKeyword.BUDGET)
+            {
+                ret.append(person.budgetData());
+            }
+        }
         return ret.toString();
     }
 

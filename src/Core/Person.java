@@ -213,7 +213,7 @@ public class Person implements ProductOwner
 
     public String budgetData()
     {
-        return budgetPlan.toString();
+        return budgetPlan.budgetData() + "\n" + budgetPlan.basicNeedsData();
     }
 
     //Helper

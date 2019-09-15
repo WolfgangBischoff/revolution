@@ -2,13 +2,22 @@ package Core;
 
 import Core.Enums.BudgetPost;
 import Core.Enums.IndustryType;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 import static Core.Enums.BudgetPost.*;
 import static Core.Util.*;
+
+/*
+utility-unit = 1
+In general budget for product-groups generates utility by: budget/price-utility-unit = #utility-unit * utility-unit = utility
+(later utility becomes happiness by Person Marginal Rate)
+To involve products we say: product-price = factor * price-utility-unit * utility-unit (factor should make different products possible)
+Then budget / product-price = #products = product-price * #product = #product * (factor * price-utility-unit * utility-unit)
+
+Persons should buy similar amount of products, but different prices and therefore utility units. At the same time util units have same price
+ */
 
 public class BudgetPlan
 {
@@ -21,6 +30,7 @@ public class BudgetPlan
     private Integer product_need_TRAFFIC = 15;
     private Integer product_need_EDUCATION = 1;
     private Integer product_need_SPARETIME = 10;
+
     private Integer foodBudget;
     private Integer clothsBudget;
     private Integer housingBudget;
@@ -33,6 +43,7 @@ public class BudgetPlan
     private Integer savingsBudget;
     private Integer otherAndServices;
 
+    Integer numberOfDays = 5;
     Person person;
 
     //Constructor
@@ -82,7 +93,8 @@ public class BudgetPlan
         return productsNotBuyable;
     }
 
-    private Map<IndustryType, Integer> getShoppingCartUnchecked()
+
+    private Map<IndustryType, Integer> getShoppingCartUncheckedAsUtilUnits()
     {
         Map<IndustryType, Integer> shoppingCart = new TreeMap<>();
         //time logic => random choose what to buy today
@@ -112,7 +124,7 @@ public class BudgetPlan
 
     public Map<IndustryType, Integer> getShoppingCartChecked()
     {
-        Map<IndustryType, Integer> shoppingCart = getShoppingCartUnchecked();
+        Map<IndustryType, Integer> shoppingCart = getShoppingCartUncheckedAsUtilUnits();
         Map<IndustryType, Integer> notBuyable = findUnbuyableProducts(shoppingCart);
         System.out.println(person.getName() + " Shopping Cart: " + shoppingCart.toString());
         System.out.println("Not Buyable: " + notBuyable.toString());
@@ -149,9 +161,39 @@ public class BudgetPlan
         sparetimeBudget = (int) (percentageWeighted.get(SPARETIME) * person.getNettIncome());
         otherAndServices = (int) (percentageWeighted.get(OTHER_AND_SERVICES) * person.getNettIncome());
         savingsBudget = person.getNettIncome() - sumBudgetPostsWithoutSaving();
-
-        //System.out.println("Calc Budget " + person.getName());
     }
+
+    public String budgetData()
+    {
+        return person.getName() + ": " +
+                "FOOD " + foodBudget +
+                ", CLOTH " + clothsBudget +
+                ", HOUSING " + housingBudget +
+                ", ENERGY " + energyBudget +
+                ", ELECTRONIC " + electronicsBudget +
+                ", HEALTH " + healthBudget +
+                ", TRAFFIC " + trafficBudget +
+                ", EDUCATION " + educationBudget +
+                ", SPARETIME " + sparetimeBudget +
+                ", SAVING " + savingsBudget +
+                ", OTHER " + otherAndServices +
+                " SUM: " + sumBudgetPosts();
+    }
+
+    public String basicNeedsData()
+    {
+        return person.getName() + " basics: " +
+        " food: " + product_need_FOOD +
+        " cloth: " + product_need_CLOTHS +
+        " housing: " + product_need_HOUSING +
+        " housing: " + product_need_ENERGY +
+        " electronics: " + product_need_ELECTRONICS +
+        " health: " + product_need_HEALTH +
+        " traffic: " + product_need_TRAFFIC +
+        " edu: " + product_need_EDUCATION +
+        " spare: " + product_need_SPARETIME;
+    }
+
 
     @Override
     public String toString()
@@ -168,7 +210,7 @@ public class BudgetPlan
                 ", sparetimeBudget=" + sparetimeBudget +
                 ", savingsBudget=" + savingsBudget +
                 ", otherAndServices=" + otherAndServices +
-                " SUM: }" + sumBudgetPosts();
+                " SUM: " + sumBudgetPosts();
     }
 
     private int sumBudgetPosts()
