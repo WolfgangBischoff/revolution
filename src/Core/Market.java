@@ -141,7 +141,7 @@ public class Market implements ProductOwner
     {
         if(bought.size() == 0)
         {
-            System.out.println("No products");
+            System.out.println(buyer.getName() + " No products");
             return bought;
         }
         buyer.pay(bought);

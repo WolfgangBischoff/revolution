@@ -495,6 +495,7 @@ public class Interpreter {
     {
         for(Person p : society.getPeople())
             p.shop();
+        society.calcSociety();
         print("Society shopped");
     }
 

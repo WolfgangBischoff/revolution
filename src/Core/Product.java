@@ -45,11 +45,11 @@ public class Product
     @Override
     public String toString() {
         return "Product{" +
-                "productID=" + productID +
+                //"productID=" + productID +
                 //", name='" + name + '\'' +
                 ", producent=" + producent.getName() +
                 //", owner=" + owner.getName() +
-                ", prev Owner: " + previousOwner.getName() +
+                //", prev Owner: " + previousOwner.getName() +
                 ", type: " + type +
                 ", utility: " + utilityUnits +
                 '}';

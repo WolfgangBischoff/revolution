@@ -43,29 +43,37 @@ public class BudgetPlan
     private Integer sparetimeBudget;
     private Integer savingsBudget;
     private Integer otherAndServices;
+    Integer monthlyBudgetSum = 0;
     Map<BudgetPost, Integer> monthBudget = new TreeMap<>();
     Integer numberOfDays = 7;
     List<Map<BudgetPost, Integer>> dailyBudgets = new ArrayList<>();
+    List<Integer> dailyBudgetSums = new ArrayList<>();
     Person person;
 
     //Constructor
     public BudgetPlan(Person person)
     {
         this.person = person;
+        monthlyBudgetSum = person.getNettIncome();
         //calcBudget();
     }
 
     //Calculations
     public void calcBudget()
     {
-        calcMonthlyBudget();
+        calcMonthlyBudgetPosts();
         calcDailyBudgets();
     }
 
-    public void calcMonthlyBudget()
+    public void calcMonthlyBudgetPosts()
     {
         Map<BudgetPost, Integer> weighting = new HashMap<>();
         Map<BudgetPost, Double> percentageWeighted;
+        if (person.getDeposit() < person.getNettIncome())
+            monthlyBudgetSum = person.getDeposit();
+        else
+            monthlyBudgetSum = person.getNettIncome();
+
         weighting.put(FOOD, BUDGET_DEFAULT_WEIGHT_FOOD);
         weighting.put(CLOTHS, BUDGET_DEFAULT_WEIGHT_CLOTHS);
         weighting.put(HOUSING, BUDGET_DEFAULT_WEIGHT_HOUSING);
@@ -79,33 +87,30 @@ public class BudgetPlan
         weighting.put(OTHER_AND_SERVICES, BUDGET_DEFAULT_WEIGHT_OTHER_AND_SERVICES);
 
         percentageWeighted = Statistics.calcPercFromEnumCount(weighting);
-        foodBudget = (int) (percentageWeighted.get(FOOD) * person.getNettIncome());
-        clothsBudget = (int) (percentageWeighted.get(CLOTHS) * person.getNettIncome());
-        housingBudget = (int) (percentageWeighted.get(HOUSING) * person.getNettIncome());
-        energyBudget = (int) (percentageWeighted.get(ENERGY) * person.getNettIncome());
-        electronicsBudget = (int) (percentageWeighted.get(ELECTRONICS) * person.getNettIncome());
-        healthBudget = (int) (percentageWeighted.get(HEALTH) * person.getNettIncome());
-        trafficBudget = (int) (percentageWeighted.get(TRAFFIC) * person.getNettIncome());
-        educationBudget = (int) (percentageWeighted.get(EDUCATION) * person.getNettIncome());
-        sparetimeBudget = (int) (percentageWeighted.get(SPARETIME) * person.getNettIncome());
-        otherAndServices = (int) (percentageWeighted.get(OTHER_AND_SERVICES) * person.getNettIncome());
-        savingsBudget = person.getNettIncome() - sumBudgetPostsWithoutSaving();
+        foodBudget = (int) (percentageWeighted.get(FOOD) * monthlyBudgetSum);
+        clothsBudget = (int) (percentageWeighted.get(CLOTHS) * monthlyBudgetSum);
+        housingBudget = (int) (percentageWeighted.get(HOUSING) * monthlyBudgetSum);
+        energyBudget = (int) (percentageWeighted.get(ENERGY) * monthlyBudgetSum);
+        electronicsBudget = (int) (percentageWeighted.get(ELECTRONICS) * monthlyBudgetSum);
+        healthBudget = (int) (percentageWeighted.get(HEALTH) * monthlyBudgetSum);
+        trafficBudget = (int) (percentageWeighted.get(TRAFFIC) * monthlyBudgetSum);
+        educationBudget = (int) (percentageWeighted.get(EDUCATION) * monthlyBudgetSum);
+        sparetimeBudget = (int) (percentageWeighted.get(SPARETIME) * monthlyBudgetSum);
+        otherAndServices = (int) (percentageWeighted.get(OTHER_AND_SERVICES) * monthlyBudgetSum);
+        savingsBudget = monthlyBudgetSum - sumBudgetPostsWithoutSaving();
 
         //For convinience
-        monthBudget.put(BudgetPost.FOOD, foodBudget);
-        monthBudget.put(BudgetPost.CLOTHS, clothsBudget);
-        monthBudget.put(BudgetPost.HOUSING, housingBudget);
-        monthBudget.put(BudgetPost.ENERGY, energyBudget);
-        monthBudget.put(BudgetPost.ELECTRONICS, electronicsBudget);
-        monthBudget.put(BudgetPost.HEALTH, healthBudget);
-        monthBudget.put(BudgetPost.TRAFFIC, trafficBudget);
-        monthBudget.put(BudgetPost.EDUCATION, educationBudget);
-        monthBudget.put(BudgetPost.SPARETIME, sparetimeBudget);
-        monthBudget.put(BudgetPost.OTHER_AND_SERVICES, otherAndServices);
-        monthBudget.put(BudgetPost.SAVING, savingsBudget);
-
-        //System.out.println("After Calc" + monthBudget);
-
+        this.monthBudget.put(BudgetPost.FOOD, foodBudget);
+        this.monthBudget.put(BudgetPost.CLOTHS, clothsBudget);
+        this.monthBudget.put(BudgetPost.HOUSING, housingBudget);
+        this.monthBudget.put(BudgetPost.ENERGY, energyBudget);
+        this.monthBudget.put(BudgetPost.ELECTRONICS, electronicsBudget);
+        this.monthBudget.put(BudgetPost.HEALTH, healthBudget);
+        this.monthBudget.put(BudgetPost.TRAFFIC, trafficBudget);
+        this.monthBudget.put(BudgetPost.EDUCATION, educationBudget);
+        this.monthBudget.put(BudgetPost.SPARETIME, sparetimeBudget);
+        this.monthBudget.put(BudgetPost.OTHER_AND_SERVICES, otherAndServices);
+        this.monthBudget.put(BudgetPost.SAVING, savingsBudget);
     }
 
     private void calcDailyBudgets()
@@ -114,7 +119,10 @@ public class BudgetPlan
 
         //init list of daily budgets
         for (int i = 0; i < numberOfDays; i++)
+        {
             dailyBudgets.add(new TreeMap<BudgetPost, Integer>());
+            dailyBudgetSums.add(0);
+        }
 
         //for monthly budget posts
         for (Map.Entry<BudgetPost, Integer> monthlyPost : monthBudget.entrySet())
@@ -144,10 +152,12 @@ public class BudgetPlan
                 if (i != numberOfDays - 1)
                 {
                     daylyBudget.put(budgetPost, daylybudget);
+                    dailyBudgetSums.set(i, dailyBudgetSums.get(i) + daylybudget);
                 }
                 else
                 {
                     daylyBudget.put(budgetPost, residualMonthlyBudgetPost); //last day gets cut decimals
+                    dailyBudgetSums.set(i, dailyBudgetSums.get(i) + residualMonthlyBudgetPost);
                 }
             }
         }
@@ -181,14 +191,14 @@ public class BudgetPlan
         List<Product> products = Market.getMarket().getAllProducts(type);
         Integer marketPriceUtilUnit = Market.getMarket().getProductPrice();
         //Go threw sorted list and collect items
-        for(Product product : products)
+        for (Product product : products)
         {
-            if(product.utilityUnits * marketPriceUtilUnit <= money)
+            if (product.utilityUnits * marketPriceUtilUnit <= money)
             {
                 shoppingCart.add(product);
                 money -= product.utilityUnits * marketPriceUtilUnit;
             }
-            if(money == 0)
+            if (money == 0)
                 break;
         }
         return shoppingCart;
@@ -291,7 +301,7 @@ public class BudgetPlan
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < numberOfDays; i++)
         {
-            stringBuilder.append(DayOfWeek.of(i + 1) + ": ");
+            stringBuilder.append(DayOfWeek.of(i + 1) + " sum: " + dailyBudgetSums.get(i));
             stringBuilder.append(dailyBudgets.get(i).toString() + "\n");
         }
         return stringBuilder.toString();
@@ -300,7 +310,7 @@ public class BudgetPlan
     public String budgetData()
     {
         return person.getName() + ":\n" +
-                "Monthly: " + monthBudget.toString() + "\n" +
+                "Monthly: " + monthlyBudgetSum + " : " + monthBudget.toString() + "\n" +
                 daylyBudgetData();
     }
 
