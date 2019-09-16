@@ -66,6 +66,12 @@ public class PersonDetailController
         numberTraffic.setText(person.getUtilFromType(IndustryType.TRAFFIC).toString());
         numberEducation.setText(person.getUtilFromType(IndustryType.EDUCATION).toString());
         numberSparetime.setText(person.getUtilFromType(IndustryType.SPARETIME).toString());
+    }
 
+    @FXML
+    private void showStorageDetail()
+    {
+        System.out.println("Storage Detail Screen");
     }
 }
+
