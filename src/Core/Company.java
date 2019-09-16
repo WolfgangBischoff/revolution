@@ -6,8 +6,7 @@ import Core.Enums.IndustryType;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Util.COMP_DEFAULT_DEPOSIT;
-import static Core.Util.COMP_DEFAULT_INDUSTRY;
+import static Core.Util.*;
 
 public class Company implements ProductOwner {
     private String name;
@@ -66,10 +65,30 @@ public class Company implements ProductOwner {
 
     protected void produce()
     {
-        int capacity = 3;
-        int effectiveProd = (int) (capacity * calcProductionEffectivity());
-        for (int i = 0; i < effectiveProd; i++)
-            produceProduct(i+1);
+        int usedCapacity = 0;
+        int capacity = COMPANY_UTIL_CAPACITY_DEFAULT;
+        float ratioLarge = 0.5f;
+        float ratioMedium = 0.2f;
+        int effectiveCapacity = (int) (capacity * calcProductionEffectivity());
+
+        int numberLarge = (int)((ratioLarge * effectiveCapacity) / UTILITY_LARGE);
+        int numberMedium = (int)((ratioMedium * effectiveCapacity) / UTILITY_MEDIUM);
+
+        for (int i=0; i < numberLarge; i++)
+        {
+            produceProduct(UTILITY_LARGE); usedCapacity += UTILITY_LARGE;
+            //System.out.println("L Used: " + usedCapacity);
+        }
+        for (int i=0; i < numberMedium; i++)
+        {
+            produceProduct(UTILITY_MEDIUM);usedCapacity += UTILITY_MEDIUM;
+            //System.out.println("M Used: " + usedCapacity);
+        }
+        for (; usedCapacity < effectiveCapacity ; )
+        {
+            produceProduct(UTILITY_SMALL);usedCapacity += UTILITY_SMALL;
+            //System.out.println("S Used: " + usedCapacity + " of " + effectiveCapacity);
+        }
     }
 
     @Override

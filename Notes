@@ -1,10 +1,9 @@
 
 KNOWN BUGS:
-    Pay lOans with Qucikstart, check if budget <= deposit
+
 
 TODOS:
     Update GUI with products
-    Add production sizes to Util
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
     Add product config txt
 
