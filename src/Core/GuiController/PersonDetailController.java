@@ -18,7 +18,7 @@ public class PersonDetailController
     @FXML
     private Text name;
     @FXML
-    private Button back;
+    private Button back, showStorageDetail;
     @FXML
     private Text age, edu, deposit, grossincome, worksat, effectivehappiness,
             numberFood, numberClothing, numberHousing, numberEnergy, numberElectronics, numberHealth, numberTraffic, numberEducation, numberSparetime;
@@ -50,6 +50,12 @@ public class PersonDetailController
             GameWindow.getSingleton().createNextScene("../fxml/personList.fxml");
         });
 
+        showStorageDetail.setOnAction((event -> {
+            System.out.println("StorageDetail");
+            StorageOverviewController storageOverviewController = new StorageOverviewController(person.getProductStorage());
+            GameWindow.getSingleton().createNextScene(storageOverviewController.load());
+        }));
+
         name.setText(person.getName().toString());
         age.setText(person.getAge().toString());
         effectivehappiness.setText(person.getEffectiveHappiness().toString());
@@ -68,10 +74,6 @@ public class PersonDetailController
         numberSparetime.setText(person.getUtilFromType(IndustryType.SPARETIME).toString());
     }
 
-    @FXML
-    private void showStorageDetail()
-    {
-        System.out.println("Storage Detail Screen");
-    }
+
 }
 

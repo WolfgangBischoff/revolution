@@ -1,16 +1,17 @@
 package Core;
 
 import Core.Enums.IndustryType;
-import javafx.collections.transformation.SortedList;
 
 import java.util.*;
 
 import static Core.Enums.IndustryType.*;
 
-class UtilityValueComparator implements Comparator<Product> {
+class UtilityValueComparator implements Comparator<Product>
+{
 
     @Override
-    public int compare(Product o1, Product o2) {
+    public int compare(Product o1, Product o2)
+    {
         return o2.utilityUnits.compareTo(o1.utilityUnits); //descending
     }
 }
@@ -119,7 +120,7 @@ public class ProductStorage
     {
         Integer sum = 0;
         List<Product> summedUp = products.get(type);
-        for(Product product : summedUp)
+        for (Product product : summedUp)
             sum += product.utilityUnits;
         return sum;
     }
@@ -127,7 +128,7 @@ public class ProductStorage
     public Integer calcUtilSum()
     {
         Integer sum = 0;
-        for(Map.Entry<IndustryType, List<Product>> type : products.entrySet())
+        for (Map.Entry<IndustryType, List<Product>> type : products.entrySet())
             sum += calcUtilSum(type.getKey());
         return sum;
     }
@@ -150,5 +151,8 @@ public class ProductStorage
         return sum;
     }
 
-
+    public ProductOwner getOwner()
+    {
+        return owner;
+    }
 }

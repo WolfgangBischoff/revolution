@@ -318,4 +318,9 @@ public class Person implements ProductOwner
     {
         return productStorage.calcUtilSum(type);
     }
+
+    public ProductStorage getProductStorage()
+    {
+        return productStorage;
+    }
 }

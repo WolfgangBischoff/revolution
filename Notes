@@ -3,7 +3,8 @@ KNOWN BUGS:
 
 
 TODOS:
-    Update GUI with products
+    Add GUI StorageView
+
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
     Add product config txt
 
