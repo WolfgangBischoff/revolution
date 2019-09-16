@@ -313,4 +313,9 @@ public class Person implements ProductOwner
     {
         return productStorage.size();
     }
+
+    public Integer getUtilFromType(IndustryType type)
+    {
+        return productStorage.calcUtilSum(type);
+    }
 }

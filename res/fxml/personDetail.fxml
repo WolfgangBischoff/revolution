@@ -18,10 +18,20 @@
     <Label text="Deposit:" GridPane.columnIndex="0" GridPane.rowIndex="4"/><Text fx:id="deposit" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     <Label text="Gross Income:" GridPane.columnIndex="0" GridPane.rowIndex="5"/><Text fx:id="grossincome" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
     <Label text="Works at:" GridPane.columnIndex="0" GridPane.rowIndex="6"/><Text fx:id="worksat" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-    <Label text="Food:" GridPane.columnIndex="0" GridPane.rowIndex="7"/><Text fx:id="numberProducts" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+    <Label text="Food:" GridPane.columnIndex="0" GridPane.rowIndex="7"/><Text fx:id="numberFood" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+    <Label text="Cloths:" GridPane.columnIndex="0" GridPane.rowIndex="8"/><Text fx:id="numberClothing" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+    <Label text="Housing:" GridPane.columnIndex="0" GridPane.rowIndex="9"/><Text fx:id="numberHousing" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+    <Label text="Energy:" GridPane.columnIndex="0" GridPane.rowIndex="10"/><Text fx:id="numberEnergy" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+    <Label text="Electronics:" GridPane.columnIndex="0" GridPane.rowIndex="11"/><Text fx:id="numberElectronics" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
+    <Label text="Health:" GridPane.columnIndex="0" GridPane.rowIndex="12"/><Text fx:id="numberHealth" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
+    <Label text="Traffic:" GridPane.columnIndex="0" GridPane.rowIndex="13"/><Text fx:id="numberTraffic" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
+    <Label text="Education:" GridPane.columnIndex="0" GridPane.rowIndex="14"/><Text fx:id="numberEducation" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
+    <Label text="Sparetime:" GridPane.columnIndex="0" GridPane.rowIndex="15"/><Text fx:id="numberSparetime" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
+
+    <Button fx:id="back" text="back" GridPane.columnIndex="1" GridPane.rowIndex="17"/>
+    <Button text="Storage Detail" GridPane.columnIndex="0" GridPane.rowIndex="16"/>
 
 
-    <Button fx:id="back" text="back" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
 
 </GridPane>
 

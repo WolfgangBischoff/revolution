@@ -1,6 +1,6 @@
 package Core.GuiController;
 
-import Core.Enums.BudgetPost;
+import Core.Enums.IndustryType;
 import Core.GameWindow;
 import Core.Person;
 import javafx.fxml.FXML;
@@ -20,7 +20,8 @@ public class PersonDetailController
     @FXML
     private Button back;
     @FXML
-    private Text age, edu, deposit, grossincome, worksat, effectivehappiness, numberProducts;
+    private Text age, edu, deposit, grossincome, worksat, effectivehappiness,
+            numberFood, numberClothing, numberHousing, numberEnergy, numberElectronics, numberHealth, numberTraffic, numberEducation, numberSparetime;
 
 
     public PersonDetailController(Person person)
@@ -56,6 +57,15 @@ public class PersonDetailController
         deposit.setText(person.getDeposit().toString());
         grossincome.setText(person.getGrossIncome().toString());
         worksat.setText(person.printWorksAt());
-        numberProducts.setText(person.getNumberProducts().toString());
+        numberFood.setText(person.getUtilFromType(IndustryType.FOOD).toString());
+        numberClothing.setText(person.getUtilFromType(IndustryType.CLOTHS).toString());
+        numberHousing.setText(person.getUtilFromType(IndustryType.HOUSING).toString());
+        numberEnergy.setText(person.getUtilFromType(IndustryType.ENERGY).toString());
+        numberElectronics.setText(person.getUtilFromType(IndustryType.ELECTRONICS).toString());
+        numberHealth.setText(person.getUtilFromType(IndustryType.HEALTH).toString());
+        numberTraffic.setText(person.getUtilFromType(IndustryType.TRAFFIC).toString());
+        numberEducation.setText(person.getUtilFromType(IndustryType.EDUCATION).toString());
+        numberSparetime.setText(person.getUtilFromType(IndustryType.SPARETIME).toString());
+
     }
 }

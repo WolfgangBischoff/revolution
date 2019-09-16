@@ -115,6 +115,23 @@ public class ProductStorage
         return numberProducts;
     }
 
+    public Integer calcUtilSum(IndustryType type)
+    {
+        Integer sum = 0;
+        List<Product> summedUp = products.get(type);
+        for(Product product : summedUp)
+            sum += product.utilityUnits;
+        return sum;
+    }
+
+    public Integer calcUtilSum()
+    {
+        Integer sum = 0;
+        for(Map.Entry<IndustryType, List<Product>> type : products.entrySet())
+            sum += calcUtilSum(type.getKey());
+        return sum;
+    }
+
     public Integer size(IndustryType type)
     {
         return products.get(type).size();
