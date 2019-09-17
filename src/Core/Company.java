@@ -15,6 +15,7 @@ public class Company implements ProductOwner
     private IndustryType industry;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
     private ArrayList<Product> products = new ArrayList<>();
+    private static final String COMPANYNAMESPATH = "./res/txt/";
 
     //Constructors
     public Company(String name)
@@ -191,35 +192,35 @@ public class Company implements ProductOwner
 
     static String getRandomCompanyName(IndustryType type)
     {
-        String[] names = {"HOFER", "Capgemini", "Allianz", "Löwenherz", "Swing Kitchen", "PWC", "Kiss Bar", "Segafredo", "Merkur", "Maran Vegan", "Lenovo", "Bayer", "Young Living", "Samsung", "Wiener Linien", "Dachser"};
+        String[] names = null;
         switch (type)
         {
             case FOOD:
-                names = Util.readFromTxt("./res/txt/companyNamesFood.csv");
+                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesFood.csv");
                 break;
             case CLOTHS:
-                names = Util.readFromTxt("./res/txt/companyNamesCloths.csv");
+                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesCloths.csv");
                 break;
             case SPARETIME:
-                names = Util.readFromTxt("./res/txt/companyNamesSparetime.csv");
+                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesSparetime.csv");
                 break;
             case EDUCATION:
-                names = Util.readFromTxt("./res/txt/companyNamesEducation.csv");
+                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesEducation.csv");
                 break;
             case TRAFFIC:
-                names = Util.readFromTxt("./res/txt/companyNamesTraffic.csv");
+                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesTraffic.csv");
                 break;
             case HOUSING:
-                names = Util.readFromTxt("./res/txt/companyNamesHousing.csv");
+                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesHousing.csv");
                 break;
             case HEALTH:
-                names = Util.readFromTxt("./res/txt/companyNamesHealth.csv");
+                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesHealth.csv");
                 break;
             case ENERGY:
-                names = Util.readFromTxt("./res/txt/companyNamesEnergy.csv");
+                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesEnergy.csv");
                 break;
             case ELECTRONICS:
-                names = Util.readFromTxt("./res/txt/companyNamesElectronics.csv");
+                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesElectronics.csv");
                 break;
         }
 
