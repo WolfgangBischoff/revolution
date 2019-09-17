@@ -4,6 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 <GridPane xmlns:fx="http://javafx.com/fxml" hgap="5">
 
     <stylesheets>
@@ -11,6 +13,14 @@
     </stylesheets>
 
     <Text fx:id="name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+    <TabPane  GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <Tab fx:id="foodTab" text="Food"/>
+            <Tab fx:id="clothsTabPage" text="Cloths"/>
+            <Tab fx:id="housingTabPage" text="Housing"/>
+            <Tab fx:id="educationTabPage" text="Education"/>
+    </TabPane>
+
 
     <Button fx:id="backButton" text="back" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
 
