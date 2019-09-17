@@ -224,13 +224,15 @@ public class Person implements ProductOwner
     //Helper
     static String chooseRandomFirstname()
     {
-        String[] firstnames = {"Wolfgang", "Markus", "Hans", "Stefan", "Elisabeth", "Sebastian", "Juraj", "Anna", "Michael", "Eva", "Stefanie", "Tobias", "Alexander"};
+        String[] firstnames = Util.readFromTxt("./res/txt/personFirstnames.csv");
+        //String[] firstnames = {"Wolfgang", "Markus", "Hans", "Stefan", "Elisabeth", "Sebastian", "Juraj", "Anna", "Michael", "Eva", "Stefanie", "Tobias", "Alexander"};
         return firstnames[getRandom().nextInt(firstnames.length)];
     }
 
     static String chooseRandomLastname()
     {
-        String[] lastnames = {"Bischoff", "Delitz", "Otto", "Lempa", "Rosenkranz", "Pay", "Veres", "Markt", "Mitterer", "Storf", "Sprengnagel", "Park", "Husarl"};
+        String[] lastnames = Util.readFromTxt("./res/txt/personLastnames.csv");
+        //String[] lastnames = {"Bischoff", "Delitz", "Otto", "Lempa", "Rosenkranz", "Pay", "Veres", "Markt", "Mitterer", "Storf", "Sprengnagel", "Park", "Husarl"};
         return lastnames[getRandom().nextInt(lastnames.length)];
     }
 

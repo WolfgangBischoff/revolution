@@ -57,7 +57,7 @@ public class Economy
 
     public Company addCompany(IndustryType industry)
     {
-        String UniqueName = createUniqueCompanyName(Company.getRandomCompanyName());
+        String UniqueName = createUniqueCompanyName(Company.getRandomCompanyName(industry));
         Company newCompany = new Company(UniqueName, industry, NUM_BASE_EDU_WORKPLACES, NUM_APPR_EDU_WORKPLACES, NUM_HIGH_EDU_WORKPLACES, NUM_UNIV_EDU_WORKPLACES);
         companies.add(newCompany);
         return newCompany;

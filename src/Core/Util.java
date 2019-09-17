@@ -1,9 +1,11 @@
 package Core;
 
-import Core.Enums.BudgetPost;
 import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Random;
@@ -72,7 +74,6 @@ public class Util
     public static final Integer UTILITY_LARGE = 5;
 
 
-
     //Economy
     public static final Integer DEFAULT_NUM_COMPANIES = 3;//IndustryType.getEnumSize();
 
@@ -81,9 +82,9 @@ public class Util
     //Interpreter
 
 
-
     //Random
     static Random rand = new Random();
+
     public static Random getRandom()
     {
         return rand;
@@ -98,13 +99,35 @@ public class Util
         return Double.valueOf(df.format(input));
     }
 
-    public static boolean tryParseInt(String value) {
-        try {
+    public static boolean tryParseInt(String value)
+    {
+        try
+        {
             Integer.parseInt(value);
             return true;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException e)
+        {
             return false;
         }
+    }
+
+    public static String[] readFromTxt(String pathToCsv)
+    {
+        String row = null;
+        String[] data = null;
+        try
+        {
+            BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
+            while ((row = csvReader.readLine()) != null)
+            {
+                data = row.split(",");
+            }
+            csvReader.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return data;
     }
 
 }

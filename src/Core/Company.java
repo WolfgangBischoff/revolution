@@ -8,7 +8,8 @@ import java.util.List;
 
 import static Core.Util.*;
 
-public class Company implements ProductOwner {
+public class Company implements ProductOwner
+{
     private String name;
     private Integer deposit;
     private IndustryType industry;
@@ -38,7 +39,7 @@ public class Company implements ProductOwner {
         this(name, COMP_DEFAULT_INDUSTRY, base, app, high, univ);
     }
 
-    public Company(String name, IndustryType  industry, Integer base, Integer app, Integer high, Integer univ)
+    public Company(String name, IndustryType industry, Integer base, Integer app, Integer high, Integer univ)
     {
         this(name, industry);
         for (int i = 0; i < base; i++)
@@ -71,23 +72,23 @@ public class Company implements ProductOwner {
         float ratioMedium = 0.2f;
         int effectiveCapacity = (int) (capacity * calcProductionEffectivity());
 
-        int numberLarge = (int)((ratioLarge * effectiveCapacity) / UTILITY_LARGE);
-        int numberMedium = (int)((ratioMedium * effectiveCapacity) / UTILITY_MEDIUM);
+        int numberLarge = (int) ((ratioLarge * effectiveCapacity) / UTILITY_LARGE);
+        int numberMedium = (int) ((ratioMedium * effectiveCapacity) / UTILITY_MEDIUM);
 
-        for (int i=0; i < numberLarge; i++)
+        for (int i = 0; i < numberLarge; i++)
         {
-            produceProduct(UTILITY_LARGE); usedCapacity += UTILITY_LARGE;
-            //System.out.println("L Used: " + usedCapacity);
+            produceProduct(UTILITY_LARGE);
+            usedCapacity += UTILITY_LARGE;
         }
-        for (int i=0; i < numberMedium; i++)
+        for (int i = 0; i < numberMedium; i++)
         {
-            produceProduct(UTILITY_MEDIUM);usedCapacity += UTILITY_MEDIUM;
-            //System.out.println("M Used: " + usedCapacity);
+            produceProduct(UTILITY_MEDIUM);
+            usedCapacity += UTILITY_MEDIUM;
         }
-        for (; usedCapacity < effectiveCapacity ; )
+        for (; usedCapacity < effectiveCapacity; )
         {
-            produceProduct(UTILITY_SMALL);usedCapacity += UTILITY_SMALL;
-            //System.out.println("S Used: " + usedCapacity + " of " + effectiveCapacity);
+            produceProduct(UTILITY_SMALL);
+            usedCapacity += UTILITY_SMALL;
         }
     }
 
@@ -98,14 +99,15 @@ public class Company implements ProductOwner {
     }
 
     @Override
-    public void removeProduct(Product product) {
+    public void removeProduct(Product product)
+    {
         products.remove(product);
     }
 
     @Override
     public void getPaid(Integer amount)
     {
-        deposit+=amount;
+        deposit += amount;
     }
 
     @Override
@@ -187,9 +189,40 @@ public class Company implements ProductOwner {
             return false;
     }
 
-    static String getRandomCompanyName()
+    static String getRandomCompanyName(IndustryType type)
     {
         String[] names = {"HOFER", "Capgemini", "Allianz", "Löwenherz", "Swing Kitchen", "PWC", "Kiss Bar", "Segafredo", "Merkur", "Maran Vegan", "Lenovo", "Bayer", "Young Living", "Samsung", "Wiener Linien", "Dachser"};
+        switch (type)
+        {
+            case FOOD:
+                names = Util.readFromTxt("./res/txt/companyNamesFood.csv");
+                break;
+            case CLOTHS:
+                names = Util.readFromTxt("./res/txt/companyNamesCloths.csv");
+                break;
+            case SPARETIME:
+                names = Util.readFromTxt("./res/txt/companyNamesSparetime.csv");
+                break;
+            case EDUCATION:
+                names = Util.readFromTxt("./res/txt/companyNamesEducation.csv");
+                break;
+            case TRAFFIC:
+                names = Util.readFromTxt("./res/txt/companyNamesTraffic.csv");
+                break;
+            case HOUSING:
+                names = Util.readFromTxt("./res/txt/companyNamesHousing.csv");
+                break;
+            case HEALTH:
+                names = Util.readFromTxt("./res/txt/companyNamesHealth.csv");
+                break;
+            case ENERGY:
+                names = Util.readFromTxt("./res/txt/companyNamesEnergy.csv");
+                break;
+            case ELECTRONICS:
+                names = Util.readFromTxt("./res/txt/companyNamesElectronics.csv");
+                break;
+        }
+
         return names[Util.getRandom().nextInt(names.length)];
     }
 
