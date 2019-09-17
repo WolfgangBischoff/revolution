@@ -189,7 +189,7 @@ public class BudgetPlan
     {
         List<Product> shoppingCart = new ArrayList<>();
         List<Product> products = Market.getMarket().getAllProducts(type);
-        Integer marketPriceUtilUnit = Market.getMarket().getProductPrice();
+        Integer marketPriceUtilUnit = Market.getMarket().getProductPrice(type);
         //Go threw sorted list and collect items
         for (Product product : products)
         {
@@ -225,13 +225,13 @@ public class BudgetPlan
                 demand -= demand - supply;
             }
             //Not enough money
-            if (Market.getMarket().getProductPrice() * demand > deposit)
+            if (Market.getMarket().getProductPrice(type) * demand > deposit)
             {
-                demandReduction += demand - (deposit / Market.getMarket().getProductPrice());
-                demand -= demand - (deposit / Market.getMarket().getProductPrice());
+                demandReduction += demand - (deposit / Market.getMarket().getProductPrice(type));
+                demand -= demand - (deposit / Market.getMarket().getProductPrice(type));
             }
             //reduceBudget
-            deposit -= demand * Market.getMarket().getProductPrice();
+            deposit -= demand * Market.getMarket().getProductPrice(type);
 
             if (demandReduction > 0)
                 productsNotBuyable.put(type, demandReduction);

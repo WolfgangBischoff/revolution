@@ -149,8 +149,9 @@ public class Market implements ProductOwner
         return bought;
     }
 
-    public Integer getProductPrice()
+    public Integer getProductPrice(IndustryType type)
     {
+        //Different prices TODO
         return productPrice;
     }
 

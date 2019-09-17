@@ -1,7 +1,6 @@
 package Core;
 
 import Core.Enums.IndustryType;
-
 import java.util.List;
 
 public class Product
@@ -39,6 +38,14 @@ public class Product
         {
             transfer(sender, receipient, p);
         }
+    }
+
+    public static Integer calcPrice(List<Product> products)
+    {
+        Integer total = 0;
+        for(Product p : products)
+            total += Market.getMarket().getProductPrice(p.type) * p.utilityUnits;
+        return total;
     }
 
     //Prints
