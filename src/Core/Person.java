@@ -142,17 +142,23 @@ public class Person implements ProductOwner
     @Override
     public void pay(Product product)
     {
-        deposit -= Market.getMarket().getProductPrice(product.type) * product.utilityUnits;
-        product.owner.getPaid(Market.getMarket().getProductPrice(product.type));
+        Integer price = Market.getMarket().getProductPrice(product.type) * product.utilityUnits;
+        deposit -= price;
+        product.setPriceProductWasBought(price);
+        product.owner.getPaid(price);
     }
 
     @Override
     public void pay(List<Product> products)
     {
-        Integer total = Product.calcPrice(products);
-        deposit -= total;
+        //Integer total = Product.calcPrice(products);
+        //deposit -= total;
         for (Product product : products)
-            product.owner.getPaid(Market.getMarket().getProductPrice(product.type) * product.utilityUnits);
+        {
+            pay(product);
+            //product.setPriceProductWasBought(Market.getMarket().getProductPrice(product.type) * product.utilityUnits);
+            //product.owner.getPaid(Market.getMarket().getProductPrice(product.type) * product.utilityUnits);
+        }
     }
 
 

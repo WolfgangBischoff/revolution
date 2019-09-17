@@ -2,10 +2,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.ListView?>
 <GridPane xmlns:fx="http://javafx.com/fxml">
 
-<Text fx:id="headline" text="Product List"/>
-
-
-
+<Text fx:id="headline" text="Product List" GridPane.rowIndex="0"/>
+<ListView fx:id="productsList" GridPane.rowIndex="1"/>
+    <GridPane fx:id="productDetail" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 </GridPane>

@@ -28,6 +28,14 @@ public class Society
         societyStatistics.calcAll();
     }
 
+    public void shop()
+    {
+        for(Person p : people)
+            p.shop();
+        societyStatistics.calcAll();
+        Simulation.getSingleton().getEconomy().calc();
+    }
+
     //Prints
     @Override
     public String toString()

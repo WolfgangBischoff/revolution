@@ -495,9 +495,10 @@ public class Interpreter {
 
     private void societyBuy()
     {
-        for(Person p : society.getPeople())
+        society.shop();
+        /*for(Person p : society.getPeople())
             p.shop();
-        society.calcSociety();
+        society.calcSociety();*/
         print("Society shopped");
     }
 

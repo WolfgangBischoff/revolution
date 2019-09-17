@@ -8,11 +8,12 @@ public class Product
     private static Integer nextProductID = 1;
     Integer productID;
     String name;
-    Company producent;
+    private Company producent;
     ProductOwner owner;
-    ProductOwner previousOwner;
+    private ProductOwner previousOwner;
     IndustryType  type;
     Integer utilityUnits;
+    private Integer priceProductWasBought = null; //price the product was bought
 
     public Product(String name, Company producer, ProductOwner owner, IndustryType type, Integer utilityUnits)
     {
@@ -51,7 +52,7 @@ public class Product
     //Prints
     @Override
     public String toString() {
-        return "Product{" +
+        return "\nProduct{" +
                 //"productID=" + productID +
                 //", name='" + name + '\'' +
                 ", producent=" + producent.getName() +
@@ -65,5 +66,26 @@ public class Product
     public String baseData()
     {
         return "ID: " + productID + " " + name + " Type: " + type + " Utility: " + utilityUnits;
+    }
+
+    //Getter
+    public String getName()
+    {
+        return name;
+    }
+
+    public Integer getUtilityUnits()
+    {
+        return utilityUnits;
+    }
+
+    public void setPriceProductWasBought(Integer priceProductWasBought)
+    {
+        this.priceProductWasBought = priceProductWasBought;
+    }
+
+    public Integer getPriceProductWasBought()
+    {
+        return priceProductWasBought;
     }
 }

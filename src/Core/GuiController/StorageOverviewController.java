@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -43,11 +45,13 @@ public class StorageOverviewController
         name.setText(storageOwner.getName());
 
         //Init Tabs
-        foodTab.setGraphic(new Circle(0, 0, 10));
-        foodTab.setContent(new ProductDetailTabPageController(storage, IndustryType.FOOD).load());
-        clothsTabPage.setContent(new ProductDetailTabPageController(storage, IndustryType.CLOTHS).load());
-        housingTabPage.setContent(new ProductDetailTabPageController(storage, IndustryType.HOUSING).load());
-        educationTabPage.setContent(new ProductDetailTabPageController(storage, IndustryType.EDUCATION).load());
+        //foodTab.setGraphic(new Circle(0, 0, 10));
+        foodTab.setGraphic(new ImageView(new Image("/img/food.png", 20,20,false,false)));
+
+        foodTab.setContent(new StorageOverviewTabPageController(storage, IndustryType.FOOD).load());
+        clothsTabPage.setContent(new StorageOverviewTabPageController(storage, IndustryType.CLOTHS).load());
+        housingTabPage.setContent(new StorageOverviewTabPageController(storage, IndustryType.HOUSING).load());
+        educationTabPage.setContent(new StorageOverviewTabPageController(storage, IndustryType.EDUCATION).load());
 
         backButton.setOnAction((event) -> {
             //Create PersonDetailViewController which can pass a parameter

@@ -48,5 +48,6 @@ public class mainMenuController
         Simulation.getSingleton().getEconomy().populateEconomy(Util.DEFAULT_NUM_COMPANIES);
         Simulation.getSingleton().getEconomy().fillWorkplaces();
         Simulation.getSingleton().getEconomy().comaniesProduce();
+        Simulation.getSingleton().getSociety().shop();
     }
 }

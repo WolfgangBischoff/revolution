@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.text.Text?>
+<GridPane xmlns:fx="http://javafx.com/fxml" hgap="5" fx:id="gridpane">
+    <HBox>
+        <VBox>
+            <Text text="name" fx:id="name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+            <HBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <Text text="size" fx:id="size"/>
+                <Text fx:id="price"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</GridPane>
