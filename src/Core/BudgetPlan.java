@@ -195,14 +195,18 @@ public class BudgetPlan
     {
         Integer currentBaseUtil = 0;
         Integer needBaseUtil = person.needs.get(type);
-        SizeLoop: for (List<Product> sortedLuxuryUtilList : sameBaseUtilProductList)//For Sizes
+        SizeLoop:
+        for (List<Product> sortedLuxuryUtilList : sameBaseUtilProductList)//For Sizes
         {
 
             Integer priceCheapestProduct = sortedLuxuryUtilList.get(0).calcPrice();
-            for(Product otherProduct : sortedLuxuryUtilList)
+            Integer additionalBaseUtil = sortedLuxuryUtilList.get(0).utilityBase;
+            for (Product otherProduct : sortedLuxuryUtilList)
             {
                 //buy products with same price till no money
-                if (priceCheapestProduct == otherProduct.calcPrice() && otherProduct.calcPrice() <= budget)
+                if (priceCheapestProduct == otherProduct.calcPrice() &&
+                        otherProduct.calcPrice() <= budget &&
+                        needBaseUtil >= (currentBaseUtil + additionalBaseUtil)) //to avoid too much base util
                 {
                     shoppingCart.add(otherProduct);
                     budget -= priceCheapestProduct;
@@ -220,36 +224,48 @@ public class BudgetPlan
 
     private List<Product> createShoppingCartMaxLuxury(List<List<Product>> sameBaseUtilProductList, List<Product> shoppingCart, Integer additionalBudget)
     {
-        //if multiple poducts of one size are in cart from base cart creation, we optimize one of them
-        for (int j = 0; j < shoppingCart.size(); j++) //Try to improve each product
-        {
-            Product tmpBestProduct = shoppingCart.get(j);
-            additionalBudget += tmpBestProduct.calcPrice();//We may no buy this product anymore
-
-            ProductSize: for (List<Product> sortedLuxuryUtilList : sameBaseUtilProductList) //Iterate all product sizes
+        for (List<Product> sortedLuxuryUtilList : sameBaseUtilProductList) //Iterate all product sizes
             {
-                if (sortedLuxuryUtilList.contains(tmpBestProduct)) //This size is relevant
+                System.out.println("START " + sortedLuxuryUtilList.get(0).utilityBase);
+                //TODO filter shopping cart to just one util value
+                additionalBudget = maxLuxuryOneSize(sortedLuxuryUtilList, shoppingCart, additionalBudget);
+            }
+        return shoppingCart;
+    }
+
+    private Integer maxLuxuryOneSize(List<Product> possibleBetterProducts, List<Product> shoppingCart, Integer additionalBudget)
+    {
+        List<Product> bestFoundProductsInBudget = shoppingCart;
+        boolean productImproved = true;
+        while (productImproved)
+        {
+            productImproved = false;
+            shoppingCartItem: for (int i = 0; i < bestFoundProductsInBudget.size(); i++) //Try to better each product step by step
+            {
+                Product toBeImproved = bestFoundProductsInBudget.get(i);
+                System.out.println("Try Improve: " + toBeImproved);
+                //improve one step
+                for (Product checkIfBetter : possibleBetterProducts)
                 {
-                    for (int i = 0; i < sortedLuxuryUtilList.size(); i++) //Iterate all maybe better products
-                    {
-                        if(shoppingCart.contains(sortedLuxuryUtilList.get(i))) //if we look to products that are already in base cart
-                            continue;
-                        Integer priceNewProduct = sortedLuxuryUtilList.get(i).calcPrice();
-                        Integer luxuryNewProduct = sortedLuxuryUtilList.get(i).utilityLuxury;
-                        if (additionalBudget >= priceNewProduct && luxuryNewProduct > tmpBestProduct.utilityLuxury) //affordable and more luxury
+                    if(checkIfBetter.utilityBase != toBeImproved.utilityBase)//If we reach shopping card item with other base utils
+                        break shoppingCartItem; //TODO here is bug, just overgive fitting shopping card items
+
+                    int costIncreaseForBetterProduct = checkIfBetter.calcPrice() - toBeImproved.calcPrice();
+                    if (!shoppingCart.contains(checkIfBetter)) //Found product which is already in cart
+                        if (checkIfBetter.utilityLuxury > toBeImproved.utilityLuxury && costIncreaseForBetterProduct <= additionalBudget)
                         {
-                            tmpBestProduct = sortedLuxuryUtilList.get(i);
+                            System.out.println("Improved: " + checkIfBetter);
+                            additionalBudget -= costIncreaseForBetterProduct;
+                            bestFoundProductsInBudget.set(i, checkIfBetter);
+                            productImproved = true;
+                            break; //To let the other product improve
                         }
-
-
-                    }
-                    additionalBudget -= tmpBestProduct.calcPrice();
-                    break ProductSize;
                 }
             }
-            shoppingCart.set(j, tmpBestProduct);
+
         }
-        return shoppingCart;
+
+        return additionalBudget;
     }
 
 

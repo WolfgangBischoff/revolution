@@ -58,7 +58,7 @@ public class Product
     @Override
     public String toString() {
         return "\nProduct{" +
-                //"productID=" + productID +
+                "productID=" + productID +
                 //", name='" + name + '\'' +
                 ", producent=" + producent.getName() +
                 //", owner=" + owner.getName() +

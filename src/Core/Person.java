@@ -143,7 +143,7 @@ public class Person implements ProductOwner
         //Get available shopping cart of day
         List<Product> shoppingCart = budgetPlan.getShoppingCartChecked();
         List<Product> bought = Market.getMarket().sellProductsUnchecked(this, shoppingCart);
-        //System.out.println("\n" + getName() + " bought: " + bought.toString());
+        System.out.println("\n" + getName() + " bought: " + bought.toString());
 
         //calc
     }
@@ -166,13 +166,9 @@ public class Person implements ProductOwner
     @Override
     public void pay(List<Product> products)
     {
-        //Integer total = Product.calcPrice(products);
-        //deposit -= total;
         for (Product product : products)
         {
             pay(product);
-            //product.setPriceProductWasBought(Market.getMarket().getProductPrice(product.type) * product.utilityBase);
-            //product.owner.getPaid(Market.getMarket().getProductPrice(product.type) * product.utilityBase);
         }
     }
 
@@ -240,14 +236,12 @@ public class Person implements ProductOwner
     static String chooseRandomFirstname()
     {
         String[] firstnames = Util.readFirstLineFromTxt(PERSONNAMESPATH + "personFirstnames.csv");
-        //String[] firstnames = {"Wolfgang", "Markus", "Hans", "Stefan", "Elisabeth", "Sebastian", "Juraj", "Anna", "Michael", "Eva", "Stefanie", "Tobias", "Alexander"};
         return firstnames[getRandom().nextInt(firstnames.length)];
     }
 
     static String chooseRandomLastname()
     {
         String[] lastnames = Util.readFirstLineFromTxt(PERSONNAMESPATH + "personLastnames.csv");
-        //String[] lastnames = {"Bischoff", "Delitz", "Otto", "Lempa", "Rosenkranz", "Pay", "Veres", "Markt", "Mitterer", "Storf", "Sprengnagel", "Park", "Husarl"};
         return lastnames[getRandom().nextInt(lastnames.length)];
     }
 

@@ -76,8 +76,8 @@ public class Company implements ProductOwner
     {
         int usedCapacity = 0;
         int capacity = COMPANY_UTIL_CAPACITY_DEFAULT;
-        float ratioLarge = 0.0f;
-        float ratioMedium = 0.5f;
+        float ratioLarge = 0.5f;
+        float ratioMedium = 0.2f;
         int effectiveCapacity = (int) (capacity * calcProductionEffectivity());
 
         int numberLarge = (int) ((ratioLarge * effectiveCapacity) / UTILITY_LARGE);
@@ -92,7 +92,7 @@ public class Company implements ProductOwner
         {
             produceProduct(UTILITY_MEDIUM, i);
             produceProduct(UTILITY_MEDIUM, i);
-            usedCapacity += UTILITY_MEDIUM;
+            usedCapacity += UTILITY_MEDIUM*2;
         }
         for (; usedCapacity < effectiveCapacity; )
         {
