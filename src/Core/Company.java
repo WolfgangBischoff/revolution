@@ -4,7 +4,9 @@ import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static Core.Util.*;
 
@@ -15,7 +17,10 @@ public class Company implements ProductOwner
     private IndustryType industry;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
     private ArrayList<Product> products = new ArrayList<>();
-    private static final String COMPANYNAMESPATH = "./res/txt/";
+    private static final String COMPANYNAMESPATH = "./res/txt/names/companies/";
+    private static final String PRODUCTNAMESPATH = "./res/txt/names/products/";
+    private Map<Integer, String[]> productNamesPerSize = new HashMap<>();
+    private Double marginPercent = 0.1;
 
     //Constructors
     public Company(String name)
@@ -33,6 +38,12 @@ public class Company implements ProductOwner
         this.name = name;
         deposit = Initdeposit;
         this.industry = industry;
+        List<String[]> ss = Util.readAllLineFromTxt((PRODUCTNAMESPATH + "productNamesFood.csv"));
+        for(String[] s : ss)
+        {
+            //System.out.println(s[0]);
+        }
+        //productNamesPerSize;
     }
 
     public Company(String name, Integer base, Integer app, Integer high, Integer univ)
@@ -196,31 +207,31 @@ public class Company implements ProductOwner
         switch (type)
         {
             case FOOD:
-                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesFood.csv");
+                names = Util.readFirstLineFromTxt(COMPANYNAMESPATH + "companyNamesFood.csv");
                 break;
             case CLOTHS:
-                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesCloths.csv");
+                names = Util.readFirstLineFromTxt(COMPANYNAMESPATH + "companyNamesCloths.csv");
                 break;
             case SPARETIME:
-                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesSparetime.csv");
+                names = Util.readFirstLineFromTxt(COMPANYNAMESPATH + "companyNamesSparetime.csv");
                 break;
             case EDUCATION:
-                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesEducation.csv");
+                names = Util.readFirstLineFromTxt(COMPANYNAMESPATH + "companyNamesEducation.csv");
                 break;
             case TRAFFIC:
-                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesTraffic.csv");
+                names = Util.readFirstLineFromTxt(COMPANYNAMESPATH + "companyNamesTraffic.csv");
                 break;
             case HOUSING:
-                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesHousing.csv");
+                names = Util.readFirstLineFromTxt(COMPANYNAMESPATH + "companyNamesHousing.csv");
                 break;
             case HEALTH:
-                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesHealth.csv");
+                names = Util.readFirstLineFromTxt(COMPANYNAMESPATH + "companyNamesHealth.csv");
                 break;
             case ENERGY:
-                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesEnergy.csv");
+                names = Util.readFirstLineFromTxt(COMPANYNAMESPATH + "companyNamesEnergy.csv");
                 break;
             case ELECTRONICS:
-                names = Util.readFromTxt(COMPANYNAMESPATH + "companyNamesElectronics.csv");
+                names = Util.readFirstLineFromTxt(COMPANYNAMESPATH + "companyNamesElectronics.csv");
                 break;
         }
 
@@ -268,5 +279,11 @@ public class Company implements ProductOwner
     public Integer calcNumberProducts()
     {
         return products.size();
+    }
+
+    @Override
+    public double getMargin()
+    {
+        return marginPercent;
     }
 }

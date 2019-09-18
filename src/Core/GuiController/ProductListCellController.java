@@ -26,7 +26,7 @@ public class ProductListCellController extends ListCell<Product>
                 loadFXML();
 
                 name.setText(product.getName());
-                size.setText("Utility units: " + product.getUtilityUnits());
+                size.setText("Utility units: " + product.getUtilityBase());
                 price.setText("Price bought: " + product.getPriceProductWasBought());
                 setGraphic(gridpane);
 

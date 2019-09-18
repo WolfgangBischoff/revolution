@@ -8,12 +8,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Util
 {
     //Society
-    public static final Integer NUM_PERS_DEFAULT = 10;
+    public static final Integer NUM_PERS_DEFAULT = 40;
     public static final Integer RATION_BASIC_EDU = 20;
     public static final Integer RATION_APP_EDU = 35;
     public static final Integer RATION_HIGHER_EDU = 30;
@@ -75,7 +77,8 @@ public class Util
 
 
     //Economy
-    public static final Integer DEFAULT_NUM_COMPANIES = 3;//IndustryType.getEnumSize();
+    //public static final Integer DEFAULT_NUM_COMPANIES = 3;//IndustryType.getEnumSize();
+    public static final Integer DEFAULT_NUM_COMPANIES = IndustryType.getEnumSize();
 
     //Government
 
@@ -111,16 +114,33 @@ public class Util
         }
     }
 
-    public static String[] readFromTxt(String pathToCsv)
-    {
+    public static String[] readFirstLineFromTxt(String pathToCsv)
+    {//Reads first line
         String row = null;
         String[] data = null;
         try
         {
             BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
-            while ((row = csvReader.readLine()) != null)
+            row = csvReader.readLine();
+            data = row.split(",");
+            csvReader.close();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public static List<String[]> readAllLineFromTxt(String pathToCsv)
+    {//Reads all line
+        String row = null;
+        List<String[]> data = new ArrayList<>();
+        try
+        {
+            BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
+            while((row = csvReader.readLine()) != null)
             {
-                data = row.split(",");
+                data.add(row.split(","));
             }
             csvReader.close();
         } catch (IOException e)

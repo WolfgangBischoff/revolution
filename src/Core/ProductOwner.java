@@ -10,4 +10,5 @@ public interface ProductOwner
     void getPaid(Integer amount);
     void pay(Product product);
     void pay(List<Product> product);
+    double getMargin();
 }

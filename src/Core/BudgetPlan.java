@@ -10,7 +10,7 @@ import static Core.Enums.BudgetPost.*;
 import static Core.Util.*;
 import static java.time.DayOfWeek.*;
 
-/*
+/* WRONG
 utility-unit = 1
 In general budget for product-groups generates utility by: budget/price-utility-unit = #utility-unit * utility-unit = utility
 (later utility becomes happiness by Person Marginal Rate)
@@ -168,6 +168,13 @@ public class BudgetPlan
     {
         Map<IndustryType, Integer> shoppingBudget = createShoppingBudget();
         //System.out.println(person.getName() + " ShoppingCart Budget: " + shoppingBudget.toString());
+
+        //Create bundle with basic need min cost
+        //TODO
+        //Change bundle with max luxury
+
+
+
         //Create Bundle of what you can afford
         List<Product> shoppingCart = createBundle(shoppingBudget);
         //System.out.println(person.getName() + " ShoppingCart: " + shoppingCart.toString());
@@ -193,10 +200,10 @@ public class BudgetPlan
         //Go threw sorted list and collect items
         for (Product product : products)
         {
-            if (product.utilityUnits * marketPriceUtilUnit <= money)
+            if (product.utilityBase * marketPriceUtilUnit <= money)
             {
                 shoppingCart.add(product);
-                money -= product.utilityUnits * marketPriceUtilUnit;
+                money -= product.utilityBase * marketPriceUtilUnit;
             }
             if (money == 0)
                 break;

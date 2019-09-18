@@ -12,20 +12,29 @@ public class Product
     ProductOwner owner;
     private ProductOwner previousOwner;
     IndustryType  type;
-    Integer utilityUnits;
+    Integer utilityBase;
+    Integer utilityLuxury;
+    Integer numberUsable = 1;
     private Integer priceProductWasBought = null; //price the product was bought
 
-    public Product(String name, Company producer, ProductOwner owner, IndustryType type, Integer utilityUnits)
+    public Product(String name, Company producer, ProductOwner owner, IndustryType type, Integer utilityUnitsBase)
     {
         this.productID = nextProductID++;
         this.name = name;
         this.producent = producer;
         this.owner = owner;
         this.type = type;
-        this.utilityUnits = utilityUnits;
+        this.utilityBase = utilityUnitsBase;
+        this.utilityLuxury = 0;
     }
 
     //Calculation
+    public Integer calcPrice()
+    {
+        Integer priceWithtoutMargin = (utilityBase + utilityLuxury) * numberUsable;
+        return (int)(priceWithtoutMargin + priceWithtoutMargin * owner.getMargin());
+    }
+
     public static void transfer(ProductOwner sender, ProductOwner receipient, Product product)
     {
         product.previousOwner = product.owner;
@@ -45,7 +54,7 @@ public class Product
     {
         Integer total = 0;
         for(Product p : products)
-            total += Market.getMarket().getProductPrice(p.type) * p.utilityUnits;
+            total += Market.getMarket().getProductPrice(p.type) * p.utilityBase;
         return total;
     }
 
@@ -59,13 +68,13 @@ public class Product
                 //", owner=" + owner.getName() +
                 //", prev Owner: " + previousOwner.getName() +
                 ", type: " + type +
-                ", utility: " + utilityUnits +
+                ", utility: " + utilityBase +
                 '}';
     }
 
     public String baseData()
     {
-        return "ID: " + productID + " " + name + " Type: " + type + " Utility: " + utilityUnits;
+        return "ID: " + productID + " " + name + " Type: " + type + " Utility: " + utilityBase;
     }
 
     //Getter
@@ -74,9 +83,9 @@ public class Product
         return name;
     }
 
-    public Integer getUtilityUnits()
+    public Integer getUtilityBase()
     {
-        return utilityUnits;
+        return utilityBase;
     }
 
     public void setPriceProductWasBought(Integer priceProductWasBought)

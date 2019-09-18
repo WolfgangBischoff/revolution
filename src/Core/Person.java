@@ -3,7 +3,6 @@ package Core;
 import Core.Enums.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static Core.Util.*;
 
@@ -18,6 +17,7 @@ public class Person implements ProductOwner
     Workposition worksAt;
     private Integer deposit;
     private ProductStorage productStorage;
+    private final static String PERSONNAMESPATH = "./res/txt/names/persons/";
 
 
     EconomicLayer economicLayer;
@@ -142,7 +142,7 @@ public class Person implements ProductOwner
     @Override
     public void pay(Product product)
     {
-        Integer price = Market.getMarket().getProductPrice(product.type) * product.utilityUnits;
+        Integer price = Market.getMarket().getProductPrice(product.type) * product.utilityBase;
         deposit -= price;
         product.setPriceProductWasBought(price);
         product.owner.getPaid(price);
@@ -156,8 +156,8 @@ public class Person implements ProductOwner
         for (Product product : products)
         {
             pay(product);
-            //product.setPriceProductWasBought(Market.getMarket().getProductPrice(product.type) * product.utilityUnits);
-            //product.owner.getPaid(Market.getMarket().getProductPrice(product.type) * product.utilityUnits);
+            //product.setPriceProductWasBought(Market.getMarket().getProductPrice(product.type) * product.utilityBase);
+            //product.owner.getPaid(Market.getMarket().getProductPrice(product.type) * product.utilityBase);
         }
     }
 
@@ -224,14 +224,14 @@ public class Person implements ProductOwner
     //Helper
     static String chooseRandomFirstname()
     {
-        String[] firstnames = Util.readFromTxt("./res/txt/personFirstnames.csv");
+        String[] firstnames = Util.readFirstLineFromTxt(PERSONNAMESPATH + "personFirstnames.csv");
         //String[] firstnames = {"Wolfgang", "Markus", "Hans", "Stefan", "Elisabeth", "Sebastian", "Juraj", "Anna", "Michael", "Eva", "Stefanie", "Tobias", "Alexander"};
         return firstnames[getRandom().nextInt(firstnames.length)];
     }
 
     static String chooseRandomLastname()
     {
-        String[] lastnames = Util.readFromTxt("./res/txt/personLastnames.csv");
+        String[] lastnames = Util.readFirstLineFromTxt(PERSONNAMESPATH + "personLastnames.csv");
         //String[] lastnames = {"Bischoff", "Delitz", "Otto", "Lempa", "Rosenkranz", "Pay", "Veres", "Markt", "Mitterer", "Storf", "Sprengnagel", "Park", "Husarl"};
         return lastnames[getRandom().nextInt(lastnames.length)];
     }
@@ -331,5 +331,11 @@ public class Person implements ProductOwner
     public ProductStorage getProductStorage()
     {
         return productStorage;
+    }
+
+    @Override
+    public double getMargin()
+    {
+        return 0;
     }
 }

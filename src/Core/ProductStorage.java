@@ -12,7 +12,7 @@ class UtilityValueComparator implements Comparator<Product>
     @Override
     public int compare(Product o1, Product o2)
     {
-        return o2.utilityUnits.compareTo(o1.utilityUnits); //descending
+        return o2.utilityBase.compareTo(o1.utilityBase); //descending
     }
 }
 
@@ -121,7 +121,7 @@ public class ProductStorage
         Integer sum = 0;
         List<Product> summedUp = products.get(type);
         for (Product product : summedUp)
-            sum += product.utilityUnits;
+            sum += product.utilityBase;
         return sum;
     }
 
