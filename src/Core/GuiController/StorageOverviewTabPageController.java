@@ -26,7 +26,7 @@ public class StorageOverviewTabPageController
 
     @FXML
     private ListView productsList;
-    List<Product> products;
+    List<List<Product>> products;
     private ObservableList observableListPerson = FXCollections.observableArrayList();
 
     @FXML

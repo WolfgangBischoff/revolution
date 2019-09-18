@@ -102,16 +102,17 @@ public class Market implements ProductOwner
         return productStorage.size();
     }
 
+    /*
     public Integer getNumberProducts(IndustryType type)
     {
         return productStorage.size(type);
-    }
+    }*/
 
     public List<Product> sellProductsUnchecked(ProductOwner buyer, List<Product> bought)
     {
         if(bought.size() == 0)
         {
-            System.out.println(buyer.getName() + " No products to buy");
+            //System.out.println(buyer.getName() + " No products to buy");
             return bought;
         }
         buyer.pay(bought);
@@ -125,7 +126,7 @@ public class Market implements ProductOwner
         return productPrice;
     }
 
-    public List<Product> getAllProducts(IndustryType type)
+    public List<List<Product>> getAllProducts(IndustryType type)
     {
         return productStorage.getAllProducts(type);
     }

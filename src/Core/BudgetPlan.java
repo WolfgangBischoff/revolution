@@ -169,9 +169,7 @@ public class BudgetPlan
         Map<IndustryType, Integer> shoppingBudget = createShoppingBudget();
         //System.out.println(person.getName() + " ShoppingCart Budget: " + shoppingBudget.toString());
 
-        //Create bundle with basic need min cost
-        //TODO
-        //Change bundle with max luxury
+
 
 
 
@@ -184,6 +182,7 @@ public class BudgetPlan
 
     private List<Product> createBundle(Map<IndustryType, Integer> shoppingBudget)
     {
+        //Creates Shopping Cart
         List<Product> shoppingCart = new ArrayList<>();
         for (Map.Entry<IndustryType, Integer> post : shoppingBudget.entrySet())
         {
@@ -195,10 +194,20 @@ public class BudgetPlan
     private List<Product> createBundleOfType(IndustryType type, Integer money)
     {
         List<Product> shoppingCart = new ArrayList<>();
-        List<Product> products = Market.getMarket().getAllProducts(type);
+        //List<Product> products = Market.getMarket().getAllProducts(type);
+        List<List<Product>> products = Market.getMarket().getAllProducts(type);
         Integer marketPriceUtilUnit = Market.getMarket().getProductPrice(type);
+
+        for(List<Product> pr : products)
+            System.out.println(pr.toString());
+
+        //Create bundle with basic need min cost
+        //TODO
+        //Change bundle with max luxury
+
+
         //Go threw sorted list and collect items
-        for (Product product : products)
+        /*for (Product product : products)
         {
             if (product.utilityBase * marketPriceUtilUnit <= money)
             {
@@ -207,43 +216,8 @@ public class BudgetPlan
             }
             if (money == 0)
                 break;
-        }
+        }*/
         return shoppingCart;
-    }
-
-    private Map<IndustryType, Integer> findUnbuyableProducts(Map<IndustryType, Integer> demands)
-    {
-        Map<IndustryType, Integer> productsNotBuyable = new TreeMap<>();
-        Integer deposit = person.getDeposit();
-
-        for (Map.Entry<IndustryType, Integer> entry : demands.entrySet())
-        {
-            IndustryType type = entry.getKey();
-            Integer demand = entry.getValue();
-            Integer supply = Market.getMarket().getNumberProducts(type);
-            Integer demandReduction = 0;
-            if (demand == 0)
-                continue;
-
-            //Not enough products
-            if (demand > supply)
-            {
-                demandReduction += demand - supply;
-                demand -= demand - supply;
-            }
-            //Not enough money
-            if (Market.getMarket().getProductPrice(type) * demand > deposit)
-            {
-                demandReduction += demand - (deposit / Market.getMarket().getProductPrice(type));
-                demand -= demand - (deposit / Market.getMarket().getProductPrice(type));
-            }
-            //reduceBudget
-            deposit -= demand * Market.getMarket().getProductPrice(type);
-
-            if (demandReduction > 0)
-                productsNotBuyable.put(type, demandReduction);
-        }
-        return productsNotBuyable;
     }
 
     private Map<IndustryType, Integer> createShoppingBudget()
@@ -262,19 +236,6 @@ public class BudgetPlan
         shoppingCart.put(IndustryType.SPARETIME, todaysBudget.get(BudgetPost.SPARETIME));
         return shoppingCart;
     }
-
-    private void reduceShoppingCart(Map<IndustryType, Integer> shoppingCart, Map<IndustryType, Integer> notBuyable)
-    {
-        for (Map.Entry<IndustryType, Integer> notAvailable : notBuyable.entrySet())
-        {
-            if (shoppingCart.containsKey(notAvailable.getKey()))
-                shoppingCart.put(notAvailable.getKey(), shoppingCart.get(notAvailable.getKey()) - notAvailable.getValue());
-            else
-                throw new RuntimeException("reduceShoppingCart(): " + notAvailable.getKey() + " not found in shopping cart");
-
-        }
-    }
-
 
     private int sumBudgetPosts()
     {

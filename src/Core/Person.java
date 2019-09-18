@@ -325,7 +325,7 @@ public class Person implements ProductOwner
 
     public Integer getUtilFromType(IndustryType type)
     {
-        return productStorage.calcUtilSum(type);
+        return productStorage.calcBaseUtilSum(type);
     }
 
     public ProductStorage getProductStorage()
