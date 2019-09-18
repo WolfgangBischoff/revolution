@@ -39,11 +39,7 @@ public class Company implements ProductOwner
         deposit = Initdeposit;
         this.industry = industry;
         List<String[]> ss = Util.readAllLineFromTxt((PRODUCTNAMESPATH + "productNamesFood.csv"));
-        for(String[] s : ss)
-        {
-            //System.out.println(s[0]);
-        }
-        //productNamesPerSize;
+
     }
 
     public Company(String name, Integer base, Integer app, Integer high, Integer univ)
@@ -65,9 +61,9 @@ public class Company implements ProductOwner
     }
 
     //Calculations
-    private void produceProduct(Integer utilityUnits)
+    private void produceProduct(Integer utilityUnits, Integer luxuryUnits)
     {
-        addProduct(new Product(name + "s product", this, this, industry, utilityUnits));
+        addProduct(new Product(name + "s product", this, this, industry, utilityUnits, luxuryUnits));
         Product.transfer(this, Market.getMarket(), products.get(0));
     }
 
@@ -80,8 +76,8 @@ public class Company implements ProductOwner
     {
         int usedCapacity = 0;
         int capacity = COMPANY_UTIL_CAPACITY_DEFAULT;
-        float ratioLarge = 0.5f;
-        float ratioMedium = 0.2f;
+        float ratioLarge = 0.0f;
+        float ratioMedium = 0.5f;
         int effectiveCapacity = (int) (capacity * calcProductionEffectivity());
 
         int numberLarge = (int) ((ratioLarge * effectiveCapacity) / UTILITY_LARGE);
@@ -89,17 +85,18 @@ public class Company implements ProductOwner
 
         for (int i = 0; i < numberLarge; i++)
         {
-            produceProduct(UTILITY_LARGE);
+            produceProduct(UTILITY_LARGE, i);
             usedCapacity += UTILITY_LARGE;
         }
         for (int i = 0; i < numberMedium; i++)
         {
-            produceProduct(UTILITY_MEDIUM);
+            produceProduct(UTILITY_MEDIUM, i);
+            produceProduct(UTILITY_MEDIUM, i);
             usedCapacity += UTILITY_MEDIUM;
         }
         for (; usedCapacity < effectiveCapacity; )
         {
-            produceProduct(UTILITY_SMALL);
+            produceProduct(UTILITY_SMALL, 0);
             usedCapacity += UTILITY_SMALL;
         }
     }

@@ -33,17 +33,6 @@ public class Util
     public static final int THRESHOLD_MEDIUM = 2000;
     public static final int THRESHOLD_RICH = 3500;
 
-    //Basis needs/wishes per Month; if not available => unhappy, extras make happy
-    public static final Integer BASIC_NEED_FOOD = 30;
-    public static final Integer BASIC_NEED_CLOTHS = 2;
-    public static final Integer BASIC_NEED_HOUSING = 1;
-    public static final Integer BASIC_NEED_ENERGY = 30;
-    public static final Integer BASIC_NEED_ELECTRONICS = 1;
-    public static final Integer BASIC_NEED_HEALTH = 1;
-    public static final Integer BASIC_NEED_TRAFFIC = 15;
-    public static final Integer BASIC_NEED_EDUCATION = 1;
-    public static final Integer BASIC_NEED_SPARETIME = 10;
-
     //Who much they want to spend
     public static final Integer BUDGET_DEFAULT_WEIGHT_FOOD = 13;
     public static final Integer BUDGET_DEFAULT_WEIGHT_CLOTHS = 4;
@@ -70,7 +59,7 @@ public class Util
     public static final Integer PAYGRADE_GROSS_INCOME_D = 2000;
     public static final Integer PAYGRADE_GROSS_INCOME_E = 3000;
     public static final Integer PAYGRADE_GROSS_INCOME_F = 6000;
-    public static final Integer COMPANY_UTIL_CAPACITY_DEFAULT = 45;
+    public static final Integer COMPANY_UTIL_CAPACITY_DEFAULT = 100;//45;
     public static final Integer UTILITY_SMALL = 1;
     public static final Integer UTILITY_MEDIUM = 3;
     public static final Integer UTILITY_LARGE = 5;

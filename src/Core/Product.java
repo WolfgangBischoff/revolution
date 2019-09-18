@@ -17,7 +17,7 @@ public class Product
     Integer numberUsable = 1;
     private Integer priceProductWasBought = null; //price the product was bought
 
-    public Product(String name, Company producer, ProductOwner owner, IndustryType type, Integer utilityUnitsBase)
+    public Product(String name, Company producer, ProductOwner owner, IndustryType type, Integer utilityUnitsBase, Integer luxuryUnits)
     {
         this.productID = nextProductID++;
         this.name = name;
@@ -25,15 +25,16 @@ public class Product
         this.owner = owner;
         this.type = type;
         this.utilityBase = utilityUnitsBase;
-        this.utilityLuxury = 0;
+        this.utilityLuxury = luxuryUnits;
     }
 
     //Calculation
     public Integer calcPrice()
     {
         Integer priceWithtoutMargin = (utilityBase + utilityLuxury) * numberUsable;
-        return (int)(priceWithtoutMargin + priceWithtoutMargin * owner.getMargin());
+        return (int)(priceWithtoutMargin * (1+owner.getMargin()));
     }
+
 
     public static void transfer(ProductOwner sender, ProductOwner receipient, Product product)
     {
@@ -50,13 +51,8 @@ public class Product
         }
     }
 
-    public static Integer calcPrice(List<Product> products)
-    {
-        Integer total = 0;
-        for(Product p : products)
-            total += Market.getMarket().getProductPrice(p.type) * p.utilityBase;
-        return total;
-    }
+
+
 
     //Prints
     @Override
@@ -68,13 +64,13 @@ public class Product
                 //", owner=" + owner.getName() +
                 //", prev Owner: " + previousOwner.getName() +
                 ", type: " + type +
-                ", utility: " + utilityBase +
+                " Utility:Luxury " + utilityBase + ":" + utilityLuxury +
                 '}';
     }
 
     public String baseData()
     {
-        return "ID: " + productID + " " + name + " Type: " + type + " Utility: " + utilityBase;
+        return "ID: " + productID + " " + name + " Type: " + type + " Utility:Luxury " + utilityBase + ":" + utilityLuxury;
     }
 
     //Getter

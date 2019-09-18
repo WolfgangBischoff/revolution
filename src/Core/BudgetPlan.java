@@ -22,15 +22,6 @@ Persons should buy similar amount of products, but different prices and therefor
 
 public class BudgetPlan
 {
-    private Integer product_need_FOOD = 30;
-    private Integer product_need_CLOTHS = 2;
-    private Integer product_need_HOUSING = 1;
-    private Integer product_need_ENERGY = 30;
-    private Integer product_need_ELECTRONICS = 1;
-    private Integer product_need_HEALTH = 1;
-    private Integer product_need_TRAFFIC = 15;
-    private Integer product_need_EDUCATION = 1;
-    private Integer product_need_SPARETIME = 10;
 
     private Integer foodBudget;
     private Integer clothsBudget;
@@ -167,13 +158,7 @@ public class BudgetPlan
     public List<Product> getShoppingCartChecked()
     {
         Map<IndustryType, Integer> shoppingBudget = createShoppingBudget();
-        //System.out.println(person.getName() + " ShoppingCart Budget: " + shoppingBudget.toString());
-
-
-
-
-
-        //Create Bundle of what you can afford
+        System.out.println(person.getName() + " ShoppingBudget: " + shoppingBudget.toString());
         List<Product> shoppingCart = createBundle(shoppingBudget);
         //System.out.println(person.getName() + " ShoppingCart: " + shoppingCart.toString());
 
@@ -191,34 +176,82 @@ public class BudgetPlan
         return shoppingCart;
     }
 
+
     private List<Product> createBundleOfType(IndustryType type, Integer money)
     {
         List<Product> shoppingCart = new ArrayList<>();
-        //List<Product> products = Market.getMarket().getAllProducts(type);
         List<List<Product>> products = Market.getMarket().getAllProducts(type);
-        Integer marketPriceUtilUnit = Market.getMarket().getProductPrice(type);
-
-        for(List<Product> pr : products)
-            System.out.println(pr.toString());
 
         //Create bundle with basic need min cost
-        //TODO
+        Integer residualBudget = createShoppingCartBase(products, shoppingCart, money, type);
+        System.out.println(person.getName() + " ShoppingCartBASE: " + shoppingCart.toString());
         //Change bundle with max luxury
-
-
-        //Go threw sorted list and collect items
-        /*for (Product product : products)
-        {
-            if (product.utilityBase * marketPriceUtilUnit <= money)
-            {
-                shoppingCart.add(product);
-                money -= product.utilityBase * marketPriceUtilUnit;
-            }
-            if (money == 0)
-                break;
-        }*/
+        createShoppingCartMaxLuxury(products, shoppingCart, residualBudget);
+        System.out.println(person.getName() + " ShoppingCartLUXURY: " + shoppingCart.toString());
         return shoppingCart;
     }
+
+    private Integer createShoppingCartBase(List<List<Product>> sameBaseUtilProductList, List<Product> shoppingCart, Integer budget, IndustryType type)
+    {
+        Integer currentBaseUtil = 0;
+        Integer needBaseUtil = person.needs.get(type);
+        SizeLoop: for (List<Product> sortedLuxuryUtilList : sameBaseUtilProductList)//For Sizes
+        {
+
+            Integer priceCheapestProduct = sortedLuxuryUtilList.get(0).calcPrice();
+            for(Product otherProduct : sortedLuxuryUtilList)
+            {
+                //buy products with same price till no money
+                if (priceCheapestProduct == otherProduct.calcPrice() && otherProduct.calcPrice() <= budget)
+                {
+                    shoppingCart.add(otherProduct);
+                    budget -= priceCheapestProduct;
+                    currentBaseUtil += sortedLuxuryUtilList.get(0).utilityBase;
+
+                    if (budget == 0 || currentBaseUtil >= needBaseUtil) //No money or base need fulfilled
+                        break SizeLoop;
+                }
+                else
+                    break;
+            }
+        }
+        return budget; //residual budget if base need fullfilled before budget == 0
+    }
+
+    private List<Product> createShoppingCartMaxLuxury(List<List<Product>> sameBaseUtilProductList, List<Product> shoppingCart, Integer additionalBudget)
+    {
+        //if multiple poducts of one size are in cart from base cart creation, we optimize one of them
+        for (int j = 0; j < shoppingCart.size(); j++) //Try to improve each product
+        {
+            Product tmpBestProduct = shoppingCart.get(j);
+            additionalBudget += tmpBestProduct.calcPrice();//We may no buy this product anymore
+
+            ProductSize: for (List<Product> sortedLuxuryUtilList : sameBaseUtilProductList) //Iterate all product sizes
+            {
+                if (sortedLuxuryUtilList.contains(tmpBestProduct)) //This size is relevant
+                {
+                    for (int i = 0; i < sortedLuxuryUtilList.size(); i++) //Iterate all maybe better products
+                    {
+                        if(shoppingCart.contains(sortedLuxuryUtilList.get(i))) //if we look to products that are already in base cart
+                            continue;
+                        Integer priceNewProduct = sortedLuxuryUtilList.get(i).calcPrice();
+                        Integer luxuryNewProduct = sortedLuxuryUtilList.get(i).utilityLuxury;
+                        if (additionalBudget >= priceNewProduct && luxuryNewProduct > tmpBestProduct.utilityLuxury) //affordable and more luxury
+                        {
+                            tmpBestProduct = sortedLuxuryUtilList.get(i);
+                        }
+
+
+                    }
+                    additionalBudget -= tmpBestProduct.calcPrice();
+                    break ProductSize;
+                }
+            }
+            shoppingCart.set(j, tmpBestProduct);
+        }
+        return shoppingCart;
+    }
+
 
     private Map<IndustryType, Integer> createShoppingBudget()
     {
@@ -280,20 +313,6 @@ public class BudgetPlan
         return person.getName() + ":\n" +
                 "Monthly: " + monthlyBudgetSum + " : " + monthBudget.toString() + "\n" +
                 daylyBudgetData();
-    }
-
-    public String basicNeedsData()
-    {
-        return person.getName() + " basics: " +
-                " food: " + product_need_FOOD +
-                " cloth: " + product_need_CLOTHS +
-                " housing: " + product_need_HOUSING +
-                " housing: " + product_need_ENERGY +
-                " electronics: " + product_need_ELECTRONICS +
-                " health: " + product_need_HEALTH +
-                " traffic: " + product_need_TRAFFIC +
-                " edu: " + product_need_EDUCATION +
-                " spare: " + product_need_SPARETIME;
     }
 
     @Override

@@ -2,8 +2,11 @@ package Core;
 
 import Core.Enums.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import static Core.Enums.IndustryType.*;
 import static Core.Util.*;
 
 public class Person implements ProductOwner
@@ -18,6 +21,9 @@ public class Person implements ProductOwner
     private Integer deposit;
     private ProductStorage productStorage;
     private final static String PERSONNAMESPATH = "./res/txt/names/persons/";
+
+    //Malus if less, just to reache but not more. Luxury for more
+    Map<IndustryType, Integer> needs = new HashMap<>();
 
 
     EconomicLayer economicLayer;
@@ -55,6 +61,15 @@ public class Person implements ProductOwner
         this.deposit = deposit;
         productStorage = new ProductStorage(this);
 
+        needs.put(FOOD, 10);
+        needs.put(CLOTHS, 2);
+        needs.put(HOUSING, 1);
+        needs.put(ENERGY, 30);
+        needs.put(ELECTRONICS, 5);
+        needs.put(HEALTH, 1);
+        needs.put(TRAFFIC, 15);
+        needs.put(EDUCATION, 1);
+        needs.put(SPARETIME, 10);
         initState();
     }
 
@@ -128,7 +143,7 @@ public class Person implements ProductOwner
         //Get available shopping cart of day
         List<Product> shoppingCart = budgetPlan.getShoppingCartChecked();
         List<Product> bought = Market.getMarket().sellProductsUnchecked(this, shoppingCart);
-        System.out.println(getName() + " bought: " + bought.toString());
+        //System.out.println("\n" + getName() + " bought: " + bought.toString());
 
         //calc
     }

@@ -38,59 +38,13 @@ public class ProductStorage
         for (IndustryType i : IndustryType.values())
         {
             List<List<Product>> baseSortedList = new ArrayList();
-            //List luxurySortedList = new ArrayList();
-            //baseSortedList.add(luxurySortedList);
             productsGrid.put(i, baseSortedList);
         }
-
-
-//OLDIMPL
-        /*
-        List<Product> foodProducts = new ArrayList<>();
-        List<Product> clothsProducts = new ArrayList<>();
-        List<Product> housingProducts = new ArrayList<>();
-        List<Product> energyProducts = new ArrayList<>();
-        List<Product> electronicsProducts = new ArrayList<>();
-        List<Product> healthProducts = new ArrayList<>();
-        List<Product> trafficProducts = new ArrayList<>();
-        List<Product> educationProducts = new ArrayList<>();
-        List<Product> sparetimeProducts = new ArrayList<>();
-        products.put(FOOD, foodProducts);
-        products.put(CLOTHS, clothsProducts);
-        products.put(HOUSING, housingProducts);
-        products.put(ENERGY, energyProducts);
-        products.put(ELECTRONICS, electronicsProducts);
-        products.put(HEALTH, healthProducts);
-        products.put(TRAFFIC, trafficProducts);
-        products.put(EDUCATION, educationProducts);
-        products.put(SPARETIME, sparetimeProducts);*/
     }
 
-    /*
-        public Product getProduct(IndustryType type)
-        {
-            if (!products.get(type).isEmpty())
-                return products.get(type).get(0);
-            else
-                return null;
-        }
-
-        public List<Product> getProduct(IndustryType type, Integer amount)
-        {
-            List<Product> allProducts = products.get(type);
-            List<Product> ret = new ArrayList<>();
-            if (products.get(type).size() < amount)
-                amount = products.get(type).size();
-
-            for (int i = 0; i < amount; i++)
-                ret.add(allProducts.get(i));
-
-            return ret;
-        }
-    */
     public List<List<Product>> getAllProducts(IndustryType type)
     {
-        return productsGrid.get(type); //return products.get(type);
+        return productsGrid.get(type);
     }
 
     public void clear()
@@ -98,9 +52,7 @@ public class ProductStorage
         for (Map.Entry<IndustryType, List<List<Product>>> productgroup : productsGrid.entrySet())
             for (List<Product> luxuryLists : productgroup.getValue())
                 luxuryLists.clear();
-        /*
-        for (Map.Entry<IndustryType, List<Product>> productgroup : products.entrySet())
-            productgroup.getValue().clear();*/
+
     }
 
 
@@ -112,8 +64,6 @@ public class ProductStorage
         for (Map.Entry<IndustryType, List<List<Product>>> productgroup : productsGrid.entrySet())
             stringBuilder.append(productDataIndustry(productgroup.getKey()) + "\n\t");
         return stringBuilder.toString();
-
-        //return stringBuilder.toString();
     }
 
     public String productDataIndustry(IndustryType industryType)
@@ -127,8 +77,8 @@ public class ProductStorage
         for (List<Product> productsPerBasicUtil : industryProducts)
         {
             stringBuilder.append("Base util: " + productsPerBasicUtil.get(0).utilityBase + " Number: " + productsPerBasicUtil.size() + "\n\t");
-            //for (Product product : productsPerBasicUtil)
-            //    stringBuilder.append(product.baseData() + "\n\t");
+            for (Product product : productsPerBasicUtil)
+                stringBuilder.append(product.baseData() + "\n\t");
         }
         return stringBuilder.toString();
 
