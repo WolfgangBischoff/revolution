@@ -184,10 +184,10 @@ public class BudgetPlan
 
         //Create bundle with basic need min cost
         Integer residualBudget = createShoppingCartBase(products, shoppingCart, money, type);
-        System.out.println(person.getName() + " ShoppingCartBASE: " + shoppingCart.toString());
+        //System.out.println(person.getName() + " ShoppingCartBASE: " + shoppingCart.toString());
         //Change bundle with max luxury
         createShoppingCartMaxLuxury(products, shoppingCart, residualBudget);
-        System.out.println(person.getName() + " ShoppingCartLUXURY: " + shoppingCart.toString());
+        //System.out.println(person.getName() + " ShoppingCartLUXURY: " + shoppingCart.toString());
         return shoppingCart;
     }
 
@@ -225,36 +225,48 @@ public class BudgetPlan
     private List<Product> createShoppingCartMaxLuxury(List<List<Product>> sameBaseUtilProductList, List<Product> shoppingCart, Integer additionalBudget)
     {
         for (List<Product> sortedLuxuryUtilList : sameBaseUtilProductList) //Iterate all product sizes
-            {
-                System.out.println("START " + sortedLuxuryUtilList.get(0).utilityBase);
-                //TODO filter shopping cart to just one util value
-                additionalBudget = maxLuxuryOneSize(sortedLuxuryUtilList, shoppingCart, additionalBudget);
-            }
+        {
+            additionalBudget = maxLuxuryOneSize(sortedLuxuryUtilList, shoppingCart, additionalBudget, sortedLuxuryUtilList.get(0).utilityBase);
+        }
         return shoppingCart;
     }
 
-    private Integer maxLuxuryOneSize(List<Product> possibleBetterProducts, List<Product> shoppingCart, Integer additionalBudget)
+    private List<Product> filterProductsWithBaseUnit(List<Product> shoppingCart, Integer residualBaseUnitSize)
     {
+        List<Product> listWithOnebaseUnit = new ArrayList();
+        for (Product product : shoppingCart)
+            if (product.utilityBase == residualBaseUnitSize)
+                listWithOnebaseUnit.add(product);
+        return listWithOnebaseUnit;
+    }
+
+    private Integer maxLuxuryOneSize(List<Product> possibleBetterProducts, List<Product> shoppingCart, Integer additionalBudget, Integer baseUtilSizeTobeConsidered)
+    {
+        /*
+        In case a product size was added that cannot be improved because there are no luxury version the luxury value can be lower than budget grants
+        FOOD Utility:Luxury 5:0}, <5 has no luxuries
+        FOOD Utility:Luxury 5:0},
+        FOOD Utility:Luxury 1:1}] <1 also dont have better luxury
+         */
         List<Product> bestFoundProductsInBudget = shoppingCart;
         boolean productImproved = true;
         while (productImproved)
         {
             productImproved = false;
-            shoppingCartItem: for (int i = 0; i < bestFoundProductsInBudget.size(); i++) //Try to better each product step by step
+            shoppingCartItem:
+            for (int i = 0; i < bestFoundProductsInBudget.size(); i++) //Try to better each product step by step
             {
                 Product toBeImproved = bestFoundProductsInBudget.get(i);
-                System.out.println("Try Improve: " + toBeImproved);
+                //Just chek products of the respecting luxuryList
+                if (baseUtilSizeTobeConsidered != toBeImproved.utilityBase)
+                    continue;
                 //improve one step
                 for (Product checkIfBetter : possibleBetterProducts)
                 {
-                    if(checkIfBetter.utilityBase != toBeImproved.utilityBase)//If we reach shopping card item with other base utils
-                        break shoppingCartItem; //TODO here is bug, just overgive fitting shopping card items
-
                     int costIncreaseForBetterProduct = checkIfBetter.calcPrice() - toBeImproved.calcPrice();
                     if (!shoppingCart.contains(checkIfBetter)) //Found product which is already in cart
                         if (checkIfBetter.utilityLuxury > toBeImproved.utilityLuxury && costIncreaseForBetterProduct <= additionalBudget)
                         {
-                            System.out.println("Improved: " + checkIfBetter);
                             additionalBudget -= costIncreaseForBetterProduct;
                             bestFoundProductsInBudget.set(i, checkIfBetter);
                             productImproved = true;

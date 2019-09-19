@@ -1,10 +1,7 @@
 
 KNOWN BUGS:
-BudgetPlan createBundleOfType() TODO
 
 TODOS:
-    Change products now have baseNeed and luxury where price = (baseNeed + Luxury) * Consumes + compMargin
-            person checks cheapest basket of base products, then maximizes luxury
     Add consume (all products get consumed atm, difference number uses)
         => Traffic ticket, electronics, cloths..
         => consume added to fullfilled needs, loweres budget saves money

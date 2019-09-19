@@ -4,23 +4,23 @@ import Core.Enums.IndustryType;
 
 import java.util.*;
 
-class UtilityValueComparator implements Comparator<Product>
+class LuxuryValueComparator implements Comparator<Product>
 {
 
     @Override
     public int compare(Product o1, Product o2)
     {
-        return o1.utilityBase.compareTo(o2.utilityBase); //ascending
+        return o1.utilityLuxury.compareTo(o2.utilityLuxury); //ascending
     }
 }
 
-class PersonListComparator implements Comparator<List<Product>>
+class ProductListComparator implements Comparator<List<Product>>
 {
     @Override
     public int compare(List<Product> o1, List<Product> o2)
     {
         //If list is empty should be deleted
-        return o1.get(0).utilityLuxury.compareTo(o2.get(0).utilityLuxury);
+        return o2.get(0).getUtilityBase().compareTo(o1.get(0).getUtilityBase());
     }
 }
 
@@ -107,12 +107,12 @@ public class ProductStorage
         }
         List<Product> luxuryListWithSameBaseUtil = productsGrid.get(product.type).get(idxOfProductsWithSameBaseUtil);
         luxuryListWithSameBaseUtil.add(product);
-        Collections.sort(luxuryListWithSameBaseUtil, new UtilityValueComparator());
+        Collections.sort(luxuryListWithSameBaseUtil, new LuxuryValueComparator());
         //Sort List of different Base utils
-        Collections.sort(productsGrid.get(product.type), new PersonListComparator());
+        Collections.sort(productsGrid.get(product.type), new ProductListComparator());
 
         /*products.get(product.type).add(product);
-        Collections.sort(products.get(product.type), new UtilityValueComparator());*/
+        Collections.sort(products.get(product.type), new LuxuryValueComparator());*/
         numberProducts++;
     }
 
@@ -143,42 +143,8 @@ public class ProductStorage
             for (Product product : luxurySortedList)
                 sum += product.utilityBase;
         return sum;
-
-        /*
-        Integer sum = 0;
-        List<Product> summedUp = products.get(type);
-        for (Product product : summedUp)
-            sum += product.utilityBase;
-        return sum;*/
     }
-/*
-    public Integer calcBaseUtilSum()
-    {
-        Integer sum = 0;
-        for (Map.Entry<IndustryType, List<Product>> type : products.entrySet())
-            sum += calcBaseUtilSum(type.getKey());
-        return sum;
-    }
-*/
 
-    /*   public Integer size(IndustryType type)
-       {
-           return products.get(type).size();
-     }
-   /*
-       private Integer countProductgroup(IndustryType type)
-       {
-           return products.get(type).size();
-       }
-
-    private Integer countProducts()
-    {
-        Integer sum = 0;
-        for (Map.Entry<IndustryType, List<Product>> productgroup : products.entrySet())
-            sum += productgroup.getValue().size();
-        return sum;
-    }
-*/
     public ProductOwner getOwner()
     {
         return owner;

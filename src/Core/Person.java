@@ -61,7 +61,7 @@ public class Person implements ProductOwner
         this.deposit = deposit;
         productStorage = new ProductStorage(this);
 
-        needs.put(FOOD, 10);
+        needs.put(FOOD, 11);
         needs.put(CLOTHS, 2);
         needs.put(HOUSING, 1);
         needs.put(ENERGY, 30);
@@ -143,7 +143,7 @@ public class Person implements ProductOwner
         //Get available shopping cart of day
         List<Product> shoppingCart = budgetPlan.getShoppingCartChecked();
         List<Product> bought = Market.getMarket().sellProductsUnchecked(this, shoppingCart);
-        System.out.println("\n" + getName() + " bought: " + bought.toString());
+        //System.out.println("\n" + getName() + " bought: " + bought.toString());
 
         //calc
     }
