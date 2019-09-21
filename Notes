@@ -2,12 +2,9 @@
 KNOWN BUGS:
 
 TODOS:
+    Add Person buy from Company
+    Add Company price/.. changes
     Save
-    Add consume (all products get consumed atm, difference number uses)
-        => Traffic ticket, electronics, cloths..
-        => consume added to fullfilled needs, loweres budget saves money
-    Change Interface to Superclass
-    Add fitting names for products
     Wohnhouse, housing not just comsumer product but also owner
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
     Add product config txt
