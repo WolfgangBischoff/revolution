@@ -4,32 +4,42 @@ import Core.Enums.BudgetPost;
 import Core.Enums.IndustryType;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import static Core.Enums.IndustryType.FOOD;
 import static Core.Util.*;
 
 public class Economy
 {
+    private static Economy singleton;
     ArrayList<Company> companies = new ArrayList<>();
     private EconomyStatistics economyStatistics;
+    private static final String TESTCASESPATH = "./res/txt/testcases/";
 
 
-    public Economy()
+    private Economy() //change to private
     {
         economyStatistics = new EconomyStatistics(this);
+    }
+
+    public static Economy getEconomy()
+    {
+        if(singleton == null)
+            singleton = new Economy();
+        return singleton;
     }
 
     //Calculations
     public void calc()
     {
-        //Companies calc
         economyStatistics.calcState();
     }
 
-    public void comaniesProduce()
+  /*  public void comaniesProduce()
     {
         for(Company company :companies)
             company.produce();
-    }
+    }*/
 
     public String createUniqueCompanyName(String nameBase)
     {
@@ -47,6 +57,7 @@ public class Economy
         return name;
     }
 
+
     public Company addCompany(String name)
     {
         String UniqueName = createUniqueCompanyName(name);
@@ -55,12 +66,37 @@ public class Economy
         return newCompany;
     }
 
+    public List<Company> createTest(String testcaseName)
+    {
+        List<String[]> compData;
+        List<Company> newCompanies = new ArrayList<>();
+        compData = Util.readAllLineFromTxt(TESTCASESPATH + testcaseName + ".csv", true);
+        for(String[] strings : compData)
+        {
+            Company newCompany = new Company(IndustryType.fromInt(Integer.parseInt(strings[0])),Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
+            companies.add(newCompany);
+            newCompanies.add(newCompany);
+        }
+        return newCompanies;
+    }
+
     public Company addCompany(IndustryType industry)
     {
-        String UniqueName = createUniqueCompanyName(Company.getRandomCompanyName(industry));
-        Company newCompany = new Company(UniqueName, industry, NUM_BASE_EDU_WORKPLACES, NUM_APPR_EDU_WORKPLACES, NUM_HIGH_EDU_WORKPLACES, NUM_UNIV_EDU_WORKPLACES);
+        //String UniqueName = createUniqueCompanyName(Company.getRandomCompanyName(industry));
+        //Company newCompany = new Company(UniqueName, industry, NUM_BASE_EDU_WORKPLACES, NUM_APPR_EDU_WORKPLACES, NUM_HIGH_EDU_WORKPLACES, NUM_UNIV_EDU_WORKPLACES);
+        Company newCompany = new Company(industry, 5, 3);
         companies.add(newCompany);
         return newCompany;
+    }
+
+    public List<Company> addCompany(IndustryType industry, Integer number)
+    {
+        List<Company> createdCompanies = new ArrayList<>();
+        for(int i=0; i<number; i++)
+        {
+            createdCompanies.add(addCompany(industry));
+        }
+        return createdCompanies;
     }
 
     public void companiesPaySalary()
@@ -100,12 +136,16 @@ public class Economy
     {
         clearWorkplaces();
         companies.clear();
+        createTest("comp");
         for(int i=0; i<numberComp; i++)
         {
-            addCompany(IndustryType.fromInt(i % IndustryType.getEnumSize()));
+
+            //addCompany(IndustryType.fromInt(i % IndustryType.getEnumSize()));
         }
         economyStatistics.calcState();
     }
+
+
 
     public void fillWorkplaces(Company company)
     {

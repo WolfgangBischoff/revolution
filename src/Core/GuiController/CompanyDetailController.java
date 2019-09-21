@@ -52,6 +52,6 @@ public class CompanyDetailController
         deposit.setText(company.getDeposit().toString());
         numberEmployees.setText(company.getNumberEmployees().toString());
         numberFreeWorkplaces.setText(company.calcNumberFreeWorkpositions().toString());
-        products.setText(company.calcNumberProducts().toString());
+        //products.setText(company.calcNumberProducts().toString());
     }
 }

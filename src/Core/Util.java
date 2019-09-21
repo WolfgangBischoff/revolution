@@ -15,7 +15,7 @@ import java.util.Random;
 public class Util
 {
     //Society
-    public static final Integer NUM_PERS_DEFAULT = 2;
+    public static final Integer NUM_PERS_DEFAULT = 10;
     public static final Integer RATION_BASIC_EDU = 20;
     public static final Integer RATION_APP_EDU = 35;
     public static final Integer RATION_HIGHER_EDU = 30;
@@ -59,15 +59,9 @@ public class Util
     public static final Integer PAYGRADE_GROSS_INCOME_D = 2000;
     public static final Integer PAYGRADE_GROSS_INCOME_E = 3000;
     public static final Integer PAYGRADE_GROSS_INCOME_F = 6000;
-    public static final Integer COMPANY_UTIL_CAPACITY_DEFAULT = 100;//45;
-    public static final Integer UTILITY_SMALL = 1;
-    public static final Integer UTILITY_MEDIUM = 3;
-    public static final Integer UTILITY_LARGE = 5;
-
 
     //Economy
-    //public static final Integer DEFAULT_NUM_COMPANIES = 3;//IndustryType.getEnumSize();
-    public static final Integer DEFAULT_NUM_COMPANIES = IndustryType.getEnumSize();
+    public static final Integer DEFAULT_NUM_COMPANIES = 4;//IndustryType.getEnumSize();
 
     //Government
 
@@ -120,16 +114,23 @@ public class Util
         return data;
     }
 
-    public static List<String[]> readAllLineFromTxt(String pathToCsv)
+    public static List<String[]> readAllLineFromTxt(String pathToCsv, boolean ignoreFirstLine)
     {//Reads all line
         String row = null;
+        Integer linecounter = 0;
         List<String[]> data = new ArrayList<>();
         try
         {
             BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
             while((row = csvReader.readLine()) != null)
             {
+                if(ignoreFirstLine && linecounter == 0)
+                {
+                    linecounter++;
+                    continue;
+                }
                 data.add(row.split(","));
+                linecounter++;
             }
             csvReader.close();
         } catch (IOException e)

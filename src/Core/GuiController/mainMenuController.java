@@ -3,8 +3,6 @@ package Core.GuiController;
 import Core.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class mainMenuController
 {
@@ -36,19 +34,19 @@ public class mainMenuController
     @FXML
     protected void gotoMarketButton(ActionEvent event)
     {
-        System.out.println(Market.getMarket().productData());
+        System.out.println(Market.getMarket().dataMarketCompanies());
     }
 
 
     @FXML
     protected void quickPop(ActionEvent event)
     {
-        Market.getMarket().clear();
+        //Market.getMarket().clear();
         Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
         Simulation.getSingleton().getEconomy().populateEconomy(Util.DEFAULT_NUM_COMPANIES);
         Simulation.getSingleton().getEconomy().fillWorkplaces();
-        Simulation.getSingleton().getEconomy().comaniesProduce();
-        System.out.println(Market.getMarket().productData());
+        //Simulation.getSingleton().getEconomy().comaniesProduce();
+        //System.out.println(Market.getMarket().productData());
         Simulation.getSingleton().getSociety().shop();
     }
 }

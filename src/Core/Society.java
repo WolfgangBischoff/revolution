@@ -1,6 +1,8 @@
 package Core;
 
+import Core.Enums.BudgetPost;
 import Core.Enums.EducationalLayer;
+import Core.Enums.IndustryType;
 import Core.Enums.InterpreterKeyword;
 
 import java.util.ArrayList;
@@ -63,6 +65,7 @@ public class Society
             if (special == InterpreterKeyword.BUDGET)
             {
                 ret.append(person.budgetData());
+                ret.append(person.dataBestMarketOffer(BudgetPost.FOOD));
             }
         }
         return ret.toString();
@@ -76,11 +79,6 @@ public class Society
         }
         people.clear();
         societyStatistics.calcAll();
-    }
-
-    public String printSocStatistics()
-    {
-        return societyStatistics.toString();
     }
 
     /***

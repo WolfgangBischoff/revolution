@@ -10,17 +10,20 @@ import java.util.Map;
 
 import static Core.Util.*;
 
-public class Company implements ProductOwner
+public class Company //implements ProductOwner
 {
     private String name;
     private Integer deposit;
     private IndustryType industry;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
-    private ArrayList<Product> products = new ArrayList<>();
     private static final String COMPANYNAMESPATH = "./res/txt/names/companies/";
-    private static final String PRODUCTNAMESPATH = "./res/txt/names/products/";
-    private Map<Integer, String[]> productNamesPerSize = new HashMap<>();
+    private Integer luxury, price, capacity;
+
+
+
     private Double marginPercent = 0.1;
+    //private ArrayList<Product> products = new ArrayList<>();
+
 
     //Constructors
     public Company(String name)
@@ -38,8 +41,16 @@ public class Company implements ProductOwner
         this.name = name;
         deposit = Initdeposit;
         this.industry = industry;
-        List<String[]> ss = Util.readAllLineFromTxt((PRODUCTNAMESPATH + "productNamesFood.csv"));
 
+        Market.getMarket().addCompany(this);
+    }
+
+    public Company(IndustryType type, Integer price, Integer luxury)
+    {
+        this(Economy.getEconomy().createUniqueCompanyName(getRandomCompanyName(type)), type);
+        this.price = price;
+        this.luxury = luxury;
+        addDefaultWorkplaces();
     }
 
     public Company(String name, Integer base, Integer app, Integer high, Integer univ)
@@ -61,7 +72,37 @@ public class Company implements ProductOwner
     }
 
     //Calculations
-    private void produceProduct(Integer utilityUnits, Integer luxuryUnits)
+    public void doMarketDecisions()
+    {
+
+    }
+    private void calcPrice()
+    {
+        price = 5;
+    }
+
+    private void calcLuxury()
+    {
+        luxury = 3;
+    }
+    private void calcCapacity()
+    {
+
+    }
+
+    private void addDefaultWorkplaces()
+    {
+        for (int i = 0; i < NUM_BASE_EDU_WORKPLACES; i++)
+            workpositions.add(new Workposition(this, EducationalLayer.EDU_BASE));
+        for (int i = 0; i < NUM_APPR_EDU_WORKPLACES; i++)
+            workpositions.add(new Workposition(this, EducationalLayer.EDU_APPRENTICESHIP));
+        for (int i = 0; i < NUM_HIGH_EDU_WORKPLACES; i++)
+            workpositions.add(new Workposition(this, EducationalLayer.EDU_HIGHER));
+        for (int i = 0; i < NUM_UNIV_EDU_WORKPLACES; i++)
+            workpositions.add(new Workposition(this, EducationalLayer.EDU_UNIVERSITY));
+    }
+
+  /*   private void produceProduct(Integer utilityUnits, Integer luxuryUnits)
     {
         addProduct(new Product(name + "s product", this, this, industry, utilityUnits, luxuryUnits));
         Product.transfer(this, Market.getMarket(), products.get(0));
@@ -72,7 +113,7 @@ public class Company implements ProductOwner
         return (double) calcNumberWorkers() / workpositions.size();
     }
 
-    protected void produce()
+   protected void produce()
     {
         int usedCapacity = 0;
         int capacity = COMPANY_UTIL_CAPACITY_DEFAULT;
@@ -104,13 +145,13 @@ public class Company implements ProductOwner
     @Override
     public void addProduct(Product product)
     {
-        products.add(product);
+        //products.add(product);
     }
 
     @Override
     public void removeProduct(Product product)
     {
-        products.remove(product);
+        //products.remove(product);
     }
 
     @Override
@@ -129,7 +170,7 @@ public class Company implements ProductOwner
     public void pay(List<Product> product)
     {
 
-    }
+    }*/
 
     void paySalaries()
     {
@@ -248,7 +289,7 @@ public class Company implements ProductOwner
 
     public String baseData()
     {
-        return "Name: " + name + " Workers: " + calcNumberWorkers() + " Deposit: " + deposit + " #Products: " + products.size() + " Industry: " + industry;
+        return "Name: " + name + " Workers: " + calcNumberWorkers() + " Deposit: " + deposit + " Price: " + price + " Luxury: " + luxury;
     }
 
     //Getter and Setter
@@ -273,14 +314,24 @@ public class Company implements ProductOwner
         return calcNumberWorkers();
     }
 
-    public Integer calcNumberProducts()
+
+    public IndustryType getIndustry()
     {
-        return products.size();
+        return industry;
     }
 
-    @Override
-    public double getMargin()
+    public Integer getLuxury()
     {
-        return marginPercent;
+        return luxury;
+    }
+
+    public Integer getPrice()
+    {
+        return price;
+    }
+
+    public Integer getCapacity()
+    {
+        return capacity;
     }
 }

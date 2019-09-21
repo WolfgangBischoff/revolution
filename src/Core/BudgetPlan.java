@@ -155,6 +155,7 @@ public class BudgetPlan
     }
 
     //Helpers
+    /*
     public List<Product> getShoppingCartChecked()
     {
         Map<IndustryType, Integer> shoppingBudget = createShoppingBudget();
@@ -231,23 +232,11 @@ public class BudgetPlan
         return shoppingCart;
     }
 
-    private List<Product> filterProductsWithBaseUnit(List<Product> shoppingCart, Integer residualBaseUnitSize)
-    {
-        List<Product> listWithOnebaseUnit = new ArrayList();
-        for (Product product : shoppingCart)
-            if (product.utilityBase == residualBaseUnitSize)
-                listWithOnebaseUnit.add(product);
-        return listWithOnebaseUnit;
-    }
+
 
     private Integer maxLuxuryOneSize(List<Product> possibleBetterProducts, List<Product> shoppingCart, Integer additionalBudget, Integer baseUtilSizeTobeConsidered)
     {
-        /*
-        In case a product size was added that cannot be improved because there are no luxury version the luxury value can be lower than budget grants
-        FOOD Utility:Luxury 5:0}, <5 has no luxuries
-        FOOD Utility:Luxury 5:0},
-        FOOD Utility:Luxury 1:1}] <1 also dont have better luxury
-         */
+
         List<Product> bestFoundProductsInBudget = shoppingCart;
         boolean productImproved = true;
         while (productImproved)
@@ -280,7 +269,7 @@ public class BudgetPlan
         return additionalBudget;
     }
 
-
+*/
     private Map<IndustryType, Integer> createShoppingBudget()
     {
         Map<IndustryType, Integer> shoppingCart = new TreeMap<>();
@@ -324,7 +313,6 @@ public class BudgetPlan
     }
 
     //Prints
-
     public String daylyBudgetData()
     {
         StringBuilder stringBuilder = new StringBuilder();

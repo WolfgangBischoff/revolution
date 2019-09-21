@@ -25,7 +25,7 @@ public class economyOverviewController implements PropertyChangeListener
 
         numberCompanies.setText("" + economy.getEconomyStatistics().getNumberCompanies());
         depositsCompanies.setText("" + economy.getEconomyStatistics().getSumCompanyDeposits());
-        productsOnMarket.setText("" + Market.getMarket().getNumberProducts());
+        //productsOnMarket.setText("" + Market.getMarket().getNumberProducts());
     }
 
     @Override
@@ -77,7 +77,7 @@ public class economyOverviewController implements PropertyChangeListener
     @FXML
     private void produce(ActionEvent event)
     {
-        economy.comaniesProduce();
+        //economy.comaniesProduce();
     }
 
     private void removePropertyListeners()

@@ -9,7 +9,7 @@ import java.util.Map;
 import static Core.Enums.IndustryType.*;
 import static Core.Util.*;
 
-public class Person implements ProductOwner
+public class Person // implements ProductOwner
 {
     private static Integer nextId = 1;
     private Integer id;
@@ -19,7 +19,7 @@ public class Person implements ProductOwner
     Integer effectiveHappiness;
     Workposition worksAt;
     private Integer deposit;
-    private ProductStorage productStorage;
+    //private ProductStorage productStorage;
     private final static String PERSONNAMESPATH = "./res/txt/names/persons/";
 
     //Malus if less, just to reache but not more. Luxury for more
@@ -59,7 +59,7 @@ public class Person implements ProductOwner
         this.age = age;
         educationalLayer = edu;
         this.deposit = deposit;
-        productStorage = new ProductStorage(this);
+        //productStorage = new ProductStorage(this);
 
         needs.put(FOOD, 11);
         needs.put(CLOTHS, 2);
@@ -138,53 +138,75 @@ public class Person implements ProductOwner
         deposit += salary;
     }
 
+    public String dataBestMarketOffer(BudgetPost type)
+    {
+        Integer dailyBudgetForIndustry = budgetPlan.dailyBudgets.get(0).get(type);
+        Company bestOffer = Market.getMarket().getBestOffer(FOOD, dailyBudgetForIndustry);
+        if(bestOffer == null)
+            return "No Company found";
+        else
+            return  getName() + " Budget: " + dailyBudgetForIndustry + " Best offer: " + bestOffer.baseData();
+
+    }
+
     public void shop()
     {
+        //for all demands
+
+        //check Market with budget
+        Integer dailyBudgetForIndustry = budgetPlan.dailyBudgets.get(0).get(BudgetPost.FOOD);
+        Company bestOffer = Market.getMarket().getBestOffer(FOOD, dailyBudgetForIndustry);
+        //System.out.println(getName() + " Budget: " + dailyBudgetForIndustry + " Best offer: " + bestOffer.baseData());
+
+        //Pay Company and get product TODO
+
+
         //Get available shopping cart of day
-        List<Product> shoppingCart = budgetPlan.getShoppingCartChecked();
-        List<Product> bought = Market.getMarket().sellProductsUnchecked(this, shoppingCart);
+        //List<Product> shoppingCart = budgetPlan.getShoppingCartChecked();
+        //List<Product> bought = Market.getMarket().sellProductsUnchecked(this, shoppingCart);
         //System.out.println("\n" + getName() + " bought: " + bought.toString());
 
         //calc
     }
+    /*
+      @Override
+      public void getPaid(Integer amount)
+      {
+          throw new RuntimeException("Person GetPaid()");
+  }
 
-    @Override
-    public void getPaid(Integer amount)
-    {
-        throw new RuntimeException("Person GetPaid()");
-    }
+      /*
+      @Override
+      public void pay(Product product)
+      {
+          Integer price = Market.getMarket().getProductPrice(product.type) * product.utilityBase;
+          deposit -= price;
+          product.setPriceProductWasBought(price);
+          product.owner.getPaid(price);
+      }
 
-    @Override
-    public void pay(Product product)
-    {
-        Integer price = Market.getMarket().getProductPrice(product.type) * product.utilityBase;
-        deposit -= price;
-        product.setPriceProductWasBought(price);
-        product.owner.getPaid(price);
-    }
-
-    @Override
-    public void pay(List<Product> products)
-    {
-        for (Product product : products)
-        {
-            pay(product);
-        }
-    }
-
-
+      @Override
+      public void pay(List<Product> products)
+      {
+          for (Product product : products)
+          {
+              pay(product);
+          }
+      }
+  */
+/*
     @Override
     public void addProduct(Product product)
     {
-        productStorage.add(product);
+        //productStorage.add(product);
     }
 
     @Override
     public void removeProduct(Product product)
     {
-        productStorage.remove(product);
+        //productStorage.remove(product);
     }
-
+*/
     //Prints
     @Override
     public String toString()
@@ -215,10 +237,6 @@ public class Person implements ProductOwner
         return "Works at: " + printWorksAt() + " grossIncome: " + getGrossIncome() + " NettIncome: " + getNettIncome() + " Deposit: " + deposit;
     }
 
-    public String storageData()
-    {
-        return productStorage.productData();
-    }
 
     public String printLayers()
     {
@@ -327,24 +345,4 @@ public class Person implements ProductOwner
         return politicalOpinion;
     }
 
-    public Integer getNumberProducts()
-    {
-        return productStorage.size();
-    }
-
-    public Integer getUtilFromType(IndustryType type)
-    {
-        return productStorage.calcBaseUtilSum(type);
-    }
-
-    public ProductStorage getProductStorage()
-    {
-        return productStorage;
-    }
-
-    @Override
-    public double getMargin()
-    {
-        return 0;
-    }
 }

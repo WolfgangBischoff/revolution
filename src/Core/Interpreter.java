@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Enums.IndustryType;
 import Core.Enums.InterpreterKeyword;
 import Core.Enums.PoliticalOpinion;
 import Core.Exceptions.InterpreterInvalidOptionCombination;
@@ -40,6 +41,7 @@ public class Interpreter {
     private Set<String> keywordsBuy = new HashSet<>(Arrays.asList("buy"));
     private Set<String> keywordsSet = new HashSet<>(Arrays.asList("set"));
     private Set<String> keywordsBudget = new HashSet<>(Arrays.asList("budget", "bud"));
+    private Set<String> keywordsFood = new HashSet<>(Arrays.asList("food"));
 
     private Map<InterpreterKeyword, Set<String>> keywords = new HashMap<>();
 
@@ -73,6 +75,7 @@ public class Interpreter {
         keywords.put(InterpreterKeyword.BUY, keywordsBuy);
         keywords.put(InterpreterKeyword.SET, keywordsSet);
         keywords.put(InterpreterKeyword.BUDGET, keywordsBudget);
+        keywords.put(InterpreterKeyword.FOOD, keywordsFood);
     }
 
     public void setConsole(Console console)
@@ -239,9 +242,9 @@ public class Interpreter {
                 case PAY:
                     companyPay(optionPara);
                     return;
-                case PRODUCE:
-                    companyProduce(optionPara);
-                    return;
+                //case PRODUCE:
+                  //  companyProduce(optionPara);
+                    //return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputParameters[0],possibleArguments);
 
@@ -286,7 +289,7 @@ public class Interpreter {
             switch (getKeyword(inputParameters[0]))
             {
                 case ADD:
-                    companyAdd(optionPara);
+                    economyAdd(optionPara);
                     return;
                 case PRINT:
                     economyPrint(optionPara);
@@ -300,8 +303,8 @@ public class Interpreter {
                 case PAY:
                     economyPaySalary(optionPara);
                     return;
-                case PRODUCE:
-                    economy.comaniesProduce(); return;
+                //case PRODUCE:
+                    //economy.comaniesProduce(); return;
                 case CALCULATE:
                     economy.calc(); return;
             }
@@ -496,9 +499,6 @@ public class Interpreter {
     private void societyBuy()
     {
         society.shop();
-        /*for(Person p : society.getPeople())
-            p.shop();
-        society.calcSociety();*/
         print("Society shopped");
     }
 
@@ -579,7 +579,7 @@ public class Interpreter {
 
     private void companyPrint(String[] inputOptions)
     {
-        String methodname = "companyAdd()";
+        String methodname = "economyPrint()";
         //Case no options
         if (inputOptions.length == 0)
         {
@@ -600,7 +600,7 @@ public class Interpreter {
         throw new InterpreterInvalidOptionCombination(methodname, inputOptions);
     }
 
-    private void companyProduce(String[] optionPara)
+    /*private void companyProduce(String[] optionPara)
     {
         if (optionPara.length == 0)
         {
@@ -610,23 +610,39 @@ public class Interpreter {
         Company company = economy.getCompanyByName(optionPara[0]);
         if (company != null)
         {
-            company.produce();
+            //company.produce();
             print(company.getName() + " produced");
         }
         else
             print("No Company found");
 
-    }
+    }*/
 
-    private void companyAdd(String[] inputOptions)
+    private void economyAdd(String[] inputOptions)
     {
-        String methodname = "companyAdd()";
+        String methodname = "economyAdd()";
+        String possibleArguments = "[food]";
         //Case no options
         if (inputOptions.length == 0)
         {
             print("Please specify name");
+            print(POSSIBLE_ARGUMENTS + possibleArguments);
             return;
         }
+
+        if(isKeyword(inputOptions[0]))
+        {
+            String[] residualArguments = cutFirstIndexPositions(inputOptions, 1);
+            switch (getKeyword(inputOptions[0]))
+            {
+                case FOOD:
+                    economyAddIndustry(IndustryType.FOOD, residualArguments); return;
+                case TEST:
+                    economy.createTest(residualArguments[0]); return;
+
+            }
+        }
+
         //Case name given
         if (inputOptions.length >= 1)
         {
@@ -635,6 +651,27 @@ public class Interpreter {
         }
 
         throw new InterpreterInvalidOptionCombination(methodname, inputOptions);
+
+    }
+
+    private void economyAddIndustry(IndustryType type, String[] arguments)
+    {
+        if(arguments.length > 0)
+        {
+            Integer number = 0;
+            if(Util.tryParseInt(arguments[0]))
+            {
+                number = Integer.parseInt(arguments[0]);
+                print(economy.addCompany(type, number).toString());
+                return;
+            }
+            else
+            {
+                print("Not a number");
+                return;
+            }
+        }
+            economy.addCompany(type, 1);
 
     }
 

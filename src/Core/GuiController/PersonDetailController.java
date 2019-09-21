@@ -52,8 +52,8 @@ public class PersonDetailController
 
         showStorageDetail.setOnAction((event -> {
             System.out.println("StorageDetail");
-            StorageOverviewController storageOverviewController = new StorageOverviewController(person.getProductStorage());
-            GameWindow.getSingleton().createNextScene(storageOverviewController.load());
+            //StorageOverviewController storageOverviewController = new StorageOverviewController(person.getProductStorage());
+            //GameWindow.getSingleton().createNextScene(storageOverviewController.load());
         }));
 
         name.setText(person.getName().toString());
@@ -63,6 +63,7 @@ public class PersonDetailController
         deposit.setText(person.getDeposit().toString());
         grossincome.setText(person.getGrossIncome().toString());
         worksat.setText(person.printWorksAt());
+        /*
         numberFood.setText(person.getUtilFromType(IndustryType.FOOD).toString());
         numberClothing.setText(person.getUtilFromType(IndustryType.CLOTHS).toString());
         numberHousing.setText(person.getUtilFromType(IndustryType.HOUSING).toString());
@@ -71,7 +72,7 @@ public class PersonDetailController
         numberHealth.setText(person.getUtilFromType(IndustryType.HEALTH).toString());
         numberTraffic.setText(person.getUtilFromType(IndustryType.TRAFFIC).toString());
         numberEducation.setText(person.getUtilFromType(IndustryType.EDUCATION).toString());
-        numberSparetime.setText(person.getUtilFromType(IndustryType.SPARETIME).toString());
+        numberSparetime.setText(person.getUtilFromType(IndustryType.SPARETIME).toString());*/
     }
 
 

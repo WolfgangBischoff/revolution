@@ -26,7 +26,7 @@ public class Simulation
     private Simulation()
     {
         society = Society.getSociety();
-        economy = new Economy();
+        economy = Economy.getEconomy(); //new Economy();
         government = Government.getGoverment();
         console = new Console(this);
     }

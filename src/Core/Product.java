@@ -35,7 +35,7 @@ public class Product
         return (int)(priceWithtoutMargin * (1+owner.getMargin()));
     }
 
-
+/*
     public static void transfer(ProductOwner sender, ProductOwner receipient, Product product)
     {
         product.previousOwner = product.owner;
@@ -50,7 +50,7 @@ public class Product
             transfer(sender, receipient, p);
         }
     }
-
+*/
 
 
 
