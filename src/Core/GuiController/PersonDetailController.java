@@ -50,11 +50,11 @@ public class PersonDetailController
             GameWindow.getSingleton().createNextScene("../fxml/personList.fxml");
         });
 
-        showStorageDetail.setOnAction((event -> {
+       /* showStorageDetail.setOnAction((event -> {
             System.out.println("StorageDetail");
             //StorageOverviewController storageOverviewController = new StorageOverviewController(person.getProductStorage());
             //GameWindow.getSingleton().createNextScene(storageOverviewController.load());
-        }));
+        }));*/
 
         name.setText(person.getName().toString());
         age.setText(person.getAge().toString());

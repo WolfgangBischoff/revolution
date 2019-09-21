@@ -21,8 +21,6 @@
         <Text fx:id="deposit" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
     <Label text="Number free workplaces:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
         <Text fx:id="numberFreeWorkplaces" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-    <Label text="Number Products:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-        <Text fx:id="products" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
     <Button fx:id="back" text="back" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
 

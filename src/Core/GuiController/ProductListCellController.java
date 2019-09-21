@@ -1,6 +1,5 @@
 package Core.GuiController;
 
-import Core.Product;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
@@ -9,7 +8,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-public class ProductListCellController extends ListCell<Product>
+public class ProductListCellController
 {
     //Product product;
     @FXML
@@ -17,6 +16,7 @@ public class ProductListCellController extends ListCell<Product>
     @FXML
     private GridPane gridpane;
 
+    /*
     @Override
         public void updateItem(Product product, boolean empty)
         {
@@ -32,7 +32,7 @@ public class ProductListCellController extends ListCell<Product>
 
             }
         }
-
+*/
         private void loadFXML()
         {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../fxml/ProductListCell.fxml"));

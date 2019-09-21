@@ -3,8 +3,7 @@ package Core.GuiController;
 import Core.Enums.IndustryType;
 import Core.GameWindow;
 import Core.Person;
-import Core.ProductOwner;
-import Core.ProductStorage;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -19,8 +18,8 @@ import java.io.IOException;
 
 public class StorageOverviewController
 {
-    ProductOwner storageOwner;
-    ProductStorage storage;
+    //ProductOwner storageOwner;
+
     FXMLLoader loader;
 
     @FXML
@@ -30,10 +29,10 @@ public class StorageOverviewController
     @FXML
     Tab foodTab, clothsTabPage, housingTabPage, educationTabPage;
 
-    public StorageOverviewController(ProductStorage storage)
+    public StorageOverviewController()
     {
-        this.storage = storage;
-        storageOwner = storage.getOwner();
+
+        //storageOwner = storage.getOwner();
         loader = new FXMLLoader(getClass().getResource("../../fxml/storageOverview.fxml"));
         loader.setController(this);
     }
@@ -42,26 +41,27 @@ public class StorageOverviewController
     private void initialize()
     {//Is used by fxml after this is set as Controller
 
-        name.setText(storageOwner.getName());
+        name.setText("TODO");
 
         //Init Tabs
         //foodTab.setGraphic(new Circle(0, 0, 10));
         foodTab.setGraphic(new ImageView(new Image("/img/food.png", 20,20,false,false)));
 
+        /*
         foodTab.setContent(new StorageOverviewTabPageController(storage, IndustryType.FOOD).load());
         clothsTabPage.setContent(new StorageOverviewTabPageController(storage, IndustryType.CLOTHS).load());
         housingTabPage.setContent(new StorageOverviewTabPageController(storage, IndustryType.HOUSING).load());
         educationTabPage.setContent(new StorageOverviewTabPageController(storage, IndustryType.EDUCATION).load());
-
+*/
         backButton.setOnAction((event) -> {
             //Create PersonDetailViewController which can pass a parameter
-            if (storageOwner instanceof Person)
+            /*if (storageOwner instanceof Person)
             {
                 PersonDetailController personDetailController = new PersonDetailController((Person) storageOwner);
                 GameWindow.getSingleton().createNextScene(personDetailController.load());
             }
             else
-                System.out.println("Not person TODO");
+                System.out.println("Not person TODO");*/
         });
 
 

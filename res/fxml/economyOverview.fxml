@@ -27,16 +27,9 @@
     <Text text="#depositsCompany" fx:id="depositsCompanies"
           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-    <Label text="Products on Market"
-           GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-
-    <Text text="#productsOnMarket" fx:id="productsOnMarket"
-          GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-
     <HBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4">
         <Button text="Populate Economy" onAction="#populate"/>
         <Button text="Hire people" onAction="#hire"/>
-        <Button text="Produce" onAction="#produce"/>
     </HBox>
     <Button text="Company List" GridPane.columnIndex="0" GridPane.rowIndex="5" onAction="#companyList" />
     <Button text="Back to Menu" GridPane.columnIndex="1" GridPane.rowIndex="5" onAction="#backToMenu" />

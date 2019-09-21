@@ -29,7 +29,7 @@
     <Label text="Sparetime:" GridPane.columnIndex="0" GridPane.rowIndex="15"/><Text fx:id="numberSparetime" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
 
     <Button fx:id="back" text="back" GridPane.columnIndex="1" GridPane.rowIndex="17"/>
-    <Button fx:id="showStorageDetail" text="Storage Detail" GridPane.columnIndex="0" GridPane.rowIndex="16"/>
+
 
 
 
