@@ -60,12 +60,12 @@ public class Market
             if (!toCheck.canProduce())
                 marketanalysisDataStorage.personNoProductsLeft(type, toCheck);
             //Company was not affordable
-            if (toCheck.getPrice() > budget)
-                marketanalysisDataStorage.personCannotAffort(type, toCheck, (budget - toCheck.getPrice()));
+            //if (toCheck.getPrice() > budget)
+                //marketanalysisDataStorage.personCannotAffort(type, toCheck, (toCheck.getPrice() - budget));
 
 
-            //Can afford
-            if (toCheck.getPrice() <= budget)
+            //Can afford & company can supply
+            if (toCheck.getPrice() <= budget && toCheck.canProduce())
             {
                 //Init
                 if (bestCompany == null)
@@ -76,23 +76,50 @@ public class Market
                 //Found company with more luxury
                 if (toCheck.getLuxury() > bestCompany.getLuxury())
                 {
-                    marketanalysisDataStorage.tooFewLuxury(type, bestCompany, toCheck.getLuxury() - bestCompany.getLuxury());
+                    //marketanalysisDataStorage.tooFewLuxury(type, bestCompany, toCheck.getLuxury() - bestCompany.getLuxury());
                     bestCompany = toCheck;
                 }
                 //Found company with same luxury but better price
                 else if (toCheck.getLuxury() == bestCompany.getLuxury() && toCheck.getPrice() < bestCompany.getPrice())
                 {
-                    marketanalysisDataStorage.tooCompetitorCheaper(type, bestCompany, toCheck.getPrice() - bestCompany.getPrice());
+                    //marketanalysisDataStorage.tooExpensive(type, bestCompany, toCheck.getPrice() - bestCompany.getPrice());
                     bestCompany = toCheck;
                 }
             }
         }
 
+        if(bestCompany == null)
+        {
+            System.out.println("TODO ARBEITSLOS KEIN UNTERNEHMEN MÖGLICH: " + budget);
+        }
+
         //Best competitor could get more
         if (budget - bestCompany.getPrice() > 0)
-            marketanalysisDataStorage.tooCompetitorCheaper(type, bestCompany, budget - bestCompany.getPrice());
-
+        {
+            marketanalysisDataStorage.tooCheap(type, bestCompany, budget - bestCompany.getPrice());
+            marketanalysisDataStorage.sold(type, bestCompany);
+        }
+        collectMarketData(bestCompany);
         return bestCompany;
+    }
+
+    private void collectMarketData(Company bestCompany)
+    {
+        IndustryType type = bestCompany.getIndustry();
+        for (Company comparedCompany : marketCompanies.get(type))
+        {
+            if (comparedCompany == bestCompany)
+                continue;
+            //To few luxury for current price
+            if (comparedCompany.getLuxury() < bestCompany.getLuxury())
+                marketanalysisDataStorage.tooFewLuxury(type, comparedCompany, bestCompany.getLuxury() - comparedCompany.getLuxury());
+            //To expensive for given luxury
+            if (comparedCompany.getLuxury() == bestCompany.getLuxury() && comparedCompany.getPrice() > bestCompany.getPrice())
+                marketanalysisDataStorage.tooExpensive(type, comparedCompany, comparedCompany.getPrice() - bestCompany.getPrice());
+            //To expensive but more luxury
+            if(comparedCompany.getLuxury() > bestCompany.getLuxury() && comparedCompany.getPrice() > bestCompany.getPrice())
+                marketanalysisDataStorage.tooExpensive(type, comparedCompany, comparedCompany.getPrice() - bestCompany.getPrice());
+        }
     }
 
     //Prints
@@ -114,7 +141,7 @@ public class Market
 
     public String dataMarketAnalysis()
     {
-        return marketanalysisDataStorage.toString();
+        return marketanalysisDataStorage.dataAnalysis();
     }
 
     //Getter and Setter

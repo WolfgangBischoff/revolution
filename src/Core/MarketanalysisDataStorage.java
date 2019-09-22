@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import static Core.Enums.IndustryType.FOOD;
+import static Core.Enums.IndustryType.getEnumSize;
 
 class MarketanalysisData
 {
@@ -49,18 +50,28 @@ class MarketanalysisData
         comanySpecificData.get(company).qualityToBad.add(amount);
     }
 
+    public void sold(Company company)
+    {
+        comanySpecificData.get(company).numSold++;
+    }
+
     @Override
     public String toString()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(date);
-        stringBuilder.append("\n" + comanySpecificData);
+        stringBuilder.append("Date: " + date);
+        for(Map.Entry<Company, CompanySpecificMarketData> companyData : comanySpecificData.entrySet())
+        {
+            stringBuilder.append("\n\t" + companyData.getKey().baseData());
+            stringBuilder.append("\n\t" + companyData.getValue());
+        }
         return stringBuilder.toString();
     }
 
     class CompanySpecificMarketData
     {
         Integer numNoProductsLeft = 0;
+        Integer numSold = 0;
         List<Integer> toExpensive = new ArrayList();
         List<Integer> toCheap = new ArrayList<>();
         List<Integer> qualityToBad = new ArrayList<>();
@@ -68,7 +79,8 @@ class MarketanalysisData
         @Override
         public String toString()
         {
-            return "To Expensive: " + toExpensive.toString() + "\nTo Cheap: " + toCheap.toString() + "\nQuality: " + qualityToBad.toString() + "\nNo capacity: " + numNoProductsLeft;
+            return "Sold: " + numSold + "\n\tTo Expensive: " + toExpensive.toString() + "\n\tTo Cheap: " + toCheap.toString() +
+                    "\n\tQuality: " + qualityToBad.toString() + "\n\tNo capacity: " + numNoProductsLeft + "\n";
         }
     }
 
@@ -107,11 +119,25 @@ public class MarketanalysisDataStorage
         data.toBadQuality(company, amount);
     }
 
-    public void tooCompetitorCheaper(IndustryType type, Company company, Integer amount)
+    public void tooExpensive(IndustryType type, Company company, Integer amount)
+    {
+        Integer today = 0;
+        MarketanalysisData data = dataStorage.get(today).get(type);
+        data.toExpensive(company, amount); //same as person cannot afford
+    }
+
+    public void tooCheap(IndustryType type, Company company, Integer amount)
     {
         Integer today = 0;
         MarketanalysisData data = dataStorage.get(today).get(type);
         data.toCheap(company, amount); //same as person cannot afford
+    }
+
+    public void sold(IndustryType type, Company company)
+    {
+        Integer today = 0;
+        MarketanalysisData data = dataStorage.get(today).get(type);
+        data.sold(company); //same as person cannot afford
     }
 
     public void initNewDay()
@@ -139,5 +165,23 @@ public class MarketanalysisDataStorage
     public String toString()
     {
         return dataStorage.toString();
+    }
+
+    public String dataAnalysis()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("---- Analysis Data ----");
+        for(int i=0; i<dataStorage.size(); i++)
+            stringBuilder.append(dataAnalysis(i));
+        return stringBuilder.toString();
+    }
+
+    public String dataAnalysis(Integer date)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        Map<IndustryType, MarketanalysisData> marketanalysisData = dataStorage.get(date);
+        for(Map.Entry<IndustryType, MarketanalysisData> entry : marketanalysisData.entrySet())
+            stringBuilder.append("\nIndustry: " + entry.getKey() + "\n" + entry.getValue());
+        return stringBuilder.toString();
     }
 }

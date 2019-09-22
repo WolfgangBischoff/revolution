@@ -17,7 +17,7 @@ public class Company
     private IndustryType industry;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
     private static final String COMPANYNAMESPATH = "./res/txt/names/companies/";
-    private Integer luxury, price, maxCapacity = 10, capacity = 0;
+    private Integer luxury, price = -1, maxCapacity = 100, capacity = 0;
     private Integer baseCapacityCost = 1;
 
 
@@ -89,12 +89,13 @@ public class Company
 
     public void produce()
     {
-        capacity += luxury + baseCapacityCost;
+        capacity += (luxury + baseCapacityCost);
     }
 
     public boolean canProduce()
     {
         Integer currentCap = capacity + luxury + baseCapacityCost;
+        //System.out.println("CAPACITY " + currentCap + " max " + maxCapacity);
         return  currentCap <= maxCapacity;
     }
 
@@ -270,6 +271,10 @@ public class Company
 
     public Integer getPrice()
     {
+        if(price == null)
+        {
+            System.out.println("NULL: " + this);
+        }
         return price;
     }
 

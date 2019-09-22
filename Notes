@@ -3,6 +3,7 @@ KNOWN BUGS:
     Debug Market Analysis
 
 TODOS:
+    MarketAnalysis: add unused Capacity, solve issue with two identical offers (50/50, analysis)
     Add Company price/.. changes
     Save
     Wohnhouse, housing not just comsumer product but also owner
