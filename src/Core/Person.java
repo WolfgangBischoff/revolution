@@ -19,7 +19,7 @@ public class Person // implements ProductOwner
     Integer effectiveHappiness;
     Workposition worksAt;
     private Integer deposit;
-    //private ProductStorage productStorage;
+    private ConsumeDataStorage consumeDataStorage = new ConsumeDataStorage(this);
     private final static String PERSONNAMESPATH = "./res/txt/names/persons/";
 
     //Malus if less, just to reache but not more. Luxury for more
@@ -152,61 +152,22 @@ public class Person // implements ProductOwner
     public void shop()
     {
         //for all demands
+        IndustryType type = FOOD;
 
         //check Market with budget
         Integer dailyBudgetForIndustry = budgetPlan.dailyBudgets.get(0).get(BudgetPost.FOOD);
-        Company bestOffer = Market.getMarket().getBestOffer(FOOD, dailyBudgetForIndustry);
-        //System.out.println(getName() + " Budget: " + dailyBudgetForIndustry + " Best offer: " + bestOffer.baseData());
+        Company bestSupplier = Market.getMarket().getBestOffer(type, dailyBudgetForIndustry);
 
-        //Pay Company and get product TODO
-
-
-        //Get available shopping cart of day
-        //List<Product> shoppingCart = budgetPlan.getShoppingCartChecked();
-        //List<Product> bought = Market.getMarket().sellProductsUnchecked(this, shoppingCart);
-        //System.out.println("\n" + getName() + " bought: " + bought.toString());
+        //Pay Company and consume
+        consumeDataStorage.consume(type, bestSupplier.getLuxury());
+        deposit -= bestSupplier.getPrice();
+        bestSupplier.produce();
+        bestSupplier.getPaid(bestSupplier.getPrice());
 
         //calc
     }
-    /*
-      @Override
-      public void getPaid(Integer amount)
-      {
-          throw new RuntimeException("Person GetPaid()");
-  }
 
-      /*
-      @Override
-      public void pay(Product product)
-      {
-          Integer price = Market.getMarket().getProductPrice(product.type) * product.utilityBase;
-          deposit -= price;
-          product.setPriceProductWasBought(price);
-          product.owner.getPaid(price);
-      }
 
-      @Override
-      public void pay(List<Product> products)
-      {
-          for (Product product : products)
-          {
-              pay(product);
-          }
-      }
-  */
-/*
-    @Override
-    public void addProduct(Product product)
-    {
-        //productStorage.add(product);
-    }
-
-    @Override
-    public void removeProduct(Product product)
-    {
-        //productStorage.remove(product);
-    }
-*/
     //Prints
     @Override
     public String toString()
@@ -345,4 +306,8 @@ public class Person // implements ProductOwner
         return politicalOpinion;
     }
 
+    public ConsumeDataStorage getConsumeDataStorage()
+    {
+        return consumeDataStorage;
+    }
 }

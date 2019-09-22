@@ -10,19 +10,16 @@ import java.util.Map;
 
 import static Core.Util.*;
 
-public class Company //implements ProductOwner
+public class Company
 {
     private String name;
     private Integer deposit;
     private IndustryType industry;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
     private static final String COMPANYNAMESPATH = "./res/txt/names/companies/";
-    private Integer luxury, price, capacity;
+    private Integer luxury, price, maxCapacity = 10, capacity = 0;
+    private Integer baseCapacityCost = 1;
 
-
-
-    private Double marginPercent = 0.1;
-    //private ArrayList<Product> products = new ArrayList<>();
 
 
     //Constructors
@@ -90,6 +87,17 @@ public class Company //implements ProductOwner
 
     }
 
+    public void produce()
+    {
+        capacity += luxury + baseCapacityCost;
+    }
+
+    public boolean canProduce()
+    {
+        Integer currentCap = capacity + luxury + baseCapacityCost;
+        return  currentCap <= maxCapacity;
+    }
+
     private void addDefaultWorkplaces()
     {
         for (int i = 0; i < NUM_BASE_EDU_WORKPLACES; i++)
@@ -102,75 +110,12 @@ public class Company //implements ProductOwner
             workpositions.add(new Workposition(this, EducationalLayer.EDU_UNIVERSITY));
     }
 
-  /*   private void produceProduct(Integer utilityUnits, Integer luxuryUnits)
-    {
-        addProduct(new Product(name + "s product", this, this, industry, utilityUnits, luxuryUnits));
-        Product.transfer(this, Market.getMarket(), products.get(0));
-    }
-
-    private Double calcProductionEffectivity()
-    {
-        return (double) calcNumberWorkers() / workpositions.size();
-    }
-
-   protected void produce()
-    {
-        int usedCapacity = 0;
-        int capacity = COMPANY_UTIL_CAPACITY_DEFAULT;
-        float ratioLarge = 0.3f;
-        float ratioMedium = 0.3f;
-        int effectiveCapacity = (int) (capacity * calcProductionEffectivity());
-
-        int numberLarge = (int) ((ratioLarge * effectiveCapacity) / UTILITY_LARGE);
-        int numberMedium = (int) ((ratioMedium * effectiveCapacity) / UTILITY_MEDIUM);
-
-        for (int i = 0; i < numberLarge; i++)
-        {
-            produceProduct(UTILITY_LARGE, 0);
-            usedCapacity += UTILITY_LARGE;
-        }
-        for (int i = 0; i < numberMedium; i++)
-        {
-            produceProduct(UTILITY_MEDIUM, i);
-            produceProduct(UTILITY_MEDIUM, i);
-            usedCapacity += UTILITY_MEDIUM*2;
-        }
-        for (; usedCapacity < effectiveCapacity; )
-        {
-            produceProduct(UTILITY_SMALL, 1);
-            usedCapacity += UTILITY_SMALL;
-        }
-    }
-
-    @Override
-    public void addProduct(Product product)
-    {
-        //products.add(product);
-    }
-
-    @Override
-    public void removeProduct(Product product)
-    {
-        //products.remove(product);
-    }
-
-    @Override
     public void getPaid(Integer amount)
     {
         deposit += amount;
     }
 
-    @Override
-    public void pay(Product price)
-    {
 
-    }
-
-    @Override
-    public void pay(List<Product> product)
-    {
-
-    }*/
 
     void paySalaries()
     {
@@ -298,7 +243,6 @@ public class Company //implements ProductOwner
         return name;
     }
 
-
     public Integer getDeposit()
     {
         return deposit;
@@ -313,7 +257,6 @@ public class Company //implements ProductOwner
     {
         return calcNumberWorkers();
     }
-
 
     public IndustryType getIndustry()
     {

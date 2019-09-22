@@ -1,21 +1,19 @@
 package Core;
 
 import Core.Enums.IndustryType;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
 
 
-public class Market //implements ProductOwner
+public class Market
 {
     private static Market singleton;
     private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     public static final String NUMBER_PRODUCTS_NAME = "numberProducts";
-    //private ProductStorage productStorage;
     private Map<IndustryType, List<Company>> marketCompanies = new TreeMap<>();
-
-
-    private Integer productPrice = 5;
+    private MarketanalysisDataStorage marketanalysisDataStorage = new MarketanalysisDataStorage(this);
 
     //Constructors
     private Market()
@@ -44,31 +42,56 @@ public class Market //implements ProductOwner
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 
-    /*public void clear()
+    public void initNewDay()
     {
-        productStorage.clear();
-    }*/
+        marketanalysisDataStorage.initNewDay();
+    }
 
     public Company getBestOffer(IndustryType type, Integer budget)
-    {//TODO check capacity & remember reason for not fitting
+    {
         List<Company> companies = marketCompanies.get(type);
         Company bestCompany = null;
-        for(int i=0; i<companies.size(); i++)
+
+        for (int i = 0; i < companies.size(); i++)
         {
             Company toCheck = companies.get(i);
-            if(toCheck.getPrice() <= budget)
+
+            //Company has no capacity left
+            if (!toCheck.canProduce())
+                marketanalysisDataStorage.personNoProductsLeft(type, toCheck);
+            //Company was not affordable
+            if (toCheck.getPrice() > budget)
+                marketanalysisDataStorage.personCannotAffort(type, toCheck, (budget - toCheck.getPrice()));
+
+
+            //Can afford
+            if (toCheck.getPrice() <= budget)
             {
-                if(bestCompany == null)
+                //Init
+                if (bestCompany == null)
                 {
                     bestCompany = toCheck; continue;
                 }
-                if(toCheck.getLuxury() > bestCompany.getLuxury())
-                    bestCompany = toCheck;
-                else if (toCheck.getLuxury() == bestCompany.getLuxury() && toCheck.getPrice() < bestCompany.getPrice())
-                    bestCompany = toCheck;
 
+                //Found company with more luxury
+                if (toCheck.getLuxury() > bestCompany.getLuxury())
+                {
+                    marketanalysisDataStorage.tooFewLuxury(type, bestCompany, toCheck.getLuxury() - bestCompany.getLuxury());
+                    bestCompany = toCheck;
+                }
+                //Found company with same luxury but better price
+                else if (toCheck.getLuxury() == bestCompany.getLuxury() && toCheck.getPrice() < bestCompany.getPrice())
+                {
+                    marketanalysisDataStorage.tooCompetitorCheaper(type, bestCompany, toCheck.getPrice() - bestCompany.getPrice());
+                    bestCompany = toCheck;
+                }
             }
         }
+
+        //Best competitor could get more
+        if (budget - bestCompany.getPrice() > 0)
+            marketanalysisDataStorage.tooCompetitorCheaper(type, bestCompany, budget - bestCompany.getPrice());
+
         return bestCompany;
     }
 
@@ -77,59 +100,22 @@ public class Market //implements ProductOwner
     {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("----Market----\n");
-        for(Map.Entry<IndustryType, List<Company>> industry : marketCompanies.entrySet())
+        for (Map.Entry<IndustryType, List<Company>> industry : marketCompanies.entrySet())
         {
-            if(industry.getValue().isEmpty())
+            if (industry.getValue().isEmpty())
                 continue;
             stringBuilder.append(industry.getKey() + "\n");
             List<Company> companies = industry.getValue();
-            for(Company company : companies)
+            for (Company company : companies)
                 stringBuilder.append("\t" + company.baseData() + "\n");
         }
         return stringBuilder.toString();
     }
-/*
-    @Override
-    public String getName()
+
+    public String dataMarketAnalysis()
     {
-        return "Market";
+        return marketanalysisDataStorage.toString();
     }
-
-    @Override
-    public void addProduct(Product product)
-    {
-
-        Integer tmpNumberProducts = productStorage.size();
-        productStorage.add(product);
-        propertyChangeSupport.firePropertyChange(NUMBER_PRODUCTS_NAME, tmpNumberProducts, productStorage.size());
-    }
-
-    @Override
-    public void removeProduct(Product product)
-    {
-        /*
-        Integer tmpNumberProducts = productStorage.size();
-        productStorage.remove(product);
-        propertyChangeSupport.firePropertyChange(NUMBER_PRODUCTS_NAME, tmpNumberProducts, productStorage.size());
-    }
-
-    @Override
-    public void getPaid(Integer amount)
-    {
-        throw new RuntimeException("Should not happen");
-    }
-
-    @Override
-    public void pay(Product price)
-    {
-        throw new RuntimeException("Should not happen");
-    }
-
-    @Override
-    public void pay(List<Product> product)
-    {
-        throw new RuntimeException("Should not happen");
-    }*/
 
     //Getter and Setter
     public static Market getMarket()
@@ -139,35 +125,6 @@ public class Market //implements ProductOwner
         return singleton;
     }
 
-/*
-    public List<Product> sellProductsUnchecked(ProductOwner buyer, List<Product> bought)
-    {
-        if(bought.size() == 0)
-        {
-            //System.out.println(buyer.getName() + " No products to buy");
-            return bought;
-        }
-        buyer.pay(bought);
-        Product.transfer(this, buyer, bought);
-        return bought;
-    }
-*/
-    public Integer getProductPrice(IndustryType type)
-    {
-        //Different prices TODO
-        return productPrice;
-    }
-
-  /*  public List<List<Product>> getAllProducts(IndustryType type)
-    {
-        return productStorage.getAllProducts(type);
-    }
-
-    @Override
-    public double getMargin()
-    {
-        return 0;
-    }*/
 
     public void addCompany(Company company)
     {

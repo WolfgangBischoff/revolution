@@ -32,6 +32,7 @@ public class Society
 
     public void shop()
     {
+        Market.getMarket().initNewDay();
         for(Person p : people)
             p.shop();
         societyStatistics.calcAll();
@@ -55,21 +56,26 @@ public class Society
         StringBuilder ret = new StringBuilder();
         for (Person person : people)
         {
-            ret.append("\n\nPerson: ");
+            ret.append(person.printBasicData() + "\n");
             if (special == null)
                 ret.append(
-                        person.printBasicData() + "\n\t" +
                                 person.printHappiness() + "\n\t" +
                                 person.printLayers() + "\n\t" +
                                 person.printEconomical());
-            if (special == InterpreterKeyword.BUDGET)
+            else if (special == InterpreterKeyword.BUDGET)
             {
+
                 ret.append(person.budgetData());
                 ret.append(person.dataBestMarketOffer(BudgetPost.FOOD));
+            }
+            else if (special == InterpreterKeyword.CONSUME)
+            {
+                ret.append(person.getConsumeDataStorage().dataConsume());
             }
         }
         return ret.toString();
     }
+
 
     public void clear()
     {
