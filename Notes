@@ -1,13 +1,12 @@
 
 KNOWN BUGS:
+    Debug Market Analysis
 
 TODOS:
-    Add Person buy from Company
     Add Company price/.. changes
     Save
     Wohnhouse, housing not just comsumer product but also owner
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
-    Add product config txt
 
     Add companies effectivsness dependent on infrastructure
     Add companies price politics: Monopol, Competition, Kartell
