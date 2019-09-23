@@ -20,6 +20,7 @@ public class Company
     private Integer luxury, price = -1, maxCapacity = 100, capacity = 0;
     private Integer baseCapacityCost = 1;
     private MarketanalysisDataStorage marketanalysisData = new MarketanalysisDataStorage(this);
+    private CompanyOffer offer;
 
 
 
@@ -46,6 +47,7 @@ public class Company
     public Company(IndustryType type, Integer price, Integer luxury)
     {
         this(Economy.getEconomy().createUniqueCompanyName(getRandomCompanyName(type)), type);
+        offer = new CompanyOffer(this, price, luxury);
         this.price = price;
         this.luxury = luxury;
         addDefaultWorkplaces();
@@ -230,7 +232,7 @@ public class Company
     {
         return "\nCompany{" +
                 "name='" + name + '\'' +
-                ", workpositions=" + workpositions +
+                //", workpositions=" + workpositions +
                 '}';
     }
 
@@ -287,5 +289,10 @@ public class Company
     public MarketanalysisDataStorage getMarketanalysisData()
     {
         return marketanalysisData;
+    }
+
+    public CompanyOffer getOffer()
+    {
+        return offer;
     }
 }

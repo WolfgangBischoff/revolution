@@ -5,6 +5,7 @@ import Core.Enums.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static Core.Enums.IndustryType.*;
 import static Core.Util.*;
@@ -59,7 +60,6 @@ public class Person // implements ProductOwner
         this.age = age;
         educationalLayer = edu;
         this.deposit = deposit;
-        //productStorage = new ProductStorage(this);
 
         needs.put(FOOD, 11);
         needs.put(CLOTHS, 2);
@@ -147,6 +147,42 @@ public class Person // implements ProductOwner
         else
             return  getName() + " Budget: " + dailyBudgetForIndustry + " Best offer: " + bestOffer.baseData();
 
+    }
+
+    public CompanyOffer chooseOffer(Set<CompanyOffer> offers, Integer budget)
+    {
+        CompanyOffer bestOffer = null;
+        for(CompanyOffer offer : offers)
+        {
+            CompanyOffer toCheck = offer;
+
+            //Can afford & company can supply
+            if (toCheck.getPrice() <= budget && toCheck.getManufacturer().canProduce())
+                {
+                    //Init first affordable company
+                    if (bestOffer == null)
+                    {
+                        bestOffer = toCheck; continue;
+                    }
+
+                    //Found company with more luxury
+                    if (toCheck.getLuxury() > bestOffer.getLuxury())
+                    {
+                        bestOffer = toCheck;
+                    }
+                    //Found company with same luxury but better price
+                    else if (toCheck.getLuxury() == bestOffer.getLuxury() && toCheck.getPrice() < bestOffer.getPrice())
+                    {
+                        bestOffer = toCheck;
+                    }
+                }
+
+            if(bestOffer == null)
+            {
+                //System.out.println("TODO ARBEITSLOS KEIN UNTERNEHMEN MÖGLICH: " + budget);
+            }
+        }
+        return bestOffer;
     }
 
     public void shop()

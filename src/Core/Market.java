@@ -40,15 +40,17 @@ public class Market
     {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
-/*
-    public void initNewDay()
-    {
-        marketanalysisDataStorage.initNewDay();
-    }
-*/
+
     public Company getBestOffer(IndustryType type, Integer budget)
     {
         List<Company> companies = marketCompanies.get(type);
+        //Get market offers
+        //Map<CompanyOffer, List<Company>> offers = createOfferMap(companies);
+
+        //choose offer
+        //choose company from offerlist
+
+
         Company bestCompany = null;
 
         for (int i = 0; i < companies.size(); i++)
@@ -58,7 +60,7 @@ public class Market
             //Can afford & company can supply
             if (toCheck.getPrice() <= budget && toCheck.canProduce())
             {
-                //Init
+                //Init first affordable company
                 if (bestCompany == null)
                 {
                     bestCompany = toCheck; continue;
@@ -85,6 +87,20 @@ public class Market
         }
         collectMarketDataForCompetitors(bestCompany, budget, type);
         return bestCompany;
+    }
+
+    public Map<CompanyOffer, List<Company>> createOfferMap(IndustryType type)
+    {
+        List<Company> companies = marketCompanies.get(type);
+        Map<CompanyOffer, List<Company>> offerssMap = new HashMap<>();
+        for(Company company : companies)
+        {
+            CompanyOffer offer = company.getOffer();
+            if(!offerssMap.containsKey(offer))
+                offerssMap.put(offer, new ArrayList<>());
+            offerssMap.get(offer).add(company);
+        }
+        return offerssMap;
     }
 
 

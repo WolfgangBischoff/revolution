@@ -6,6 +6,8 @@ import Core.Enums.IndustryType;
 import Core.Enums.InterpreterKeyword;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static Core.Util.*;
 
@@ -32,9 +34,20 @@ public class Society
 
     public void shop()
     {
-       // Market.getMarket().initNewDay();
+        //FOR ALL Industries
+
+        //TODO choose next company that can sold
+        Map<CompanyOffer, List<Company>> offers = Market.getMarket().createOfferMap(IndustryType.FOOD);
+        Map<CompanyOffer, Integer> nextCompany;
+
+
         for(Person p : people)
+        {
+            //TODO CHOOSE FROM OFFERS
+            //TODO BUY
+            //NEXT COMPANY
             p.shop();
+        }
         societyStatistics.calcAll();
         Simulation.getSingleton().getEconomy().calc();
     }
