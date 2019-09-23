@@ -35,12 +35,6 @@ public class Economy
         economyStatistics.calcState();
     }
 
-  /*  public void comaniesProduce()
-    {
-        for(Company company :companies)
-            company.produce();
-    }*/
-
     public String createUniqueCompanyName(String nameBase)
     {
         String name = nameBase;
@@ -192,6 +186,20 @@ public class Economy
         for(Company company : companies)
         {
             tmp.append(company.baseData() + "\n");
+        }
+        return tmp.toString();
+    }
+
+    public String dataMarketAnalysis()
+    {
+        if(companies.size()==0)
+            return "Economy has no companies";
+        StringBuilder tmp = new StringBuilder();
+        tmp.append("---- Analysis Data ----\n");
+        for(Company company : companies)
+        {
+            tmp.append(company.baseData() + "\n");
+            tmp.append(company.getMarketanalysisData().dataAnalysis() + "\n");
         }
         return tmp.toString();
     }

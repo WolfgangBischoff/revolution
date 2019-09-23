@@ -545,6 +545,8 @@ public class Interpreter {
                 case COMPANY:
                     print(economy.economyBaseCompanyData());
                     return;
+                case MARKET:
+                    print(economy.dataMarketAnalysis()); return;
             }
         throw new InterpreterInvalidArgumentException(methodname, inputOptions[0], possibleArguments);
 
@@ -701,7 +703,7 @@ public class Interpreter {
 
     private void marketPrint(String[] inputArgs)
     {
-        print(Market.getMarket().dataMarketAnalysis());
+       // print(Market.getMarket().dataMarketAnalysis());
     }
 
     //Helper

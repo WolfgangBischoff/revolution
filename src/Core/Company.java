@@ -19,6 +19,7 @@ public class Company
     private static final String COMPANYNAMESPATH = "./res/txt/names/companies/";
     private Integer luxury, price = -1, maxCapacity = 100, capacity = 0;
     private Integer baseCapacityCost = 1;
+    private MarketanalysisDataStorage marketanalysisData = new MarketanalysisDataStorage(this);
 
 
 
@@ -281,5 +282,10 @@ public class Company
     public Integer getCapacity()
     {
         return capacity;
+    }
+
+    public MarketanalysisDataStorage getMarketanalysisData()
+    {
+        return marketanalysisData;
     }
 }

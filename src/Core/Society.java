@@ -32,7 +32,7 @@ public class Society
 
     public void shop()
     {
-        Market.getMarket().initNewDay();
+       // Market.getMarket().initNewDay();
         for(Person p : people)
             p.shop();
         societyStatistics.calcAll();
