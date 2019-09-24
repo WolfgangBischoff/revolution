@@ -13,7 +13,8 @@ public class Market
     private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     public static final String NUMBER_PRODUCTS_NAME = "numberProducts";
     private Map<IndustryType, List<Company>> marketCompanies = new TreeMap<>();
-    //private MarketanalysisDataStorage marketanalysisDataStorage = new MarketanalysisDataStorage(this);
+    private Map<IndustryType, Map<CompanyOffer, List<Company>>> companyOffers = new TreeMap<>();
+    private Map<Company, Integer> companySaleNumbers = new HashMap<>();
 
     //Constructors
     private Market()
@@ -27,6 +28,17 @@ public class Market
         marketCompanies.put(IndustryType.ELECTRONICS, new ArrayList<Company>());
         marketCompanies.put(IndustryType.ENERGY, new ArrayList<Company>());
         marketCompanies.put(IndustryType.HOUSING, new ArrayList<Company>());
+
+        companyOffers.put(IndustryType.FOOD, new HashMap<CompanyOffer, List<Company>>());
+        companyOffers.put(IndustryType.CLOTHS, new HashMap<CompanyOffer, List<Company>>());
+        companyOffers.put(IndustryType.SPARETIME, new HashMap<CompanyOffer, List<Company>>());
+        companyOffers.put(IndustryType.EDUCATION, new HashMap<CompanyOffer, List<Company>>());
+        companyOffers.put(IndustryType.TRAFFIC, new HashMap<CompanyOffer, List<Company>>());
+        companyOffers.put(IndustryType.HEALTH, new HashMap<CompanyOffer, List<Company>>());
+        companyOffers.put(IndustryType.ELECTRONICS, new HashMap<CompanyOffer, List<Company>>());
+        companyOffers.put(IndustryType.ENERGY, new HashMap<CompanyOffer, List<Company>>());
+        companyOffers.put(IndustryType.HOUSING, new HashMap<CompanyOffer, List<Company>>());
+
     }
 
     //Calc
@@ -44,18 +56,15 @@ public class Market
     public Company getBestOffer(IndustryType type, Integer budget)
     {
         List<Company> companies = marketCompanies.get(type);
-        //Get market offers
-        //Map<CompanyOffer, List<Company>> offers = createOfferMap(companies);
-
-        //choose offer
-        //choose company from offerlist
-
 
         Company bestCompany = null;
 
         for (int i = 0; i < companies.size(); i++)
         {
             Company toCheck = companies.get(i);
+            //Init sold data
+            if(!companySaleNumbers.containsKey(toCheck))
+                companySaleNumbers.put(toCheck, 0);
 
             //Can afford & company can supply
             if (toCheck.getPrice() <= budget && toCheck.canProduce())
@@ -65,6 +74,14 @@ public class Market
                 {
                     bestCompany = toCheck; continue;
                 }
+
+                //If same offer
+                if(toCheck.getLuxury().equals(bestCompany.getLuxury()) && toCheck.getPrice().equals(bestCompany.getPrice()))
+                {
+                    if(companySaleNumbers.get(toCheck) < companySaleNumbers.get(bestCompany))
+                        bestCompany = toCheck;
+                }
+
 
                 //Found company with more luxury
                 if (toCheck.getLuxury() > bestCompany.getLuxury())
@@ -77,14 +94,18 @@ public class Market
                     bestCompany = toCheck;
                 }
 
-                //TODO Distibute Same offer
             }
         }
 
         if(bestCompany == null)
         {
             //System.out.println("TODO ARBEITSLOS KEIN UNTERNEHMEN MÖGLICH: " + budget);
+
         }
+
+        //Update sold data
+        if(bestCompany!=null)
+            companySaleNumbers.put(bestCompany, companySaleNumbers.get(bestCompany) + 1);
         collectMarketDataForCompetitors(bestCompany, budget, type);
         return bestCompany;
     }
@@ -103,6 +124,30 @@ public class Market
         return offerssMap;
     }
 
+    public void calcState()
+    {
+        companySaleNumbers = new HashMap<>();
+        //fetchCompanyOffers();
+    }
+
+    private void fetchCompanyOffers()
+    {
+        //TODO FOR TYPES
+        IndustryType type = IndustryType.FOOD;
+        List<Company> companies = marketCompanies.get(type);
+        Map<CompanyOffer, List<Company>> offers = companyOffers.get(type);
+        for(Company company : companies)
+        {
+            if(!offers.containsKey(company.getOffer()))
+                offers.put(company.getOffer(), new ArrayList<>());
+            offers.get(company.getOffer()).add(company);
+        }
+    }
+
+    public Map<CompanyOffer, List<Company>> getMarketOffers(IndustryType type)
+    {
+        return companyOffers.get(type);
+    }
 
     private void collectMarketDataForCompetitors(Company bestCompany, Integer budget, IndustryType type)
     {
@@ -126,13 +171,9 @@ public class Market
             for (Company company : companies)
                 stringBuilder.append("\t" + company.baseData() + "\n");
         }
+        stringBuilder.append(companySaleNumbers);
         return stringBuilder.toString();
     }
-/*
-    public String dataMarketAnalysis()
-    {
-        return marketanalysisDataStorage.dataAnalysis();
-    }*/
 
     //Getter and Setter
     public static Market getMarket()

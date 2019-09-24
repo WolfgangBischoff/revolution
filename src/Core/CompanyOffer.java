@@ -3,11 +3,11 @@ package Core;
 public class CompanyOffer implements Comparable<CompanyOffer>
 {
     Integer price, luxury;
-    Company manufacturer;
+    //Company manufacturer;
 
-    public CompanyOffer(Company company, Integer price, Integer luxury)
+    public CompanyOffer(Integer price, Integer luxury)
     {
-        manufacturer= company;
+        //manufacturer= company;
         this.price = price;
         this.luxury = luxury;
     }
@@ -35,8 +35,8 @@ public class CompanyOffer implements Comparable<CompanyOffer>
         return luxury;
     }
 
-    public Company getManufacturer()
+   /* public Company getManufacturer()
     {
         return manufacturer;
-    }
+    }*/
 }

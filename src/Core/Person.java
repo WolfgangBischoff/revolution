@@ -149,15 +149,16 @@ public class Person // implements ProductOwner
 
     }
 
-    public CompanyOffer chooseOffer(Set<CompanyOffer> offers, Integer budget)
+    public CompanyOffer chooseOffer(Set<CompanyOffer> offers, IndustryType type)
     {
+        Integer budget = budgetPlan.dailyBudgets.get(0).get(type);
         CompanyOffer bestOffer = null;
         for(CompanyOffer offer : offers)
         {
             CompanyOffer toCheck = offer;
 
-            //Can afford & company can supply
-            if (toCheck.getPrice() <= budget && toCheck.getManufacturer().canProduce())
+            //Can afford
+            if (toCheck.getPrice() <= budget)
                 {
                     //Init first affordable company
                     if (bestOffer == null)
@@ -195,10 +196,14 @@ public class Person // implements ProductOwner
         Company bestSupplier = Market.getMarket().getBestOffer(type, dailyBudgetForIndustry);
 
         //Pay Company and consume
-        consumeDataStorage.consume(type, bestSupplier.getLuxury());
-        deposit -= bestSupplier.getPrice();
-        bestSupplier.produce();
-        bestSupplier.getPaid(bestSupplier.getPrice());
+        if(bestSupplier != null)
+        {
+            consumeDataStorage.consume(type, bestSupplier.getLuxury());
+            deposit -= bestSupplier.getPrice();
+            bestSupplier.produce();
+            bestSupplier.getPaid(bestSupplier.getPrice());
+        }
+
 
         //calc
     }

@@ -46,7 +46,7 @@ public class MarketanalysisDataStorage
             currentData.toExpensive.add(owner.getPrice() - customerBudget);
         }
         //This company sold
-        if (bestCompetitor == owner)
+        else if (bestCompetitor == owner)
         {
             currentData.marketTotalSold++;
             currentData.numSold++;

@@ -1,6 +1,7 @@
 
 KNOWN BUGS:
-TODO Society Shop()
+    Marketanalyisis debug
+    Count not sold products
 
 TODOS:
     MarketAnalysis: add unused Capacity, solve issue with two identical offers (50/50, analysis)

@@ -47,7 +47,7 @@ public class Company
     public Company(IndustryType type, Integer price, Integer luxury)
     {
         this(Economy.getEconomy().createUniqueCompanyName(getRandomCompanyName(type)), type);
-        offer = new CompanyOffer(this, price, luxury);
+        offer = new CompanyOffer( price, luxury);
         this.price = price;
         this.luxury = luxury;
         addDefaultWorkplaces();
