@@ -13,7 +13,7 @@ public class Market
     private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     public static final String NUMBER_PRODUCTS_NAME = "numberProducts";
     private Map<IndustryType, List<Company>> marketCompanies = new TreeMap<>();
-    private Map<IndustryType, Map<CompanyOffer, List<Company>>> companyOffers = new TreeMap<>();
+    //private Map<IndustryType, Map<CompanyOffer, List<Company>>> companyOffers = new TreeMap<>();
     private Map<Company, Integer> companySaleNumbers = new HashMap<>();
 
     //Constructors
@@ -29,6 +29,7 @@ public class Market
         marketCompanies.put(IndustryType.ENERGY, new ArrayList<Company>());
         marketCompanies.put(IndustryType.HOUSING, new ArrayList<Company>());
 
+        /*
         companyOffers.put(IndustryType.FOOD, new HashMap<CompanyOffer, List<Company>>());
         companyOffers.put(IndustryType.CLOTHS, new HashMap<CompanyOffer, List<Company>>());
         companyOffers.put(IndustryType.SPARETIME, new HashMap<CompanyOffer, List<Company>>());
@@ -38,7 +39,7 @@ public class Market
         companyOffers.put(IndustryType.ELECTRONICS, new HashMap<CompanyOffer, List<Company>>());
         companyOffers.put(IndustryType.ENERGY, new HashMap<CompanyOffer, List<Company>>());
         companyOffers.put(IndustryType.HOUSING, new HashMap<CompanyOffer, List<Company>>());
-
+*/
     }
 
     //Calc
@@ -97,12 +98,6 @@ public class Market
             }
         }
 
-        if(bestCompany == null)
-        {
-            //System.out.println("TODO ARBEITSLOS KEIN UNTERNEHMEN MÖGLICH: " + budget);
-
-        }
-
         //Update sold data
         if(bestCompany!=null)
             companySaleNumbers.put(bestCompany, companySaleNumbers.get(bestCompany) + 1);
@@ -110,43 +105,9 @@ public class Market
         return bestCompany;
     }
 
-    public Map<CompanyOffer, List<Company>> createOfferMap(IndustryType type)
-    {
-        List<Company> companies = marketCompanies.get(type);
-        Map<CompanyOffer, List<Company>> offerssMap = new HashMap<>();
-        for(Company company : companies)
-        {
-            CompanyOffer offer = company.getOffer();
-            if(!offerssMap.containsKey(offer))
-                offerssMap.put(offer, new ArrayList<>());
-            offerssMap.get(offer).add(company);
-        }
-        return offerssMap;
-    }
-
     public void calcState()
     {
         companySaleNumbers = new HashMap<>();
-        //fetchCompanyOffers();
-    }
-
-    private void fetchCompanyOffers()
-    {
-        //TODO FOR TYPES
-        IndustryType type = IndustryType.FOOD;
-        List<Company> companies = marketCompanies.get(type);
-        Map<CompanyOffer, List<Company>> offers = companyOffers.get(type);
-        for(Company company : companies)
-        {
-            if(!offers.containsKey(company.getOffer()))
-                offers.put(company.getOffer(), new ArrayList<>());
-            offers.get(company.getOffer()).add(company);
-        }
-    }
-
-    public Map<CompanyOffer, List<Company>> getMarketOffers(IndustryType type)
-    {
-        return companyOffers.get(type);
     }
 
     private void collectMarketDataForCompetitors(Company bestCompany, Integer budget, IndustryType type)

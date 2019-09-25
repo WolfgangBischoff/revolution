@@ -37,14 +37,18 @@ public class MarketanalysisDataStorage
 
         //Process Data right after market decision
         currentData.marketTotalDemand++;
-        if (!owner.canProduce())
-            currentData.numNoProductsLeft++;
 
-        //Demand was not met
-        if (bestCompetitor == null)
+        //DEMAND NOT MET
+        //Affordable, but nobody can produce
+        if (bestCompetitor == null && !owner.canProduce() &&  owner.getPrice() <= customerBudget)
+            currentData.numLostToNoCapacity++;
+        //Not affordable, nobody else met demand
+        else if (bestCompetitor == null)
         {
             currentData.toExpensive.add(owner.getPrice() - customerBudget);
         }
+
+        //SOLD
         //This company sold
         else if (bestCompetitor == owner)
         {
@@ -52,19 +56,30 @@ public class MarketanalysisDataStorage
             currentData.numSold++;
             currentData.toCheap.add(customerBudget - owner.getPrice());
         }
-        //Other company sold
+        //OTHER COMPANY SOLD
         else
         {
             currentData.marketTotalSold++;
             //Competitor more luxury
             if (bestCompetitor.getLuxury() > owner.getLuxury())
                 currentData.qualityToBad.add(bestCompetitor.getLuxury() - owner.getLuxury());
+
             //Competitor same luxury but cheaper
             else if (bestCompetitor.getLuxury().equals(owner.getLuxury()) && bestCompetitor.getPrice() < owner.getPrice())
                 currentData.toExpensive.add(owner.getPrice() - bestCompetitor.getPrice());
-            //Competor less luxury but cheaper
-            else if(bestCompetitor.getLuxury() < owner.getLuxury() && bestCompetitor.getPrice() < owner.getPrice())
-                currentData.toExpensive.add(owner.getPrice() - bestCompetitor.getPrice());
+
+            //Not affordable, but competitor is
+            else if (customerBudget < owner.getPrice())
+                currentData.toExpensive.add(owner.getPrice() - customerBudget);
+
+            //same offer as competitor but random
+            else if (bestCompetitor.getLuxury().equals(owner.getLuxury()) && bestCompetitor.getPrice().equals(owner.getPrice()))
+                currentData.numLostToIdenticalOffer++;
+
+                //Affordable and better offer as competitor but no capacity
+            else if (!owner.canProduce() && bestCompetitor.getLuxury() < owner.getLuxury() && owner.getPrice() <= customerBudget)
+                currentData.numLostToNoCapacity++;
+
 
         }
     }
@@ -72,7 +87,7 @@ public class MarketanalysisDataStorage
     public String dataAnalysis()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        for(int i=0; i<dataContainer.size(); i++)
+        for (int i = 0; i < dataContainer.size(); i++)
             stringBuilder.append(dataAnalysis(i));
         return stringBuilder.toString();
     }

@@ -149,43 +149,6 @@ public class Person // implements ProductOwner
 
     }
 
-    public CompanyOffer chooseOffer(Set<CompanyOffer> offers, IndustryType type)
-    {
-        Integer budget = budgetPlan.dailyBudgets.get(0).get(type);
-        CompanyOffer bestOffer = null;
-        for(CompanyOffer offer : offers)
-        {
-            CompanyOffer toCheck = offer;
-
-            //Can afford
-            if (toCheck.getPrice() <= budget)
-                {
-                    //Init first affordable company
-                    if (bestOffer == null)
-                    {
-                        bestOffer = toCheck; continue;
-                    }
-
-                    //Found company with more luxury
-                    if (toCheck.getLuxury() > bestOffer.getLuxury())
-                    {
-                        bestOffer = toCheck;
-                    }
-                    //Found company with same luxury but better price
-                    else if (toCheck.getLuxury() == bestOffer.getLuxury() && toCheck.getPrice() < bestOffer.getPrice())
-                    {
-                        bestOffer = toCheck;
-                    }
-                }
-
-            if(bestOffer == null)
-            {
-                //System.out.println("TODO ARBEITSLOS KEIN UNTERNEHMEN MÖGLICH: " + budget);
-            }
-        }
-        return bestOffer;
-    }
-
     public void shop()
     {
         //for all demands

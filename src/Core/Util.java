@@ -59,6 +59,7 @@ public class Util
     public static final Integer PAYGRADE_GROSS_INCOME_D = 2000;
     public static final Integer PAYGRADE_GROSS_INCOME_E = 3000;
     public static final Integer PAYGRADE_GROSS_INCOME_F = 6000;
+    public static final Integer MAX_CAPACITY_DEFAULT = 30;
 
     //Economy
     public static final Integer DEFAULT_NUM_COMPANIES = 4;//IndustryType.getEnumSize();

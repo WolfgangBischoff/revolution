@@ -4,9 +4,6 @@ import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static Core.Util.*;
 
@@ -17,10 +14,10 @@ public class Company
     private IndustryType industry;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
     private static final String COMPANYNAMESPATH = "./res/txt/names/companies/";
-    private Integer luxury, price = -1, maxCapacity = 100, capacity = 0;
+    private Integer luxury, price = -1, maxCapacity = MAX_CAPACITY_DEFAULT, capacity = 0;
     private Integer baseCapacityCost = 1;
     private MarketanalysisDataStorage marketanalysisData = new MarketanalysisDataStorage(this);
-    private CompanyOffer offer;
+    //private CompanyOffer offer;
 
 
 
@@ -47,7 +44,7 @@ public class Company
     public Company(IndustryType type, Integer price, Integer luxury)
     {
         this(Economy.getEconomy().createUniqueCompanyName(getRandomCompanyName(type)), type);
-        offer = new CompanyOffer( price, luxury);
+        //offer = new CompanyOffer( price, luxury);
         this.price = price;
         this.luxury = luxury;
         addDefaultWorkplaces();
@@ -291,8 +288,5 @@ public class Company
         return marketanalysisData;
     }
 
-    public CompanyOffer getOffer()
-    {
-        return offer;
-    }
+
 }

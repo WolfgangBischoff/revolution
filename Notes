@@ -1,10 +1,9 @@
 
 KNOWN BUGS:
-    Marketanalyisis debug
-    Count not sold products
 
 TODOS:
-    MarketAnalysis: add unused Capacity, solve issue with two identical offers (50/50, analysis)
+    MarketAnalysis: add unused Capacity
+    Add time
     Add Company price/.. changes
     Save
     Wohnhouse, housing not just comsumer product but also owner

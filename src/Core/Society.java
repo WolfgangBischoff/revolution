@@ -31,31 +31,6 @@ public class Society
         societyStatistics.calcAll();
     }
 
-    private Map<CompanyOffer, List<Company>> checkCapacity(Map<CompanyOffer, List<Company>> initialCompanies)
-    {
-        Map<CompanyOffer, List<Company>> residualCompanies = new HashMap<>();
-        for(Map.Entry<CompanyOffer, List<Company>> companiesPerOfferEntry : initialCompanies.entrySet())
-        {
-            List<Company> residualList = checkCapacity(companiesPerOfferEntry.getValue());
-            if(!residualList.isEmpty())
-            {
-                residualCompanies.put(companiesPerOfferEntry.getKey(), residualList);
-            }
-        }
-        return residualCompanies;
-    }
-
-    private List<Company> checkCapacity(List<Company> initialCompanies)
-    {
-      List<Company> residual = new ArrayList<>();
-      for(Company company : initialCompanies)
-      {
-          if(company.canProduce())
-              residual.add(company);
-      }
-      return residual;
-    }
-
     public void shop()
     {
         //FOR ALL Industries
