@@ -3,7 +3,7 @@ package Core;
 import Core.Enums.Season;
 import java.time.DayOfWeek;
 
-public class GameDate implements Comparable
+public class GameDate implements Comparable<GameDate>
 {
     static public final int NUMBER_WEEKS_PER_SEASON = 4;
 
@@ -81,7 +81,7 @@ public class GameDate implements Comparable
     }
 
     @Override
-    public int compareTo(Object o)
+    public int compareTo(GameDate o)
     {
 
         return 0;
