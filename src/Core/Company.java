@@ -14,12 +14,9 @@ public class Company
     private IndustryType industry;
     private ArrayList<Workposition> workpositions = new ArrayList<>();
     private static final String COMPANYNAMESPATH = "./res/txt/names/companies/";
-    private Integer luxury, price = -1, maxCapacity = MAX_CAPACITY_DEFAULT, capacity = 0;
+    private Integer luxury, price = -1, maxCapacity = MAX_CAPACITY_DEFAULT, usedCapacity = 0;
     private Integer baseCapacityCost = 1;
     private MarketanalysisDataStorage marketanalysisData = new MarketanalysisDataStorage(this);
-    //private CompanyOffer offer;
-
-
 
     //Constructors
     public Company(String name)
@@ -44,7 +41,6 @@ public class Company
     public Company(IndustryType type, Integer price, Integer luxury)
     {
         this(Economy.getEconomy().createUniqueCompanyName(getRandomCompanyName(type)), type);
-        //offer = new CompanyOffer( price, luxury);
         this.price = price;
         this.luxury = luxury;
         addDefaultWorkplaces();
@@ -87,16 +83,26 @@ public class Company
 
     }
 
+    public Integer calcProductionEffort()
+    {
+        return luxury + baseCapacityCost;
+    }
+
     public void produce()
     {
-        capacity += (luxury + baseCapacityCost);
+        usedCapacity += calcProductionEffort();
     }
 
     public boolean canProduce()
     {
-        Integer currentCap = capacity + luxury + baseCapacityCost;
-        //System.out.println("CAPACITY " + currentCap + " max " + maxCapacity);
+        Integer currentCap = usedCapacity + calcProductionEffort();
         return  currentCap <= maxCapacity;
+    }
+
+    public Integer calcUnusedCapacity()
+    {
+        //System.out.println(baseData() + " : " + (maxCapacity - usedCapacity));
+        return maxCapacity - usedCapacity;
     }
 
     private void addDefaultWorkplaces()
@@ -278,9 +284,9 @@ public class Company
         return price;
     }
 
-    public Integer getCapacity()
+    public Integer getUsedCapacity()
     {
-        return capacity;
+        return usedCapacity;
     }
 
     public MarketanalysisDataStorage getMarketanalysisData()
@@ -288,5 +294,8 @@ public class Company
         return marketanalysisData;
     }
 
-
+public Integer getMaxCapacity()
+{
+    return maxCapacity;
+}
 }
