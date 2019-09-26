@@ -1,10 +1,9 @@
 package Core;
 
 import Core.Enums.Season;
-
 import java.time.DayOfWeek;
 
-public class Calender
+public class GameDate implements Comparable
 {
     static public final int NUMER_WEEKS_PER_SEASON = 4;
 
@@ -13,12 +12,25 @@ public class Calender
     Integer weekOfSeason;
     DayOfWeek dayOfWeek;
 
-    public Calender()
+    public GameDate()
     {
         year = 2019;
         seasonOfYear = Season.WINTER;
         weekOfSeason = 3;
         dayOfWeek = DayOfWeek.THURSDAY;
+    }
+
+    public GameDate(int DayOfWeek, int weekOfSeason, int seasonOfYear, int year)
+    {
+        dayOfWeek = java.time.DayOfWeek.of(DayOfWeek);
+        this.weekOfSeason = weekOfSeason;
+        this.seasonOfYear = Season.fromInt(seasonOfYear);
+        this.year = year;
+    }
+
+    public GameDate clone()
+    {
+        return new GameDate(dayOfWeek.getValue(), weekOfSeason, seasonOfYear.getValue(), year);
     }
 
     public void nextDay(int number)
@@ -68,4 +80,10 @@ public class Calender
         return dayOfWeek + " Week: " + weekOfSeason + " " + seasonOfYear + " " + year;
     }
 
+    @Override
+    public int compareTo(Object o)
+    {
+
+        return 0;
+    }
 }
