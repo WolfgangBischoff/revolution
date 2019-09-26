@@ -360,30 +360,42 @@ public class Interpreter {
         throw new InterpreterInvalidArgumentException(methodName, inputParameters[0],possibleArguments);
     }
 
-    private void processSecondParamAfterTime(String[] inputParameters)
+    private void processSecondParamAfterTime(String[] inputArguments)
     {
         String methodName = "processSecondParamAfterTime()";
         String possibleArguments = "[print, set]";
-        String[] optionPara = cutFirstIndexPositions(inputParameters, 1);
-        //Just: company
-        if (inputParameters.length == 0)
+        String[] residualInputArguments = cutFirstIndexPositions(inputArguments, 1);
+        if (inputArguments.length == 0)
         {
             print(methodName + "\n" + POSSIBLE_ARGUMENTS + possibleArguments);
             return;
         }
 
-        if (isKeyword(inputParameters[0]))
-            switch (getKeyword(inputParameters[0]))
+        if (isKeyword(inputArguments[0]))
+            switch (getKeyword(inputArguments[0]))
             {
                 case PRINT:
                     print(Simulation.getSingleton().getCalender().dataToday());return;
                 case SET:
-                    Simulation.getSingleton().getCalender().nextDay();return;
+                    timeSet(residualInputArguments);print(Simulation.getSingleton().getCalender().dataToday());return;
             }
-        throw new InterpreterInvalidArgumentException(methodName, inputParameters[0],possibleArguments);
+        throw new InterpreterInvalidArgumentException(methodName, inputArguments[0],possibleArguments);
     }
 
     //OPTIONS
+    private void timeSet(String[] inputArgs)
+    {
+        int numberDays = 1;
+        if(inputArgs.length > 0)
+        {
+            if(tryParseInt(inputArgs[0]))
+                numberDays = Integer.parseInt(inputArgs[0]);
+            else
+                throw new IllegalArgumentException(inputArgs[0] + " not a number");
+        }
+        Simulation.getSingleton().getCalender().nextDay(numberDays);
+    }
+
     private void societyRandomAdd(String[] inputParams)
     {
         String methodname = "societyRandomAdd()";

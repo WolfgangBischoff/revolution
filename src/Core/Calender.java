@@ -15,10 +15,16 @@ public class Calender
 
     public Calender()
     {
-year = 2019;
-seasonOfYear = Season.WINTER;
-weekOfSeason = 3;
-dayOfWeek = DayOfWeek.THURSDAY;
+        year = 2019;
+        seasonOfYear = Season.WINTER;
+        weekOfSeason = 3;
+        dayOfWeek = DayOfWeek.THURSDAY;
+    }
+
+    public void nextDay(int number)
+    {
+        for (int i = 0; i < number; i++)
+            nextDay();
     }
 
     public void nextDay()
@@ -28,30 +34,32 @@ dayOfWeek = DayOfWeek.THURSDAY;
         boolean yearChanged = false;
 
         int pastDayofWeek = dayOfWeek.getValue();
-        if(pastDayofWeek++ >= 8)
+        if (pastDayofWeek >= 7)
         {
-         weekOfSeasonChanged = true;
+            weekOfSeasonChanged = true;
         }
-        dayOfWeek = DayOfWeek.of(pastDayofWeek%7+1);
+        dayOfWeek = DayOfWeek.of(pastDayofWeek % 7 + 1);
 
-        if(weekOfSeasonChanged)
+        if (weekOfSeasonChanged)
             weekOfSeason++;
-        if(weekOfSeason > NUMER_WEEKS_PER_SEASON)
+        if (weekOfSeason > NUMER_WEEKS_PER_SEASON)
         {
             seasonOfYearChanged = true;
-            weekOfSeason = weekOfSeason%NUMER_WEEKS_PER_SEASON;
+            weekOfSeason = weekOfSeason % NUMER_WEEKS_PER_SEASON;
         }
 
         int pastSeason = seasonOfYear.getValue();
-        if(seasonOfYearChanged)
+        if (seasonOfYearChanged)
+        {
             pastSeason++;
-        if(pastSeason > 3)
+            seasonOfYear = Season.fromInt(pastSeason % 4);
+        }
+        if (pastSeason > 3)
         {
             yearChanged = true;
         }
-        seasonOfYear = Season.fromInt(pastSeason % 3);
 
-        if(yearChanged)
+        if (yearChanged)
             year++;
     }
 
