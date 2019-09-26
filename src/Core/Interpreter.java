@@ -44,6 +44,7 @@ public class Interpreter {
     private Set<String> keywordsFood = new HashSet<>(Arrays.asList("food"));
     private Set<String> keywordsConsume = new HashSet<>(Arrays.asList("consume", "con"));
     private Set<String> keywordsMarket = new HashSet<>(Arrays.asList("market", "mar"));
+    private Set<String> keywordsTime = new HashSet<>(Arrays.asList("time"));
 
     private Map<InterpreterKeyword, Set<String>> keywords = new HashMap<>();
 
@@ -80,6 +81,7 @@ public class Interpreter {
         keywords.put(InterpreterKeyword.FOOD, keywordsFood);
         keywords.put(InterpreterKeyword.CONSUME, keywordsConsume);
         keywords.put(InterpreterKeyword.MARKET, keywordsMarket);
+        keywords.put(InterpreterKeyword.TIME, keywordsTime);
     }
 
     public void setConsole(Console console)
@@ -154,6 +156,8 @@ public class Interpreter {
                 case TEST:
                     processSecondParamAfterTest(newParam);
                     return;
+                case TIME:
+                    processSecondParamAfterTime(newParam);return;
                 case HELP:
                     printGeneralHelp();
                     return;
@@ -352,6 +356,29 @@ public class Interpreter {
                 case PRINT:
                     marketPrint(optionPara);
                     return;
+            }
+        throw new InterpreterInvalidArgumentException(methodName, inputParameters[0],possibleArguments);
+    }
+
+    private void processSecondParamAfterTime(String[] inputParameters)
+    {
+        String methodName = "processSecondParamAfterTime()";
+        String possibleArguments = "[print, set]";
+        String[] optionPara = cutFirstIndexPositions(inputParameters, 1);
+        //Just: company
+        if (inputParameters.length == 0)
+        {
+            print(methodName + "\n" + POSSIBLE_ARGUMENTS + possibleArguments);
+            return;
+        }
+
+        if (isKeyword(inputParameters[0]))
+            switch (getKeyword(inputParameters[0]))
+            {
+                case PRINT:
+                    print(Simulation.getSingleton().getCalender().dataToday());return;
+                case SET:
+                    Simulation.getSingleton().getCalender().nextDay();return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputParameters[0],possibleArguments);
     }

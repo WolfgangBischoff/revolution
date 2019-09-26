@@ -7,6 +7,7 @@ public class Simulation
     private Economy economy;
     private Government government;
     private Console console;
+private Calender calender;
 
     public Society getSociety()
     {
@@ -23,12 +24,15 @@ public class Simulation
         return government;
     }
 
+    public Calender getCalender() {return calender;}
+
     private Simulation()
     {
         society = Society.getSociety();
         economy = Economy.getEconomy(); //new Economy();
         government = Government.getGoverment();
         console = new Console(this);
+        calender = new Calender();
     }
 
     public static Simulation getSingleton()
