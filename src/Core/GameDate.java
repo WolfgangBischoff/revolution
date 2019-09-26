@@ -5,7 +5,7 @@ import java.time.DayOfWeek;
 
 public class GameDate implements Comparable
 {
-    static public final int NUMER_WEEKS_PER_SEASON = 4;
+    static public final int NUMBER_WEEKS_PER_SEASON = 4;
 
     Integer year;
     Season seasonOfYear;
@@ -54,10 +54,10 @@ public class GameDate implements Comparable
 
         if (weekOfSeasonChanged)
             weekOfSeason++;
-        if (weekOfSeason > NUMER_WEEKS_PER_SEASON)
+        if (weekOfSeason > NUMBER_WEEKS_PER_SEASON)
         {
             seasonOfYearChanged = true;
-            weekOfSeason = weekOfSeason % NUMER_WEEKS_PER_SEASON;
+            weekOfSeason = weekOfSeason % NUMBER_WEEKS_PER_SEASON;
         }
 
         int pastSeason = seasonOfYear.getValue();

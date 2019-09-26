@@ -13,7 +13,6 @@ public class Market
     private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     public static final String NUMBER_PRODUCTS_NAME = "numberProducts";
     private Map<IndustryType, List<Company>> marketCompanies = new TreeMap<>();
-    //private Map<IndustryType, Map<CompanyOffer, List<Company>>> companyOffers = new TreeMap<>();
     private Map<Company, Integer> companySaleNumbers = new HashMap<>();
 
     //Constructors
@@ -28,18 +27,6 @@ public class Market
         marketCompanies.put(IndustryType.ELECTRONICS, new ArrayList<Company>());
         marketCompanies.put(IndustryType.ENERGY, new ArrayList<Company>());
         marketCompanies.put(IndustryType.HOUSING, new ArrayList<Company>());
-
-        /*
-        companyOffers.put(IndustryType.FOOD, new HashMap<CompanyOffer, List<Company>>());
-        companyOffers.put(IndustryType.CLOTHS, new HashMap<CompanyOffer, List<Company>>());
-        companyOffers.put(IndustryType.SPARETIME, new HashMap<CompanyOffer, List<Company>>());
-        companyOffers.put(IndustryType.EDUCATION, new HashMap<CompanyOffer, List<Company>>());
-        companyOffers.put(IndustryType.TRAFFIC, new HashMap<CompanyOffer, List<Company>>());
-        companyOffers.put(IndustryType.HEALTH, new HashMap<CompanyOffer, List<Company>>());
-        companyOffers.put(IndustryType.ELECTRONICS, new HashMap<CompanyOffer, List<Company>>());
-        companyOffers.put(IndustryType.ENERGY, new HashMap<CompanyOffer, List<Company>>());
-        companyOffers.put(IndustryType.HOUSING, new HashMap<CompanyOffer, List<Company>>());
-*/
     }
 
     //Calc
@@ -64,7 +51,7 @@ public class Market
         {
             Company toCheck = companies.get(i);
             //Init sold data
-            if(!companySaleNumbers.containsKey(toCheck))
+            if (!companySaleNumbers.containsKey(toCheck))
                 companySaleNumbers.put(toCheck, 0);
 
             //Can afford & company can supply
@@ -73,16 +60,16 @@ public class Market
                 //Init first affordable company
                 if (bestCompany == null)
                 {
-                    bestCompany = toCheck; continue;
+                    bestCompany = toCheck;
+                    continue;
                 }
 
                 //If same offer
-                if(toCheck.getLuxury().equals(bestCompany.getLuxury()) && toCheck.getPrice().equals(bestCompany.getPrice()))
+                if (toCheck.getLuxury().equals(bestCompany.getLuxury()) && toCheck.getPrice().equals(bestCompany.getPrice()))
                 {
-                    if(companySaleNumbers.get(toCheck) < companySaleNumbers.get(bestCompany))
+                    if (companySaleNumbers.get(toCheck) < companySaleNumbers.get(bestCompany))
                         bestCompany = toCheck;
                 }
-
 
                 //Found company with more luxury
                 if (toCheck.getLuxury() > bestCompany.getLuxury())
@@ -99,7 +86,7 @@ public class Market
         }
 
         //Update sold data
-        if(bestCompany!=null)
+        if (bestCompany != null)
             companySaleNumbers.put(bestCompany, companySaleNumbers.get(bestCompany) + 1);
         collectMarketDataForCompetitors(bestCompany, budget, type);
         return bestCompany;
