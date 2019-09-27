@@ -2,7 +2,7 @@
 KNOWN BUGS:
 
 TODOS:
-change GameTime to Months
+    Rework budget to real months, oriented to weekdays
     Add Company price/.. changes
     Save
     Wohnhouse, housing not just comsumer product but also owner

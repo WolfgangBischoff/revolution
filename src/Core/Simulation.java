@@ -1,5 +1,7 @@
 package Core;
 
+import java.time.LocalDate;
+
 public class Simulation
 {
     private static Simulation singleton;
@@ -7,7 +9,7 @@ public class Simulation
     private Economy economy;
     private Government government;
     private Console console;
-    private GameDate currentDay;
+    private GameCalendar calender;
 
     public Society getSociety()
     {
@@ -24,14 +26,14 @@ public class Simulation
         return government;
     }
 
-    public GameDate getCurrentDay()
+    public LocalDate getCalender()
     {
-        return currentDay;
+        return calender.getDate();
     }
 
     public void nextPeriod()
     {
-        currentDay.nextDay();
+        calender.nextDay();
         society.calcSociety();
         economy.calc();
     }
@@ -39,10 +41,10 @@ public class Simulation
     private Simulation()
     {
         society = Society.getSociety();
-        economy = Economy.getEconomy(); //new Economy();
+        economy = Economy.getEconomy();
         government = Government.getGoverment();
         console = new Console(this);
-        currentDay = new GameDate();
+        calender = new GameCalendar();
     }
 
     public static Simulation getSingleton()

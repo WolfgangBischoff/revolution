@@ -1,11 +1,13 @@
 package Core;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MarketAnalysisData
 {
-    GameDate collectionDate;
+    //GameDate collectionDate;
+    LocalDate date;
     Integer marketTotalDemand = 0;
     Integer marketTotalSold = 0;
     Integer numLostToNoCapacity = 0;
@@ -16,15 +18,15 @@ public class MarketAnalysisData
     List<Integer> toCheap = new ArrayList<>();
     List<Integer> qualityToBad = new ArrayList<>();
 
-    public MarketAnalysisData(GameDate today)
+    public MarketAnalysisData(LocalDate date)
     {
-        collectionDate = today.clone();
+        this.date = date;
     }
 
     @Override
     public String toString()
     {
-        return "---" + collectionDate.dataDate() + "---"
+        return "--- " + date + " ---"
                 + "\nSold: " + numSold +
                 "\nTotal Sold: " + marketTotalSold +
                 "\nTotal Demand: " + marketTotalDemand +

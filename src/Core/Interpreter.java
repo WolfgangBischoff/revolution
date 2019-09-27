@@ -355,7 +355,7 @@ public class Interpreter
     private void processSecondParamAfterTime(String[] inputArguments)
     {
         String methodName = "processSecondParamAfterTime()";
-        String possibleArguments = "[print, next, set]";
+        String possibleArguments = "[print, next]";
         String[] residualInputArguments = cutFirstIndexPositions(inputArguments, 1);
         if (inputArguments.length == 0)
         {
@@ -367,33 +367,17 @@ public class Interpreter
             switch (getKeyword(inputArguments[0]))
             {
                 case PRINT:
-                    print(Simulation.getSingleton().getCurrentDay().dataDate());
+                    print(Simulation.getSingleton().getCalender());
                     return;
                 case NEXT:
                     Simulation.getSingleton().nextPeriod();
-                    print(Simulation.getSingleton().getCurrentDay().dataDate());
-                    return;
-                case SET:
-                    timeSet(residualInputArguments);
-                    print(Simulation.getSingleton().getCurrentDay().dataDate());
+                    print(Simulation.getSingleton().getCalender());
                     return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputArguments[0], possibleArguments);
     }
 
     //OPTIONS
-    private void timeSet(String[] inputArguments)
-    {
-        int numberDays = 1;
-        if (inputArguments.length > 0)
-        {
-            if (tryParseInt(inputArguments[0]))
-                numberDays = Integer.parseInt(inputArguments[0]);
-            else
-                throw new IllegalArgumentException(inputArguments[0] + " not a number");
-        }
-        Simulation.getSingleton().getCurrentDay().nextDay(numberDays);
-    }
 
     private void societyRandomAdd(String[] inputParams)
     {

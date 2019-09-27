@@ -1,5 +1,6 @@
 package Core;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,7 @@ public class MarketanalysisDataStorage
 
     private void initNewDay()
     {
-        GameDate todaysDate = Simulation.getSingleton().getCurrentDay();
-        dataContainer.add(0, new MarketAnalysisData(todaysDate));
+        dataContainer.add(0, new MarketAnalysisData(Simulation.getSingleton().getCalender()));
         dataContainer.get(0).unusedCapacity = owner.getMaxCapacity();
         deleteOldData();
     }
@@ -31,8 +31,8 @@ public class MarketanalysisDataStorage
     public void addNewData(Company bestCompetitor, Integer customerBudget)
     {
         //Is New Day Data
-        GameDate todaysDate = Simulation.getSingleton().getCurrentDay();
-        if (dataContainer.isEmpty() || !(dataContainer.get(0).collectionDate.equals(todaysDate)))
+        LocalDate today = Simulation.getSingleton().getCalender();
+        if (dataContainer.isEmpty() || !(dataContainer.get(0).date.equals(today)))
         {
             initNewDay();
         }

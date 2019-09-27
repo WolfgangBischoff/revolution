@@ -3,18 +3,23 @@ package Core;
 import Core.Enums.Season;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.Date;
 import java.util.Objects;
 
-public class GameDate implements Comparable<GameDate>
+public class GameCalendar
 {
     static public final int NUMBER_WEEKS_PER_SEASON = 4;
+    static public final int NUMBER_DAYS_PER_MONTH = 30;
 
+    LocalDate date = LocalDate.of(2019,9,27);
     Integer year;
     Season seasonOfYear;
     Integer weekOfSeason;
     DayOfWeek dayOfWeek;
 
-    public GameDate()
+    public GameCalendar()
     {
         year = 2019;
         seasonOfYear = Season.WINTER;
@@ -22,7 +27,7 @@ public class GameDate implements Comparable<GameDate>
         dayOfWeek = DayOfWeek.THURSDAY;
     }
 
-    public GameDate(int DayOfWeek, int weekOfSeason, int seasonOfYear, int year)
+    public GameCalendar(int DayOfWeek, int weekOfSeason, int seasonOfYear, int year)
     {
         dayOfWeek = java.time.DayOfWeek.of(DayOfWeek);
         this.weekOfSeason = weekOfSeason;
@@ -30,10 +35,11 @@ public class GameDate implements Comparable<GameDate>
         this.year = year;
     }
 
-    public GameDate clone()
+    public LocalDate getDate()
     {
-        return new GameDate(dayOfWeek.getValue(), weekOfSeason, seasonOfYear.getValue(), year);
+        return date;
     }
+
 
     public void nextDay(int number)
     {
@@ -43,6 +49,9 @@ public class GameDate implements Comparable<GameDate>
 
     public void nextDay()
     {
+
+        date = date.plusDays(1);
+
         boolean weekOfSeasonChanged = false;
         boolean seasonOfYearChanged = false;
         boolean yearChanged = false;
@@ -88,6 +97,7 @@ public class GameDate implements Comparable<GameDate>
         return dayOfWeek + " Week: " + weekOfSeason + " " + seasonOfYear + " " + year;
     }
 
+    /*
     @Override
     public int compareTo(GameDate o)
     {
@@ -122,11 +132,6 @@ public class GameDate implements Comparable<GameDate>
                 seasonOfYear == gameDate.seasonOfYear &&
                 Objects.equals(weekOfSeason, gameDate.weekOfSeason) &&
                 dayOfWeek == gameDate.dayOfWeek;
-    }
+    }*/
 
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(year, seasonOfYear, weekOfSeason, dayOfWeek);
-    }
 }
