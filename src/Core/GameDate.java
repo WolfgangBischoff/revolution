@@ -1,7 +1,9 @@
 package Core;
 
 import Core.Enums.Season;
+
 import java.time.DayOfWeek;
+import java.util.Objects;
 
 public class GameDate implements Comparable<GameDate>
 {
@@ -75,7 +77,7 @@ public class GameDate implements Comparable<GameDate>
             year++;
     }
 
-    public String dataToday()
+    public String dataDate()
     {
         return dayOfWeek + " Week: " + weekOfSeason + " " + seasonOfYear + " " + year;
     }
@@ -83,7 +85,42 @@ public class GameDate implements Comparable<GameDate>
     @Override
     public int compareTo(GameDate o)
     {
+        int otherIsLater = 1;
+        int otherIsEarlier = -1;
 
-        return 0;
+        if (year > o.year)
+            return otherIsEarlier;
+        if (seasonOfYear.getValue() > o.seasonOfYear.getValue())
+            return otherIsEarlier;
+        if (weekOfSeason > o.weekOfSeason)
+            return otherIsEarlier;
+        if (dayOfWeek.getValue() > o.dayOfWeek.getValue())
+            return otherIsEarlier;
+
+        if (year == o.year &&
+                seasonOfYear.getValue() == o.seasonOfYear.getValue()
+                && weekOfSeason == o.weekOfSeason
+                && dayOfWeek.getValue() == o.dayOfWeek.getValue())
+            return 0;
+
+        return otherIsLater;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameDate gameDate = (GameDate) o;
+        return Objects.equals(year, gameDate.year) &&
+                seasonOfYear == gameDate.seasonOfYear &&
+                Objects.equals(weekOfSeason, gameDate.weekOfSeason) &&
+                dayOfWeek == gameDate.dayOfWeek;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(year, seasonOfYear, weekOfSeason, dayOfWeek);
     }
 }

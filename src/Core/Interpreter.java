@@ -363,9 +363,9 @@ public class Interpreter {
             switch (getKeyword(inputArguments[0]))
             {
                 case PRINT:
-                    print(Simulation.getSingleton().getCalender().dataToday());return;
+                    print(Simulation.getSingleton().getCalender().dataDate());return;
                 case SET:
-                    timeSet(residualInputArguments);print(Simulation.getSingleton().getCalender().dataToday());return;
+                    timeSet(residualInputArguments);print(Simulation.getSingleton().getCalender().dataDate());return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputArguments[0],possibleArguments);
     }

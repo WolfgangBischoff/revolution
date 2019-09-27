@@ -16,8 +16,8 @@ public class MarketanalysisDataStorage
 
     private void initNewDay()
     {
-        Integer todayDate = 0;
-        dataContainer.add(0, new MarketAnalysisData(todayDate));
+        GameDate todaysDate = Simulation.getSingleton().getCalender();
+        dataContainer.add(0, new MarketAnalysisData(todaysDate));
         dataContainer.get(0).unusedCapacity = owner.getMaxCapacity();
         deleteOldData();
     }
@@ -31,8 +31,8 @@ public class MarketanalysisDataStorage
     public void addNewData(Company bestCompetitor, Integer customerBudget)
     {
         //Is New Day Data
-        Integer today = 0;
-        if (dataContainer.isEmpty() || !dataContainer.get(0).date.equals(today))
+        GameDate todaysDate = Simulation.getSingleton().getCalender();
+        if (dataContainer.isEmpty() || !dataContainer.get(0).collectionDate.equals(todaysDate))
             initNewDay();
         MarketAnalysisData currentData = dataContainer.get(0);
 
@@ -57,7 +57,6 @@ public class MarketanalysisDataStorage
             currentData.numSold++;
             currentData.toCheap.add(customerBudget - owner.getPrice());
             currentData.unusedCapacity -= owner.calcProductionEffort();
-            //System.out.println("Unused: " + currentData.unusedCapacity + " " + owner.baseData());
         }
         //OTHER COMPANY SOLD
         else
@@ -85,7 +84,6 @@ public class MarketanalysisDataStorage
         }
 
     }
-
 
     //Prints
     public String dataAnalysis()
