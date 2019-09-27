@@ -65,6 +65,10 @@ public class Company
     }
 
     //Calculations
+    public void initPeriod()
+    {
+        usedCapacity = 0;
+    }
     public void doMarketDecisions()
     {
 

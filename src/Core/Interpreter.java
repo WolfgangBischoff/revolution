@@ -3,15 +3,15 @@ package Core;
 import Core.Enums.IndustryType;
 import Core.Enums.InterpreterKeyword;
 import Core.Enums.PoliticalOpinion;
-import Core.Exceptions.InterpreterInvalidOptionCombination;
 import Core.Exceptions.InterpreterInvalidArgumentException;
-
+import Core.Exceptions.InterpreterInvalidOptionCombination;
 import java.util.*;
-
-import static Core.Util.*;
+import static Core.Util.DEFAULT_NUM_COMPANIES;
+import static Core.Util.tryParseInt;
 import static javafx.application.Platform.exit;
 
-public class Interpreter {
+public class Interpreter
+{
     private static Interpreter instance = null;
     private Society society;
     private Economy economy;
@@ -45,6 +45,7 @@ public class Interpreter {
     private Set<String> keywordsConsume = new HashSet<>(Arrays.asList("consume", "con"));
     private Set<String> keywordsMarket = new HashSet<>(Arrays.asList("market", "mar"));
     private Set<String> keywordsTime = new HashSet<>(Arrays.asList("time"));
+    private Set<String> keywordsNext = new HashSet<>(Arrays.asList("next"));
 
     private Map<InterpreterKeyword, Set<String>> keywords = new HashMap<>();
 
@@ -82,6 +83,7 @@ public class Interpreter {
         keywords.put(InterpreterKeyword.CONSUME, keywordsConsume);
         keywords.put(InterpreterKeyword.MARKET, keywordsMarket);
         keywords.put(InterpreterKeyword.TIME, keywordsTime);
+        keywords.put(InterpreterKeyword.NEXT, keywordsNext);
     }
 
     public void setConsole(Console console)
@@ -107,8 +109,7 @@ public class Interpreter {
         try
         {
             processFirstParam(param);
-        }
-        catch (IllegalArgumentException e)
+        } catch (IllegalArgumentException e)
         {
             print(methodName + "\n\t" + e.getMessage());
         }
@@ -138,6 +139,7 @@ public class Interpreter {
                     return;
                 case ECONOMY:
                     processSecondParamAfterEconomy(newParam);
+                    return;
                 case MARKET:
                     processSecondParamAfterMarket(newParam);
                     return;
@@ -145,7 +147,8 @@ public class Interpreter {
                     processSecondParamAfterTest(newParam);
                     return;
                 case TIME:
-                    processSecondParamAfterTime(newParam);return;
+                    processSecondParamAfterTime(newParam);
+                    return;
                 case HELP:
                     printGeneralHelp(possibleArguments);
                     return;
@@ -241,7 +244,7 @@ public class Interpreter {
                     companyPay(optionPara);
                     return;
             }
-        throw new InterpreterInvalidArgumentException(methodName, inputArguments[0],possibleArguments);
+        throw new InterpreterInvalidArgumentException(methodName, inputArguments[0], possibleArguments);
 
     }
 
@@ -249,7 +252,7 @@ public class Interpreter {
     {
         String methodName = "processSecondParamAfterGovernment()";
         String possibleArguments = "[print, set]";
-        String[] cutParam = cutFirstIndexPositions(inputArguments,1);
+        String[] cutParam = cutFirstIndexPositions(inputArguments, 1);
         if (inputArguments.length == 0)
         {
             print(methodName + "\n" + POSSIBLE_ARGUMENTS + "[print]");
@@ -299,7 +302,8 @@ public class Interpreter {
                     economyPaySalary(optionPara);
                     return;
                 case CALCULATE:
-                    economy.calc(); return;
+                    economy.calc();
+                    return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputArguments[0], possibleArguments);
     }
@@ -345,13 +349,13 @@ public class Interpreter {
                     marketPrint(optionPara);
                     return;
             }
-        throw new InterpreterInvalidArgumentException(methodName, inputArguments[0],possibleArguments);
+        throw new InterpreterInvalidArgumentException(methodName, inputArguments[0], possibleArguments);
     }
 
     private void processSecondParamAfterTime(String[] inputArguments)
     {
         String methodName = "processSecondParamAfterTime()";
-        String possibleArguments = "[print, set]";
+        String possibleArguments = "[print, next, set]";
         String[] residualInputArguments = cutFirstIndexPositions(inputArguments, 1);
         if (inputArguments.length == 0)
         {
@@ -363,25 +367,32 @@ public class Interpreter {
             switch (getKeyword(inputArguments[0]))
             {
                 case PRINT:
-                    print(Simulation.getSingleton().getCalender().dataDate());return;
+                    print(Simulation.getSingleton().getCurrentDay().dataDate());
+                    return;
+                case NEXT:
+                    Simulation.getSingleton().nextPeriod();
+                    print(Simulation.getSingleton().getCurrentDay().dataDate());
+                    return;
                 case SET:
-                    timeSet(residualInputArguments);print(Simulation.getSingleton().getCalender().dataDate());return;
+                    timeSet(residualInputArguments);
+                    print(Simulation.getSingleton().getCurrentDay().dataDate());
+                    return;
             }
-        throw new InterpreterInvalidArgumentException(methodName, inputArguments[0],possibleArguments);
+        throw new InterpreterInvalidArgumentException(methodName, inputArguments[0], possibleArguments);
     }
 
     //OPTIONS
     private void timeSet(String[] inputArguments)
     {
         int numberDays = 1;
-        if(inputArguments.length > 0)
+        if (inputArguments.length > 0)
         {
-            if(tryParseInt(inputArguments[0]))
+            if (tryParseInt(inputArguments[0]))
                 numberDays = Integer.parseInt(inputArguments[0]);
             else
                 throw new IllegalArgumentException(inputArguments[0] + " not a number");
         }
-        Simulation.getSingleton().getCalender().nextDay(numberDays);
+        Simulation.getSingleton().getCurrentDay().nextDay(numberDays);
     }
 
     private void societyRandomAdd(String[] inputParams)
@@ -528,9 +539,11 @@ public class Interpreter {
                     print(society.getSocietyStatistics().printEduStat());
                     return;
                 case BUDGET:
-                    print(society.printSocPeople(InterpreterKeyword.BUDGET)); return;
+                    print(society.printSocPeople(InterpreterKeyword.BUDGET));
+                    return;
                 case CONSUME:
-                    print(society.printSocPeople(InterpreterKeyword.CONSUME)); return;
+                    print(society.printSocPeople(InterpreterKeyword.CONSUME));
+                    return;
             }
         throw new InterpreterInvalidArgumentException(methodname, inputOptions[0], possibleArguments);
     }
@@ -573,7 +586,8 @@ public class Interpreter {
                     print(economy.economyBaseCompanyData());
                     return;
                 case MARKET:
-                    print(economy.dataMarketAnalysis()); return;
+                    print(economy.dataMarketAnalysis());
+                    return;
             }
         throw new InterpreterInvalidArgumentException(methodname, inputOptions[0], possibleArguments);
 
@@ -667,15 +681,17 @@ public class Interpreter {
             return;
         }
 
-        if(isKeyword(inputOptions[0]))
+        if (isKeyword(inputOptions[0]))
         {
             String[] residualArguments = cutFirstIndexPositions(inputOptions, 1);
             switch (getKeyword(inputOptions[0]))
             {
                 case FOOD:
-                    economyAddIndustry(IndustryType.FOOD, residualArguments); return;
+                    economyAddIndustry(IndustryType.FOOD, residualArguments);
+                    return;
                 case TEST:
-                    economy.createTest(residualArguments[0]); return;
+                    economy.createTest(residualArguments[0]);
+                    return;
 
             }
         }
@@ -693,10 +709,10 @@ public class Interpreter {
 
     private void economyAddIndustry(IndustryType type, String[] arguments)
     {
-        if(arguments.length > 0)
+        if (arguments.length > 0)
         {
             Integer number = 0;
-            if(Util.tryParseInt(arguments[0]))
+            if (Util.tryParseInt(arguments[0]))
             {
                 number = Integer.parseInt(arguments[0]);
                 print(economy.addCompany(type, number).toString());
@@ -708,14 +724,14 @@ public class Interpreter {
                 return;
             }
         }
-            economy.addCompany(type, 1);
+        economy.addCompany(type, 1);
 
     }
 
     private void govermentSet(String[] inputParam)
     {
         PoliticalOpinion newRulingParty = PoliticalOpinion.Unpolitical;
-        if(tryParseInt(inputParam[0]))
+        if (tryParseInt(inputParam[0]))
         {
             newRulingParty = PoliticalOpinion.fromInt(Integer.parseInt(inputParam[0]));
             government.setRulingParty(newRulingParty);
@@ -730,7 +746,7 @@ public class Interpreter {
 
     private void marketPrint(String[] inputArgs)
     {
-       // print(Market.getMarket().dataMarketAnalysis());
+        // print(Market.getMarket().dataMarketAnalysis());
     }
 
     //Helper

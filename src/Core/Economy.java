@@ -33,6 +33,8 @@ public class Economy
     public void calc()
     {
         economyStatistics.calcState();
+        for(Company company : companies)
+            company.initPeriod();
     }
 
     public String createUniqueCompanyName(String nameBase)
@@ -130,12 +132,20 @@ public class Economy
     {
         clearWorkplaces();
         companies.clear();
-        createTest("comp");
+        //createTest("comp");
         for(int i=0; i<numberComp; i++)
         {
 
-            //addCompany(IndustryType.fromInt(i % IndustryType.getEnumSize()));
+            addCompany(IndustryType.fromInt(i % IndustryType.getEnumSize()));
         }
+        economyStatistics.calcState();
+    }
+
+    public void populateEconomy(String testcase)
+    {
+        clearWorkplaces();
+        companies.clear();
+        createTest(testcase);
         economyStatistics.calcState();
     }
 

@@ -16,7 +16,7 @@ public class MarketanalysisDataStorage
 
     private void initNewDay()
     {
-        GameDate todaysDate = Simulation.getSingleton().getCalender();
+        GameDate todaysDate = Simulation.getSingleton().getCurrentDay();
         dataContainer.add(0, new MarketAnalysisData(todaysDate));
         dataContainer.get(0).unusedCapacity = owner.getMaxCapacity();
         deleteOldData();
@@ -31,9 +31,11 @@ public class MarketanalysisDataStorage
     public void addNewData(Company bestCompetitor, Integer customerBudget)
     {
         //Is New Day Data
-        GameDate todaysDate = Simulation.getSingleton().getCalender();
-        if (dataContainer.isEmpty() || !dataContainer.get(0).collectionDate.equals(todaysDate))
+        GameDate todaysDate = Simulation.getSingleton().getCurrentDay();
+        if (dataContainer.isEmpty() || !(dataContainer.get(0).collectionDate.equals(todaysDate)))
+        {
             initNewDay();
+        }
         MarketAnalysisData currentData = dataContainer.get(0);
 
         //Process Data right after market decision
@@ -89,6 +91,8 @@ public class MarketanalysisDataStorage
     public String dataAnalysis()
     {
         StringBuilder stringBuilder = new StringBuilder();
+        if (dataContainer.isEmpty())
+            stringBuilder.append("No Data");
         for (int i = 0; i < dataContainer.size(); i++)
             stringBuilder.append(dataAnalysis(i));
         return stringBuilder.toString();

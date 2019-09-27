@@ -77,6 +77,12 @@ public class GameDate implements Comparable<GameDate>
             year++;
     }
 
+    @Override
+    public String toString()
+    {
+        return dataDate();
+    }
+
     public String dataDate()
     {
         return dayOfWeek + " Week: " + weekOfSeason + " " + seasonOfYear + " " + year;

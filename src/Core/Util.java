@@ -15,7 +15,7 @@ import java.util.Random;
 public class Util
 {
     //Society
-    public static final Integer NUM_PERS_DEFAULT = 20;
+    public static final Integer NUM_PERS_DEFAULT = 10;
     public static final Integer RATION_BASIC_EDU = 20;
     public static final Integer RATION_APP_EDU = 35;
     public static final Integer RATION_HIGHER_EDU = 30;
@@ -47,10 +47,10 @@ public class Util
     public static final Integer BUDGET_DEFAULT_WEIGHT_OTHER_AND_SERVICES = 3;
 
     //Company
-    public static final Integer NUM_BASE_EDU_WORKPLACES = 2;
-    public static final Integer NUM_APPR_EDU_WORKPLACES = 0;
-    public static final Integer NUM_HIGH_EDU_WORKPLACES = 1;
-    public static final Integer NUM_UNIV_EDU_WORKPLACES = 0;
+    public static final Integer NUM_BASE_EDU_WORKPLACES = 3;
+    public static final Integer NUM_APPR_EDU_WORKPLACES = 3;
+    public static final Integer NUM_HIGH_EDU_WORKPLACES = 2;
+    public static final Integer NUM_UNIV_EDU_WORKPLACES = 1;
     public static final Integer COMP_DEFAULT_DEPOSIT = 100000;
     public static final IndustryType COMP_DEFAULT_INDUSTRY = IndustryType.FOOD;
     public static final Integer PAYGRADE_GROSS_INCOME_A = 1000;
@@ -59,7 +59,7 @@ public class Util
     public static final Integer PAYGRADE_GROSS_INCOME_D = 2000;
     public static final Integer PAYGRADE_GROSS_INCOME_E = 3000;
     public static final Integer PAYGRADE_GROSS_INCOME_F = 6000;
-    public static final Integer MAX_CAPACITY_DEFAULT = 30;
+    public static final Integer MAX_CAPACITY_DEFAULT = 60;
 
     //Economy
     public static final Integer DEFAULT_NUM_COMPANIES = 4;//IndustryType.getEnumSize();

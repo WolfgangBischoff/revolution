@@ -7,7 +7,7 @@ public class Simulation
     private Economy economy;
     private Government government;
     private Console console;
-    private GameDate calender;
+    private GameDate currentDay;
 
     public Society getSociety()
     {
@@ -24,9 +24,16 @@ public class Simulation
         return government;
     }
 
-    public GameDate getCalender()
+    public GameDate getCurrentDay()
     {
-        return calender;
+        return currentDay;
+    }
+
+    public void nextPeriod()
+    {
+        currentDay.nextDay();
+        society.calcSociety();
+        economy.calc();
     }
 
     private Simulation()
@@ -35,7 +42,7 @@ public class Simulation
         economy = Economy.getEconomy(); //new Economy();
         government = Government.getGoverment();
         console = new Console(this);
-        calender = new GameDate();
+        currentDay = new GameDate();
     }
 
     public static Simulation getSingleton()
