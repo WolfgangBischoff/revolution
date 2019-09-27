@@ -4,12 +4,49 @@ import Core.Enums.BudgetPost;
 import Core.Enums.IndustryType;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.*;
 
 import static Core.Enums.BudgetPost.*;
 import static Core.Util.*;
 import static java.time.DayOfWeek.*;
 
+class DaylyBudget
+{
+    LocalDate date;
+    Map<BudgetPost, Integer> budgetPosts = new TreeMap<>();
+
+    public DaylyBudget(LocalDate date)
+    {
+        this.date = date;
+    }
+
+    @Override
+    public String toString()
+    {
+        String ret = date + " ";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry<BudgetPost, Integer> entry : budgetPosts.entrySet())
+            if (entry.getValue() != 0)
+            {
+                //stringBuilder.append(date + " ");
+                stringBuilder.append(" " + entry.getKey() + ": " + entry.getValue());
+            }
+        if (!stringBuilder.toString().equals(""))
+            return ret + stringBuilder.toString();
+        return null;
+    }
+
+    public void set(BudgetPost post, Integer amount)
+    {
+        budgetPosts.put(post, amount);
+    }
+
+    public LocalDate getDate()
+    {
+        return date;
+    }
+}
 
 public class BudgetPlan
 {
@@ -28,6 +65,9 @@ public class BudgetPlan
     Integer monthlyBudgetSum;
     Map<BudgetPost, Integer> monthBudget = new TreeMap<>();
     Integer numberOfDays = 7;
+
+    List<DaylyBudget> dailyBudgetsOfMonth = new ArrayList<>();
+
     List<Map<BudgetPost, Integer>> dailyBudgets = new ArrayList<>();
     List<Integer> dailyBudgetSums = new ArrayList<>();
     Person person;
@@ -98,6 +138,64 @@ public class BudgetPlan
     {
         //logic to split monthly budget to daily budgets, later more random
 
+        //Get number of day for current month
+        Integer numDays = Simulation.getSingleton().getDate().lengthOfMonth();
+        LocalDate dayOfMonth = Simulation.getSingleton().getDate().withDayOfMonth(1);
+        for (int i = 0; i < numDays; i++)
+        {
+            dailyBudgetsOfMonth.add(new DaylyBudget(dayOfMonth));
+            dayOfMonth = dayOfMonth.plusDays(1);
+        }
+
+
+        //for monthly budget posts
+        for (Map.Entry<BudgetPost, Integer> monthlyPost : monthBudget.entrySet())
+        {
+            Integer initialMonthlyBudgetPost = monthlyPost.getValue();
+            Integer residualBudgetPost = initialMonthlyBudgetPost;
+            BudgetPost budgetPost = monthlyPost.getKey();
+
+            //Weightning per day (define shopping days)
+            Map<DayOfWeek, Integer> weightingPerWeekday = new HashMap<>();
+            weightingPerWeekday.put(MONDAY, 1);
+            weightingPerWeekday.put(TUESDAY, 1);
+            weightingPerWeekday.put(WEDNESDAY, 0);
+            weightingPerWeekday.put(THURSDAY, 0);
+            weightingPerWeekday.put(FRIDAY, 0);
+            weightingPerWeekday.put(SATURDAY, 0);
+            weightingPerWeekday.put(SUNDAY, 0);
+            List<Integer> weightingPerMonthDay = new ArrayList<>();
+            //Distribute weekday pattern to month
+            for (int i = 0; i < numDays; i++)
+            {
+                DayOfWeek day = dailyBudgetsOfMonth.get(i).getDate().getDayOfWeek();
+                weightingPerMonthDay.add(weightingPerWeekday.get(day));
+            }
+            List<Double> weightingPerDayPercent = Statistics.calcPercFromEnumCount(weightingPerMonthDay);
+            //Assign daily budget to month days
+            for (int i = 0; i < numDays; i++)
+            {
+                Integer daylyBudgetPost = (int) (initialMonthlyBudgetPost * weightingPerDayPercent.get(i));
+                dailyBudgetsOfMonth.get(i).set(budgetPost, daylyBudgetPost);
+                residualBudgetPost -= daylyBudgetPost;
+            }
+            //TODO Residual budget post has no purpose
+            System.out.println("RES: " + residualBudgetPost);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+/*
         //init list of daily budgets
         for (int i = 0; i < numberOfDays; i++)
         {
@@ -111,12 +209,13 @@ public class BudgetPlan
             Integer residualMonthlyBudgetPost = monthlyPost.getValue();
             BudgetPost budgetPost = monthlyPost.getKey();
 
+
             //Weightning per day can be random in future
             Map<DayOfWeek, Integer> weightingPerDay = new HashMap<>();
             weightingPerDay.put(MONDAY, 2);
-            weightingPerDay.put(TUESDAY, 2);
-            weightingPerDay.put(WEDNESDAY, 2);
-            weightingPerDay.put(THURSDAY, 4);
+            weightingPerDay.put(TUESDAY, 4);
+            weightingPerDay.put(WEDNESDAY, 0);
+            weightingPerDay.put(THURSDAY, 2);
             weightingPerDay.put(FRIDAY, 2);
             weightingPerDay.put(SATURDAY, 2);
             weightingPerDay.put(SUNDAY, 0);
@@ -141,7 +240,7 @@ public class BudgetPlan
                     dailyBudgetSums.set(i, dailyBudgetSums.get(i) + residualMonthlyBudgetPost);
                 }
             }
-        }
+        }*/
     }
 
     private Map<IndustryType, Integer> createShoppingBudget()
@@ -190,11 +289,20 @@ public class BudgetPlan
     public String daylyBudgetData()
     {
         StringBuilder stringBuilder = new StringBuilder();
+        for (DaylyBudget daylyBudget : dailyBudgetsOfMonth)
+        {
+            if (daylyBudget.toString() != null)
+            {
+                stringBuilder.append(daylyBudget);
+                stringBuilder.append("\n");
+            }
+        }
+        /*
         for (int i = 0; i < numberOfDays; i++)
         {
             stringBuilder.append(DayOfWeek.of(i + 1) + " sum: " + dailyBudgetSums.get(i));
             stringBuilder.append(dailyBudgets.get(i).toString() + "\n");
-        }
+        }*/
         return stringBuilder.toString();
     }
 

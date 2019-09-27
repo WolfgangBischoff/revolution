@@ -367,11 +367,11 @@ public class Interpreter
             switch (getKeyword(inputArguments[0]))
             {
                 case PRINT:
-                    print(Simulation.getSingleton().getCalender());
+                    print(Simulation.getSingleton().getDate());
                     return;
                 case NEXT:
                     Simulation.getSingleton().nextPeriod();
-                    print(Simulation.getSingleton().getCalender());
+                    print(Simulation.getSingleton().getDate());
                     return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputArguments[0], possibleArguments);

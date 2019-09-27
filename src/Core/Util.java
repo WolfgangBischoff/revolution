@@ -15,7 +15,7 @@ import java.util.Random;
 public class Util
 {
     //Society
-    public static final Integer NUM_PERS_DEFAULT = 10;
+    public static final Integer NUM_PERS_DEFAULT = 5;
     public static final Integer RATION_BASIC_EDU = 20;
     public static final Integer RATION_APP_EDU = 35;
     public static final Integer RATION_HIGHER_EDU = 30;

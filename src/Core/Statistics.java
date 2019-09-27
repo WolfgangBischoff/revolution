@@ -74,4 +74,18 @@ public abstract class Statistics
         return ret;
     }
 
+    static List<Double> calcPercFromEnumCount(List<Integer> input)
+    {
+        List<Double> ret = new ArrayList<>();
+        Double sum = 0.0;
+        for(Integer entry : input)
+            sum += entry;
+
+        for(Integer entry : input)
+        {
+            ret.add(entry / sum);
+        }
+        return ret;
+    }
+
 }

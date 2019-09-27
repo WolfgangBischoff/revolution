@@ -26,7 +26,7 @@ public class Simulation
         return government;
     }
 
-    public LocalDate getCalender()
+    public LocalDate getDate()
     {
         return calender.getDate();
     }
