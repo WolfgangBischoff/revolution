@@ -70,9 +70,7 @@ public class Society
                                 person.printEconomical());
             else if (special == InterpreterKeyword.BUDGET)
             {
-
                 ret.append(person.budgetData());
-                ret.append(person.dataBestMarketOffer(BudgetPost.FOOD));
             }
             else if (special == InterpreterKeyword.CONSUME)
             {

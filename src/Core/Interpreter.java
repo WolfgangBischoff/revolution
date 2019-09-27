@@ -38,7 +38,7 @@ public class Interpreter
     private Set<String> keywordsProduce = new HashSet<>(Arrays.asList("produce", "prod"));
     private Set<String> keywordsIncome = new HashSet<>(Arrays.asList("income", "inc"));
     private Set<String> keywordsEducation = new HashSet<>(Arrays.asList("education", "edu"));
-    private Set<String> keywordsBuy = new HashSet<>(Arrays.asList("buy"));
+    private Set<String> keywordsShop = new HashSet<>(Arrays.asList("shop"));
     private Set<String> keywordsSet = new HashSet<>(Arrays.asList("set"));
     private Set<String> keywordsBudget = new HashSet<>(Arrays.asList("budget", "bud"));
     private Set<String> keywordsFood = new HashSet<>(Arrays.asList("food"));
@@ -76,7 +76,7 @@ public class Interpreter
         keywords.put(InterpreterKeyword.EXIT, keywordsExit);
         keywords.put(InterpreterKeyword.INCOME, keywordsIncome);
         keywords.put(InterpreterKeyword.EDUCATION, keywordsEducation);
-        keywords.put(InterpreterKeyword.BUY, keywordsBuy);
+        keywords.put(InterpreterKeyword.SHOP, keywordsShop);
         keywords.put(InterpreterKeyword.SET, keywordsSet);
         keywords.put(InterpreterKeyword.BUDGET, keywordsBudget);
         keywords.put(InterpreterKeyword.FOOD, keywordsFood);
@@ -160,48 +160,48 @@ public class Interpreter
     }
 
     //SECOND INSTRUCTION
-    private void processSecondParamAfterPerson(String[] inputParameters)
+    private void processSecondParamAfterPerson(String[] inputArguments)
     {
         String methodName = "processSecondParamAfterPerson()";
-        String possibleArguments = "[print, buy]";
-        String[] newParam = cutFirstIndexPositions(inputParameters, 1);
+        String possibleArguments = "[print, shop]";
+        String[] newParam = cutFirstIndexPositions(inputArguments, 1);
 
         //just "person"
-        if (inputParameters.length == 0)
+        if (inputArguments.length == 0)
         {
-            print(methodName + "\n" + POSSIBLE_ARGUMENTS + "[print]");
+            print(methodName + "\n" + POSSIBLE_ARGUMENTS + possibleArguments);
             return;
         }
 
-        if (isKeyword(inputParameters[0]))
-            switch (getKeyword(inputParameters[0]))
+        if (isKeyword(inputArguments[0]))
+            switch (getKeyword(inputArguments[0]))
             {
                 case PRINT:
                     personPrint(newParam);
                     return;
-                case BUY:
+                case SHOP:
                     personBuy(newParam);
                     return;
             }
-        throw new InterpreterInvalidArgumentException(methodName, inputParameters[0], possibleArguments);
+        throw new InterpreterInvalidArgumentException(methodName, inputArguments[0], possibleArguments);
     }
 
 
-    private void processSecondParamAfterSociety(String[] inputParameters)
+    private void processSecondParamAfterSociety(String[] inputArguments)
     {
-        String methodName = "processSecondParamAfterSociety";
-        String possibleArguments = "[print, add, calculate, populate, buy]";
-        String[] newParam = cutFirstIndexPositions(inputParameters, 1);
+        String methodName = "processSecondParamAfterSociety()";
+        String possibleArguments = "[print, add, calculate, populate, shop]";
+        String[] newParam = cutFirstIndexPositions(inputArguments, 1);
 
         //Just: society
-        if (inputParameters.length == 0)
+        if (inputArguments.length == 0)
         {
-            print(methodName + "\n" + POSSIBLE_ARGUMENTS + "[print, add, calculate, populate]");
+            print(methodName + "\n" + POSSIBLE_ARGUMENTS + possibleArguments);
             return;
         }
 
-        if (isKeyword(inputParameters[0]))
-            switch (getKeyword(inputParameters[0]))
+        if (isKeyword(inputArguments[0]))
+            switch (getKeyword(inputArguments[0]))
             {
                 case PRINT:
                     societyPrint(newParam);
@@ -215,11 +215,11 @@ public class Interpreter
                 case POPULATE:
                     societyPopulate();
                     return;
-                case BUY:
+                case SHOP:
                     societyBuy();
                     return;
             }
-        throw new InterpreterInvalidArgumentException(methodName, inputParameters[0], possibleArguments);
+        throw new InterpreterInvalidArgumentException(methodName, inputArguments[0], possibleArguments);
     }
 
     private void processSecondParamAfterCompany(String[] inputArguments)
@@ -516,18 +516,18 @@ public class Interpreter
         throw new InterpreterInvalidOptionCombination(methodname, inputArguments);
     }
 
-    private void societyPrint(String[] inputOptions)
+    private void societyPrint(String[] inputArguments)
     {
         String methodname = "societyPrint()";
-        String possibleArguments = "[income, person, education, budget]";
-        if (inputOptions.length == 0)
+        String possibleArguments = "[income, person, education, budget, consume]";
+        if (inputArguments.length == 0)
         {
             print(society.getSocietyStatistics().printBase());
             print(POSSIBLE_ARGUMENTS + possibleArguments);
             return;
         }
-        if (isKeyword(inputOptions[0]))
-            switch (getKeyword(inputOptions[0]))
+        if (isKeyword(inputArguments[0]))
+            switch (getKeyword(inputArguments[0]))
             {
                 case INCOME:
                     print(society.getSocietyStatistics().printIncomeStat());
@@ -545,7 +545,7 @@ public class Interpreter
                     print(society.printSocPeople(InterpreterKeyword.CONSUME));
                     return;
             }
-        throw new InterpreterInvalidArgumentException(methodname, inputOptions[0], possibleArguments);
+        throw new InterpreterInvalidArgumentException(methodname, inputArguments[0], possibleArguments);
     }
 
 

@@ -26,7 +26,6 @@ public class Person // implements ProductOwner
     //Malus if less, just to reache but not more. Luxury for more
     Map<IndustryType, Integer> needs = new HashMap<>();
 
-
     EconomicLayer economicLayer;
     EducationalLayer educationalLayer;
     PoliticalOpinion politicalOpinion;

@@ -10,15 +10,6 @@ import static Core.Enums.BudgetPost.*;
 import static Core.Util.*;
 import static java.time.DayOfWeek.*;
 
-/* WRONG
-utility-unit = 1
-In general budget for product-groups generates utility by: budget/price-utility-unit = #utility-unit * utility-unit = utility
-(later utility becomes happiness by Person Marginal Rate)
-To involve products we say: product-price = factor * price-utility-unit * utility-unit (factor should make different products possible)
-Then budget / product-price = #products = product-price * #product = #product * (factor * price-utility-unit * utility-unit)
-
-Persons should buy similar amount of products, but different prices and therefore utility units. At the same time util units have same price
- */
 
 public class BudgetPlan
 {
@@ -34,7 +25,7 @@ public class BudgetPlan
     private Integer sparetimeBudget;
     private Integer savingsBudget;
     private Integer otherAndServices;
-    Integer monthlyBudgetSum = 0;
+    Integer monthlyBudgetSum;
     Map<BudgetPost, Integer> monthBudget = new TreeMap<>();
     Integer numberOfDays = 7;
     List<Map<BudgetPost, Integer>> dailyBudgets = new ArrayList<>();
@@ -46,7 +37,6 @@ public class BudgetPlan
     {
         this.person = person;
         monthlyBudgetSum = person.getNettIncome();
-        //calcBudget();
     }
 
     //Calculations
@@ -154,122 +144,6 @@ public class BudgetPlan
         }
     }
 
-    //Helpers
-    /*
-    public List<Product> getShoppingCartChecked()
-    {
-        Map<IndustryType, Integer> shoppingBudget = createShoppingBudget();
-        System.out.println(person.getName() + " ShoppingBudget: " + shoppingBudget.toString());
-        List<Product> shoppingCart = createBundle(shoppingBudget);
-        //System.out.println(person.getName() + " ShoppingCart: " + shoppingCart.toString());
-
-        return shoppingCart;
-    }
-
-    private List<Product> createBundle(Map<IndustryType, Integer> shoppingBudget)
-    {
-        //Creates Shopping Cart
-        List<Product> shoppingCart = new ArrayList<>();
-        for (Map.Entry<IndustryType, Integer> post : shoppingBudget.entrySet())
-        {
-            shoppingCart.addAll(createBundleOfType(post.getKey(), post.getValue()));
-        }
-        return shoppingCart;
-    }
-
-
-    private List<Product> createBundleOfType(IndustryType type, Integer money)
-    {
-        List<Product> shoppingCart = new ArrayList<>();
-        List<List<Product>> products = Market.getMarket().getAllProducts(type);
-
-        //Create bundle with basic need min cost
-        Integer residualBudget = createShoppingCartBase(products, shoppingCart, money, type);
-        //System.out.println(person.getName() + " ShoppingCartBASE: " + shoppingCart.toString());
-        //Change bundle with max luxury
-        createShoppingCartMaxLuxury(products, shoppingCart, residualBudget);
-        //System.out.println(person.getName() + " ShoppingCartLUXURY: " + shoppingCart.toString());
-        return shoppingCart;
-    }
-
-    private Integer createShoppingCartBase(List<List<Product>> sameBaseUtilProductList, List<Product> shoppingCart, Integer budget, IndustryType type)
-    {
-        Integer currentBaseUtil = 0;
-        Integer needBaseUtil = person.needs.get(type);
-        SizeLoop:
-        for (List<Product> sortedLuxuryUtilList : sameBaseUtilProductList)//For Sizes
-        {
-
-            Integer priceCheapestProduct = sortedLuxuryUtilList.get(0).calcPrice();
-            Integer additionalBaseUtil = sortedLuxuryUtilList.get(0).utilityBase;
-            for (Product otherProduct : sortedLuxuryUtilList)
-            {
-                //buy products with same price till no money
-                if (priceCheapestProduct == otherProduct.calcPrice() &&
-                        otherProduct.calcPrice() <= budget &&
-                        needBaseUtil >= (currentBaseUtil + additionalBaseUtil)) //to avoid too much base util
-                {
-                    shoppingCart.add(otherProduct);
-                    budget -= priceCheapestProduct;
-                    currentBaseUtil += sortedLuxuryUtilList.get(0).utilityBase;
-
-                    if (budget == 0 || currentBaseUtil >= needBaseUtil) //No money or base need fulfilled
-                        break SizeLoop;
-                }
-                else
-                    break;
-            }
-        }
-        return budget; //residual budget if base need fullfilled before budget == 0
-    }
-
-    private List<Product> createShoppingCartMaxLuxury(List<List<Product>> sameBaseUtilProductList, List<Product> shoppingCart, Integer additionalBudget)
-    {
-        for (List<Product> sortedLuxuryUtilList : sameBaseUtilProductList) //Iterate all product sizes
-        {
-            additionalBudget = maxLuxuryOneSize(sortedLuxuryUtilList, shoppingCart, additionalBudget, sortedLuxuryUtilList.get(0).utilityBase);
-        }
-        return shoppingCart;
-    }
-
-
-
-    private Integer maxLuxuryOneSize(List<Product> possibleBetterProducts, List<Product> shoppingCart, Integer additionalBudget, Integer baseUtilSizeTobeConsidered)
-    {
-
-        List<Product> bestFoundProductsInBudget = shoppingCart;
-        boolean productImproved = true;
-        while (productImproved)
-        {
-            productImproved = false;
-            shoppingCartItem:
-            for (int i = 0; i < bestFoundProductsInBudget.size(); i++) //Try to better each product step by step
-            {
-                Product toBeImproved = bestFoundProductsInBudget.get(i);
-                //Just chek products of the respecting luxuryList
-                if (baseUtilSizeTobeConsidered != toBeImproved.utilityBase)
-                    continue;
-                //improve one step
-                for (Product checkIfBetter : possibleBetterProducts)
-                {
-                    int costIncreaseForBetterProduct = checkIfBetter.calcPrice() - toBeImproved.calcPrice();
-                    if (!shoppingCart.contains(checkIfBetter)) //Found product which is already in cart
-                        if (checkIfBetter.utilityLuxury > toBeImproved.utilityLuxury && costIncreaseForBetterProduct <= additionalBudget)
-                        {
-                            additionalBudget -= costIncreaseForBetterProduct;
-                            bestFoundProductsInBudget.set(i, checkIfBetter);
-                            productImproved = true;
-                            break; //To let the other product improve
-                        }
-                }
-            }
-
-        }
-
-        return additionalBudget;
-    }
-
-*/
     private Map<IndustryType, Integer> createShoppingBudget()
     {
         Map<IndustryType, Integer> shoppingCart = new TreeMap<>();
