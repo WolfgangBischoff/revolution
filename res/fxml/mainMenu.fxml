@@ -8,57 +8,69 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="Core.GuiController.mainMenuController"
-          alignment="center" hgap="10" vgap="10">
 
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="Core.GuiController.mainMenuController">
+    <padding>
+        <Insets top="25" right="25" bottom="10" left="25"/>
+    </padding>
     <stylesheets>
         <URL value="@/css/mainMenu.css"/>
     </stylesheets>
 
-    <ImageView fx:id="testimage" fitHeight="50" fitWidth="50" GridPane.rowIndex="0" GridPane.columnIndex="1" >
-        <image>
-            <Image url="@/img/capital.png"/>
-        </image>
-    </ImageView>
+    <top>
+        <HBox alignment="CENTER" spacing="5">
+            <Text text="SeGame" fx:id="headline"/>
+            <ImageView fx:id="testimage" fitHeight="50" fitWidth="50">
+                    <Image url="@/img/capital.png"/>
+            </ImageView>
+        </HBox>
+    </top>
 
-    <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+    <left>
+        <ImageView fx:id="leftBar" fitHeight="512" fitWidth="128"/>
+    </left>
 
-    <Text text="SeGame" fx:id="headline"
-          GridPane.columnIndex="0" GridPane.rowIndex="0"
-          />
+    <right>
+        <ImageView fx:id="rightBar" fitHeight="512" fitWidth="128"/>
+    </right>
 
-    <Label text="Society:"
-           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-
-    <Button fx:id="gotoSocietyButton" text="Change to Society"
-            GridPane.columnIndex="1" GridPane.rowIndex="1"
-            onAction="#gotoSocietyButton"
-    />
-
-    <Label text="Economy:"
-           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-
-    <Button fx:id="gotoEconomyButton" text="Change to Economy"
-                   GridPane.columnIndex="1" GridPane.rowIndex="2"
-                    onAction="#gotoEconomyButton"
-    />
+    <center>
+        <VBox alignment="CENTER">
+            <HBox alignment="CENTER">
+                <GridPane hgap="10" vgap="10">
 
 
-    <Button fx:id="gotoGovermentButton" text="Goverment Overview"
-            GridPane.columnIndex="1" GridPane.rowIndex="3"
-            onAction="#gotoGovermentButton"
-    />
-
-    <Button fx:id="gotoMarketButton" text="Market Overview"
-            GridPane.columnIndex="1" GridPane.rowIndex="4"
-            onAction="#gotoMarketButton"
-    />
-
-    <Button fx:id="quickPop" text="Quickstart"
-            GridPane.columnIndex="1" GridPane.rowIndex="5"
-            onAction="#quickPop"
-    />
+                    <Button fx:id="gotoSocietyButton" text="Society Overview" prefWidth="200"
+                            GridPane.columnIndex="1" GridPane.rowIndex="1"
+                            onAction="#gotoSocietyButton"
+                    />
 
 
+                    <Button fx:id="gotoEconomyButton" text="Economy Overview" prefWidth="200"
+                            GridPane.columnIndex="1" GridPane.rowIndex="2"
+                            onAction="#gotoEconomyButton"
+                    />
 
-</GridPane>
+
+                    <Button fx:id="gotoGovermentButton" text="Goverment Overview" prefWidth="200"
+                            GridPane.columnIndex="1" GridPane.rowIndex="3"
+                            onAction="#gotoGovermentButton"
+                    />
+
+                    <Button fx:id="gotoMarketButton" text="Market Overview" prefWidth="200"
+                            GridPane.columnIndex="1" GridPane.rowIndex="4"
+                            onAction="#gotoMarketButton"
+                    />
+
+                    <Button fx:id="quickPop" text="Quickstart" prefWidth="200"
+                            GridPane.columnIndex="1" GridPane.rowIndex="5"
+                            onAction="#quickPop"
+                    />
+
+
+                </GridPane>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

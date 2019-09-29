@@ -3,13 +3,21 @@ package Core.GuiController;
 import Core.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 public class mainMenuController
 {
+    @FXML
+    private ImageView leftBar, rightBar;
 
     @FXML
     private void initialize()
     {
+        leftBar.setImage(new Image("/img/säulePlakat.png"));
+
+        rightBar.setImage(new Image("/img/säule.png"));
 
     }
 
@@ -43,7 +51,8 @@ public class mainMenuController
     {
         Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
         //Simulation.getSingleton().getEconomy().populateEconomy(Util.DEFAULT_NUM_COMPANIES);
-        Simulation.getSingleton().getEconomy().populateEconomy("oneCheapCompany");
+        //Simulation.getSingleton().getEconomy().populateEconomy("oneCheapCompany");
+        Simulation.getSingleton().getEconomy().populateEconomy("comp");
         Simulation.getSingleton().getEconomy().fillWorkplaces();
         Market.getMarket().calcState();
         //Simulation.getSingleton().getSociety().shop();
