@@ -1,7 +1,6 @@
 package Core;
 
 import Core.Enums.BudgetPost;
-import Core.Enums.IndustryType;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -29,7 +28,6 @@ class DaylyBudget
         for (Map.Entry<BudgetPost, Integer> entry : budgetPosts.entrySet())
             if (entry.getValue() != 0)
             {
-                //stringBuilder.append(date + " ");
                 stringBuilder.append(" " + entry.getKey() + ": " + entry.getValue());
             }
         if (!stringBuilder.toString().equals(""))
@@ -64,12 +62,9 @@ public class BudgetPlan
     private Integer otherAndServices;
     Integer monthlyBudgetSum;
     Map<BudgetPost, Integer> monthBudget = new TreeMap<>();
-    Integer numberOfDays = 7;
 
     List<DaylyBudget> dailyBudgetsOfMonth = new ArrayList<>();
-
-    List<Map<BudgetPost, Integer>> dailyBudgets = new ArrayList<>();
-    List<Integer> dailyBudgetSums = new ArrayList<>();
+    private Map<BudgetPost, Integer> totalResidualBudgetMonth = new HashMap<>();
     Person person;
 
     //Constructor
@@ -86,6 +81,31 @@ public class BudgetPlan
         calcDailyBudgets();
     }
 
+    public boolean hasBudget(LocalDate date)
+    {
+        for (DaylyBudget daylyBudget : dailyBudgetsOfMonth)
+        {
+
+            if (daylyBudget.date.equals(date))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public DaylyBudget getBudget(LocalDate date)
+    {
+        for (DaylyBudget daylyBudget : dailyBudgetsOfMonth)
+            if (daylyBudget.date.equals(date))
+                return daylyBudget;
+        return null;
+    }
+
+    /**
+     * Here we decide how much we want to spend for each industry
+     */
     public void calcMonthlyBudgetPosts()
     {
         Map<BudgetPost, Integer> weighting = new HashMap<>();
@@ -134,6 +154,9 @@ public class BudgetPlan
         this.monthBudget.put(BudgetPost.SAVING, savingsBudget);
     }
 
+    /**
+     * Here we define on which days we use the monthly budget per industry, and how much we use for each day
+     */
     private void calcDailyBudgets()
     {
         //logic to split monthly budget to daily budgets, later more random
@@ -152,19 +175,21 @@ public class BudgetPlan
         for (Map.Entry<BudgetPost, Integer> monthlyPost : monthBudget.entrySet())
         {
             Integer initialMonthlyBudgetPost = monthlyPost.getValue();
-            Integer residualBudgetPost = initialMonthlyBudgetPost;
+            Integer residualBudgetPerPost = initialMonthlyBudgetPost;
             BudgetPost budgetPost = monthlyPost.getKey();
 
-            //Weightning per day (define shopping days)
+            //Weightning per day (define shopping days, can vary for other industries)
+            //higher weight leads to better products if available for a day, number of shopping days is basis need
             Map<DayOfWeek, Integer> weightingPerWeekday = new HashMap<>();
-            weightingPerWeekday.put(MONDAY, 1);
-            weightingPerWeekday.put(TUESDAY, 1);
+            weightingPerWeekday.put(MONDAY, 2);
+            weightingPerWeekday.put(TUESDAY, 3);
             weightingPerWeekday.put(WEDNESDAY, 0);
             weightingPerWeekday.put(THURSDAY, 0);
             weightingPerWeekday.put(FRIDAY, 0);
             weightingPerWeekday.put(SATURDAY, 0);
             weightingPerWeekday.put(SUNDAY, 0);
             List<Integer> weightingPerMonthDay = new ArrayList<>();
+
             //Distribute weekday pattern to month
             for (int i = 0; i < numDays; i++)
             {
@@ -172,16 +197,15 @@ public class BudgetPlan
                 weightingPerMonthDay.add(weightingPerWeekday.get(day));
             }
             List<Double> weightingPerDayPercent = Statistics.calcPercFromEnumCount(weightingPerMonthDay);
+
             //Assign daily budget to month days
             for (int i = 0; i < numDays; i++)
             {
                 Integer daylyBudgetPost = (int) (initialMonthlyBudgetPost * weightingPerDayPercent.get(i));
                 dailyBudgetsOfMonth.get(i).set(budgetPost, daylyBudgetPost);
-                residualBudgetPost -= daylyBudgetPost;
+                residualBudgetPerPost -= daylyBudgetPost;
             }
-            //TODO Residual budget post has no purpose
-            System.out.println("RES: " + residualBudgetPost);
-
+            totalResidualBudgetMonth.put(budgetPost, residualBudgetPerPost);
         }
 
 
@@ -242,7 +266,7 @@ public class BudgetPlan
             }
         }*/
     }
-
+/*
     private Map<IndustryType, Integer> createShoppingBudget()
     {
         Map<IndustryType, Integer> shoppingCart = new TreeMap<>();
@@ -260,6 +284,7 @@ public class BudgetPlan
         return shoppingCart;
     }
 
+
     private int sumBudgetPosts()
     {
         return foodBudget + clothsBudget + housingBudget
@@ -271,7 +296,7 @@ public class BudgetPlan
                 sparetimeBudget +
                 savingsBudget +
                 otherAndServices;
-    }
+    }*/
 
     private int sumBudgetPostsWithoutSaving()
     {
@@ -297,19 +322,13 @@ public class BudgetPlan
                 stringBuilder.append("\n");
             }
         }
-        /*
-        for (int i = 0; i < numberOfDays; i++)
-        {
-            stringBuilder.append(DayOfWeek.of(i + 1) + " sum: " + dailyBudgetSums.get(i));
-            stringBuilder.append(dailyBudgets.get(i).toString() + "\n");
-        }*/
         return stringBuilder.toString();
     }
 
     public String budgetData()
     {
-        return person.getName() + ":\n" +
-                "Monthly: " + monthlyBudgetSum + " : " + monthBudget.toString() + "\n" +
+        return "Monthly: " + monthlyBudgetSum + " : " + monthBudget.toString() + "\n" +
+                "Residual Budget Month: " + totalResidualBudgetMonth + "\n" +
                 daylyBudgetData();
     }
 
@@ -327,8 +346,8 @@ public class BudgetPlan
                 ", educationBudget=" + educationBudget +
                 ", sparetimeBudget=" + sparetimeBudget +
                 ", savingsBudget=" + savingsBudget +
-                ", otherAndServices=" + otherAndServices +
-                " SUM: " + sumBudgetPosts();
+                ", otherAndServices=" + otherAndServices; //+
+        //    " SUM: " + sumBudgetPosts();
     }
 
 

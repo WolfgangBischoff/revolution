@@ -2,6 +2,7 @@ package Core;
 
 import Core.Enums.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -137,33 +138,36 @@ public class Person // implements ProductOwner
         deposit += salary;
     }
 
-    public String dataBestMarketOffer(BudgetPost type)
-    {
-        Integer dailyBudgetForIndustry = budgetPlan.dailyBudgets.get(0).get(type);
-        Company bestOffer = Market.getMarket().getBestOffer(FOOD, dailyBudgetForIndustry);
-        if(bestOffer == null)
-            return "No Company found";
-        else
-            return  getName() + " Budget: " + dailyBudgetForIndustry + " Best offer: " + bestOffer.baseData();
-
-    }
-
     public void shop()
     {
-        //for all demands
-        IndustryType type = FOOD;
+        //check if there is budget for today
+        LocalDate today = Simulation.getSingleton().getDate();
+        DaylyBudget todaysBudget;
+        if(budgetPlan.hasBudget(today))
+            todaysBudget = budgetPlan.getBudget(today);
+        else
+        {
+            System.out.println("No budget " + today);
+            return;
+        }
 
-        //check Market with budget
-        Integer dailyBudgetForIndustry = budgetPlan.dailyBudgets.get(0).get(BudgetPost.FOOD);
-        Company bestSupplier = Market.getMarket().getBestOffer(type, dailyBudgetForIndustry);
+        //TODO for all Industry types
+        IndustryType industryType = FOOD;
+        BudgetPost budgetPost = BudgetPost.fromIndustryType(industryType);
+        Integer dailyBudgetForIndustry = todaysBudget.budgetPosts.get(budgetPost);
+        Company bestSupplier = Market.getMarket().getBestOffer(industryType, dailyBudgetForIndustry);
+
 
         //Pay Company and consume
         if(bestSupplier != null)
         {
-            consumeDataStorage.consume(type, bestSupplier.getLuxury());
+            consumeDataStorage.consume(industryType, bestSupplier.getLuxury());
             deposit -= bestSupplier.getPrice();
             bestSupplier.produce();
             bestSupplier.getPaid(bestSupplier.getPrice());
+
+            System.out.println(name + " Best " + bestSupplier.baseData());
+            System.out.println(consumeDataStorage.dataConsume());
         }
 
 

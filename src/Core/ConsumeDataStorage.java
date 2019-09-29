@@ -2,6 +2,7 @@ package Core;
 
 import Core.Enums.IndustryType;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,10 +10,10 @@ import java.util.Map;
 
 class ConsumeData
 {
-    Integer date;
+    LocalDate date;
     Map<IndustryType, Integer> consumeData = new HashMap<>();
 
-    public ConsumeData(Integer date)
+    public ConsumeData(LocalDate date)
     {
         this.date = date;
     }
@@ -36,9 +37,10 @@ public class ConsumeDataStorage
 
     public void consume(IndustryType type, Integer luxury)
     {
+        LocalDate today = Simulation.getSingleton().getDate();
         //check if today already exist
         if (dataStorage.isEmpty())
-            dataStorage.add(0, new ConsumeData(0)); //For current period
+            dataStorage.add(0, new ConsumeData(today)); //For current period
         dataStorage.get(0).consume(type, luxury);
 
         deleteOldData();

@@ -31,6 +31,10 @@ public enum IndustryType
                 throw new RuntimeException("IndustryType unknown");
         }
     }
+
+
+
+
     public static int getEnumSize()
     {
         return IndustryType.values().length;

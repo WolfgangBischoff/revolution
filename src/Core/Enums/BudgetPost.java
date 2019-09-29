@@ -38,6 +38,35 @@ public enum BudgetPost
                 throw new RuntimeException("BudgetPost unknown");
         }
     }
+
+    public static BudgetPost fromIndustryType(IndustryType industryType)
+    {
+        switch (industryType)
+        {
+            case FOOD:
+                return FOOD;
+            case CLOTHS:
+                return CLOTHS;
+            case HOUSING:
+                return HOUSING;
+            case ENERGY:
+                return ENERGY;
+            case ELECTRONICS:
+                return ELECTRONICS;
+            case HEALTH:
+                return HEALTH;
+            case TRAFFIC:
+                return TRAFFIC;
+            case EDUCATION:
+                return EDUCATION;
+            case SPARETIME:
+                return SPARETIME;
+            default:
+                throw new RuntimeException("Industry Type unknown");
+        }
+    }
+
+
     public static int getEnumSize()
     {
         return BudgetPost.values().length;
