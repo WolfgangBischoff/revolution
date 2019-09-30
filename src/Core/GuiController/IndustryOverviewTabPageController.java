@@ -1,53 +1,55 @@
 package Core.GuiController;
 
+import Core.Company;
+import Core.Economy;
 import Core.Enums.IndustryType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 
 import java.io.IOException;
+import java.util.List;
 
-public class StorageOverviewTabPageController
+public class IndustryOverviewTabPageController
 {
-    //ProductStorage storage;
     IndustryType type;
     FXMLLoader loader;
+    List<Company> companyList;
 
     @FXML
-    private ListView productsList;
-    //<List<Product>> products;
+    private ListView companyListView;
     private ObservableList observableListPerson = FXCollections.observableArrayList();
 
     @FXML
     Text headline;
 
-    /*
-    public StorageOverviewTabPageController(ProductStorage storage, IndustryType type)
+
+    public IndustryOverviewTabPageController(IndustryType type)
     {
-        //this.storage = storage;
         this.type = type;
-        products = storage.getAllProducts(type);
-        loader = new FXMLLoader(getClass().getResource("../../fxml/ProductDetailTabPage.fxml"));
+        companyList = Economy.getEconomy().getCompanies(type);
+        loader = new FXMLLoader(getClass().getResource("../../fxml/industryOverwiewTabPage.fxml"));
         loader.setController(this);
     }
 
+
     public void setListView()
     {
+        observableListPerson.setAll(companyList);
+        companyListView.setItems(observableListPerson);
 
-        observableListPerson.setAll(products);
-        productsList.setItems(observableListPerson);
-
-        productsList.setCellFactory(new Callback<ListView<Product>, ListCell<Product>>()
-        {
+        companyListView.setCellFactory(new Callback<ListView<Company>, ListCell<Company>>() {
             @Override
-            public ListCell<Product> call(ListView<Product> param)
+            public ListCell<Company> call(ListView<Company> param)
             {
-                return new ProductListCellController();
+                return new ListCellCompany();
             }
         });
     }
@@ -59,9 +61,9 @@ public class StorageOverviewTabPageController
         //List Items on left site
         setListView();
 
-        //detail on right side
+        //comp detail on right side
     }
-*/
+
     public Pane load()
     {
         try

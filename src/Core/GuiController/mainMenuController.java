@@ -19,7 +19,7 @@ public class mainMenuController
     private void initialize()
     {
         leftBar.setImage(new Image("/img/säulePlakat.png"));
-        rightBar.setImage(new Image("/img/säule.png"));
+        rightBar.setImage(new Image("/img/säuleCommEco.png"));
         date.setText(Simulation.getSingleton().getCalender().dataDateWeekday());
     }
 
@@ -47,6 +47,11 @@ public class mainMenuController
         System.out.println(Market.getMarket().dataMarketCompanies());
     }
 
+    @FXML
+    private void startAsCiv(ActionEvent event)
+    {
+        GameWindow.getSingleton().createNextScene("../fxml/civilian.fxml");
+    }
 
     @FXML
     protected void quickPop(ActionEvent event)
@@ -57,6 +62,6 @@ public class mainMenuController
         Simulation.getSingleton().getEconomy().populateEconomy("comp");
         Simulation.getSingleton().getEconomy().fillWorkplaces();
         Market.getMarket().calcState();
-        //Simulation.getSingleton().getSociety().shop();
+        Simulation.getSingleton().getSociety().shop();
     }
 }

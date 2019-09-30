@@ -12,15 +12,12 @@
         <URL value="@/css/grayBackgroundAndButton.css"/>
     </stylesheets>
 
-    <Text fx:id="name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-
     <TabPane  GridPane.columnIndex="0" GridPane.rowIndex="1">
             <Tab fx:id="foodTab" />
             <Tab fx:id="clothsTabPage" text="Cloths"/>
             <Tab fx:id="housingTabPage" text="Housing"/>
             <Tab fx:id="educationTabPage" text="Education"/>
     </TabPane>
-
 
     <Button fx:id="backButton" text="back" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
 

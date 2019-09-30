@@ -28,11 +28,11 @@
     </top>
 
     <left>
-        <ImageView fx:id="leftBar" fitHeight="512" fitWidth="128"/>
+        <ImageView fx:id="leftBar" fitHeight="512" fitWidth="128" preserveRatio="true"/>
     </left>
 
     <right>
-        <ImageView fx:id="rightBar" fitHeight="512" fitWidth="128"/>
+        <ImageView fx:id="rightBar" fitHeight="512" fitWidth="128" preserveRatio="true"/>
     </right>
 
     <center>
@@ -40,30 +40,34 @@
             <HBox alignment="CENTER">
                 <GridPane hgap="10" vgap="10">
 
+                    <Button text="Start as Civilian" prefWidth="200"
+                            GridPane.columnIndex="1" GridPane.rowIndex="0"
+                            onAction="#startAsCiv"
+                    />
 
-                    <Button fx:id="gotoSocietyButton" text="Society Overview" prefWidth="200"
+                    <Button text="Society Overview" prefWidth="200"
                             GridPane.columnIndex="1" GridPane.rowIndex="1"
                             onAction="#gotoSocietyButton"
                     />
 
 
-                    <Button fx:id="gotoEconomyButton" text="Economy Overview" prefWidth="200"
+                    <Button text="Economy Overview" prefWidth="200"
                             GridPane.columnIndex="1" GridPane.rowIndex="2"
                             onAction="#gotoEconomyButton"
                     />
 
 
-                    <Button fx:id="gotoGovermentButton" text="Goverment Overview" prefWidth="200"
+                    <Button text="Goverment Overview" prefWidth="200"
                             GridPane.columnIndex="1" GridPane.rowIndex="3"
                             onAction="#gotoGovermentButton"
                     />
 
-                    <Button fx:id="gotoMarketButton" text="Market Overview" prefWidth="200"
+                    <Button text="Market Overview" prefWidth="200"
                             GridPane.columnIndex="1" GridPane.rowIndex="4"
                             onAction="#gotoMarketButton"
                     />
 
-                    <Button fx:id="quickPop" text="Quickstart" prefWidth="200"
+                    <Button text="Quickstart" prefWidth="200"
                             GridPane.columnIndex="1" GridPane.rowIndex="5"
                             onAction="#quickPop"
                     />

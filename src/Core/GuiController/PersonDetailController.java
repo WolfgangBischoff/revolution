@@ -52,7 +52,7 @@ public class PersonDetailController
 
        /* showStorageDetail.setOnAction((event -> {
             System.out.println("StorageDetail");
-            //StorageOverviewController storageOverviewController = new StorageOverviewController(person.getProductStorage());
+            //IndustryOverviewController storageOverviewController = new IndustryOverviewController(person.getProductStorage());
             //GameWindow.getSingleton().createNextScene(storageOverviewController.load());
         }));*/
 

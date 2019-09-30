@@ -218,6 +218,15 @@ public class Economy
         return companies;
     }
 
+    public ArrayList<Company> getCompanies(IndustryType type)
+    {
+        ArrayList<Company> industry = new ArrayList<>();
+        for(Company company : companies)
+            if(company.getIndustry() == type)
+                industry.add(company);
+        return industry;
+    }
+
     public EconomyStatistics getEconomyStatistics() {
         return economyStatistics;
     }
