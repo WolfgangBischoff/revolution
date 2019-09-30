@@ -68,6 +68,7 @@
                             onAction="#quickPop"
                     />
 
+                    <Text fx:id="date" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
 
                 </GridPane>
             </HBox>

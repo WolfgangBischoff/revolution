@@ -16,7 +16,13 @@
     -fx-font-size: 30px;
     -fx-font-weight: bold;
     -fx-text-fill: #312333;
+}
 
+#date
+{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #312333;
 }
 
 .root

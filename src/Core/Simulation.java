@@ -31,6 +31,11 @@ public class Simulation
         return calender.getDate();
     }
 
+    public GameCalendar getCalender()
+    {
+        return calender;
+    }
+
     public void nextPeriod()
     {
         calender.nextDay();

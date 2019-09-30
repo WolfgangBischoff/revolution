@@ -5,20 +5,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 
 public class mainMenuController
 {
     @FXML
     private ImageView leftBar, rightBar;
+    @FXML
+    private Text date;
 
     @FXML
     private void initialize()
     {
         leftBar.setImage(new Image("/img/säulePlakat.png"));
-
         rightBar.setImage(new Image("/img/säule.png"));
-
+        date.setText(Simulation.getSingleton().getCalender().dataDateWeekday());
     }
 
     @FXML
