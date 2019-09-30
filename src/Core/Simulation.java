@@ -1,5 +1,7 @@
 package Core;
 
+import Core.Enums.EducationalLayer;
+
 import java.time.LocalDate;
 
 public class Simulation
@@ -10,30 +12,36 @@ public class Simulation
     private Government government;
     private Console console;
     private GameCalendar calender;
+    private Person player;
 
     public Society getSociety()
     {
         return society;
     }
-
     public Economy getEconomy()
     {
         return economy;
     }
-
     public Government getGovernment()
     {
         return government;
     }
-
     public LocalDate getDate()
     {
         return calender.getDate();
     }
-
     public GameCalendar getCalender()
     {
         return calender;
+    }
+    public Person getPlayer()
+    {
+        return player;
+    }
+
+    public void setPlayer(Person player)
+    {
+        this.player = player;
     }
 
     public void nextPeriod()

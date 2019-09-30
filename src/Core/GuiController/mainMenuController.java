@@ -1,6 +1,7 @@
 package Core.GuiController;
 
 import Core.*;
+import Core.Enums.EducationalLayer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -50,6 +51,11 @@ public class mainMenuController
     @FXML
     private void startAsCiv(ActionEvent event)
     {
+        Person pla = new Person(new PersonName("Alexander Otto", "Husarl"), 28, EducationalLayer.EDU_HIGHER, 2222);
+        if(Simulation.getSingleton().getPlayer() == null)
+        {
+            Society.getSociety().addPerson(pla);Simulation.getSingleton().setPlayer(pla);
+        }
         GameWindow.getSingleton().createNextScene("../fxml/civilian.fxml");
     }
 
@@ -63,5 +69,6 @@ public class mainMenuController
         Simulation.getSingleton().getEconomy().fillWorkplaces();
         Market.getMarket().calcState();
         Simulation.getSingleton().getSociety().shop();
+
     }
 }

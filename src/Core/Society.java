@@ -31,6 +31,7 @@ public class Society
         societyStatistics.calcAll();
     }
 
+
     public void shop()
     {
         //FOR ALL Industries

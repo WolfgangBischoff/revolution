@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.control.Label?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Core.GuiController.Civilian.CivilianBaseData" alignment="CENTER_LEFT" spacing="3">
+    <Text fx:id="name" text="Name"/>
+    <Label text="Deposit: "/><Text fx:id="deposit" text="deposit"/>
+    <Label text="Happiness: "/><Text fx:id="effectiveHappiness"/>
+    <Text fx:id="date" text="Date"/>
+</HBox>

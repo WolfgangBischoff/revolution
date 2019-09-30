@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.text.Text?>
+
+<?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Core.GuiController.CivilianController"
             >
 
+    <padding>
+        <Insets top="10" right="25" bottom="10" left="5"/>
+    </padding>
+
     <top>
-        <Text text="Civilian base stats"/>
+        <fx:include source="civilian/civilianBaseData.fxml"/>
     </top>
 
     <left>
-        <Text text="Civilian locations"/>
+        <fx:include source="civilian/civilianLocations.fxml"/>
     </left>
 
     <right>
