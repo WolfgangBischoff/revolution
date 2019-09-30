@@ -43,6 +43,16 @@ public class GameWindow extends Stage
         gameStage.setScene(new Scene(parent, 600, 700));
     }
 
+    public double getScreenWidth()
+    {
+        return gameStage.getScene().getWidth();
+    }
+
+    public double getScreenHeight()
+    {
+        return gameStage.getScene().getHeight();
+    }
+
     public void showWindow()
     {
         gameStage.show();

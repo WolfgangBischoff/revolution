@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
-
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Core.GuiController.CivilianController"
-            >
+>
 
+    <stylesheets>
+        <URL value="@/css/civilian.css"/>
+    </stylesheets>
     <padding>
         <Insets top="10" right="25" bottom="10" left="5"/>
     </padding>
@@ -22,7 +26,9 @@
     </left>
 
     <right>
-        <Text text="Civilian assets"/>
+        <VBox alignment="CENTER">
+            <Text text="Civilian assets"/>
+        </VBox>
     </right>
 
     <center>

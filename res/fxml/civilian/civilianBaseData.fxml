@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.layout.HBox?>
-
 <?import javafx.scene.control.Label?>
-<HBox xmlns="http://javafx.com/javafx"
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="Core.GuiController.Civilian.CivilianBaseData" alignment="CENTER_LEFT" spacing="3">
-    <Text fx:id="name" text="Name"/>
-    <Label text="Deposit: "/><Text fx:id="deposit" text="deposit"/>
-    <Label text="Happiness: "/><Text fx:id="effectiveHappiness"/>
-    <Text fx:id="date" text="Date"/>
-</HBox>
+
+    <stylesheets>
+        <URL value="@/css/civilianBaseData.css"/>
+    </stylesheets>
+
+    <HBox spacing="20">
+        <Label fx:id="name" text="Name"/>
+        <Label fx:id="date" text="Date"/>
+    </HBox>
+
+    <HBox spacing="5">
+        <Label text="Deposit: "/>
+        <Label fx:id="deposit" text="deposit"/>
+        <Label text="Happiness: "/>
+        <Label fx:id="effectiveHappiness"/>
+    </HBox>
+</VBox>
