@@ -441,7 +441,7 @@ public class Interpreter
                     {
                         if (person.name.equals(new PersonName(inputOptions[1], inputOptions[2])))
                         {
-                            print(person.budgetData());
+                            print(person.dataBudget());
                             foundPerson = true;
                         }
                     }
@@ -459,7 +459,7 @@ public class Interpreter
                 if (person.name.equals(new PersonName(inputOptions[0], inputOptions[1])))
                 {
                     print(person);
-                    print(person.printEconomical());
+                    print(person.dataEconomical());
                     foundPerson = true;
                 }
             }

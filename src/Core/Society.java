@@ -1,13 +1,11 @@
 package Core;
 
-import Core.Enums.BudgetPost;
 import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
 import Core.Enums.InterpreterKeyword;
 
 import java.util.*;
 
-import static Core.Enums.IndustryType.FOOD;
 import static Core.Util.*;
 
 public class Society
@@ -63,15 +61,15 @@ public class Society
         StringBuilder ret = new StringBuilder();
         for (Person person : people)
         {
-            ret.append(person.printBasicData() + "\n");
+            ret.append(person.dataBasis() + "\n");
             if (special == null)
                 ret.append(
-                                person.printHappiness() + "\n\t" +
-                                person.printLayers() + "\n\t" +
-                                person.printEconomical());
+                                person.dateHappiness() + "\n\t" +
+                                person.dataLayer() + "\n\t" +
+                                person.dataEconomical());
             else if (special == InterpreterKeyword.BUDGET)
             {
-                ret.append(person.budgetData());
+                ret.append(person.dataBudget());
             }
             else if (special == InterpreterKeyword.CONSUME)
             {

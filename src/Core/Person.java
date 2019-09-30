@@ -4,9 +4,7 @@ import Core.Enums.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import static Core.Enums.IndustryType.*;
 import static Core.Util.*;
@@ -166,8 +164,8 @@ public class Person // implements ProductOwner
             bestSupplier.produce();
             bestSupplier.getPaid(bestSupplier.getPrice());
 
-            System.out.println(name + " Best " + bestSupplier.baseData());
-            System.out.println(consumeDataStorage.dataConsume());
+            //System.out.println(name + " Best " + bestSupplier.baseData());
+            //System.out.println(consumeDataStorage.dataConsume());
         }
 
 
@@ -179,20 +177,20 @@ public class Person // implements ProductOwner
     @Override
     public String toString()
     {
-        return "Person: " + printBasicData();
+        return "Person: " + dataBasis();
     }
 
-    public String printBasicData()
+    public String dataBasis()
     {
         return "ID: " + id + " " + name.getFirstname() + " " + name.getLastname() + " (" + age + ")" + " Deposit: " + deposit;
     }
 
-    public String printHappiness()
+    public String dateHappiness()
     {
         return "Base: " + baseHappiness + " effective: " + effectiveHappiness + " ";
     }
 
-    public String printWorksAt()
+    public String dateWorksAt()
     {
         if (worksAt == null)
             return "unemployed";
@@ -200,18 +198,17 @@ public class Person // implements ProductOwner
             return worksAt.company.getName();
     }
 
-    public String printEconomical()
+    public String dataEconomical()
     {
-        return "Works at: " + printWorksAt() + " grossIncome: " + getGrossIncome() + " NettIncome: " + getNettIncome() + " Deposit: " + deposit;
+        return "Works at: " + dateWorksAt() + " grossIncome: " + getGrossIncome() + " NettIncome: " + getNettIncome() + " Deposit: " + deposit;
     }
 
-
-    public String printLayers()
+    public String dataLayer()
     {
         return "Edu: " + educationalLayer + " Eco: " + economicLayer + " Pol: " + politicalOpinion;
     }
 
-    public String budgetData()
+    public String dataBudget()
     {
         return budgetPlan.budgetData()
                 //+ "\n" + budgetPlan.basicNeedsData()

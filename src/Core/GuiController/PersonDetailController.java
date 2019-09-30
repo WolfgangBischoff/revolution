@@ -1,6 +1,5 @@
 package Core.GuiController;
 
-import Core.Enums.IndustryType;
 import Core.GameWindow;
 import Core.Person;
 import javafx.fxml.FXML;
@@ -62,7 +61,7 @@ public class PersonDetailController
         edu.setText(person.getEducationalLayer().toString());
         deposit.setText(person.getDeposit().toString());
         grossincome.setText(person.getGrossIncome().toString());
-        worksat.setText(person.printWorksAt());
+        worksat.setText(person.dateWorksAt());
         /*
         numberFood.setText(person.getUtilFromType(IndustryType.FOOD).toString());
         numberClothing.setText(person.getUtilFromType(IndustryType.CLOTHS).toString());
