@@ -5,23 +5,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
+<?import javafx.scene.layout.Region?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="Core.GuiController.Civilian.CivilianBaseData" alignment="CENTER_LEFT" spacing="3">
 
-    <stylesheets>
-        <URL value="@/css/civilianBaseData.css"/>
-    </stylesheets>
-
-    <HBox spacing="20">
-        <Label fx:id="name" text="Name"/>
-        <Label fx:id="date" text="Date"/>
+    <HBox>
+        <HBox><Label fx:id="name" text="Name"/></HBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <HBox><Label fx:id="date" text="Date"/></HBox>
     </HBox>
 
     <HBox spacing="5">
-        <Label text="Deposit: "/>
-        <Label fx:id="deposit" text="deposit"/>
+        <Label  text="Deposit: "/>
+        <Label fx:id="deposit" prefWidth="80"  alignment="CENTER" text="deposit"/>
         <Label text="Happiness: "/>
-        <Label fx:id="effectiveHappiness"/>
+        <Label fx:id="effectiveHappiness" alignment="CENTER" prefWidth="80"/>
     </HBox>
 </VBox>

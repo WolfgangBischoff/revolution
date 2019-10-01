@@ -5,14 +5,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.SubScene?>
+<?import javafx.scene.Node?>
+<?import javafx.scene.layout.GridPane?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Core.GuiController.CivilianController"
+            fx:id="borderPane"
 >
 
     <stylesheets>
         <URL value="@/css/civilian.css"/>
     </stylesheets>
+
+
     <padding>
         <Insets top="10" right="25" bottom="10" left="5"/>
     </padding>
@@ -27,12 +34,12 @@
 
     <right>
         <VBox alignment="CENTER">
-            <Text text="Civilian assets"/>
+            <Text text="Civilian assets and news"/>
         </VBox>
     </right>
 
     <center>
-        <Text text="Civilian workplace"/>
+
     </center>
 
 

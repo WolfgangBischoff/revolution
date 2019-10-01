@@ -1,8 +1,7 @@
 
 
-
-
-.button {
+.button
+{
     -fx-text-fill: white;
     -fx-font-family: "Arial Narrow";
     -fx-font-weight: bold;
@@ -13,7 +12,16 @@
     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
 }
 
-.rootNOT
+.root
 {
-    -fx-background-image: url("../img/background.jpg");
+    -fx-background-color: #123456;
+}
+
+.label
+{
+-fx-font-size: 20px;
+-fx-font-weight: bold;
+-fx-text-fill: #C0C0C0;
+-fx-border-color: white;
+-fx-background-color: #0000A0;
 }

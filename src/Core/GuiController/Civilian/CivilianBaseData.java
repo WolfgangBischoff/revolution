@@ -22,8 +22,5 @@ public class CivilianBaseData
         deposit.setText(player.getDeposit().toString());
         effectiveHappiness.setText(player.getEffectiveHappiness().toString());
         date.setText(Simulation.getSingleton().getCalender().dataDateWeekday());
-
-        System.out.println("Width: " + GameWindow.getSingleton().getScreenWidth());
-        System.out.println("Height: " + GameWindow.getSingleton().getScreenHeight());
     }
 }
