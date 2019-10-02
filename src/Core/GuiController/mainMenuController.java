@@ -2,6 +2,7 @@ package Core.GuiController;
 
 import Core.Enums.EducationalLayer;
 import Core.*;
+import Core.GuiController.Civilian.CivilianController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;

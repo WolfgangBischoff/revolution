@@ -1,6 +1,7 @@
-package Core.GuiController;
+package Core.GuiController.Civilian;
 
 import Core.GameWindow;
+import Core.GuiController.IndustryOverviewController;
 import Core.Market;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,7 +36,7 @@ public class CivilianController
         try
         {
             borderPane = loader.load();
-            borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civilianCenterEmpty.fxml")));
+            borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
             return borderPane;
         } catch (IOException e)
         {

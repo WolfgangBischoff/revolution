@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import java.net.URL?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="Core.GuiController.Civilian.CivDesk"
+           prefHeight="200.0" prefWidth="300.0">
+    <ImageView >
+        <Image url="@/img/smartphone.png"/>
+    </ImageView>
+    <stylesheets>
+        <URL value="@/css/transparentBackground.css"/>
+    </stylesheets>
+
+    <ImageView translateX="100">
+        <Image url="@/img/medicine.png"/>
+    </ImageView>
+
+    <ImageView translateY="100" preserveRatio="true" fitHeight="50" fitWidth="50">
+        <Image  url="@/img/hammerAndSickle.png"/>
+    </ImageView>
+
+</StackPane>
