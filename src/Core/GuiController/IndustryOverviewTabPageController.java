@@ -27,8 +27,8 @@ public class IndustryOverviewTabPageController
     private ListView companyListView;
     private ObservableList observableListPerson = FXCollections.observableArrayList();
 
-    @FXML
-    Text headline;
+    //@FXML
+    //Text headline;
 
 
     public IndustryOverviewTabPageController(IndustryType type)
@@ -57,7 +57,7 @@ public class IndustryOverviewTabPageController
     @FXML
     private void initialize()
     {
-        headline.setText(type.toString());
+        //headline.setText(type.toString());
         //List Items on left site
         setListView();
 

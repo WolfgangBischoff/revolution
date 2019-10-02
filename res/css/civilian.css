@@ -14,18 +14,15 @@
 
 .root
 {
-    -fx-background-color: #123456;
+    -fx-background-color: #C0C0C0;
 }
 
 #name, #date, #labeldeposit, #deposit, #labelhapiness, #effectiveHappiness
 {
 -fx-font-size: 20px;
 -fx-font-weight: bold;
--fx-text-fill: #C0C0C0;
+-fx-text-fill: #0000A0;
 -fx-border-color: white;
--fx-background-color: #0000A0;
+-fx-background-color: #C0C011;
 }
 
-.label{
--fx-text-fill: #C0C0C0;
-}

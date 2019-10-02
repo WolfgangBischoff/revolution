@@ -29,13 +29,13 @@ public class ListCellCompany extends ListCell<Company>
         @FXML
         private GridPane gridpane;
         @FXML
-        private Text name;
+        private Text companyName;
         @FXML
         private Text numberEmployees;
         @FXML
         private Text numberWorkplaces;
         @FXML
-        private Text deposit;
+        private Text companyDeposit;
 
         Company company;
 
@@ -55,10 +55,10 @@ public class ListCellCompany extends ListCell<Company>
 
         public void setInfo()
         {
-            name.setText(company.getName());
+            companyName.setText(company.getName());
             numberEmployees.setText("" + company.getNumberEmployees());
             numberWorkplaces.setText("" + company.getWorkpositions().size());
-            deposit.setText("" + company.getDeposit());
+            companyDeposit.setText("" + company.getDeposit());
         }
 
         public GridPane getGridpane()

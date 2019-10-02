@@ -18,13 +18,10 @@ public class CivilianController
     FXMLLoader loader;
     @FXML
     BorderPane borderPane;
-    //@FXML
-    //Pane centerPane;//needed?
 
     @FXML
     private void initialize()
     {
-        //centerPane = new Pane();
     }
 
     public CivilianController()
@@ -45,13 +42,6 @@ public class CivilianController
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    @FXML
-    private void shopView()
-    {
-        System.out.println(Market.getMarket().dataMarketCompanies());
     }
 
     public void job(javafx.event.ActionEvent event) throws IOException

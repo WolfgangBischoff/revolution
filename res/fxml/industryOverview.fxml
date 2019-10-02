@@ -6,11 +6,9 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
-<GridPane xmlns:fx="http://javafx.com/fxml" hgap="5">
+<GridPane xmlns:fx="http://javafx.com/fxml" hgap="5" alignment="CENTER">
 
-    <stylesheets>
-        <URL value="@/css/grayBackgroundAndButton.css"/>
-    </stylesheets>
+
 
     <TabPane  GridPane.columnIndex="0" GridPane.rowIndex="1">
             <Tab fx:id="foodTab" />
