@@ -18,8 +18,5 @@
             <Tab fx:id="housingTabPage" text="Housing"/>
             <Tab fx:id="educationTabPage" text="Education"/>
     </TabPane>
-
-    <Button fx:id="backButton" text="back" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-
 </GridPane>
 

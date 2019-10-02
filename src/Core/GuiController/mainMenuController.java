@@ -63,7 +63,6 @@ public class mainMenuController
         Simulation.getSingleton().setPlayer(pla);
 
         CivilianController civilianController = new CivilianController();
-        //GameWindow.getSingleton().createNextScene("../fxml/civilian.fxml");
         GameWindow.getSingleton().createNextScene(civilianController.load());
     }
 

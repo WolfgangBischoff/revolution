@@ -75,8 +75,11 @@ public class economyOverviewController implements PropertyChangeListener
     @FXML
     private void industriesList(ActionEvent event)
     {
-        IndustryOverviewController storageOverviewController = new IndustryOverviewController();
-        GameWindow.getSingleton().createNextScene(storageOverviewController.load());
+        //IndustryOverviewController storageOverviewController = new IndustryOverviewController();
+        //GameWindow.getSingleton().createNextScene(storageOverviewController.load());
+
+        EcoIndustryOverview ecoIndustryOverview = new EcoIndustryOverview();
+        GameWindow.getSingleton().createNextScene(ecoIndustryOverview.load());
         removePropertyListeners();
     }
 

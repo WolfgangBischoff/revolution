@@ -25,11 +25,11 @@
     </padding>
 
     <top>
-        <fx:include source="civilian/civilianBaseData.fxml"/>
+        <fx:include source="civilianBaseData.fxml"/>
     </top>
 
     <left>
-        <fx:include source="civilian/civilianLocations.fxml"/>
+        <fx:include source="civilianLocations.fxml"/>
     </left>
 
     <right>

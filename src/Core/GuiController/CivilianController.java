@@ -18,18 +18,18 @@ public class CivilianController
     FXMLLoader loader;
     @FXML
     BorderPane borderPane;
-    @FXML
-    Pane centerPane;
+    //@FXML
+    //Pane centerPane;//needed?
 
     @FXML
-    private void initialize() throws IOException
+    private void initialize()
     {
-        centerPane = new Pane();
+        //centerPane = new Pane();
     }
 
     public CivilianController()
     {
-        loader = new FXMLLoader(getClass().getResource("/fxml/civilian.fxml"));
+        loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civilian.fxml"));
         loader.setController(this);
     }
 
@@ -74,9 +74,7 @@ public class CivilianController
 
         //border becomes null, so we reload
         borderPane = loader.load();
-        //borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civTest.fxml")));
         IndustryOverviewController industryOverviewController = new IndustryOverviewController();
-        //borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/industryOverview.fxml")));
         borderPane.setCenter(industryOverviewController.load());
         GameWindow.getSingleton().createNextScene(borderPane);
     }

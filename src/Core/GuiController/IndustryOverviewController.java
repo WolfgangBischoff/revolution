@@ -17,8 +17,6 @@ public class IndustryOverviewController
     FXMLLoader loader;
 
     @FXML
-    Button backButton;
-    @FXML
     Tab foodTab, clothsTabPage, housingTabPage, educationTabPage;
 
     public IndustryOverviewController()
@@ -37,11 +35,6 @@ public class IndustryOverviewController
         clothsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.CLOTHS).load());
         housingTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.HOUSING).load());
         educationTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.EDUCATION).load());
-
-        backButton.setOnAction((event) -> {
-            GameWindow.getSingleton().createNextScene("../fxml/economyOverview.fxml");
-        });
-
     }
 
     public Pane load()
