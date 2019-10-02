@@ -13,19 +13,30 @@
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="Core.GuiController.Civilian.CivDesk"
            prefHeight="200.0" prefWidth="300.0">
-    <ImageView >
-        <Image url="@/img/smartphone.png"/>
-    </ImageView>
-    <stylesheets>
-        <URL value="@/css/transparentBackground.css"/>
-    </stylesheets>
-
-    <ImageView translateX="100">
-        <Image url="@/img/medicine.png"/>
+    <ImageView>
+        <Image url="@/img/desk.png" />
     </ImageView>
 
-    <ImageView translateY="100" preserveRatio="true" fitHeight="50" fitWidth="50">
-        <Image  url="@/img/hammerAndSickle.png"/>
+    <ImageView translateX="-130" translateY="80">
+        <Image url="@/img/medicine.png" />
     </ImageView>
+
+    <ImageView translateX="80" translateY="-0">
+        <Image url="@/img/pen.png" />
+    </ImageView>
+
+    <ImageView translateX="100" translateY="50" fitHeight="50" preserveRatio="true">
+        <Image url="@/img/hammerAndSickle.png" />
+    </ImageView>
+
+    <ImageView translateX="-170" translateY="-85" preserveRatio="true" fitHeight="135">
+        <Image url="@/img/diffuser.png" />
+    </ImageView>
+
+    <ImageView translateY="10" translateX="-20" preserveRatio="true">
+        <Image  url="@/img/mobilephone.png"/>
+    </ImageView>
+
+
 
 </StackPane>
