@@ -49,12 +49,6 @@ public class PersonDetailController
             GameWindow.getSingleton().createNextScene("../fxml/personList.fxml");
         });
 
-       /* showStorageDetail.setOnAction((event -> {
-            System.out.println("StorageDetail");
-            //IndustryOverviewController storageOverviewController = new IndustryOverviewController(person.getProductStorage());
-            //GameWindow.getSingleton().createNextScene(storageOverviewController.load());
-        }));*/
-
         name.setText(person.getName().toString());
         age.setText(person.getAge().toString());
         effectivehappiness.setText(person.getEffectiveHappiness().toString());
@@ -62,16 +56,6 @@ public class PersonDetailController
         deposit.setText(person.getDeposit().toString());
         grossincome.setText(person.getGrossIncome().toString());
         worksat.setText(person.dateWorksAt());
-        /*
-        numberFood.setText(person.getUtilFromType(IndustryType.FOOD).toString());
-        numberClothing.setText(person.getUtilFromType(IndustryType.CLOTHS).toString());
-        numberHousing.setText(person.getUtilFromType(IndustryType.HOUSING).toString());
-        numberEnergy.setText(person.getUtilFromType(IndustryType.ENERGY).toString());
-        numberElectronics.setText(person.getUtilFromType(IndustryType.ELECTRONICS).toString());
-        numberHealth.setText(person.getUtilFromType(IndustryType.HEALTH).toString());
-        numberTraffic.setText(person.getUtilFromType(IndustryType.TRAFFIC).toString());
-        numberEducation.setText(person.getUtilFromType(IndustryType.EDUCATION).toString());
-        numberSparetime.setText(person.getUtilFromType(IndustryType.SPARETIME).toString());*/
     }
 
 

@@ -1,40 +1,52 @@
 package Core.GuiController;
 
-import Core.*;
-import Core.Enums.EducationalLayer;
-import Core.GuiController.Civilian.CivilianLocationController;
-import com.sun.glass.ui.Window;
+import Core.GameWindow;
+import Core.Market;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.SubScene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class CivilianController
 {
 
+    @FXML
+    FXMLLoader loader;
+    @FXML
+    BorderPane borderPane;
+    @FXML
+    Pane centerPane;
 
     @FXML
     private void initialize() throws IOException
     {
-
+        centerPane = new Pane();
     }
 
-    @FXML
-    public void backToMainMenu(javafx.event.ActionEvent event)
+    public CivilianController()
     {
-        GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
+        loader = new FXMLLoader(getClass().getResource("/fxml/civilian.fxml"));
+        loader.setController(this);
     }
+
+    public Pane load()
+    {
+        try
+        {
+            borderPane = loader.load();
+            borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civilianCenterEmpty.fxml")));
+            return borderPane;
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     @FXML
     private void shopView()
@@ -42,14 +54,31 @@ public class CivilianController
         System.out.println(Market.getMarket().dataMarketCompanies());
     }
 
-    public void job(javafx.event.ActionEvent event)
+    public void job(javafx.event.ActionEvent event) throws IOException
     {
         System.out.println("Job Market");
+        borderPane = loader.load();
+        borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civTest.fxml")));
+        GameWindow.getSingleton().createNextScene(borderPane);
+    }
+
+    @FXML
+    private void backToMenu()
+    {
+        GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
     }
 
     public void consume(ActionEvent event) throws IOException
     {
         System.out.println("Consume");
+
+        //border becomes null, so we reload
+        borderPane = loader.load();
+        //borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civTest.fxml")));
+        IndustryOverviewController industryOverviewController = new IndustryOverviewController();
+        //borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/industryOverview.fxml")));
+        borderPane.setCenter(industryOverviewController.load());
+        GameWindow.getSingleton().createNextScene(borderPane);
     }
 
 }

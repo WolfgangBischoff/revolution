@@ -17,9 +17,9 @@
     </HBox>
 
     <HBox spacing="5">
-        <Label  text="Deposit: "/>
+        <Label fx:id="labeldeposit" text="Deposit: "/>
         <Label fx:id="deposit" prefWidth="80"  alignment="CENTER" text="deposit"/>
-        <Label text="Happiness: "/>
+        <Label fx:id="labelhapiness" text="Happiness: "/>
         <Label fx:id="effectiveHappiness" alignment="CENTER" prefWidth="80"/>
     </HBox>
 </VBox>

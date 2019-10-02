@@ -58,12 +58,13 @@ public class mainMenuController
         }
         else
             pla = Simulation.getSingleton().getPlayer();
-
         if(!Society.getSociety().getPeople().contains(pla))
             Society.getSociety().addPerson(pla);
-
         Simulation.getSingleton().setPlayer(pla);
-        GameWindow.getSingleton().createNextScene("../fxml/civilian.fxml");
+
+        CivilianController civilianController = new CivilianController();
+        //GameWindow.getSingleton().createNextScene("../fxml/civilian.fxml");
+        GameWindow.getSingleton().createNextScene(civilianController.load());
     }
 
     @FXML

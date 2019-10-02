@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Core.GuiController.CivilianController"
+
             fx:id="borderPane"
 >
 
@@ -39,7 +39,7 @@
     </right>
 
     <center>
-
+        <Pane fx:id="centerPane"/>
     </center>
 
 

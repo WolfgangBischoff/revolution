@@ -15,6 +15,6 @@
         <Button text="Market" GridPane.rowIndex="3" prefWidth="100" onAction="#shopView"/>
         <Button text="Job Market" GridPane.rowIndex="4" prefWidth="100" onAction="#job"/>
         <Button text="Consume" GridPane.rowIndex="5" prefWidth="100" onAction="#consume"/>
-        <Button text="back" GridPane.rowIndex="7" prefWidth="100" onAction="#backToMainMenu"/>
+        <Button text="back" GridPane.rowIndex="7" prefWidth="100" onAction="#backToMenu"/>
     </GridPane>
 </VBox>

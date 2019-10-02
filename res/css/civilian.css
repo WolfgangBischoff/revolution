@@ -17,11 +17,16 @@
     -fx-background-color: #123456;
 }
 
-.label
+#name, #date, #labeldeposit, #deposit, #labelhapiness, #effectiveHappiness
 {
 -fx-font-size: 20px;
 -fx-font-weight: bold;
 -fx-text-fill: #C0C0C0;
 -fx-border-color: white;
 -fx-background-color: #0000A0;
+}
+
+.label{
+-fx-text-fill: #C0C0C0;
+
 }
