@@ -31,7 +31,7 @@ public class GameWindow extends Stage
     public Scene createNextScene(String fxml) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxml));
-            gameStage.setScene(new Scene (root, 600, 700));
+            gameStage.setScene(new Scene (root, 800, 600));
         } catch ( IOException e ) {
             e.printStackTrace();
         }
@@ -40,7 +40,7 @@ public class GameWindow extends Stage
 
     public void createNextScene(Parent parent)
     {
-        gameStage.setScene(new Scene(parent, 600, 700));
+        gameStage.setScene(new Scene(parent, 800, 600));
     }
 
     public double getScreenWidth()

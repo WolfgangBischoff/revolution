@@ -1,6 +1,9 @@
 package Core.GuiController.Civilian;
 
+import Core.Company;
 import Core.GameWindow;
+import Core.GuiController.CompanyDetailController;
+import Core.GuiController.Controller;
 import Core.GuiController.IndustryOverviewController;
 import Core.Market;
 import javafx.event.ActionEvent;
@@ -12,13 +15,15 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class CivilianController
+public class CivilianController implements Controller
 {
 
     @FXML
     FXMLLoader loader;
     @FXML
     BorderPane borderPane;
+
+    IndustryOverviewController industryOverviewController;
 
     @FXML
     private void initialize()
@@ -65,9 +70,25 @@ public class CivilianController
 
         //border becomes null, so we reload
         borderPane = loader.load();
-        IndustryOverviewController industryOverviewController = new IndustryOverviewController();
+        industryOverviewController = new IndustryOverviewController(this);
         borderPane.setCenter(industryOverviewController.load());
         GameWindow.getSingleton().createNextScene(borderPane);
+    }
+
+    @Override
+    public void getMessage(Object object)
+    {
+        if(object instanceof Company)
+        {
+            showCompanyDetail((Company)object);
+        }
+
+    }
+
+    @FXML
+    private void showCompanyDetail(Company company)
+    {
+        System.out.println(company.baseData());
     }
 
 }

@@ -15,6 +15,7 @@ import java.io.IOException;
 public class IndustryOverviewController
 {
     FXMLLoader loader;
+    Controller parentController;
 
     @FXML
     Tab foodTab, clothsTabPage, housingTabPage, educationTabPage;
@@ -25,16 +26,22 @@ public class IndustryOverviewController
         loader.setController(this);
     }
 
+    public IndustryOverviewController(Controller parentController)
+    {
+        this();
+        this.parentController = parentController;
+    }
+
     @FXML
     private void initialize()
     {//Is used by fxml after this is set as Controller
         //Init Tabs
         foodTab.setGraphic(new ImageView(new Image("/img/food.png", 20, 20, false, false)));
 
-        foodTab.setContent(new IndustryOverviewTabPageController(IndustryType.FOOD).load());
-        clothsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.CLOTHS).load());
-        housingTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.HOUSING).load());
-        educationTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.EDUCATION).load());
+        foodTab.setContent(new IndustryOverviewTabPageController(IndustryType.FOOD, parentController).load());
+        clothsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.CLOTHS, parentController).load());
+        housingTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.HOUSING, parentController).load());
+        educationTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.EDUCATION, parentController).load());
     }
 
     public Pane load()

@@ -5,10 +5,12 @@ import Core.Economy;
 import Core.Enums.IndustryType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
@@ -22,13 +24,11 @@ public class IndustryOverviewTabPageController
     IndustryType type;
     FXMLLoader loader;
     List<Company> companyList;
+    Controller parentController;
 
     @FXML
     private ListView companyListView;
     private ObservableList observableListPerson = FXCollections.observableArrayList();
-
-    //@FXML
-    //Text headline;
 
 
     public IndustryOverviewTabPageController(IndustryType type)
@@ -37,6 +37,12 @@ public class IndustryOverviewTabPageController
         companyList = Economy.getEconomy().getCompanies(type);
         loader = new FXMLLoader(getClass().getResource("../../fxml/industryOverwiewTabPage.fxml"));
         loader.setController(this);
+    }
+
+    public IndustryOverviewTabPageController(IndustryType type, Controller parentController)
+    {
+        this(type);
+        this.parentController = parentController;
     }
 
 
@@ -52,12 +58,21 @@ public class IndustryOverviewTabPageController
                 return new ListCellCompany();
             }
         });
+
+        companyListView.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                if(parentController != null)
+                    parentController.getMessage(companyListView.getSelectionModel().getSelectedItem());
+            }
+        });
     }
 
     @FXML
     private void initialize()
     {
-        //headline.setText(type.toString());
         //List Items on left site
         setListView();
 
