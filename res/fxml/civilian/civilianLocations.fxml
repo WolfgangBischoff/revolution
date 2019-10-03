@@ -12,7 +12,7 @@
 
     <GridPane xmlns="http://javafx.com/javafx">
         <Text text="Locations" GridPane.rowIndex="3"/>
-        <Button text="Market" GridPane.rowIndex="3" prefWidth="100" onAction="#consume"/>
+        <Button text="Market" GridPane.rowIndex="3" prefWidth="100" onAction="#showMarket"/>
         <Button text="Job Market" GridPane.rowIndex="4" prefWidth="100" onAction="#job"/>
         <Button text="back" GridPane.rowIndex="7" prefWidth="100" onAction="#backToMenu"/>
     </GridPane>

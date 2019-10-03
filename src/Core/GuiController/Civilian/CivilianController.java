@@ -9,8 +9,10 @@ import Core.Market;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -22,8 +24,11 @@ public class CivilianController implements Controller
     FXMLLoader loader;
     @FXML
     BorderPane borderPane;
+    @FXML
+    HBox centerHbox;
 
     IndustryOverviewController industryOverviewController;
+    Pane companyDetailView = new Pane();
 
     @FXML
     private void initialize()
@@ -34,6 +39,9 @@ public class CivilianController implements Controller
     {
         loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civilian.fxml"));
         loader.setController(this);
+
+        centerHbox = new HBox();
+        centerHbox.setAlignment(Pos.CENTER);
     }
 
     public Pane load()
@@ -64,14 +72,15 @@ public class CivilianController implements Controller
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
     }
 
-    public void consume(ActionEvent event) throws IOException
+    public void showMarket(ActionEvent event) throws IOException
     {
-        System.out.println("Consume");
-
         //border becomes null, so we reload
         borderPane = loader.load();
         industryOverviewController = new IndustryOverviewController(this);
-        borderPane.setCenter(industryOverviewController.load());
+        centerHbox.getChildren().add(industryOverviewController.load());
+        //centerHbox.getChildren().add(companyDetailView);
+        centerHbox.setStyle("-fx-border-style: solid inside;");
+        borderPane.setCenter(centerHbox);//borderPane.setCenter(industryOverviewController.load());
         GameWindow.getSingleton().createNextScene(borderPane);
     }
 
@@ -89,6 +98,11 @@ public class CivilianController implements Controller
     private void showCompanyDetail(Company company)
     {
         System.out.println(company.baseData());
+        CompanyDetailController com = new CompanyDetailController(company);
+        //companyDetailView = com.load();
+        if(centerHbox.getChildren().size() > 1)
+            centerHbox.getChildren().remove(1);
+        centerHbox.getChildren().add(com.load());
     }
 
 }
