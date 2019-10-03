@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+            >
+
+    <ImageView GridPane.rowIndex="0" GridPane.columnIndex="0">
+        <Image url="@/img/package.png" />
+    </ImageView>
+    <Label text="COMPANYNAME" fx:id="companyName" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <Label text="Price: " GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <Label text="PRICE" fx:id="companyPrice" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    <Label text="Quality: " GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <Label text="LUXURY" fx:id="companyLuxury" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+    <Label text="DESC" fx:id="companyDescription" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+
+
+</GridPane>

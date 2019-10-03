@@ -28,7 +28,7 @@ public class CivilianController implements Controller
     HBox centerHbox;
 
     IndustryOverviewController industryOverviewController;
-    Pane companyDetailView = new Pane();
+    //Pane companyDetailView = new Pane();
 
     @FXML
     private void initialize()
@@ -37,6 +37,7 @@ public class CivilianController implements Controller
 
     public CivilianController()
     {
+        //load base fxml
         loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civilian.fxml"));
         loader.setController(this);
 
@@ -49,6 +50,7 @@ public class CivilianController implements Controller
         try
         {
             borderPane = loader.load();
+            //Placeholder till other menu is active
             borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
             return borderPane;
         } catch (IOException e)
@@ -62,7 +64,7 @@ public class CivilianController implements Controller
     {
         System.out.println("Job Market");
         borderPane = loader.load();
-        borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civTest.fxml")));
+        borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
         GameWindow.getSingleton().createNextScene(borderPane);
     }
 
@@ -78,9 +80,8 @@ public class CivilianController implements Controller
         borderPane = loader.load();
         industryOverviewController = new IndustryOverviewController(this);
         centerHbox.getChildren().add(industryOverviewController.load());
-        //centerHbox.getChildren().add(companyDetailView);
-        centerHbox.setStyle("-fx-border-style: solid inside;");
-        borderPane.setCenter(centerHbox);//borderPane.setCenter(industryOverviewController.load());
+        centerHbox.setStyle("-fx-border-style: solid inside;"); //For debugging
+        borderPane.setCenter(centerHbox);
         GameWindow.getSingleton().createNextScene(borderPane);
     }
 
@@ -98,8 +99,8 @@ public class CivilianController implements Controller
     private void showCompanyDetail(Company company)
     {
         System.out.println(company.baseData());
-        CompanyDetailController com = new CompanyDetailController(company);
-        //companyDetailView = com.load();
+        //CompanyDetailController com = new CompanyDetailController(company);
+        CivCompanyDetail com = new CivCompanyDetail(company);
         if(centerHbox.getChildren().size() > 1)
             centerHbox.getChildren().remove(1);
         centerHbox.getChildren().add(com.load());
