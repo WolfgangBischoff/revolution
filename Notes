@@ -1,6 +1,6 @@
 
 KNOWN BUGS:
-
+    Check cause of resolution changes, likely in fxml
 TODOS:
     Add Civilian buy
     Add Company price/.. changes

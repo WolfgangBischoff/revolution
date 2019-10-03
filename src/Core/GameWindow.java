@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+import static Core.Util.RESOLUTION_HEIGTH;
+import static Core.Util.RESOLUTION_WIDTH;
+
 public class GameWindow extends Stage
 {
     private static GameWindow singleton;
@@ -31,7 +34,7 @@ public class GameWindow extends Stage
     public Scene createNextScene(String fxml) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxml));
-            gameStage.setScene(new Scene (root, 800, 600));
+            gameStage.setScene(new Scene (root, RESOLUTION_WIDTH, RESOLUTION_HEIGTH));
         } catch ( IOException e ) {
             e.printStackTrace();
         }
@@ -40,7 +43,7 @@ public class GameWindow extends Stage
 
     public void createNextScene(Parent parent)
     {
-        gameStage.setScene(new Scene(parent, 800, 600));
+        gameStage.setScene(new Scene(parent, RESOLUTION_WIDTH, RESOLUTION_HEIGTH));
     }
 
     public double getScreenWidth()

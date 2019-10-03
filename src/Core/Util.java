@@ -14,6 +14,10 @@ import java.util.Random;
 
 public class Util
 {
+    //General
+    public static final Integer RESOLUTION_WIDTH = 1280;
+    public static final Integer RESOLUTION_HEIGTH = 720;
+
     //Society
     public static final Integer NUM_PERS_DEFAULT = 7;
     public static final Integer RATION_BASIC_EDU = 20;
