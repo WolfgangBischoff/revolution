@@ -34,8 +34,7 @@ public class CivCompanyDetail
         try
         {
             return loader.load();
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace();
         }
@@ -59,7 +58,8 @@ public class CivCompanyDetail
                         Person player = Simulation.getSingleton().getPlayer();
                         System.out.println(player.playerIsAffordable(company));
                         System.out.println(player.playerIsAvailable(company));
-                        if(player.playerIsAffordable(company)&&player.playerIsAvailable(company))
+                        System.out.println("Is Saturated: " + player.playerIsSaturated(company.getIndustry()));
+                        if (player.playerIsAffordable(company) && player.playerIsAvailable(company) && !player.playerIsSaturated(company.getIndustry()))
                             player.playerBuyUnchecked(company);
 
                     }

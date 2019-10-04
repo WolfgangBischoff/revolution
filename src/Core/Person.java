@@ -186,7 +186,7 @@ public class Person // implements ProductOwner
         if(consumeDataStorage.hasDataOf(today))
             consumeData = consumeDataStorage.getConsumeData(today);
         else
-            return true;
+            return false;
 
         return consumeData.consumeData.containsKey(type);
     }
