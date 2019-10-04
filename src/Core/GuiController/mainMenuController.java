@@ -63,10 +63,10 @@ public class mainMenuController
             Society.getSociety().addPerson(pla);
         Simulation.getSingleton().setPlayer(pla);
 
-        CivilianController civilianController = new CivilianController();
-        System.out.println("BBB");
-        //GameWindow.getSingleton().createNextScene("../fxml/civilian/civilian.fxml");
-        GameWindow.getSingleton().createNextScene(civilianController.load());
+        //CivilianController civilianController = new CivilianController();
+        System.out.println("MainHandler");
+        GameWindow.getSingleton().createNextScene("../fxml/civilian/civilian.fxml");
+        //GameWindow.getSingleton().createNextScene(civilianController.load());
     }
 
     @FXML

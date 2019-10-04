@@ -9,25 +9,24 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 
 public class CivilianController implements Controller
 {
 
-    @FXML
+
     FXMLLoader loader;
     @FXML
     BorderPane borderPane;
     @FXML
-    Pane baseData;
+    Pane baseData, centerPane, leftPane;
     @FXML
-    Text test;
+    Button backButton;
 
     Player player;
     HBox centerHbox;
@@ -35,28 +34,33 @@ public class CivilianController implements Controller
     IndustryOverviewController industryOverviewController;
     CivilianBaseData civilianBaseData;
 
+
     public CivilianController()
     {
         //load base fxml
-        System.out.println("AAA");
-        loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civilian.fxml"));
+        loader = new FXMLLoader();
         civilianBaseData = new CivilianBaseData();
 
         centerHbox = new HBox();
         centerHbox.setAlignment(Pos.CENTER);
+        centerHbox.setSpacing(3);
+        centerHbox.setStyle("-fx-border-style: solid inside;"); //For debugging
     }
 
     @FXML
-    private void initialize()
+    private void initialize() throws IOException
     {
-        System.out.println("Init: " + test);
+        borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
+        borderPane.setTop(civilianBaseData.load());
+
     }
 
+    /*
     public Pane load()
     {
         try
         {
-            borderPane = loader.load();
+            //borderPane = loader.load();
             borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
             borderPane.setTop(civilianBaseData.load());
             return borderPane;
@@ -65,36 +69,28 @@ public class CivilianController implements Controller
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 
     public void job(javafx.event.ActionEvent event) throws IOException
     {
         System.out.println("Job Market");
-        borderPane = loader.load();
         borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
-        GameWindow.getSingleton().createNextScene(borderPane);
     }
 
     @FXML
     private void backToMenu()
     {
-
+        civilianBaseData.removePropertyListeners();
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
-        //civilianBaseData.removePropertyListeners();
     }
 
+    @FXML
     public void showMarket(ActionEvent event) throws IOException
     {
-        //border becomes null, so we reload
-        borderPane = loader.load();
         industryOverviewController = new IndustryOverviewController(this);
+        centerHbox.getChildren().clear();
         centerHbox.getChildren().add(industryOverviewController.load());
-        centerHbox.setSpacing(3);
-        centerHbox.setStyle("-fx-border-style: solid inside;"); //For debugging
         borderPane.setCenter(centerHbox);
-        borderPane.setTop(civilianBaseData.load());
-
-        GameWindow.getSingleton().createNextScene(borderPane);
     }
 
     @Override
@@ -115,6 +111,7 @@ public class CivilianController implements Controller
             centerHbox.getChildren().remove(1);
         centerHbox.getChildren().add(com.load());
     }
+
 
 
 }

@@ -7,13 +7,13 @@
 
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="Core.GuiController.Civilian.CivilianController"
+
       alignment="CENTER" spacing="3">
 
     <GridPane xmlns="http://javafx.com/javafx">
         <Text text="Locations" GridPane.rowIndex="3"/>
-        <Button text="Market" GridPane.rowIndex="3" prefWidth="100" onAction="#showMarket"/>
-        <Button text="Job Market" GridPane.rowIndex="4" prefWidth="100" onAction="#job"/>
-        <Button text="back" GridPane.rowIndex="7" prefWidth="100" onAction="#backToMenu"/>
+        <Button text="Market" GridPane.rowIndex="3" prefWidth="100" />
+        <Button text="Job Market" GridPane.rowIndex="4" prefWidth="100" />
+        <Button text="back" GridPane.rowIndex="7" prefWidth="100" fx:id="backButton" />
     </GridPane>
 </VBox>

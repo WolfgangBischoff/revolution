@@ -1,11 +1,11 @@
 package Core.GuiController.Civilian;
 
-import Core.*;
+import Core.Player;
+import Core.Simulation;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -15,7 +15,7 @@ public class CivilianBaseData implements PropertyChangeListener
 {
     @FXML
     Label name, date, deposit, effectiveHappiness, workplace;
-FXMLLoader loader;
+    FXMLLoader loader;
     Player player;
 
     @FXML
@@ -29,7 +29,7 @@ FXMLLoader loader;
         workplace.setText(player.dataWorksAt());
 
         player.addPropertyChangeListener(this);
-
+        System.out.println("PLAYER INIT" + player);
     }
 
     public Pane load()
@@ -47,7 +47,9 @@ FXMLLoader loader;
 
     public void removePropertyListeners()
     {
+        System.out.println("PLAYER REMOVE" + player);
         player.removePropertyChangeListener(this);
+        //Simulation.getSingleton().getPlayer().removePropertyChangeListener(this);
     }
 
     @Override
@@ -55,19 +57,11 @@ FXMLLoader loader;
     {
         switch (evt.getPropertyName())
         {
-            /*
-            case EconomyStatistics.NAME_NUMBER_COMPANIES:
-                numberCompanies.setText(evt.getNewValue().toString());
+
+            case Player.PROPERTYNAME_DEPOSIT:
+                deposit.setText(evt.getNewValue().toString());
                 break;
-            case EconomyStatistics.NAME_SUM_COMPANY_DEPOSITS:
-                depositsCompanies.setText(evt.getNewValue().toString());
-                break;
-            case Market.NUMBER_PRODUCTS_NAME:
-                productsOnMarket.setText(evt.getNewValue().toString());
-                break;
-            default:
-                throw new RuntimeException("PropertyChange() don´t know: " + evt.getPropertyName());
-                */
+
         }
     }
 }

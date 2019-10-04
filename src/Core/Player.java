@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class Player extends Person
 {
     PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+    public static final String PROPERTYNAME_DEPOSIT = "deposit";
 
     public Player(PersonName name, Integer age, EducationalLayer educationalLayer, Integer deposit)
     {
@@ -52,14 +53,17 @@ public class Player extends Person
     public void playerBuyUnchecked(Company company)
     {
         consumeDataStorage.consume(company.getIndustry(), company.getLuxury());
+        Integer oldDeposit = deposit;
         deposit -= company.getPrice();
         company.produce();
         company.getPaid(company.getPrice());
 
-        System.out.println(name + " Bought " + company.baseData());
-        System.out.println(consumeDataStorage.dataConsume());
+        //System.out.println(name + " Bought " + company.baseData());
+        //System.out.println(consumeDataStorage.dataConsume());
 
         Market.getMarket().playerCollectMarketDataForCompetitors(company);
+
+        propertyChangeSupport.firePropertyChange(PROPERTYNAME_DEPOSIT, oldDeposit, deposit);
     }
 
 
