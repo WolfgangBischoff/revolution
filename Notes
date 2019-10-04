@@ -1,9 +1,8 @@
 
 KNOWN BUGS:
-Civilan is somehow loaded twice
+    civilian remove player null
 
 TODOS:
-    Add Civilian single buy instead of shop
     add job market to civilian
     Add Company price/.. changes
     Save
