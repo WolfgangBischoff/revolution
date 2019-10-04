@@ -18,8 +18,8 @@ public class Person // implements ProductOwner
     Integer baseHappiness;
     Integer effectiveHappiness;
     Workposition worksAt;
-    private Integer deposit;
-    private ConsumeDataStorage consumeDataStorage = new ConsumeDataStorage(this);
+    protected Integer deposit;
+    protected ConsumeDataStorage consumeDataStorage = new ConsumeDataStorage(this);
     private final static String PERSONNAMESPATH = "./res/txt/names/persons/";
 
     //Malus if less, just to reache but not more. Luxury for more
@@ -169,39 +169,7 @@ public class Person // implements ProductOwner
         //calc
     }
 
-    public boolean playerIsAffordable(Company company)
-    {
-        return deposit>= company.getPrice();
-    }
 
-    public boolean playerIsAvailable(Company company)
-    {
-        return company.canProduce();
-    }
-
-    public boolean playerIsSaturated(IndustryType type)
-    {
-        LocalDate today = Simulation.getSingleton().getDate();
-        ConsumeData consumeData = null;
-        if(consumeDataStorage.hasDataOf(today))
-            consumeData = consumeDataStorage.getConsumeData(today);
-        else
-            return false;
-
-        return consumeData.consumeData.containsKey(type);
-    }
-    public void playerBuyUnchecked(Company company)
-    {
-        consumeDataStorage.consume(company.getIndustry(), company.getLuxury());
-        deposit -= company.getPrice();
-        company.produce();
-        company.getPaid(company.getPrice());
-
-        System.out.println(name + " Bought " + company.baseData());
-        System.out.println(consumeDataStorage.dataConsume());
-
-        Market.getMarket().playerCollectMarketDataForCompetitors(company);
-    }
 
 
     //Prints

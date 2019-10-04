@@ -12,8 +12,8 @@
 <?import javafx.scene.layout.HBox?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-
             fx:id="borderPane"
+            fx:controller="Core.GuiController.Civilian.CivilianController"
 >
 
     <stylesheets>
@@ -26,7 +26,7 @@
     </padding>
 
     <top>
-        <fx:include source="civilianBaseData.fxml"/>
+        <Pane fx:id="baseData"/>
     </top>
 
     <left>
@@ -35,7 +35,7 @@
 
     <right>
         <VBox alignment="CENTER">
-            <Text text="Civilian assets and news"/>
+            <Text fx:id="test" text="Civilian assets and news"/>
         </VBox>
     </right>
 

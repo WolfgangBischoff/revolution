@@ -52,10 +52,10 @@ public class mainMenuController
     @FXML
     private void startAsCiv(ActionEvent event)
     {
-        Person pla;
+        Player pla;
         if (Simulation.getSingleton().getPlayer() == null)
         {
-            pla = new Person(new PersonName("Alexander Otto", "Husarl"), 28, EducationalLayer.EDU_HIGHER, 2222);
+            pla = new Player(new PersonName("Alexander Otto", "Husarl"), 28, EducationalLayer.EDU_HIGHER, 2222);
         }
         else
             pla = Simulation.getSingleton().getPlayer();
@@ -64,6 +64,8 @@ public class mainMenuController
         Simulation.getSingleton().setPlayer(pla);
 
         CivilianController civilianController = new CivilianController();
+        System.out.println("BBB");
+        //GameWindow.getSingleton().createNextScene("../fxml/civilian/civilian.fxml");
         GameWindow.getSingleton().createNextScene(civilianController.load());
     }
 

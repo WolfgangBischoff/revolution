@@ -12,7 +12,7 @@ public class Simulation
     private Government government;
     private Console console;
     private GameCalendar calender;
-    private Person player;
+    private Player player;
 
     public Society getSociety()
     {
@@ -34,12 +34,12 @@ public class Simulation
     {
         return calender;
     }
-    public Person getPlayer()
+    public Player getPlayer()
     {
         return player;
     }
 
-    public void setPlayer(Person player)
+    public void setPlayer(Player player)
     {
         this.player = player;
     }
