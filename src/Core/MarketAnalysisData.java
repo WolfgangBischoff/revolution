@@ -6,13 +6,13 @@ import java.util.List;
 
 public class MarketAnalysisData
 {
-    //GameDate collectionDate;
     LocalDate date;
     Integer marketTotalDemand = 0;
     Integer marketTotalSold = 0;
     Integer numLostToNoCapacity = 0;
     Integer numSold = 0;
     Integer numLostToIdenticalOffer = 0;
+    Integer numPlayerBougt = 0;
     Integer unusedCapacity = 0;
     List<Integer> toExpensive = new ArrayList();
     List<Integer> toCheap = new ArrayList<>();
@@ -34,6 +34,7 @@ public class MarketAnalysisData
                 "\n\tTo Cheap: " + toCheap.toString() +
                 "\n\tQuality: " + qualityToBad.toString() +
                 "\n\tSame offer: " + numLostToIdenticalOffer +
+                "\n\tPlayer: " + numPlayerBougt +
                 "\n\tNo capacity: " + numLostToNoCapacity +
                 "\n\tUnused Capacity: " + unusedCapacity + "\n";
     }

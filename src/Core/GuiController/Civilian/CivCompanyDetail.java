@@ -1,6 +1,7 @@
 package Core.GuiController.Civilian;
 
 import Core.Company;
+import Core.Person;
 import Core.Simulation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -55,8 +56,12 @@ public class CivCompanyDetail
                     @Override
                     public void handle(ActionEvent event)
                     {
-                        System.out.println("C" + company.getName());
-                        Simulation.getSingleton().getPlayer().shop();
+                        Person player = Simulation.getSingleton().getPlayer();
+                        System.out.println(player.playerIsAffordable(company));
+                        System.out.println(player.playerIsAvailable(company));
+                        if(player.playerIsAffordable(company)&&player.playerIsAvailable(company))
+                            player.playerBuyUnchecked(company);
+
                     }
                 }
         );

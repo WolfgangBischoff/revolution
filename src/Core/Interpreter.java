@@ -552,19 +552,19 @@ public class Interpreter
         print("Society shopped");
     }
 
-    private void economyPrint(String[] inputOptions)
+    private void economyPrint(String[] inputArguments)
     {
         String methodname = "economyPrint()";
-        String possibleArguments = "[company]";
+        String possibleArguments = "[company, market]";
         //Case no options
-        if (inputOptions.length == 0)
+        if (inputArguments.length == 0)
         {
             print(economy.economyBaseData());
             print(POSSIBLE_ARGUMENTS + possibleArguments);
             return;
         }
-        if (isKeyword(inputOptions[0]))
-            switch (getKeyword(inputOptions[0]))
+        if (isKeyword(inputArguments[0]))
+            switch (getKeyword(inputArguments[0]))
             {
                 case COMPANY:
                     print(economy.economyBaseCompanyData());
@@ -573,7 +573,7 @@ public class Interpreter
                     print(economy.dataMarketAnalysis());
                     return;
             }
-        throw new InterpreterInvalidArgumentException(methodname, inputOptions[0], possibleArguments);
+        throw new InterpreterInvalidArgumentException(methodname, inputArguments[0], possibleArguments);
 
     }
 

@@ -28,6 +28,21 @@ public class MarketanalysisDataStorage
             dataContainer.remove(dataContainer.size() - 1);
     }
 
+    public void playerBought(Company bestCompany)
+    {
+        LocalDate today = Simulation.getSingleton().getDate();
+        if (dataContainer.isEmpty() || !(dataContainer.get(0).date.equals(today)))
+        {
+            initNewDay();
+        }
+        MarketAnalysisData currentData = dataContainer.get(0);
+        if(owner == bestCompany)
+            currentData.numSold++;
+        currentData.marketTotalDemand++;
+        currentData.marketTotalSold++;
+        currentData.numPlayerBougt++;
+    }
+
     public void addNewData(Company bestCompetitor, Integer customerBudget)
     {
         //Is New Day Data

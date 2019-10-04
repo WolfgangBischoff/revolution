@@ -155,7 +155,6 @@ public class Person // implements ProductOwner
         Integer dailyBudgetForIndustry = todaysBudget.budgetPosts.get(budgetPost);
         Company bestSupplier = Market.getMarket().getBestOffer(industryType, dailyBudgetForIndustry);
 
-
         //Pay Company and consume
         if(bestSupplier != null)
         {
@@ -167,9 +166,29 @@ public class Person // implements ProductOwner
             //System.out.println(name + " Best " + bestSupplier.baseData());
             //System.out.println(consumeDataStorage.dataConsume());
         }
-
-
         //calc
+    }
+
+    public boolean playerIsAffordable(Company company)
+    {
+        return deposit>= company.getPrice();
+    }
+
+    public boolean playerIsAvailable(Company company)
+    {
+        return company.canProduce();
+    }
+    public void playerBuyUnchecked(Company company)
+    {
+        consumeDataStorage.consume(company.getIndustry(), company.getLuxury());
+        deposit -= company.getPrice();
+        company.produce();
+        company.getPaid(company.getPrice());
+
+        System.out.println(name + " Bought " + company.baseData());
+        System.out.println(consumeDataStorage.dataConsume());
+
+        Market.getMarket().playerCollectMarketDataForCompetitors(company);
     }
 
 

@@ -105,6 +105,15 @@ public class Market
         }
     }
 
+    public void playerCollectMarketDataForCompetitors(Company bestCompany)
+    {
+        IndustryType type = bestCompany.getIndustry();
+        for (Company comparedCompany : marketCompanies.get(type))
+        {
+            comparedCompany.getMarketanalysisData().playerBought(bestCompany);
+        }
+    }
+
     //Prints
     public String dataMarketCompanies()
     {

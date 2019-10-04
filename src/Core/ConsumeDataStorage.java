@@ -28,22 +28,30 @@ public class ConsumeDataStorage
 {
     private final Integer PERIODS_REMEMBERED = 5;
     private List<ConsumeData> dataStorage = new ArrayList<>();
-    private Person consumer;
+    //private Person consumer;
 
     public ConsumeDataStorage(Person person)
     {
-        consumer = person;
+
+        //consumer = person;
     }
 
     public void consume(IndustryType type, Integer luxury)
     {
         LocalDate today = Simulation.getSingleton().getDate();
         //check if today already exist
-        if (dataStorage.isEmpty())
-            dataStorage.add(0, new ConsumeData(today)); //For current period
+        if (dataStorage.isEmpty() || !(dataStorage.get(0).date.equals(today)))
+        {
+            initNewDay(today);
+        }
         dataStorage.get(0).consume(type, luxury);
 
         deleteOldData();
+    }
+
+    private void initNewDay(LocalDate today)
+    {
+        dataStorage.add(0, new ConsumeData(today)); //For current period
     }
 
     private void deleteOldData()
