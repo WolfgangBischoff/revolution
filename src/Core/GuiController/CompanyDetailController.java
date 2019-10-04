@@ -18,7 +18,7 @@ public class CompanyDetailController
     @FXML
     private Button back;
     @FXML
-    private Text name, deposit, numberEmployees, numberFreeWorkplaces, products;
+    private Text name, deposit, numberEmployees, numberFreeWorkplaces;
 
 
     public CompanyDetailController(Company company)
@@ -52,6 +52,5 @@ public class CompanyDetailController
         deposit.setText(company.getDeposit().toString());
         numberEmployees.setText(company.getNumberEmployees().toString());
         numberFreeWorkplaces.setText(company.calcNumberFreeWorkpositions().toString());
-        //products.setText(company.calcNumberProducts().toString());
     }
 }

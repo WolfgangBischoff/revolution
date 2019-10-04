@@ -40,9 +40,7 @@
     </right>
 
     <center>
-        <HBox >
             <Pane fx:id="centerPane"/>
-        </HBox>
     </center>
 
     <bottom>

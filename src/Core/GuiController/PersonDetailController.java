@@ -55,7 +55,7 @@ public class PersonDetailController
         edu.setText(person.getEducationalLayer().toString());
         deposit.setText(person.getDeposit().toString());
         grossincome.setText(person.getGrossIncome().toString());
-        worksat.setText(person.dateWorksAt());
+        worksat.setText(person.dataWorksAt());
     }
 
 

@@ -190,7 +190,7 @@ public class Person // implements ProductOwner
         return "Base: " + baseHappiness + " effective: " + effectiveHappiness + " ";
     }
 
-    public String dateWorksAt()
+    public String dataWorksAt()
     {
         if (worksAt == null)
             return "unemployed";
@@ -200,7 +200,7 @@ public class Person // implements ProductOwner
 
     public String dataEconomical()
     {
-        return "Works at: " + dateWorksAt() + " grossIncome: " + getGrossIncome() + " NettIncome: " + getNettIncome() + " Deposit: " + deposit;
+        return "Works at: " + dataWorksAt() + " grossIncome: " + getGrossIncome() + " NettIncome: " + getNettIncome() + " Deposit: " + deposit;
     }
 
     public String dataLayer()

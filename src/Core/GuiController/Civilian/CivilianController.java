@@ -24,11 +24,10 @@ public class CivilianController implements Controller
     FXMLLoader loader;
     @FXML
     BorderPane borderPane;
-    @FXML
+
     HBox centerHbox;
 
     IndustryOverviewController industryOverviewController;
-    //Pane companyDetailView = new Pane();
 
     @FXML
     private void initialize()
@@ -80,6 +79,7 @@ public class CivilianController implements Controller
         borderPane = loader.load();
         industryOverviewController = new IndustryOverviewController(this);
         centerHbox.getChildren().add(industryOverviewController.load());
+        centerHbox.setSpacing(3);
         centerHbox.setStyle("-fx-border-style: solid inside;"); //For debugging
         borderPane.setCenter(centerHbox);
         GameWindow.getSingleton().createNextScene(borderPane);
@@ -98,8 +98,6 @@ public class CivilianController implements Controller
     @FXML
     private void showCompanyDetail(Company company)
     {
-        System.out.println(company.baseData());
-        //CompanyDetailController com = new CompanyDetailController(company);
         CivCompanyDetail com = new CivCompanyDetail(company);
         if(centerHbox.getChildren().size() > 1)
             centerHbox.getChildren().remove(1);

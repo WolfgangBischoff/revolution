@@ -17,6 +17,7 @@
     </HBox>
 
     <HBox spacing="5">
+        <Label fx:id="workplace" prefWidth="250"  alignment="CENTER" text="Workplace"/>
         <Label fx:id="labeldeposit" text="Deposit: "/>
         <Label fx:id="deposit" prefWidth="80"  alignment="CENTER" text="deposit"/>
         <Label fx:id="labelhapiness" text="Happiness: "/>

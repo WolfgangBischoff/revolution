@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 public class CivilianBaseData
 {
     @FXML
-    Label name, date, deposit, effectiveHappiness;
+    Label name, date, deposit, effectiveHappiness, workplace;
 
     Person player;
 
@@ -22,5 +22,6 @@ public class CivilianBaseData
         deposit.setText(player.getDeposit().toString());
         effectiveHappiness.setText(player.getEffectiveHappiness().toString());
         date.setText(Simulation.getSingleton().getCalender().dataDateWeekday());
+        workplace.setText(player.dataWorksAt());
     }
 }

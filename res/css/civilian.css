@@ -17,7 +17,7 @@
     -fx-background-color: #C0C0C0;
 }
 
-#name, #date, #labeldeposit, #deposit, #labelhapiness, #effectiveHappiness
+#name, #date, #labeldeposit, #deposit, #labelhapiness, #effectiveHappiness, #workplace
 {
 -fx-font-size: 20px;
 -fx-font-weight: bold;
