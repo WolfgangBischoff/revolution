@@ -178,6 +178,18 @@ public class Person // implements ProductOwner
     {
         return company.canProduce();
     }
+
+    public boolean playerIsSaturated(IndustryType type)
+    {
+        LocalDate today = Simulation.getSingleton().getDate();
+        ConsumeData consumeData = null;
+        if(consumeDataStorage.hasDataOf(today))
+            consumeData = consumeDataStorage.getConsumeData(today);
+        else
+            return true;
+
+        return consumeData.consumeData.containsKey(type);
+    }
     public void playerBuyUnchecked(Company company)
     {
         consumeDataStorage.consume(company.getIndustry(), company.getLuxury());

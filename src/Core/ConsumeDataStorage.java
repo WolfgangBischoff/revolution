@@ -28,12 +28,28 @@ public class ConsumeDataStorage
 {
     private final Integer PERIODS_REMEMBERED = 5;
     private List<ConsumeData> dataStorage = new ArrayList<>();
-    //private Person consumer;
 
     public ConsumeDataStorage(Person person)
     {
+    }
 
-        //consumer = person;
+    public boolean hasDataOf(LocalDate date)
+    {
+        for(ConsumeData data : dataStorage)
+            if(data.date.equals(date))
+                return true;
+        return false;
+    }
+
+    public ConsumeData getConsumeData(LocalDate date)
+    {
+        if(hasDataOf(date))
+        {
+            for(ConsumeData data : dataStorage)
+                if(data.date.equals(date))
+                    return data;
+        }
+        return null;
     }
 
     public void consume(IndustryType type, Integer luxury)
