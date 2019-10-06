@@ -13,7 +13,7 @@
     </stylesheets>
         <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="tabPane" side="LEFT">
             <Tab fx:id="foodTab"/>
-            <Tab fx:id="clothsTabPage" text="Cloths"/>
+            <Tab fx:id="clothsTabPage"/>
             <Tab fx:id="housingTabPage" text="Housing"/>
             <Tab fx:id="energyTabPage" text="Energy"/>
             <Tab fx:id="electronicsTabPage" text="Electronics"/>

@@ -15,12 +15,12 @@
 -fx-text-fill: black;
 }
 
-.tab-header-area{
-  -fx-tab-header-width: 100px;
+#tabPane{
+
   -fx-tab-min-width:120px;
   -fx-tab-max-width:120px;
-  -fx-tab-min-height:50px;
-  -fx-tab-max-height:50px;
+  -fx-tab-min-height:100px;
+  -fx-tab-max-height:100px;
 }
 
 

@@ -36,7 +36,8 @@ public class IndustryOverviewController
     private void initialize()
     {//Is used by fxml after this is set as Controller
         //Init Tabs
-        foodTab.setGraphic(new ImageView(new Image("/img/food.png", 20, 20, false, false)));
+        foodTab.setGraphic(new ImageView(new Image("/img/food.png", 64, 64, false, false)));
+        clothsTabPage.setGraphic(new ImageView(new Image("/img/textileShirt.png", 64, 64, false, false)));
 
         foodTab.setContent(new IndustryOverviewTabPageController(IndustryType.FOOD, parentController).load());
         clothsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.CLOTHS, parentController).load());
