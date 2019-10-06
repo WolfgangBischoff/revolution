@@ -6,15 +6,18 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.ScrollPane?>
 <GridPane xmlns:fx="http://javafx.com/fxml" hgap="5" alignment="CENTER">
-
-
-
-    <TabPane  GridPane.columnIndex="0" GridPane.rowIndex="1">
-            <Tab fx:id="foodTab" />
+    <stylesheets>
+        <URL value="@/css/companyListItem.css"/>
+    </stylesheets>
+        <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="tabPane" side="LEFT">
+            <Tab fx:id="foodTab"/>
             <Tab fx:id="clothsTabPage" text="Cloths"/>
             <Tab fx:id="housingTabPage" text="Housing"/>
+            <Tab fx:id="energyTabPage" text="Energy"/>
+            <Tab fx:id="electronicsTabPage" text="Electronics"/>
             <Tab fx:id="educationTabPage" text="Education"/>
-    </TabPane>
+        </TabPane>
 </GridPane>
 

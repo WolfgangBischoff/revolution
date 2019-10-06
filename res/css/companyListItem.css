@@ -1,0 +1,61 @@
+
+
+#companyName
+{
+-fx-font-size: 15px;
+-fx-font-weight: bold;
+-fx-text-fill: #0000A0;
+-fx-border-color: white;
+-fx-background-color: #C0C011;
+}
+#emptyText
+{
+-fx-font-size: 15px;
+-fx-font-weight: bold;
+-fx-text-fill: black;
+}
+
+.tab-header-area{
+  -fx-tab-header-width: 100px;
+  -fx-tab-min-width:120px;
+  -fx-tab-max-width:120px;
+  -fx-tab-min-height:50px;
+  -fx-tab-max-height:50px;
+}
+
+
+.label
+ {
+ -fx-text-fill: black;
+ }
+
+
+
+.list-view {
+    -fx-background-color: transparent;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #B40431;
+    -fx-text-fill: black;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #585858;
+-fx-text-fill: black;
+}
+
+.list-cell:even {
+-fx-background-color: #E6E6E6;
+-fx-text-fill: black;
+}
+.list-cell:odd {
+-fx-background-color: #D8D8D8;
+-fx-text-fill: black;
+}
+
+.list-cell:empty {
+    -fx-background-color: transparent;
+}
+
+

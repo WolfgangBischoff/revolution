@@ -4,9 +4,13 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.Label?>
+<?import java.net.URL?>
 <GridPane xmlns:fx="http://javafx.com/fxml" fx:id="gridpane" >
+    <stylesheets>
+        <URL value="@/css/companyListItem.css"/>
+    </stylesheets>
 
-        <VBox>
+        <VBox fx:id="content">
             <HBox>
                 <Text fx:id="companyName" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
             </HBox>

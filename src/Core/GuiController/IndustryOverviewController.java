@@ -18,7 +18,7 @@ public class IndustryOverviewController
     Controller parentController;
 
     @FXML
-    Tab foodTab, clothsTabPage, housingTabPage, educationTabPage;
+    Tab foodTab, clothsTabPage, housingTabPage, educationTabPage, energyTabPage, electronicsTabPage;
 
     public IndustryOverviewController()
     {
@@ -41,6 +41,8 @@ public class IndustryOverviewController
         foodTab.setContent(new IndustryOverviewTabPageController(IndustryType.FOOD, parentController).load());
         clothsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.CLOTHS, parentController).load());
         housingTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.HOUSING, parentController).load());
+        energyTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.ENERGY, parentController).load());
+        electronicsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.ELECTRONICS, parentController).load());
         educationTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.EDUCATION, parentController).load());
     }
 

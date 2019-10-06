@@ -19,12 +19,12 @@
         <Image url="@/img/pen.png" />
     </ImageView>
 
-    <ImageView translateX="100" translateY="50" fitHeight="50" preserveRatio="true">
-        <Image url="@/img/hammerAndSickle.png" />
-    </ImageView>
-
     <ImageView translateX="-170" translateY="-85" preserveRatio="true" fitHeight="135">
         <Image url="@/img/diffuser.png" />
+    </ImageView>
+
+    <ImageView translateX="-150" translateY="-180" preserveRatio="true">
+        <Image url="@/img/diffuserSmoke.png" />
     </ImageView>
 
     <ImageView translateY="10" translateX="-20" preserveRatio="true">
