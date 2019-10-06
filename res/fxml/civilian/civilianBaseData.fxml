@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Region?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="Core.GuiController.Civilian.CivilianBaseData" alignment="CENTER_LEFT" spacing="3">
+     alignment="CENTER_LEFT" spacing="3">
 
     <HBox>
         <HBox><Label fx:id="name" text="Name"/></HBox>

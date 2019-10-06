@@ -25,10 +25,10 @@ public class CivilianController implements Controller
     BorderPane borderPane;
     @FXML
     Pane baseData, centerPane, leftPane;
-    @FXML
-    Button backButton;
+    //@FXML
+    //Button backButton;
 
-    Player player;
+    //Player player;
     HBox centerHbox;
 
     IndustryOverviewController industryOverviewController;
@@ -37,9 +37,10 @@ public class CivilianController implements Controller
 
     public CivilianController()
     {
-        //load base fxml
-        loader = new FXMLLoader();
+        //load baseData fxml
         civilianBaseData = new CivilianBaseData();
+        loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civilianBaseData.fxml"));
+        loader.setController(civilianBaseData);
 
         centerHbox = new HBox();
         centerHbox.setAlignment(Pos.CENTER);
@@ -51,25 +52,8 @@ public class CivilianController implements Controller
     private void initialize() throws IOException
     {
         borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
-        borderPane.setTop(civilianBaseData.load());
-
+        borderPane.setTop(loader.load());
     }
-
-    /*
-    public Pane load()
-    {
-        try
-        {
-            //borderPane = loader.load();
-            borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
-            borderPane.setTop(civilianBaseData.load());
-            return borderPane;
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
-    }*/
 
     public void job(javafx.event.ActionEvent event) throws IOException
     {

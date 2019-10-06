@@ -15,8 +15,11 @@ public class CivilianBaseData implements PropertyChangeListener
 {
     @FXML
     Label name, date, deposit, effectiveHappiness, workplace;
-    FXMLLoader loader;
     Player player;
+
+    public CivilianBaseData()
+    {
+    }
 
     @FXML
     private void initialize()
@@ -29,27 +32,11 @@ public class CivilianBaseData implements PropertyChangeListener
         workplace.setText(player.dataWorksAt());
 
         player.addPropertyChangeListener(this);
-        System.out.println("PLAYER INIT" + player);
-    }
-
-    public Pane load()
-    {
-        loader = new FXMLLoader();
-        try
-        {
-            return FXMLLoader.load(getClass().getResource("/fxml/civilian/civilianBaseData.fxml"));
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public void removePropertyListeners()
     {
-        System.out.println("PLAYER REMOVE" + player);
         player.removePropertyChangeListener(this);
-        //Simulation.getSingleton().getPlayer().removePropertyChangeListener(this);
     }
 
     @Override
