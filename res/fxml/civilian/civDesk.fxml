@@ -7,6 +7,12 @@
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="Core.GuiController.Civilian.CivDesk"
            prefHeight="200.0" prefWidth="300.0">
+
+
+    <ImageView translateY="-250" translateX="150" preserveRatio="true" fitHeight="200">
+        <Image url="@/img/landscape.png" />
+    </ImageView>
+
     <ImageView>
         <Image url="@/img/desk.png" />
     </ImageView>
