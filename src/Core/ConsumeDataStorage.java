@@ -52,6 +52,17 @@ public class ConsumeDataStorage
         return null;
     }
 
+    public Map<IndustryType, Integer> getConsumeDataMap(LocalDate date)
+    {
+        if(hasDataOf(date))
+        {
+            for(ConsumeData data : dataStorage)
+                if(data.date.equals(date))
+                    return data.consumeData;
+        }
+        return null;
+    }
+
     public void consume(IndustryType type, Integer luxury)
     {
         LocalDate today = Simulation.getSingleton().getDate();

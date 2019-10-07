@@ -9,9 +9,9 @@
     <stylesheets>
         <URL value="@/css/companyListItem.css"/>
     </stylesheets>
-    <ListView  GridPane.rowIndex="1" fx:id="companyListView">
+    <ListView  GridPane.rowIndex="1" fx:id="companyListView" prefWidth="300">
         <placeholder>
-            <Label text="No Companies" fx:id="emptyText"/>
+            <Label text="No Companies" fx:id="emptyText" />
         </placeholder>
     </ListView>
 </GridPane>

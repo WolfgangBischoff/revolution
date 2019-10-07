@@ -58,9 +58,6 @@ public class Player extends Person
         company.produce();
         company.getPaid(company.getPrice());
 
-        //System.out.println(name + " Bought " + company.baseData());
-        //System.out.println(consumeDataStorage.dataConsume());
-
         Market.getMarket().playerCollectMarketDataForCompetitors(company);
 
         propertyChangeSupport.firePropertyChange(PROPERTYNAME_DEPOSIT, oldDeposit, deposit);

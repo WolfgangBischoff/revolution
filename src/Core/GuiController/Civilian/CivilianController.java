@@ -8,11 +8,13 @@ import Core.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 
 import java.io.IOException;
 
@@ -24,18 +26,17 @@ public class CivilianController implements Controller
     @FXML
     BorderPane borderPane;
     @FXML
-    Pane baseData, centerPane, leftPane;
-    //@FXML
-    //Button backButton;
+    Pane baseData, centerPane;
 
     //Player player;
     HBox centerHbox;
 
     IndustryOverviewController industryOverviewController;
     CivilianBaseData civilianBaseData;
+    CivBoughtToday civBoughtToday;
 
 
-    public CivilianController()
+    public CivilianController() throws IOException
     {
         //load baseData fxml
         civilianBaseData = new CivilianBaseData();
@@ -43,7 +44,7 @@ public class CivilianController implements Controller
         loader.setController(civilianBaseData);
 
         centerHbox = new HBox();
-        centerHbox.setAlignment(Pos.CENTER);
+        //centerHbox.setAlignment(Pos.CENTER);
         centerHbox.setSpacing(3);
         centerHbox.setStyle("-fx-border-style: solid inside;"); //For debugging
     }
@@ -73,7 +74,15 @@ public class CivilianController implements Controller
     {
         industryOverviewController = new IndustryOverviewController(this);
         centerHbox.getChildren().clear();
+        centerHbox.setPadding(new Insets(0,0,0,50)); //public Insets(double top, double right, double bottom,double left)
         centerHbox.getChildren().add(industryOverviewController.load());
+
+        //load today consume
+        civBoughtToday = new CivBoughtToday();
+        loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civBoughtToday.fxml"));
+        loader.setController(civBoughtToday);
+        borderPane.setRight(loader.load());
+
         borderPane.setCenter(centerHbox);
     }
 
