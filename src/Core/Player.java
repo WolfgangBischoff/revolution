@@ -73,5 +73,11 @@ public class Player extends Person
         propertyChangeSupport.firePropertyChange(PROPERTYNAME_WORKPOSITION, null, worksAt);
     }
 
+    @Override
+    public void shop()
+    {
+        //ignore
+    }
+
 
 }

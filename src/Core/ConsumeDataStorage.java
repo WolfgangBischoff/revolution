@@ -103,7 +103,7 @@ public class ConsumeDataStorage
         StringBuilder stringBuilder = new StringBuilder();
         ConsumeData data = dataStorage.get(idx);
         for (Map.Entry<IndustryType, Integer> entry : data.consumeData.entrySet())
-            stringBuilder.append("Day: " + data.date + " " + entry.getKey() + " " + entry.getValue());
+            stringBuilder.append("Day: " + data.date + " " + entry.getKey() + " " + entry.getValue() + "\n\t");
         return stringBuilder.toString();
     }
 }

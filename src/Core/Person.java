@@ -149,7 +149,33 @@ public class Person // implements ProductOwner
             return;
         }
 
-        //TODO for all Industry types
+        //for all Industry types
+        for(IndustryType industryType : IndustryType.values())
+        {
+            //Check if we have budget
+            BudgetPost budgetPost = BudgetPost.fromIndustryType(industryType);
+            Integer dailyBudgetForIndustry;
+            if(!todaysBudget.budgetPosts.containsKey(budgetPost))
+                continue;
+
+            dailyBudgetForIndustry = todaysBudget.budgetPosts.get(budgetPost);
+            Company bestSupplier = Market.getMarket().getBestOffer(industryType, dailyBudgetForIndustry);
+
+            //Pay Company and consume
+            if(bestSupplier != null)
+            {
+                consumeDataStorage.consume(industryType, bestSupplier.getLuxury());
+                deposit -= bestSupplier.getPrice();
+                bestSupplier.produce();
+                bestSupplier.getPaid(bestSupplier.getPrice());
+
+                //System.out.println(name + " Best " + bestSupplier.baseData());
+                //System.out.println(consumeDataStorage.dataConsume());
+            }
+        }
+
+
+        /*
         IndustryType industryType = FOOD;
         BudgetPost budgetPost = BudgetPost.fromIndustryType(industryType);
         Integer dailyBudgetForIndustry = todaysBudget.budgetPosts.get(budgetPost);
@@ -165,7 +191,7 @@ public class Person // implements ProductOwner
 
             //System.out.println(name + " Best " + bestSupplier.baseData());
             //System.out.println(consumeDataStorage.dataConsume());
-        }
+        }*/
         //calc
     }
 
