@@ -1,6 +1,7 @@
 package Core.GuiController;
 
 import Core.Enums.IndustryType;
+import Core.Enums.ViewPerspective;
 import Core.GameWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ public class IndustryOverviewController
 {
     FXMLLoader loader;
     Controller parentController;
+    ViewPerspective perspective;
 
     @FXML
     Tab foodTab, clothsTabPage, housingTabPage, educationTabPage, energyTabPage, electronicsTabPage;
@@ -24,12 +26,14 @@ public class IndustryOverviewController
     {
         loader = new FXMLLoader(getClass().getResource("../../fxml/industryOverview.fxml"));
         loader.setController(this);
+        perspective = ViewPerspective.GENERAL;
     }
 
-    public IndustryOverviewController(Controller parentController)
+    public IndustryOverviewController(Controller parentController, ViewPerspective perspective)
     {
         this();
         this.parentController = parentController;
+        this.perspective = perspective;
     }
 
     @FXML
@@ -39,12 +43,12 @@ public class IndustryOverviewController
         foodTab.setGraphic(new ImageView(new Image("/img/food.png", 64, 64, false, false)));
         clothsTabPage.setGraphic(new ImageView(new Image("/img/textileShirt.png", 64, 64, false, false)));
 
-        foodTab.setContent(new IndustryOverviewTabPageController(IndustryType.FOOD, parentController).load());
-        clothsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.CLOTHS, parentController).load());
-        housingTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.HOUSING, parentController).load());
-        energyTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.ENERGY, parentController).load());
-        electronicsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.ELECTRONICS, parentController).load());
-        educationTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.EDUCATION, parentController).load());
+        foodTab.setContent(new IndustryOverviewTabPageController(IndustryType.FOOD, parentController, perspective).load());
+        clothsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.CLOTHS, parentController, perspective).load());
+        housingTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.HOUSING, parentController, perspective).load());
+        energyTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.ENERGY, parentController, perspective).load());
+        electronicsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.ELECTRONICS, parentController, perspective).load());
+        educationTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.EDUCATION, parentController, perspective).load());
     }
 
     public Pane load()

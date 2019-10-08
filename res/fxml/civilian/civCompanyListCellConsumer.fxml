@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import java.net.URL?>
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:id="gridpane" >
+
+        <VBox fx:id="content">
+            <HBox>
+                <Text fx:id="companyName"/>
+            </HBox>
+
+            <HBox spacing="5">
+                <Label text="Luxury:"/>
+                <Label text="LUX" fx:id="luxury"/>
+                <Label text="Price:"/>
+                <Label text="PR" fx:id="price"/>
+            </HBox>
+        </VBox>
+
+</GridPane>
+

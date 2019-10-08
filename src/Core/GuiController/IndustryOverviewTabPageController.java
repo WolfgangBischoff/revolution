@@ -3,6 +3,9 @@ package Core.GuiController;
 import Core.Company;
 import Core.Economy;
 import Core.Enums.IndustryType;
+import Core.Enums.ViewPerspective;
+import Core.GuiController.Civilian.civCompanyListCellConsumer;
+import Core.GuiController.Civilian.civCompanyListCellWork;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -16,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 
+import javax.swing.text.View;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,23 +29,25 @@ public class IndustryOverviewTabPageController
     FXMLLoader loader;
     List<Company> companyList;
     Controller parentController;
+    ViewPerspective perspective;
 
     @FXML
     private ListView companyListView;
     private ObservableList observableListPerson = FXCollections.observableArrayList();
 
 
-    public IndustryOverviewTabPageController(IndustryType type)
+    public IndustryOverviewTabPageController(IndustryType type, ViewPerspective perspective)
     {
         this.type = type;
         companyList = Economy.getEconomy().getCompanies(type);
         loader = new FXMLLoader(getClass().getResource("../../fxml/industryOverwiewTabPage.fxml"));
         loader.setController(this);
+        this.perspective = perspective;
     }
 
-    public IndustryOverviewTabPageController(IndustryType type, Controller parentController)
+    public IndustryOverviewTabPageController(IndustryType type, Controller parentController, ViewPerspective perspective)
     {
-        this(type);
+        this(type, perspective);
         this.parentController = parentController;
     }
 
@@ -55,8 +61,16 @@ public class IndustryOverviewTabPageController
             @Override
             public ListCell<Company> call(ListView<Company> param)
             {
-                return new ListCellCompany();
+                //return new ListCellCompany();
+                switch (perspective)
+                {
+                    case CONSUMER:return new civCompanyListCellConsumer();
+                    case JOBSEEKING:return new civCompanyListCellWork();
+                    default: GENERAL:return new civCompanyListCellConsumer();
+                }
+                //return new civCompanyListCellConsumer();
             }
+
         });
 
         companyListView.setOnMouseClicked(new EventHandler<MouseEvent>()

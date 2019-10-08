@@ -1,20 +1,17 @@
 package Core.GuiController.Civilian;
 
 import Core.Company;
+import Core.Enums.ViewPerspective;
 import Core.GameWindow;
 import Core.GuiController.Controller;
 import Core.GuiController.IndustryOverviewController;
-import Core.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 
 import java.io.IOException;
 
@@ -33,10 +30,10 @@ public class CivilianController implements Controller
 
     IndustryOverviewController industryOverviewController;
     CivilianBaseData civilianBaseData;
-    CivBoughtToday civBoughtToday;
+    CivBoughtToday civBoughtToday = new CivBoughtToday();
 
 
-    public CivilianController() throws IOException
+    public CivilianController()
     {
         //load baseData fxml
         civilianBaseData = new CivilianBaseData();
@@ -47,6 +44,8 @@ public class CivilianController implements Controller
         //centerHbox.setAlignment(Pos.CENTER);
         centerHbox.setSpacing(3);
         centerHbox.setStyle("-fx-border-style: solid inside;"); //For debugging
+
+
     }
 
     @FXML
@@ -56,33 +55,49 @@ public class CivilianController implements Controller
         borderPane.setTop(loader.load());
     }
 
+    @FXML
     public void job(javafx.event.ActionEvent event) throws IOException
     {
-        System.out.println("Job Market");
+        removeListeners();
+
+        industryOverviewController = new IndustryOverviewController(this, ViewPerspective.JOBSEEKING);
+        centerHbox.getChildren().clear();
+        centerHbox.setPadding(new Insets(0, 0, 0, 50)); //public Insets(double top, double right, double bottom,double left)
+        centerHbox.getChildren().add(industryOverviewController.load());
+        borderPane.setCenter(centerHbox);
+        borderPane.setRight(null);
+    }
+
+    @FXML
+    private void desk() throws IOException
+    {
         borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
+        borderPane.setRight(null);
     }
 
     @FXML
     private void backToMenu()
     {
         civilianBaseData.removePropertyListeners();
+        civBoughtToday.removePropertyListeners();
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
     }
 
     @FXML
     public void showMarket(ActionEvent event) throws IOException
     {
-        industryOverviewController = new IndustryOverviewController(this);
+        removeListeners();
+
+
+        industryOverviewController = new IndustryOverviewController(this, ViewPerspective.CONSUMER);
         centerHbox.getChildren().clear();
-        centerHbox.setPadding(new Insets(0,0,0,50)); //public Insets(double top, double right, double bottom,double left)
+        centerHbox.setPadding(new Insets(0, 0, 0, 50)); //public Insets(double top, double right, double bottom,double left)
         centerHbox.getChildren().add(industryOverviewController.load());
 
         //load today consume
-        civBoughtToday = new CivBoughtToday();
         loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civBoughtToday.fxml"));
         loader.setController(civBoughtToday);
         borderPane.setRight(loader.load());
-
         borderPane.setCenter(centerHbox);
     }
 
@@ -105,6 +120,10 @@ public class CivilianController implements Controller
         centerHbox.getChildren().add(com.load());
     }
 
-
+    private void removeListeners()
+    {
+        civilianBaseData.removePropertyListeners();
+        civBoughtToday.removePropertyListeners();
+    }
 
 }

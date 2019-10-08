@@ -56,8 +56,6 @@ public class CivCompanyDetail
                     public void handle(ActionEvent event)
                     {
                         Player player = Simulation.getSingleton().getPlayer();
-                        System.out.println(player.isAffordable(company));
-                        System.out.println(player.playerIsAvailable(company));
                         System.out.println("Is Saturated: " + player.playerIsSaturated(company.getIndustry()));
                         if (player.isAffordable(company) && player.playerIsAvailable(company) && !player.playerIsSaturated(company.getIndustry()))
                             player.playerBuyUnchecked(company);
