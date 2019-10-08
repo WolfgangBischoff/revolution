@@ -3,13 +3,10 @@ package Core.GuiController.Civilian;
 import Core.Player;
 import Core.Simulation;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 
 public class CivilianBaseData implements PropertyChangeListener
 {
@@ -48,7 +45,9 @@ public class CivilianBaseData implements PropertyChangeListener
             case Player.PROPERTYNAME_DEPOSIT:
                 deposit.setText(evt.getNewValue().toString());
                 break;
-
+            case Player.PROPERTYNAME_WORKPOSITION:
+                workplace.setText(player.dataWorksAt());
+                break;
         }
     }
 }

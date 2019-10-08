@@ -12,6 +12,7 @@ public class Player extends Person
 {
     PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     public static final String PROPERTYNAME_DEPOSIT = "deposit";
+    public static final String PROPERTYNAME_WORKPOSITION = "workposition";
 
     public Player(PersonName name, Integer age, EducationalLayer educationalLayer, Integer deposit)
     {
@@ -50,6 +51,7 @@ public class Player extends Person
 
         return consumeData.consumeData.containsKey(type);
     }
+
     public void playerBuyUnchecked(Company company)
     {
         consumeDataStorage.consume(company.getIndustry(), company.getLuxury());
@@ -61,6 +63,14 @@ public class Player extends Person
         Market.getMarket().playerCollectMarketDataForCompetitors(company);
 
         propertyChangeSupport.firePropertyChange(PROPERTYNAME_DEPOSIT, oldDeposit, deposit);
+    }
+
+    @Override
+    public void startAtWorkposition(Workposition workposition)
+    {
+        super.startAtWorkposition(workposition);
+
+        propertyChangeSupport.firePropertyChange(PROPERTYNAME_WORKPOSITION, null, worksAt);
     }
 
 

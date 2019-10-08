@@ -151,7 +151,7 @@ public class Company
         return returnSum;
     }
 
-    boolean employWorker(Workposition workposition, Person p)
+    public boolean employWorker(Workposition workposition, Person p)
     {
         if (workposition.isWorkerAppropriate(p))
         {
@@ -262,6 +262,15 @@ public class Company
     public ArrayList<Workposition> getWorkpositions()
     {
         return workpositions;
+    }
+
+    public ArrayList<Workposition> getFreeWorkpositions()
+    {
+        ArrayList freePos = new ArrayList();
+        for(Workposition workposition : workpositions)
+            if(workposition.worker == null)
+                freePos.add(workposition);
+        return freePos;
     }
 
     public Integer getNumberEmployees()

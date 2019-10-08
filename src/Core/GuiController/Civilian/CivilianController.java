@@ -41,7 +41,6 @@ public class CivilianController implements Controller
         loader.setController(civilianBaseData);
 
         centerHbox = new HBox();
-        //centerHbox.setAlignment(Pos.CENTER);
         centerHbox.setSpacing(3);
         centerHbox.setStyle("-fx-border-style: solid inside;"); //For debugging
 
@@ -79,7 +78,7 @@ public class CivilianController implements Controller
     @FXML
     private void backToMenu()
     {
-        civilianBaseData.removePropertyListeners();
+        civilianBaseData.removePropertyListeners(); //Just remove here, is valid in all other menues
         civBoughtToday.removePropertyListeners();
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
     }
@@ -118,12 +117,12 @@ public class CivilianController implements Controller
         if (centerHbox.getChildren().size() > 1)
             centerHbox.getChildren().remove(1);
 
-        if(perspective == ViewPerspective.CONSUMER)
+        if (perspective == ViewPerspective.CONSUMER)
         {
             CivCompanyDetailConsumer com = new CivCompanyDetailConsumer(company);
             centerHbox.getChildren().add(com.load());
         }
-        else if(perspective == ViewPerspective.JOBSEEKING)
+        else if (perspective == ViewPerspective.JOBSEEKING)
         {
             CivCompanyDetailWorkSeeking work = new CivCompanyDetailWorkSeeking(company);
             centerHbox.getChildren().add(work.load());
@@ -133,7 +132,6 @@ public class CivilianController implements Controller
 
     private void removeListeners()
     {
-        civilianBaseData.removePropertyListeners();
         civBoughtToday.removePropertyListeners();
     }
 

@@ -53,8 +53,8 @@ public class civCompanyListCellConsumer extends ListCell<Company>
         public void setInfo()
         {
             companyName.setText(company.getName());
-           luxury.setText(company.getLuxury().toString());
-           price.setText(company.getPrice().toString());
+            luxury.setText(company.getLuxury().toString());
+            price.setText(company.getPrice().toString());
         }
 
         public GridPane getGridpane()

@@ -83,4 +83,19 @@ public class Workposition
     {
         this.worker = worker;
     }
+
+    public EducationalLayer getNeededEducation()
+    {
+        return neededEducation;
+    }
+
+    public Integer getGrossIncomeWork()
+    {
+        return grossIncomeWork;
+    }
+
+    public Company getCompany()
+    {
+        return company;
+    }
 }
