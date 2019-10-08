@@ -69,7 +69,6 @@ public class Player extends Person
     public void startAtWorkposition(Workposition workposition)
     {
         super.startAtWorkposition(workposition);
-
         propertyChangeSupport.firePropertyChange(PROPERTYNAME_WORKPOSITION, null, worksAt);
     }
 
@@ -77,6 +76,14 @@ public class Player extends Person
     public void shop()
     {
         //ignore
+    }
+
+    @Override
+    void receiveSalary(Integer salary)
+    {
+        Integer oldDeposit = deposit;
+        super.receiveSalary(salary);
+        propertyChangeSupport.firePropertyChange(PROPERTYNAME_DEPOSIT, oldDeposit, deposit);
     }
 
 
