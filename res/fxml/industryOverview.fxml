@@ -18,6 +18,9 @@
             <Tab fx:id="energyTabPage" text="Energy"/>
             <Tab fx:id="electronicsTabPage" text="Electronics"/>
             <Tab fx:id="educationTabPage" text="Education"/>
+            <Tab fx:id="sparetimeTabPage" text="Sparetime"/>
+            <Tab fx:id="healthTabPage" text="Health"/>
+            <Tab fx:id="trafficTabPage" text="Traffic"/>
         </TabPane>
 </GridPane>
 

@@ -20,7 +20,7 @@ public class IndustryOverviewController
     ViewPerspective perspective;
 
     @FXML
-    Tab foodTab, clothsTabPage, housingTabPage, educationTabPage, energyTabPage, electronicsTabPage;
+    private Tab foodTab, clothsTabPage, housingTabPage, educationTabPage, energyTabPage, electronicsTabPage, sparetimeTabPage, healthTabPage, trafficTabPage;
 
     public IndustryOverviewController()
     {
@@ -49,6 +49,9 @@ public class IndustryOverviewController
         energyTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.ENERGY, parentController, perspective).load());
         electronicsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.ELECTRONICS, parentController, perspective).load());
         educationTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.EDUCATION, parentController, perspective).load());
+        sparetimeTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.SPARETIME, parentController, perspective).load());
+        healthTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.HEALTH, parentController, perspective).load());
+        trafficTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.TRAFFIC, parentController, perspective).load());
     }
 
     public Pane load()
