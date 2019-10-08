@@ -25,7 +25,7 @@ public class CivilianController implements Controller
     @FXML
     Pane baseData, centerPane;
 
-    //Player player;
+    ViewPerspective perspective = ViewPerspective.GENERAL;
     HBox centerHbox;
 
     IndustryOverviewController industryOverviewController;
@@ -58,9 +58,10 @@ public class CivilianController implements Controller
     @FXML
     public void job(javafx.event.ActionEvent event) throws IOException
     {
+        perspective = ViewPerspective.JOBSEEKING;
         removeListeners();
 
-        industryOverviewController = new IndustryOverviewController(this, ViewPerspective.JOBSEEKING);
+        industryOverviewController = new IndustryOverviewController(this, perspective);
         centerHbox.getChildren().clear();
         centerHbox.setPadding(new Insets(0, 0, 0, 50)); //public Insets(double top, double right, double bottom,double left)
         centerHbox.getChildren().add(industryOverviewController.load());
@@ -86,10 +87,10 @@ public class CivilianController implements Controller
     @FXML
     public void showMarket(ActionEvent event) throws IOException
     {
+        perspective = ViewPerspective.CONSUMER;
         removeListeners();
 
-
-        industryOverviewController = new IndustryOverviewController(this, ViewPerspective.CONSUMER);
+        industryOverviewController = new IndustryOverviewController(this, perspective);
         centerHbox.getChildren().clear();
         centerHbox.setPadding(new Insets(0, 0, 0, 50)); //public Insets(double top, double right, double bottom,double left)
         centerHbox.getChildren().add(industryOverviewController.load());
@@ -114,10 +115,20 @@ public class CivilianController implements Controller
     @FXML
     private void showCompanyDetail(Company company)
     {
-        CivCompanyDetail com = new CivCompanyDetail(company);
         if (centerHbox.getChildren().size() > 1)
             centerHbox.getChildren().remove(1);
-        centerHbox.getChildren().add(com.load());
+
+        if(perspective == ViewPerspective.CONSUMER)
+        {
+            CivCompanyDetailConsumer com = new CivCompanyDetailConsumer(company);
+            centerHbox.getChildren().add(com.load());
+        }
+        else if(perspective == ViewPerspective.JOBSEEKING)
+        {
+            CivCompanyDetailWorkSeeking work = new CivCompanyDetailWorkSeeking(company);
+            centerHbox.getChildren().add(work.load());
+        }
+
     }
 
     private void removeListeners()

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="5">
+    <GridPane>
+        <ImageView GridPane.rowIndex="0" GridPane.columnIndex="0">
+            <Image url="@/img/package.png"/>
+        </ImageView>
+        <Label text="COMPANYNAME" fx:id="companyName" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <Label text="Workpositions: " GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <Label text="WP" fx:id="wp" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="DESC" fx:id="companyDescription" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+    </GridPane>
+
+    <Button text="Apply" prefWidth="200" GridPane.rowIndex="10" GridPane.columnIndex="0" fx:id="buy"/>
+</VBox>

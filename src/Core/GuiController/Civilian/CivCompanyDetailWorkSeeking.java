@@ -13,19 +13,19 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class CivCompanyDetail
+public class CivCompanyDetailWorkSeeking
 {
     Company company;
     FXMLLoader loader;
     @FXML
-    Label companyName, companyPrice, companyLuxury, companyDescription;
+    Label companyName, companyDescription, wp;
     @FXML
     Button buy;
 
-    public CivCompanyDetail(Company company)
+    public CivCompanyDetailWorkSeeking(Company company)
     {
         this.company = company;
-        loader = new FXMLLoader(getClass().getResource("../../../fxml/civilian/civCompanyDetail.fxml"));
+        loader = new FXMLLoader(getClass().getResource("../../../fxml/civilian/civCompanyDetailWorkSeeking.fxml"));
         loader.setController(this);
     }
 
@@ -45,9 +45,8 @@ public class CivCompanyDetail
     private void initialize()
     {
         companyName.setText(company.getName());
-        companyPrice.setText(company.getPrice().toString());
-        companyLuxury.setText(company.getLuxury().toString());
-        companyDescription.setText("This is a great company");
+        wp.setText("LIST");
+        companyDescription.setText("This is a great employer");
 
         buy.setOnAction(
                 new EventHandler<ActionEvent>()
@@ -56,9 +55,7 @@ public class CivCompanyDetail
                     public void handle(ActionEvent event)
                     {
                         Player player = Simulation.getSingleton().getPlayer();
-                        System.out.println("Is Saturated: " + player.playerIsSaturated(company.getIndustry()));
-                        if (player.isAffordable(company) && player.playerIsAvailable(company) && !player.playerIsSaturated(company.getIndustry()))
-                            player.playerBuyUnchecked(company);
+                        System.out.println("Application send");
 
                     }
                 }
