@@ -29,11 +29,13 @@ public class CivilianBaseData implements PropertyChangeListener
         workplace.setText(player.dataWorksAt());
 
         player.addPropertyChangeListener(this);
+        Simulation.getSingleton().addPropertyChangeListener(this);
     }
 
     public void removePropertyListeners()
     {
         player.removePropertyChangeListener(this);
+        Simulation.getSingleton().removePropertyChangeListener(this);
     }
 
     @Override
@@ -48,6 +50,8 @@ public class CivilianBaseData implements PropertyChangeListener
             case Player.PROPERTYNAME_WORKPOSITION:
                 workplace.setText(player.dataWorksAt());
                 break;
+            case Simulation.PROPERTY_DATE:
+                date.setText(evt.getNewValue().toString());
         }
     }
 }

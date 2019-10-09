@@ -5,6 +5,7 @@ import Core.Enums.ViewPerspective;
 import Core.GameWindow;
 import Core.GuiController.Controller;
 import Core.GuiController.IndustryOverviewController;
+import Core.Simulation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -99,6 +100,12 @@ public class CivilianController implements Controller
         loader.setController(civBoughtToday);
         borderPane.setRight(loader.load());
         borderPane.setCenter(centerHbox);
+    }
+
+    @FXML
+    private void nextDay()
+    {
+        Simulation.getSingleton().nextPeriod();
     }
 
     @Override
