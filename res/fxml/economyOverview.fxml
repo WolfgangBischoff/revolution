@@ -32,7 +32,6 @@
         <Button text="Hire people" onAction="#hire"/>
     </HBox>
     <Button text="Company List" GridPane.columnIndex="0" GridPane.rowIndex="5" onAction="#companyList" />
-    <Button text="Industries" GridPane.columnIndex="0" GridPane.rowIndex="6" onAction="#industriesList" />
     <Button text="Back to Menu" GridPane.columnIndex="1" GridPane.rowIndex="6" onAction="#backToMenu" />
 
 </GridPane>

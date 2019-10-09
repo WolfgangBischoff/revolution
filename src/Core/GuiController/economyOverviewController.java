@@ -72,14 +72,6 @@ public class economyOverviewController implements PropertyChangeListener
         removePropertyListeners();
     }
 
-    @FXML
-    private void industriesList(ActionEvent event)
-    {
-        EcoIndustryOverview ecoIndustryOverview = new EcoIndustryOverview();
-        GameWindow.getSingleton().createNextScene(ecoIndustryOverview.load());
-        removePropertyListeners();
-    }
-
     private void removePropertyListeners()
     {
         economy.getEconomyStatistics().removePropertyChangeListener(this);
