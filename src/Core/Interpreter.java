@@ -371,7 +371,6 @@ public class Interpreter
                     return;
                 case NEXT:
                     Simulation.getSingleton().nextPeriod();
-                    print(Simulation.getSingleton().getDate());
                     return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputArguments[0], possibleArguments);
@@ -535,14 +534,14 @@ public class Interpreter
 
     private void societyCalc()
     {
-        society.calcSociety();
+        society.calcSocietyDaily();
         print("Calculated Societey");
     }
 
     private void societyPopulate()
     {
         Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
-        society.calcSociety();
+        society.calcSocietyDaily();
         print("Populated Societey");
     }
 
@@ -601,7 +600,7 @@ public class Interpreter
     private void economyPaySalary(String[] inputOptions)
     {
         economy.companiesPaySalary();
-        society.calcSociety();
+        society.calcSocietyDaily();
         economy.calc();
         print("All Companies payed loans");
         return;
@@ -623,7 +622,7 @@ public class Interpreter
         {
             pays.paySalaries();
             print("Company paid");
-            society.calcSociety();
+            society.calcSocietyDaily();
             economy.calc();
         }
         else

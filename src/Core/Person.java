@@ -83,11 +83,16 @@ public class Person // implements ProductOwner
         calcPoliticalOpinion();
     }
 
-    void calcState()
+    void calcStateDaily()
     {
         calculateEconomicLayer();
         calcEffectiveHappiness();
         calcPoliticalOpinion();
+        //budgetPlan.calcBudget();
+    }
+
+    void calcStateMonthly()
+    {
         budgetPlan.calcBudget();
     }
 
@@ -173,26 +178,6 @@ public class Person // implements ProductOwner
                 //System.out.println(consumeDataStorage.dataConsume());
             }
         }
-
-
-        /*
-        IndustryType industryType = FOOD;
-        BudgetPost budgetPost = BudgetPost.fromIndustryType(industryType);
-        Integer dailyBudgetForIndustry = todaysBudget.budgetPosts.get(budgetPost);
-        Company bestSupplier = Market.getMarket().getBestOffer(industryType, dailyBudgetForIndustry);
-
-        //Pay Company and consume
-        if(bestSupplier != null)
-        {
-            consumeDataStorage.consume(industryType, bestSupplier.getLuxury());
-            deposit -= bestSupplier.getPrice();
-            bestSupplier.produce();
-            bestSupplier.getPaid(bestSupplier.getPrice());
-
-            //System.out.println(name + " Best " + bestSupplier.baseData());
-            //System.out.println(consumeDataStorage.dataConsume());
-        }*/
-        //calc
     }
 
 
@@ -273,7 +258,8 @@ public class Person // implements ProductOwner
     public void startAtWorkposition(Workposition workposition)
     {
         this.worksAt = workposition;
-        calcState();
+        calcStateDaily();
+        budgetPlan.calcBudget();
     }
 
     boolean quitWorkposition()
@@ -282,7 +268,7 @@ public class Person // implements ProductOwner
         {
             this.worksAt.company.employeeQuitted(worksAt);
             worksAt = null;
-            calcState();
+            calcStateDaily();
             return true;
         }
         else return false;
@@ -292,7 +278,7 @@ public class Person // implements ProductOwner
     public void getUnemployedAtWorkposition()
     {
         worksAt = null;
-        calcState();
+        calcStateDaily();
     }
 
     public Integer getId()

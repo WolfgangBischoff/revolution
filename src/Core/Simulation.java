@@ -1,7 +1,5 @@
 package Core;
 
-import Core.Enums.EducationalLayer;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
@@ -59,8 +57,27 @@ public class Simulation
         calender.nextDay();
         propertyChangeSupport.firePropertyChange(PROPERTY_DATE, lastDay, calender.dataDateWeekday());
 
-        
-        society.calcSociety();
+
+        System.out.println(calender.dataDateWeekday());
+        //End of Month
+        if(calender.date.getDayOfMonth() == calender.date.lengthOfMonth())
+        {
+            System.out.println("Companies payed");
+            economy.companiesPaySalary();
+        }
+        //First of Month
+        else if(calender.date.getDayOfMonth() == 1)
+        {
+            System.out.println("Budgets");
+            society.calcSocietyMonthly();
+        }
+
+        //Daily activities
+        society.shop();
+
+
+        //Not sure if need anymore
+        society.calcSocietyDaily();
         economy.calc();
     }
 

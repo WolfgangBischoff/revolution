@@ -161,6 +161,7 @@ public class BudgetPlan
     {
         //logic to split monthly budget to daily budgets, later more random
 
+        dailyBudgetsOfMonth.clear();
         //Get number of day for current month
         Integer numDays = Simulation.getSingleton().getDate().lengthOfMonth();
         LocalDate dayOfMonth = Simulation.getSingleton().getDate().withDayOfMonth(1);
@@ -181,13 +182,13 @@ public class BudgetPlan
             //Weightning per day (define shopping days, can vary for other industries)
             //higher weight leads to better products if available for a day, number of shopping days is basis need
             Map<DayOfWeek, Integer> weightingPerWeekday = new HashMap<>();
-            weightingPerWeekday.put(MONDAY, 2);
-            weightingPerWeekday.put(TUESDAY, 3);
-            weightingPerWeekday.put(WEDNESDAY, 0);
+            weightingPerWeekday.put(MONDAY, 1);
+            weightingPerWeekday.put(TUESDAY, 0);
+            weightingPerWeekday.put(WEDNESDAY, 1);
             weightingPerWeekday.put(THURSDAY, 0);
-            weightingPerWeekday.put(FRIDAY, 0);
+            weightingPerWeekday.put(FRIDAY, 1);
             weightingPerWeekday.put(SATURDAY, 0);
-            weightingPerWeekday.put(SUNDAY, 0);
+            weightingPerWeekday.put(SUNDAY, 1);
             List<Integer> weightingPerMonthDay = new ArrayList<>();
 
             //Distribute weekday pattern to month

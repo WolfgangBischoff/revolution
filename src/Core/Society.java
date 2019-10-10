@@ -22,11 +22,17 @@ public class Society
     }
 
     //Calculations
-    public void calcSociety()
+    public void calcSocietyDaily()
     {
         for (Person person : people)
-            person.calcState();
+            person.calcStateDaily();
         societyStatistics.calcAll();
+    }
+
+    public void calcSocietyMonthly()
+    {
+        for (Person person : people)
+            person.calcStateMonthly();
     }
 
 

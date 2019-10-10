@@ -14,7 +14,7 @@ public class GameCalendar
 
     public GameCalendar()
     {
-       date =  LocalDate.of(2019,9,2);
+       date =  LocalDate.of(2019,9,25);
     }
 
     public LocalDate getDate()
