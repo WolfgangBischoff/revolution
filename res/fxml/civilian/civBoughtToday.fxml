@@ -12,9 +12,12 @@
     <Label text="Bought today" GridPane.rowIndex="0"/>
     <Label text="Food: "  GridPane.rowIndex="1"/><Label text="FOOD" fx:id="foodBought" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
     <Label text="Cloths: "  GridPane.rowIndex="2"/><Label text="FOOD" fx:id="clothBought" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    <Label text="Cloths: "  GridPane.rowIndex="3"/><Label text="FOOD" fx:id="sparetimeBought" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
     <Label text="Housing: "  GridPane.rowIndex="4"/><Label text="FOOD" fx:id="housingBought" GridPane.rowIndex="4" GridPane.columnIndex="1" />
     <Label text="Energy: "  GridPane.rowIndex="5"/><Label text="FOOD" fx:id="energyBought" GridPane.rowIndex="5" GridPane.columnIndex="1" />
     <Label text="Electronics: "  GridPane.rowIndex="6"/><Label text="FOOD" fx:id="electronicsBought" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-    <Label text="Education: "  GridPane.rowIndex="7"/><Label text="FOOD" fx:id="educationBought" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    <Label text="Traffic: "  GridPane.rowIndex="7"/><Label text="FOOD" fx:id="trafficBought" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    <Label text="Health: "  GridPane.rowIndex="8"/><Label text="FOOD" fx:id="healthBought" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+    <Label text="Education: "  GridPane.rowIndex="9"/><Label text="FOOD" fx:id="educationBought" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
 
 </GridPane>

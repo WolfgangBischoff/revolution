@@ -14,9 +14,9 @@ import java.util.Map;
 public class CivBoughtToday implements PropertyChangeListener
 {
     @FXML
-    Label foodBought, clothBought, housingBought, energyBought, electronicsBought, educationBought;
+    Label foodBought, clothBought, housingBought, energyBought, electronicsBought, educationBought, healthBought, sparetimeBought, trafficBought;
     Player player;
-    LocalDate today = Simulation.getSingleton().getDate();
+
     Map<IndustryType, Integer> consumeData;
 
     public CivBoughtToday()
@@ -29,10 +29,12 @@ public class CivBoughtToday implements PropertyChangeListener
     {
         update();
         player.addPropertyChangeListener(this);
+        Simulation.getSingleton().addPropertyChangeListener(this);
     }
 
     private void update()
     {
+        LocalDate today = Simulation.getSingleton().getDate();
         consumeData = player.getConsumeDataStorage().getConsumeDataMap(today); //Add consumed goods today
         foodBought.setText("None");
         clothBought.setText("None");
@@ -40,6 +42,9 @@ public class CivBoughtToday implements PropertyChangeListener
         energyBought.setText("None");
         electronicsBought.setText("None");
         educationBought.setText("None");
+        trafficBought.setText("None");
+        healthBought.setText("None");
+        sparetimeBought.setText("None");
         if(consumeData != null)
         {
             for(Map.Entry<IndustryType, Integer> entry : consumeData.entrySet())
@@ -50,11 +55,11 @@ public class CivBoughtToday implements PropertyChangeListener
                 {
                     case ENERGY:energyBought.setText(luxury.toString());break;
                     case ELECTRONICS: electronicsBought.setText(luxury.toString());break;
-                    case HEALTH://healthBought.setText(consumeData.get(IndustryType.HEALTH).toString());break;
+                    case HEALTH: healthBought.setText(luxury.toString());break;
                     case HOUSING:housingBought.setText(luxury.toString());break;
-                    case TRAFFIC:
+                    case TRAFFIC:trafficBought.setText(luxury.toString()); break;
                     case EDUCATION:educationBought.setText(luxury.toString());break;
-                    case SPARETIME://Bought.setText(consumeData.get(IndustryType.SPARETIME).toString());break;
+                    case SPARETIME: sparetimeBought.setText(luxury.toString());break;
                     case CLOTHS: clothBought.setText(luxury.toString());break;
                     case FOOD: foodBought.setText(luxury.toString()); break;
                 }
@@ -64,8 +69,8 @@ public class CivBoughtToday implements PropertyChangeListener
 
     public void removePropertyListeners()
     {
-        //System.out.println("Player: " + player);
         player.removePropertyChangeListener(this);
+        Simulation.getSingleton().removePropertyChangeListener(this);
     }
 
     @Override

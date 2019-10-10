@@ -53,11 +53,11 @@ public class CivDesk
             public void handle(long currentNanoTime)
             {
                 double t = (currentNanoTime - lastTime);
-                System.out.println((currentNanoTime - lastTime));
+                //System.out.println((currentNanoTime - lastTime));
                 if(t > 12000000)
                 {
                     gcCloud.clearRect(0,0,500,500);
-                    x += 1;
+                    x += 1.4;
                     y -= 1;
                     gcCloud.drawImage(cloud, x,y);
                 }
