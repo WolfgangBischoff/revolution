@@ -23,6 +23,12 @@
             <ImageView preserveRatio="true" fitHeight="250">
                 <Image url="@/img/skyline.png" />
             </ImageView>
+            <ImageView preserveRatio="true" fitHeight="250">
+                <Image url="@/img/skyline.png" />
+            </ImageView>
+            <ImageView preserveRatio="true" fitHeight="250">
+                <Image url="@/img/skyline.png" />
+            </ImageView>
         </HBox>
 
     </top>
