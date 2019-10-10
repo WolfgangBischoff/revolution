@@ -137,12 +137,11 @@ public class Economy
     {
         clearWorkplaces();
         companies.clear();
-        //createTest("comp");
         for(int i=0; i<numberComp; i++)
         {
-
             addCompany(IndustryType.fromInt(i % IndustryType.getEnumSize()));
         }
+        initPeriod();
         economyStatistics.calcState();
     }
 
@@ -152,6 +151,7 @@ public class Economy
         companies.clear();
         createTest(testcase);
         economyStatistics.calcState();
+        //initPeriod()??
     }
 
 

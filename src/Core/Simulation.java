@@ -70,7 +70,7 @@ public class Simulation
         //First of Month
         else if (calender.date.getDayOfMonth() == 1)
         {
-            System.out.println("Budgets");
+            System.out.println("Budgets calculated");
             society.calcSocietyMonthly();
         }
 

@@ -42,6 +42,8 @@ public class IndustryOverviewController
         //Init Tabs
         foodTab.setGraphic(new ImageView(new Image("/img/food.png", 64, 64, false, false)));
         clothsTabPage.setGraphic(new ImageView(new Image("/img/textileShirt.png", 64, 64, false, false)));
+        healthTabPage.setGraphic(new ImageView(new Image("/img/medicine.png", 64, 64, false, false)));
+        electronicsTabPage.setGraphic(new ImageView(new Image("/img/mobilephone.png", 64, 64, false, false)));
 
         foodTab.setContent(new IndustryOverviewTabPageController(IndustryType.FOOD, parentController, perspective).load());
         clothsTabPage.setContent(new IndustryOverviewTabPageController(IndustryType.CLOTHS, parentController, perspective).load());
