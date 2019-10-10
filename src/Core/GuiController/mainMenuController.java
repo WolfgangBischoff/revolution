@@ -14,15 +14,12 @@ public class mainMenuController
 {
     @FXML
     private ImageView leftBar, rightBar;
-    @FXML
-    private Text date;
 
     @FXML
     private void initialize()
     {
         leftBar.setImage(new Image("/img/säulePlakat.png"));
         rightBar.setImage(new Image("/img/säuleCommEco.png"));
-        date.setText(Simulation.getSingleton().getCalender().dataDateWeekday());
     }
 
     @FXML

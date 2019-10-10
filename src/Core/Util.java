@@ -17,7 +17,7 @@ public class Util
     //General
     public static final Integer RESOLUTION_WIDTH = 1280;
     public static final Integer RESOLUTION_HEIGTH = 720;
-    public static final Integer CALENDER_START_DAY = 20;
+    public static final Integer CALENDER_START_DAY = 29;
     public static final Integer CALENDER_START_MONTH = 12;
     public static final Integer CALENDER_START_YEAR = 2019;
 
@@ -54,8 +54,8 @@ public class Util
     public static final Integer BUDGET_DEFAULT_WEIGHT_OTHER_AND_SERVICES = 3;
 
     //Company
-    public static final Integer NUM_BASE_EDU_WORKPLACES = 3;
-    public static final Integer NUM_APPR_EDU_WORKPLACES = 3;
+    public static final Integer NUM_BASE_EDU_WORKPLACES = 4;
+    public static final Integer NUM_APPR_EDU_WORKPLACES = 4;
     public static final Integer NUM_HIGH_EDU_WORKPLACES = 2;
     public static final Integer NUM_UNIV_EDU_WORKPLACES = 1;
     public static final Integer COMP_DEFAULT_DEPOSIT = 100000;

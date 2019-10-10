@@ -76,7 +76,7 @@ public class Simulation
 
         //Special Day
         SpecialDayOfYear special = calender.checkYearlySpecialDay(calender.date);
-        if(special != null)
+        if(special != SpecialDayOfYear.WORKDAY)
             System.out.println("Its: " + special);
 
         //Daily activities

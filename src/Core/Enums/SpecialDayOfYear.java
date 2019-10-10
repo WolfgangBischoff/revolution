@@ -2,5 +2,5 @@ package Core.Enums;
 
 public enum SpecialDayOfYear
 {
-    CHRISTMAS, SYLVESTER, NEWYEAR, DAYOFLEADER
+    WORKDAY, CHRISTMAS, SYLVESTER, NEWYEAR, DAYOFLEADER
 }

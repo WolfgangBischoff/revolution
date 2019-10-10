@@ -3,6 +3,8 @@ package Core;
 import Core.Enums.EducationalLayer;
 import Core.Enums.Paygrade;
 
+import java.time.LocalDate;
+
 import static Core.Util.*;
 
 public class Workposition
@@ -14,6 +16,9 @@ public class Workposition
     Integer incomeTaxWork = 0;
     Person worker = null;
     Company company;
+    //Integer daysToPay = 0;
+    LocalDate hasWorkerSince;
+
 
     //Constructor
     public Workposition(Company company, EducationalLayer edu)
@@ -81,6 +86,11 @@ public class Workposition
 
     public void setWorker(Person worker)
     {
+        hasWorkerSince = Simulation.getSingleton().getDate();
+        if(worker == null)
+        {
+            hasWorkerSince = null;
+        }
         this.worker = worker;
     }
 

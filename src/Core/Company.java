@@ -4,6 +4,7 @@ import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 import static Core.Util.*;
@@ -107,7 +108,6 @@ public class Company
 
     public Integer calcUnusedCapacity()
     {
-        //System.out.println(baseData() + " : " + (maxCapacity - usedCapacity));
         return maxCapacity - usedCapacity;
     }
 
@@ -139,9 +139,22 @@ public class Company
 
     private void paySalary(Workposition workposition)
     {
-        workposition.worker.receiveSalary(workposition.netIncomeWork);
-        Government.getGoverment().raiseIncomeTax(workposition.incomeTaxWork);
-        deposit -= workposition.grossIncomeWork;
+        //In case the worker works not the whole month
+        double ratioWorkedDaysOfMonth = 1;
+        LocalDate today = Simulation.getSingleton().getDate();
+        Period period = Period.between ( workposition.hasWorkerSince , Simulation.getSingleton().getDate() );
+        Integer daysElapsed = period.getDays() + 1; //First day counts
+        if(daysElapsed < today.getMonth().length(today.isLeapYear()))
+            ratioWorkedDaysOfMonth = (double)daysElapsed / today.getMonth().length(today.isLeapYear());
+
+
+        int gross = (int)(workposition.grossIncomeWork * ratioWorkedDaysOfMonth);
+        int tax = Government.CalcIncomeTax(gross);
+        int nett = (gross - tax);
+
+        workposition.worker.receiveSalary(nett);
+        Government.getGoverment().raiseIncomeTax(tax);
+        deposit -= gross;
     }
 
     public Integer calcNumberFreeWorkpositions()
@@ -157,7 +170,7 @@ public class Company
     {
         if (workposition.isWorkerAppropriate(p))
         {
-            workposition.worker = p;
+            workposition.setWorker(p); //workposition.worker = p;
             p.startAtWorkposition(workposition);
             return true;
         }
@@ -173,7 +186,7 @@ public class Company
 
     public void employeeQuitted(Workposition workposition)
     {
-        workposition.worker = null;
+        workposition.setWorker(null);//workposition.worker = null;
     }
 
     Integer calcNumberWorkers()
@@ -190,7 +203,7 @@ public class Company
         if (workposition.worker != null)
         {
             workposition.worker.getUnemployedAtWorkposition();
-            workposition.worker = null;
+            workposition.setWorker(null);//workposition.worker = null;
             return true;
         }
         else

@@ -41,6 +41,19 @@ public class GameCalendar
         date = date.plusDays(1);
     }
 
+    public int calcWorkdaysCurrentMonth()
+    {
+        LocalDate day = date.withDayOfMonth(1);
+        int numberWorkdays = 0;
+        for(int i=0; i<day.getMonth().length(day.isLeapYear()); i++)
+        {
+            if(checkYearlySpecialDay(day) == SpecialDayOfYear.WORKDAY)
+                numberWorkdays++;
+            day = day.plusDays(1);
+        }
+        return numberWorkdays;
+    }
+
     public SpecialDayOfYear checkYearlySpecialDay(LocalDate date)
     {
         if(date.getMonth() == Month.JANUARY)
@@ -58,7 +71,7 @@ public class GameCalendar
             if(date.getDayOfMonth() == 31)
                 return SpecialDayOfYear.SYLVESTER;
         }
-        return null;
+        return SpecialDayOfYear.WORKDAY;
     }
 
 
