@@ -17,6 +17,9 @@ public class Util
     //General
     public static final Integer RESOLUTION_WIDTH = 1280;
     public static final Integer RESOLUTION_HEIGTH = 720;
+    public static final Integer CALENDER_START_DAY = 20;
+    public static final Integer CALENDER_START_MONTH = 12;
+    public static final Integer CALENDER_START_YEAR = 2019;
 
     //Society
     public static final Integer NUM_PERS_DEFAULT = 7;

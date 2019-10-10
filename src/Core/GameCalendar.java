@@ -1,8 +1,15 @@
 package Core;
 
+import Core.Enums.SpecialDayOfYear;
+
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+
+import static Core.Util.CALENDER_START_DAY;
+import static Core.Util.CALENDER_START_MONTH;
+import static Core.Util.CALENDER_START_YEAR;
 
 
 public class GameCalendar
@@ -14,7 +21,7 @@ public class GameCalendar
 
     public GameCalendar()
     {
-       date =  LocalDate.of(2019,9,25);
+       date =  LocalDate.of(CALENDER_START_YEAR,CALENDER_START_MONTH, CALENDER_START_DAY);
     }
 
     public LocalDate getDate()
@@ -33,6 +40,27 @@ public class GameCalendar
     {
         date = date.plusDays(1);
     }
+
+    public SpecialDayOfYear checkYearlySpecialDay(LocalDate date)
+    {
+        if(date.getMonth() == Month.JANUARY)
+        {
+            if(date.getDayOfMonth() == 1)
+                return SpecialDayOfYear.NEWYEAR;
+            if(date.getDayOfMonth() == 2)
+                return SpecialDayOfYear.DAYOFLEADER;
+        }
+
+        if(date.getMonth() == Month.DECEMBER)
+        {
+            if(date.getDayOfMonth() == 24)
+                return SpecialDayOfYear.CHRISTMAS;
+            if(date.getDayOfMonth() == 31)
+                return SpecialDayOfYear.SYLVESTER;
+        }
+        return null;
+    }
+
 
     @Override
     public String toString()

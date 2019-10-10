@@ -1,5 +1,7 @@
 package Core;
 
+import Core.Enums.SpecialDayOfYear;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
@@ -72,6 +74,11 @@ public class Simulation
             society.calcSocietyMonthly();
         }
 
+        //Special Day
+        SpecialDayOfYear special = calender.checkYearlySpecialDay(calender.date);
+        if(special != null)
+            System.out.println("Its: " + special);
+
         //Daily activities
         System.out.println("Simulation SocietyShop()");
         society.shop();
@@ -82,6 +89,8 @@ public class Simulation
         System.out.println("Simulation economy.calcState()");
         economy.calcState();
     }
+
+
 
     private Simulation()
     {
