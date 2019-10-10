@@ -34,7 +34,7 @@ public class Interpreter
     private Set<String> keywordsCash = new HashSet<>(Arrays.asList("cash"));
     private Set<String> keywordsPay = new HashSet<>(Arrays.asList("pay"));
     private Set<String> keywordsHire = new HashSet<>(Arrays.asList("hire"));
-    private Set<String> keywordsCalculate = new HashSet<>(Arrays.asList("calculate", "calc"));
+    private Set<String> keywordsCalculate = new HashSet<>(Arrays.asList("calculate", "initPeriod"));
     private Set<String> keywordsProduce = new HashSet<>(Arrays.asList("produce", "prod"));
     private Set<String> keywordsIncome = new HashSet<>(Arrays.asList("income", "inc"));
     private Set<String> keywordsEducation = new HashSet<>(Arrays.asList("education", "edu"));
@@ -302,7 +302,7 @@ public class Interpreter
                     economyPaySalary(optionPara);
                     return;
                 case CALCULATE:
-                    economy.calc();
+                    economy.initPeriod();
                     return;
             }
         throw new InterpreterInvalidArgumentException(methodName, inputArguments[0], possibleArguments);
@@ -601,7 +601,7 @@ public class Interpreter
     {
         economy.companiesPaySalary();
         society.calcSocietyDaily();
-        economy.calc();
+        economy.initPeriod();
         print("All Companies payed loans");
         return;
     }
@@ -623,7 +623,7 @@ public class Interpreter
             pays.paySalaries();
             print("Company paid");
             society.calcSocietyDaily();
-            economy.calc();
+            economy.initPeriod();
         }
         else
             print("Company not found");

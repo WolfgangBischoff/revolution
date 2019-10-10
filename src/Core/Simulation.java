@@ -56,29 +56,31 @@ public class Simulation
         String lastDay = calender.dataDateWeekday();
         calender.nextDay();
         propertyChangeSupport.firePropertyChange(PROPERTY_DATE, lastDay, calender.dataDateWeekday());
-
+        economy.initPeriod();
 
         System.out.println(calender.dataDateWeekday());
         //End of Month
-        if(calender.date.getDayOfMonth() == calender.date.lengthOfMonth())
+        if (calender.date.getDayOfMonth() == calender.date.lengthOfMonth())
         {
             System.out.println("Companies payed");
             economy.companiesPaySalary();
         }
         //First of Month
-        else if(calender.date.getDayOfMonth() == 1)
+        else if (calender.date.getDayOfMonth() == 1)
         {
             System.out.println("Budgets");
             society.calcSocietyMonthly();
         }
 
         //Daily activities
+        System.out.println("Simulation SocietyShop()");
         society.shop();
 
 
         //Not sure if need anymore
         society.calcSocietyDaily();
-        economy.calc();
+        System.out.println("Simulation economy.calcState()");
+        economy.calcState();
     }
 
     private Simulation()

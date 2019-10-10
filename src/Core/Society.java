@@ -38,15 +38,11 @@ public class Society
 
     public void shop()
     {
-        //FOR ALL Industries
-        IndustryType type = IndustryType.FOOD;
-
         for(Person p : people)
         {
             p.shop();
         }
         societyStatistics.calcAll();
-        Simulation.getSingleton().getEconomy().calc();
     }
 
 

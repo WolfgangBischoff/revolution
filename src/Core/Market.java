@@ -43,8 +43,9 @@ public class Market
 
     public Company getBestOffer(IndustryType type, Integer budget)
     {
+        if(budget == 0)
+            return null;
         List<Company> companies = marketCompanies.get(type);
-
         Company bestCompany = null;
 
         for (int i = 0; i < companies.size(); i++)

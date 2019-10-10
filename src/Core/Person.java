@@ -117,7 +117,7 @@ public class Person // implements ProductOwner
 
     void calcEffectiveHappiness()
     {
-        //calc on base of internal vars
+        //initPeriod on base of internal vars
         double avginc = Society.getSociety().getSocietyStatistics().getAvgIncome();
         effectiveHappiness = baseHappiness;
         if (getGrossIncome() < avginc)

@@ -3,6 +3,7 @@ package Core;
 import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static Core.Util.*;
@@ -68,6 +69,7 @@ public class Company
     public void initPeriod()
     {
         usedCapacity = 0;
+        marketanalysisData.initNewDay();
     }
     public void doMarketDecisions()
     {

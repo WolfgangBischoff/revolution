@@ -75,7 +75,9 @@ public class mainMenuController
         //Simulation.getSingleton().getEconomy().populateEconomy("comp");
         Simulation.getSingleton().getEconomy().fillWorkplaces();
         Market.getMarket().calcState();
-        Simulation.getSingleton().getSociety().shop();
+
+        Simulation.getSingleton().nextPeriod();
+        //Simulation.getSingleton().getSociety().shop();
 
     }
 }

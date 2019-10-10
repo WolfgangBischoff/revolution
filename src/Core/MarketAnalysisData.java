@@ -26,17 +26,26 @@ public class MarketAnalysisData
     @Override
     public String toString()
     {
-        return "--- " + date + " ---"
-                + "\nSold: " + numSold +
-                "\nTotal Sold: " + marketTotalSold +
-                "\nTotal Demand: " + marketTotalDemand +
-                "\n\tTo Expensive: " + toExpensive.toString() +
-                "\n\tTo Cheap: " + toCheap.toString() +
-                "\n\tQuality: " + qualityToBad.toString() +
-                "\n\tSame offer: " + numLostToIdenticalOffer +
-                "\n\tPlayer: " + numPlayerBougt +
-                "\n\tNo capacity: " + numLostToNoCapacity +
-                "\n\tUnused Capacity: " + unusedCapacity + "\n";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("--- " + date + " ---\n");
+        if (marketTotalDemand == 0)
+        {
+            stringBuilder.append("No market Demand\n");
+        }
+        else
+        {
+            stringBuilder.append("Sold: " + numSold +
+                    "\nTotal Sold: " + marketTotalSold +
+                    "\nTotal Demand: " + marketTotalDemand +
+                    "\n\tTo Expensive: " + toExpensive.toString() +
+                    "\n\tTo Cheap: " + toCheap.toString() +
+                    "\n\tQuality: " + qualityToBad.toString() +
+                    "\n\tSame offer: " + numLostToIdenticalOffer +
+                    "\n\tPlayer: " + numPlayerBougt +
+                    "\n\tNo capacity: " + numLostToNoCapacity +
+                    "\n\tUnused Capacity: " + unusedCapacity + "\n");
+        }
+        return stringBuilder.toString();
     }
 
 }

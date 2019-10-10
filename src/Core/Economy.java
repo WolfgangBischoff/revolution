@@ -30,11 +30,16 @@ public class Economy
     }
 
     //Calculations
-    public void calc()
+    public void initPeriod()
+    {
+        for(Company company : companies)
+        company.initPeriod();
+
+    }
+
+    public void calcState()
     {
         economyStatistics.calcState();
-        for(Company company : companies)
-            company.initPeriod();
     }
 
     public String createUniqueCompanyName(String nameBase)
