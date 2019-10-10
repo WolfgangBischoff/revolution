@@ -58,6 +58,8 @@ public class Simulation
         String lastDay = calender.dataDateWeekday();
         calender.nextDay();
         propertyChangeSupport.firePropertyChange(PROPERTY_DATE, lastDay, calender.dataDateWeekday());
+
+        
         society.calcSociety();
         economy.calc();
     }
