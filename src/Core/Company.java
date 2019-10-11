@@ -5,9 +5,11 @@ import Core.Enums.IndustryType;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import static Core.Util.*;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Company
 {
@@ -72,10 +74,12 @@ public class Company
         usedCapacity = 0;
         marketanalysisData.initNewDay();
     }
+
     public void doMarketDecisions()
     {
 
     }
+
     private void calcPrice()
     {
         price = 5;
@@ -85,6 +89,7 @@ public class Company
     {
         luxury = 3;
     }
+
     private void calcCapacity()
     {
 
@@ -103,7 +108,7 @@ public class Company
     public boolean canProduce()
     {
         Integer currentCap = usedCapacity + calcProductionEffort();
-        return  currentCap <= maxCapacity;
+        return currentCap <= maxCapacity;
     }
 
     public Integer calcUnusedCapacity()
@@ -129,7 +134,6 @@ public class Company
     }
 
 
-
     void paySalaries()
     {
         for (Workposition workposition : workpositions)
@@ -142,13 +146,16 @@ public class Company
         //In case the worker works not the whole month
         double ratioWorkedDaysOfMonth = 1;
         LocalDate today = Simulation.getSingleton().getDate();
-        Period period = Period.between ( workposition.hasWorkerSince , Simulation.getSingleton().getDate() );
-        Integer daysElapsed = period.getDays() + 1; //First day counts
-        if(daysElapsed < today.getMonth().length(today.isLeapYear()))
-            ratioWorkedDaysOfMonth = (double)daysElapsed / today.getMonth().length(today.isLeapYear());
+        //Period period = Period.between(workposition.hasWorkerSince, Simulation.getSingleton().getDate());
+        //System.out.println("Period: " + period);
+        //Integer daysElapsed = period.getDays() + 1; //First day counts
+        Long daysElapsed = ChronoUnit.DAYS.between(workposition.hasWorkerSince, today);
+        //System.out.println("Days Elapsed: " + daysElapsed + " "+ workposition.hasWorkerSince +" "+ today);
+        if (daysElapsed < today.getMonth().length(today.isLeapYear()))
+            ratioWorkedDaysOfMonth = (double) daysElapsed / today.getMonth().length(today.isLeapYear());
 
-
-        int gross = (int)(workposition.grossIncomeWork * ratioWorkedDaysOfMonth);
+       // System.out.println("Comapny Ratio Worked: " + ratioWorkedDaysOfMonth);
+        int gross = (int) (workposition.grossIncomeWork * ratioWorkedDaysOfMonth);
         int tax = Government.CalcIncomeTax(gross);
         int nett = (gross - tax);
 
@@ -282,8 +289,8 @@ public class Company
     public ArrayList<Workposition> getFreeWorkpositions()
     {
         ArrayList freePos = new ArrayList();
-        for(Workposition workposition : workpositions)
-            if(workposition.worker == null)
+        for (Workposition workposition : workpositions)
+            if (workposition.worker == null)
                 freePos.add(workposition);
         return freePos;
     }
@@ -305,7 +312,7 @@ public class Company
 
     public Integer getPrice()
     {
-        if(price == null)
+        if (price == null)
         {
             System.out.println("NULL: " + this);
         }
@@ -322,8 +329,8 @@ public class Company
         return marketanalysisData;
     }
 
-public Integer getMaxCapacity()
-{
-    return maxCapacity;
-}
+    public Integer getMaxCapacity()
+    {
+        return maxCapacity;
+    }
 }

@@ -55,8 +55,8 @@ public class Util
 
     //Company
     public static final Integer NUM_BASE_EDU_WORKPLACES = 4;
-    public static final Integer NUM_APPR_EDU_WORKPLACES = 4;
-    public static final Integer NUM_HIGH_EDU_WORKPLACES = 2;
+    public static final Integer NUM_APPR_EDU_WORKPLACES = 5;
+    public static final Integer NUM_HIGH_EDU_WORKPLACES = 3;
     public static final Integer NUM_UNIV_EDU_WORKPLACES = 1;
     public static final Integer COMP_DEFAULT_DEPOSIT = 100000;
     public static final IndustryType COMP_DEFAULT_INDUSTRY = IndustryType.FOOD;

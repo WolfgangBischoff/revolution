@@ -90,8 +90,6 @@ public class Simulation
         economy.calcState();
     }
 
-
-
     private Simulation()
     {
         society = Society.getSociety();
