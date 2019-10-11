@@ -111,7 +111,7 @@ public class Market
         IndustryType type = bestCompany.getIndustry();
         for (Company comparedCompany : marketCompanies.get(type))
         {
-            comparedCompany.getMarketanalysisData().playerBought(bestCompany);
+            comparedCompany.getMarketanalysisData().addNewDataPlayer(bestCompany);
         }
     }
 

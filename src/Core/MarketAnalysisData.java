@@ -1,10 +1,7 @@
 package Core;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MarketAnalysisData
 {
@@ -18,7 +15,7 @@ public class MarketAnalysisData
     Integer unusedCapacity = 0;
     List<Integer> toExpensive = new ArrayList();
     //List<Integer> toCheap = new ArrayList<>();
-    Map<Integer, Integer> toCheap = new HashMap<>();
+    Map<Integer, Integer> toCheap = new TreeMap<>();
     List<Integer> qualityToBad = new ArrayList<>();
 
     public MarketAnalysisData(LocalDate date)

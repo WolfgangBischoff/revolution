@@ -79,25 +79,7 @@ public class Company
 
     public void doMarketDecisions()
     {
-        LocalDate today = Simulation.getSingleton().getDate();
-        MarketAnalysisData previousDay = marketanalysisData.getAnalysisData(today.minusDays(1));
-        if (previousDay == null)
-            return;
-
-        //analyze to cheap
-        List<Pair<Integer, Integer>> customersAtPrice = new ArrayList<>();
-        List<Pair<Integer, Integer>> revenueAtPrice = new ArrayList<>();
-
-        Integer sumcustomers = previousDay.numSold;
-
-        for (Map.Entry<Integer, Integer> customerRent : previousDay.toCheap.entrySet())
-        {
-            revenueAtPrice.add(new Pair<>(customerRent.getKey() + price, sumcustomers * (price + customerRent.getKey())));
-            customersAtPrice.add(new Pair<>(customerRent.getKey() + price, sumcustomers));
-            sumcustomers -= customerRent.getValue();
-        }
-        System.out.println("At Price => Customer" + customersAtPrice);
-        System.out.println("At price => Revenue " + revenueAtPrice);
+        marketanalysisData.calculateMarketAnalysis();
     }
 
     private void calcPrice()
@@ -166,15 +148,10 @@ public class Company
         //In case the worker works not the whole month
         double ratioWorkedDaysOfMonth = 1;
         LocalDate today = Simulation.getSingleton().getDate();
-        //Period period = Period.between(workposition.hasWorkerSince, Simulation.getSingleton().getDate());
-        //System.out.println("Period: " + period);
-        //Integer daysElapsed = period.getDays() + 1; //First day counts
         Long daysElapsed = ChronoUnit.DAYS.between(workposition.hasWorkerSince, today);
-        //System.out.println("Days Elapsed: " + daysElapsed + " "+ workposition.hasWorkerSince +" "+ today);
         if (daysElapsed < today.getMonth().length(today.isLeapYear()))
             ratioWorkedDaysOfMonth = (double) daysElapsed / today.getMonth().length(today.isLeapYear());
 
-        // System.out.println("Comapny Ratio Worked: " + ratioWorkedDaysOfMonth);
         int gross = (int) (workposition.grossIncomeWork * ratioWorkedDaysOfMonth);
         int tax = Government.CalcIncomeTax(gross);
         int nett = (gross - tax);

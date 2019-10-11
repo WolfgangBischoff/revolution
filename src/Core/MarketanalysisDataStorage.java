@@ -1,8 +1,11 @@
 package Core;
 
+import javafx.util.Pair;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MarketanalysisDataStorage
 {
@@ -10,6 +13,7 @@ public class MarketanalysisDataStorage
     private Company owner;
     private List<MarketAnalysisData> dataContainer = new ArrayList<>();
 
+    //Constructor and Init
     public MarketanalysisDataStorage(Company company)
     {
         owner = company;
@@ -23,48 +27,54 @@ public class MarketanalysisDataStorage
         deleteOldData();
     }
 
-    private void deleteOldData()
+    //Calc
+    public void calculateMarketAnalysis()
     {
-        if (dataContainer.size() > PERIODS_REMEMBERED)
-            dataContainer.remove(dataContainer.size() - 1);
-    }
+        LocalDate today = Simulation.getSingleton().getDate();
+        MarketAnalysisData previousDay = getAnalysisData(today.minusDays(1));
+        if (previousDay == null)
+            return;
 
-    public void playerBought(Company bestCompany)
-    {
-        /*LocalDate today = Simulation.getSingleton().getDate();
-        if (dataContainer.isEmpty() || !(dataContainer.get(0).date.equals(today)))
+        //analyze optimal prize ceteris paribus
+        List<Pair<Integer, Integer>> customersAtPrice = new ArrayList<>();
+        List<Pair<Integer, Integer>> revenueAtPrice = new ArrayList<>();
+
+        Integer sumcustomers = previousDay.marketTotalDemand;//previousDay.numSold;
+        Integer priceLastPeriod = owner.getPrice();
+        //Tree Map start with lowest key (CustomerRent = NumberPersons){-4=2, -2=5, 0=2, 5=1}
+        for (Map.Entry<Integer, Integer> deltaPriceAndNumberPersons : previousDay.toCheap.entrySet())
         {
-            initNewDay();
-        }*/
-        MarketAnalysisData currentData = dataContainer.get(0);
-        if (owner == bestCompany)
-            currentData.numSold++;
-        currentData.marketTotalDemand++;
-        currentData.marketTotalSold++;
-        currentData.numPlayerBougt++;
+            Integer customerGroupProhibitivePrice = deltaPriceAndNumberPersons.getKey() + priceLastPeriod;
+            customersAtPrice.add(new Pair<>(customerGroupProhibitivePrice, sumcustomers));
+            revenueAtPrice.add(new Pair<>(customerGroupProhibitivePrice, sumcustomers * (priceLastPeriod + deltaPriceAndNumberPersons.getKey())));
+            sumcustomers -= deltaPriceAndNumberPersons.getValue();
+        }
+        System.out.println("At Price => Customer" + customersAtPrice);
+        System.out.println("At price => Revenue " + revenueAtPrice);
+
+
+        //analyze to expensive
+
     }
 
     public void addNewData(Company bestCompetitor, Integer customerBudget)
     {
-        //Is New Day Data
-        /*LocalDate today = Simulation.getSingleton().getDate();
-        if (dataContainer.isEmpty() || !(dataContainer.get(0).date.equals(today)))
-        {
-            initNewDay();
-        }*/
+        //Process Data right after market decision of customer
         MarketAnalysisData currentData = dataContainer.get(0);
-
-        //Process Data right after market decision
         currentData.marketTotalDemand++;
 
         //DEMAND NOT MET
-        //Affordable, but nobody can produce
+        //Affordable, but cannot produce
         if (bestCompetitor == null && !owner.canProduce() && owner.getPrice() <= customerBudget)
             currentData.numLostToNoCapacity++;
             //Not affordable, nobody else met demand
         else if (bestCompetitor == null)
         {
-            currentData.toExpensive.add(owner.getPrice() - customerBudget);
+            //currentData.toExpensive.add(owner.getPrice() - customerBudget);
+            Integer customerRent = customerBudget - owner.getPrice();
+            if(!currentData.toCheap.containsKey(customerRent))
+                currentData.toCheap.put(customerRent, 0);
+            currentData.toCheap.put(customerRent, currentData.toCheap.get(customerRent)+ 1);
         }
 
         //SOLD
@@ -89,11 +99,23 @@ public class MarketanalysisDataStorage
 
                 //Competitor same luxury but cheaper
             else if (bestCompetitor.getLuxury().equals(owner.getLuxury()) && bestCompetitor.getPrice() < owner.getPrice())
-                currentData.toExpensive.add(owner.getPrice() - bestCompetitor.getPrice());
+            {
+                //currentData.toExpensive.add(owner.getPrice() - bestCompetitor.getPrice());
+                Integer customerRent = bestCompetitor.getPrice() - owner.getPrice();
+                if(!currentData.toCheap.containsKey(customerRent))
+                    currentData.toCheap.put(customerRent, 0);
+                currentData.toCheap.put(customerRent, currentData.toCheap.get(customerRent)+ 1);
+            }
 
                 //Not affordable, but competitor is
             else if (customerBudget < owner.getPrice())
-                currentData.toExpensive.add(owner.getPrice() - customerBudget);
+            {
+                //currentData.toExpensive.add(owner.getPrice() - customerBudget);
+                Integer customerRent = customerBudget - owner.getPrice();
+                if(!currentData.toCheap.containsKey(customerRent))
+                    currentData.toCheap.put(customerRent, 0);
+                currentData.toCheap.put(customerRent, currentData.toCheap.get(customerRent)+ 1);
+            }
 
                 //same offer as competitor but random
             else if (bestCompetitor.getLuxury().equals(owner.getLuxury()) && bestCompetitor.getPrice().equals(owner.getPrice()))
@@ -105,6 +127,28 @@ public class MarketanalysisDataStorage
         }
 
     }
+
+    private void deleteOldData()
+    {
+        if (dataContainer.size() > PERIODS_REMEMBERED)
+            dataContainer.remove(dataContainer.size() - 1);
+    }
+
+    /**
+     * Variant if Player boughts goods.
+     * @param bestCompany company the Player bought
+     */
+    public void addNewDataPlayer(Company bestCompany)
+    {
+        MarketAnalysisData currentData = dataContainer.get(0);
+        if (owner == bestCompany)
+            currentData.numSold++;
+        currentData.marketTotalDemand++;
+        currentData.marketTotalSold++;
+        currentData.numPlayerBougt++;
+    }
+
+
 
     //Prints
     public String dataAnalysis()
