@@ -15,6 +15,8 @@ public class Market
     private Map<IndustryType, List<Company>> marketCompanies = new TreeMap<>();
     private Map<Company, Integer> companySaleNumbers = new HashMap<>();
 
+    private MarketanalysisDataStorage marketanalysisDataStorage = new MarketanalysisDataStorage();
+
     //Constructors
     private Market()
     {

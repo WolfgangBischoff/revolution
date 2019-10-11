@@ -2,7 +2,7 @@
 KNOWN BUGS:
 
 TODOS:
-    replace company price changes to market analysis and improve
+    rework MarketAnalysis: Market.initnewperiod, Market.calcAnal => collect Price/Qualt/Budget data one time
     Save
     Wohnhouse, housing not just comsumer product but also owner
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)

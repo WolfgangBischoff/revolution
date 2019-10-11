@@ -59,7 +59,9 @@ public class Simulation
         calender.nextDay();
         propertyChangeSupport.firePropertyChange(PROPERTY_DATE, lastDay, calender.dataDateWeekday());
         economy.initPeriod();
+        //TODO market.init, analysis previos day
 
+        //Day trigger
         System.out.println(calender.dataDateWeekday());
         //End of Month
         if (calender.date.getDayOfMonth() == calender.date.lengthOfMonth())
@@ -80,6 +82,7 @@ public class Simulation
             System.out.println("Its: " + special);
 
         //Daily activities
+        //TODO Eco react
         System.out.println("Simulation SocietyShop()");
         society.shop();
 
@@ -88,6 +91,7 @@ public class Simulation
         society.calcSocietyDaily();
         System.out.println("Simulation economy.calcState()");
         economy.calcState();
+        //TODO Market collect data
     }
 
     private Simulation()

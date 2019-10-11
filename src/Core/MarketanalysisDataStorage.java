@@ -18,6 +18,10 @@ public class MarketanalysisDataStorage
     {
         owner = company;
     }
+    public MarketanalysisDataStorage()
+    {
+        owner = null;
+    }
 
     public void initNewDay()
     {
