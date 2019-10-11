@@ -67,7 +67,7 @@ public class mainMenuController
     protected void quickPop(ActionEvent event)
     {
         //Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
-        Society.getSociety().populateSociety(3,3,3,1);
+        Society.getSociety().populateSociety(2,3,4,1);
         //Simulation.getSingleton().getEconomy().populateEconomy(Util.DEFAULT_NUM_COMPANIES);
         Simulation.getSingleton().getEconomy().populateEconomy("oneCheapCompany");
         //Simulation.getSingleton().getEconomy().populateEconomy("comp");

@@ -2,7 +2,9 @@ package Core;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MarketAnalysisData
 {
@@ -15,7 +17,8 @@ public class MarketAnalysisData
     Integer numPlayerBougt = 0;
     Integer unusedCapacity = 0;
     List<Integer> toExpensive = new ArrayList();
-    List<Integer> toCheap = new ArrayList<>();
+    //List<Integer> toCheap = new ArrayList<>();
+    Map<Integer, Integer> toCheap = new HashMap<>();
     List<Integer> qualityToBad = new ArrayList<>();
 
     public MarketAnalysisData(LocalDate date)
@@ -38,7 +41,7 @@ public class MarketAnalysisData
                     "\nTotal Sold: " + marketTotalSold +
                     "\nTotal Demand: " + marketTotalDemand +
                     "\n\tTo Expensive: " + toExpensive.toString() +
-                    "\n\tTo Cheap: " + toCheap.toString() +
+                    "\n\tTo Cheap: (CustomerRent = NumberPersons)" + toCheap.toString() +
                     "\n\tQuality: " + qualityToBad.toString() +
                     "\n\tSame offer: " + numLostToIdenticalOffer +
                     "\n\tPlayer: " + numPlayerBougt +

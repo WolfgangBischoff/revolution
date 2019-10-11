@@ -19,8 +19,7 @@ public class PersonDetailController
     @FXML
     private Button back, showStorageDetail;
     @FXML
-    private Text age, edu, deposit, grossincome, worksat, effectivehappiness,
-            numberFood, numberClothing, numberHousing, numberEnergy, numberElectronics, numberHealth, numberTraffic, numberEducation, numberSparetime;
+    private Text age, edu, deposit, grossincome, worksat, effectivehappiness, nettIncome;
 
 
     public PersonDetailController(Person person)
@@ -56,6 +55,7 @@ public class PersonDetailController
         deposit.setText(person.getDeposit().toString());
         grossincome.setText(person.getGrossIncome().toString());
         worksat.setText(person.dataWorksAt());
+        nettIncome.setText(person.getNettIncome().toString());
     }
 
 

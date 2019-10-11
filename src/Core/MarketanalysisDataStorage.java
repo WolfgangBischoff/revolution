@@ -73,7 +73,10 @@ public class MarketanalysisDataStorage
         {
             currentData.marketTotalSold++;
             currentData.numSold++;
-            currentData.toCheap.add(customerBudget - owner.getPrice());
+            Integer customerRent = customerBudget - owner.getPrice();
+            if(!currentData.toCheap.containsKey(customerRent))
+                currentData.toCheap.put(customerRent, 0);
+            currentData.toCheap.put(customerRent, currentData.toCheap.get(customerRent)+ 1);
             currentData.unusedCapacity -= owner.calcProductionEffort();
         }
         //OTHER COMPANY SOLD
@@ -120,5 +123,15 @@ public class MarketanalysisDataStorage
         MarketAnalysisData marketanalysisData = dataContainer.get(date);
         stringBuilder.append(marketanalysisData);
         return stringBuilder.toString();
+    }
+
+    public MarketAnalysisData getAnalysisData(LocalDate date)
+    {
+        for(MarketAnalysisData data : dataContainer)
+        {
+            if(data.date.equals(date))
+                return data;
+        }
+        return null;
     }
 }

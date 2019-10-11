@@ -33,7 +33,7 @@ public class Util
     public static final String DEFAULT_FIRSTNAME = "FIRSTNAME";
     public static final String DEFAULT_LASTNAME = "LASTNAME";
     public static final EducationalLayer DEFAULT_EDU = EducationalLayer.EDU_BASE;
-    public static final Integer PERSON_DEFAULT_DEPOSIT = 1000;
+    public static final Integer PERSON_DEFAULT_DEPOSIT = 2500;
     public static final int INIT_BASE_HAPPINESS = 100;
     public static final int THRESHOLD_VERY_POOR = 1000;
     public static final int THRESHOLD_POOR = 1400;
@@ -54,9 +54,9 @@ public class Util
     public static final Integer BUDGET_DEFAULT_WEIGHT_OTHER_AND_SERVICES = 3;
 
     //Company
-    public static final Integer NUM_BASE_EDU_WORKPLACES = 4;
+    public static final Integer NUM_BASE_EDU_WORKPLACES = 2;
     public static final Integer NUM_APPR_EDU_WORKPLACES = 5;
-    public static final Integer NUM_HIGH_EDU_WORKPLACES = 3;
+    public static final Integer NUM_HIGH_EDU_WORKPLACES = 2;
     public static final Integer NUM_UNIV_EDU_WORKPLACES = 1;
     public static final Integer COMP_DEFAULT_DEPOSIT = 100000;
     public static final IndustryType COMP_DEFAULT_INDUSTRY = IndustryType.FOOD;

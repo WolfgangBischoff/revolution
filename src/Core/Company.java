@@ -2,14 +2,15 @@ package Core;
 
 import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
+import javafx.util.Pair;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static Core.Util.*;
-import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Company
 {
@@ -73,11 +74,30 @@ public class Company
     {
         usedCapacity = 0;
         marketanalysisData.initNewDay();
+        doMarketDecisions();
     }
 
     public void doMarketDecisions()
     {
+        LocalDate today = Simulation.getSingleton().getDate();
+        MarketAnalysisData previousDay = marketanalysisData.getAnalysisData(today.minusDays(1));
+        if (previousDay == null)
+            return;
 
+        //analyze to cheap
+        List<Pair<Integer, Integer>> customersAtPrice = new ArrayList<>();
+        List<Pair<Integer, Integer>> revenueAtPrice = new ArrayList<>();
+
+        Integer sumcustomers = previousDay.numSold;
+
+        for (Map.Entry<Integer, Integer> customerRent : previousDay.toCheap.entrySet())
+        {
+            revenueAtPrice.add(new Pair<>(customerRent.getKey() + price, sumcustomers * (price + customerRent.getKey())));
+            customersAtPrice.add(new Pair<>(customerRent.getKey() + price, sumcustomers));
+            sumcustomers -= customerRent.getValue();
+        }
+        System.out.println("At Price => Customer" + customersAtPrice);
+        System.out.println("At price => Revenue " + revenueAtPrice);
     }
 
     private void calcPrice()
@@ -154,7 +174,7 @@ public class Company
         if (daysElapsed < today.getMonth().length(today.isLeapYear()))
             ratioWorkedDaysOfMonth = (double) daysElapsed / today.getMonth().length(today.isLeapYear());
 
-       // System.out.println("Comapny Ratio Worked: " + ratioWorkedDaysOfMonth);
+        // System.out.println("Comapny Ratio Worked: " + ratioWorkedDaysOfMonth);
         int gross = (int) (workposition.grossIncomeWork * ratioWorkedDaysOfMonth);
         int tax = Government.CalcIncomeTax(gross);
         int nett = (gross - tax);
@@ -261,7 +281,7 @@ public class Company
     {
         return "\nCompany{" +
                 "name='" + name + '\'' +
-                //", workpositions=" + workpositions +
+                ", workpositions=" + workpositions +
                 '}';
     }
 

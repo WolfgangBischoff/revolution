@@ -643,7 +643,7 @@ public class Interpreter
         {
             Company company = economy.getCompanyByName(inputOptions[0]);
             if (company != null)
-                print(company.baseData());
+                print(company);
             else
                 print("No Company found");
             return;

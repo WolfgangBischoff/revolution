@@ -74,6 +74,7 @@ public class Workposition
     {
         return "\nWorkposition{" +
                 "neededEducation=" + neededEducation +
+                "netIncome=" + netIncomeWork +
                 ", worker=" + worker +
                 '}';
     }
