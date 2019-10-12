@@ -1,25 +1,32 @@
 package Core;
 
+import Core.Enums.IndustryType;
 import javafx.util.Pair;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MarketanalysisDataStorage
 {
     private final Integer PERIODS_REMEMBERED = 5;
     private Company owner;
-    private List<MarketAnalysisData> dataContainer = new ArrayList<>();
+    private List<MarketAnalysisData> dataContainer = new ArrayList<>(); //old
+    private Map<IndustryType, List<MarketAnalysisData>> data = new TreeMap<>();
 
     //Constructor and Init
     public MarketanalysisDataStorage(Company company)
     {
-        owner = company;
+        owner = company;for(IndustryType industryType : IndustryType.values())
+    {
+        data.put(industryType, new ArrayList<MarketAnalysisData>());
+    }
     }
     public MarketanalysisDataStorage()
     {
+        for(IndustryType industryType : IndustryType.values())
+        {
+            data.put(industryType, new ArrayList<MarketAnalysisData>());
+        }
         owner = null;
     }
 
@@ -27,13 +34,43 @@ public class MarketanalysisDataStorage
     {
         System.out.println("MarketAnalyisStorage InitNewDay");
         dataContainer.add(0, new MarketAnalysisData(Simulation.getSingleton().getDate()));
-        dataContainer.get(0).unusedCapacity = owner.getMaxCapacity();
-        deleteOldData();
+//        dataContainer.get(0).unusedCapacity = owner.getMaxCapacity();
+//        deleteOldData();
+
+        for(IndustryType industryType : IndustryType.values())
+        {
+            data.get(industryType).add(0, new MarketAnalysisData(Simulation.getSingleton().getDate()));
+            deleteOldData(data.get(industryType));
+        }
     }
 
     //Calc
+    public void addCustomerBudget(IndustryType type, Integer budget)
+    {
+        data.get(type).get(0).addCustomerBudget(budget);
+    }
+
+    public void addSupplierOffer(Company company, Integer price, Integer luxury)
+    {
+        MarketAnalysisData marketAnalysisData = data.get(company.getIndustry()).get(0);
+        marketAnalysisData.addSupplierOffer(company, price, luxury);
+    }
+
     public void calculateMarketAnalysis()
     {
+        for(IndustryType industryType : IndustryType.values())
+        {
+            List<MarketAnalysisData> industryData = data.get(industryType);
+            //System.out.println("calculateMarketAnalysis() " + industryType);
+            industryData.get(0).calculateMarketAnalysis();
+        }
+
+
+
+
+
+        /*
+
         LocalDate today = Simulation.getSingleton().getDate();
         MarketAnalysisData previousDay = getAnalysisData(today.minusDays(1));
         if (previousDay == null)
@@ -55,7 +92,7 @@ public class MarketanalysisDataStorage
         }
         System.out.println("At Price => Customer" + customersAtPrice);
         System.out.println("At price => Revenue " + revenueAtPrice);
-
+*/
 
         //analyze to expensive
 
@@ -138,6 +175,12 @@ public class MarketanalysisDataStorage
             dataContainer.remove(dataContainer.size() - 1);
     }
 
+    private void deleteOldData(List<MarketAnalysisData> dataContainer)
+    {
+        if (dataContainer.size() > PERIODS_REMEMBERED)
+            dataContainer.remove(dataContainer.size() - 1);
+    }
+
     /**
      * Variant if Player boughts goods.
      * @param bestCompany company the Player bought
@@ -155,6 +198,7 @@ public class MarketanalysisDataStorage
 
 
     //Prints
+    /*
     public String dataAnalysis()
     {
         StringBuilder stringBuilder = new StringBuilder();
@@ -163,13 +207,23 @@ public class MarketanalysisDataStorage
         for (int i = 0; i < dataContainer.size(); i++)
             stringBuilder.append(dataAnalysis(i));
         return stringBuilder.toString();
-    }
+    }*/
 
-    public String dataAnalysis(Integer date)
+
+    public String dataAnalysis()//Integer date
     {
         StringBuilder stringBuilder = new StringBuilder();
-        MarketAnalysisData marketanalysisData = dataContainer.get(date);
-        stringBuilder.append(marketanalysisData);
+        if(data.isEmpty())
+            stringBuilder.append("No Data");
+        for (IndustryType industryType : IndustryType.values())
+        {
+            stringBuilder.append(industryType + ":\n");
+            List<MarketAnalysisData> industry = data.get(industryType);
+            for(MarketAnalysisData marketAnalysisData : industry)
+                stringBuilder.append(marketAnalysisData);
+        }
+        //MarketAnalysisData marketanalysisData = dataContainer.get(date);
+        //stringBuilder.append(marketanalysisData);
         return stringBuilder.toString();
     }
 
@@ -182,4 +236,21 @@ public class MarketanalysisDataStorage
         }
         return null;
     }
+    public MarketAnalysisData getAnalysisData(IndustryType type, LocalDate date)
+    {
+        List<MarketAnalysisData> industryData = data.get(type);
+        for(MarketAnalysisData data : industryData)
+        {
+            if(data.date.equals(date))
+                return data;
+        }
+        return null;
+    }
+
+    public List<MarketAnalysisData> getAnalysisData(IndustryType type)
+    {
+        return  data.get(type);
+    }
+
+
 }

@@ -12,6 +12,7 @@ public class Simulation
     private Society society;
     private Economy economy;
     private Government government;
+    private Market market;
     private Console console;
     private GameCalendar calender;
     private Player player;
@@ -59,7 +60,7 @@ public class Simulation
         calender.nextDay();
         propertyChangeSupport.firePropertyChange(PROPERTY_DATE, lastDay, calender.dataDateWeekday());
         economy.initPeriod();
-        //TODO market.init, analysis previos day
+        market.initPeriod();
 
         //Day trigger
         System.out.println(calender.dataDateWeekday());
@@ -91,7 +92,8 @@ public class Simulation
         society.calcSocietyDaily();
         System.out.println("Simulation economy.calcState()");
         economy.calcState();
-        //TODO Market collect data
+        System.out.println("Simulation market.collectMarketData()");
+        market.collectMarketData();
     }
 
     private Simulation()
@@ -99,6 +101,7 @@ public class Simulation
         society = Society.getSociety();
         economy = Economy.getEconomy();
         government = Government.getGoverment();
+        market = Market.getMarket();
         console = new Console(this);
         calender = new GameCalendar();
     }

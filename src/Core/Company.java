@@ -21,7 +21,7 @@ public class Company
     private static final String COMPANYNAMESPATH = "./res/txt/names/companies/";
     private Integer luxury, price = -1, maxCapacity = MAX_CAPACITY_DEFAULT, usedCapacity = 0;
     private Integer baseCapacityCost = 1;
-    private MarketanalysisDataStorage marketanalysisData = new MarketanalysisDataStorage(this);
+    //private MarketanalysisDataStorage marketanalysisData = new MarketanalysisDataStorage(this);
 
     //Constructors
     public Company(String name)
@@ -73,13 +73,13 @@ public class Company
     public void initPeriod()
     {
         usedCapacity = 0;
-        marketanalysisData.initNewDay();
+        //marketanalysisData.initNewDay();
         doMarketDecisions();
     }
 
     public void doMarketDecisions()
     {
-        marketanalysisData.calculateMarketAnalysis();
+        //marketanalysisData.calculateMarketAnalysis();
     }
 
     private void calcPrice()
@@ -321,10 +321,10 @@ public class Company
         return usedCapacity;
     }
 
-    public MarketanalysisDataStorage getMarketanalysisData()
+    /*public MarketanalysisDataStorage getMarketanalysisData()
     {
         return marketanalysisData;
-    }
+    }*/
 
     public Integer getMaxCapacity()
     {

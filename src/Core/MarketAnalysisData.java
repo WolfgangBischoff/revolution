@@ -1,5 +1,7 @@
 package Core;
 
+import javafx.util.Pair;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -7,13 +9,17 @@ public class MarketAnalysisData
 {
     Map<Integer, Integer> customerBudgets = new TreeMap<>();
     Map<LuxuryPriceGroup, Integer> supplierOffers = new TreeMap<>();
+    Map<Integer, Integer> customersAtPrice = new TreeMap<>();
+    Map<Integer, Integer> revenueAtPrice = new TreeMap<>();
 
     class LuxuryPriceGroup implements Comparable<LuxuryPriceGroup>
     {
         Integer luxury, price;
+        Company company;
 
-        public LuxuryPriceGroup(Integer luxury, Integer price)
+        public LuxuryPriceGroup(Company company, Integer luxury, Integer price)
         {
+            this.company = company;
             this.luxury = luxury;
             this.price = price;
         }
@@ -59,14 +65,31 @@ public class MarketAnalysisData
         if (!customerBudgets.containsKey(budget))
             customerBudgets.put(budget, 0);
         customerBudgets.put(budget, customerBudgets.get(budget) + 1);
+        marketTotalDemand++;
     }
 
-    public void addSupplierOffer(Integer price, Integer luxury)
+    public void addSupplierOffer(Company company, Integer price, Integer luxury)
     {
-        LuxuryPriceGroup tmp = new LuxuryPriceGroup(luxury, price);
+        LuxuryPriceGroup tmp = new LuxuryPriceGroup(company, luxury, price);
         if (!supplierOffers.containsKey(tmp))
             supplierOffers.put(tmp, 0);
         supplierOffers.put(tmp, supplierOffers.get(tmp) + 1);
+    }
+
+
+    public void calculateMarketAnalysis()
+    {
+       customersAtPrice = new TreeMap<>();
+        revenueAtPrice = new TreeMap<>();
+
+        Integer sumcustomers = marketTotalDemand;
+        for (Map.Entry<Integer, Integer> budget : customerBudgets.entrySet())
+        {
+            Integer customerGroupProhibitivePrice = budget.getKey();
+            customersAtPrice.put(customerGroupProhibitivePrice, sumcustomers );
+            revenueAtPrice.put(customerGroupProhibitivePrice, sumcustomers * customerGroupProhibitivePrice);
+            sumcustomers -= budget.getValue();
+        }
     }
 
 
@@ -78,14 +101,10 @@ public class MarketAnalysisData
     @Override
     public String toString()
     {
+        System.out.println("At Price => Customer" + customersAtPrice);
+        System.out.println("At price => Revenue " + revenueAtPrice);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("--- " + date + " ---\n");
-        if (marketTotalDemand == 0)
-        {
-            stringBuilder.append("No market Demand\n");
-        }
-        else
-        {
             stringBuilder.append("Sold: " + numSold +
                     "\nTotal Sold: " + marketTotalSold +
                     "\nTotal Demand: " + marketTotalDemand +
@@ -95,19 +114,6 @@ public class MarketAnalysisData
                     "\n\tPlayer: " + numPlayerBougt +
                     "\n\tNo capacity: " + numLostToNoCapacity +
                     "\n\tUnused Capacity: " + unusedCapacity + "\n");
-            /*
-            stringBuilder.append("Sold: " + numSold +
-                    "\nTotal Sold: " + marketTotalSold +
-                    "\nTotal Demand: " + marketTotalDemand +
-                    "\n\tTo Expensive: " + toExpensive.toString() +
-                    "\n\tTo Cheap: (CustomerRent = NumberPersons)" + toCheap.toString() +
-                    "\n\tQuality: " + qualityToBad.toString() +
-                    "\n\tSame offer: " + numLostToIdenticalOffer +
-                    "\n\tPlayer: " + numPlayerBougt +
-                    "\n\tNo capacity: " + numLostToNoCapacity +
-                    "\n\tUnused Capacity: " + unusedCapacity + "\n");
-                    */
-        }
         return stringBuilder.toString();
     }
 

@@ -31,7 +31,24 @@ public class Market
         marketCompanies.put(IndustryType.HOUSING, new ArrayList<Company>());
     }
 
-    //Calc
+    //Calculations
+    public void initPeriod()
+    {
+        marketanalysisDataStorage.initNewDay();
+    }
+
+    public void collectMarketData()
+    {
+        //Collect Offers
+        for (Map.Entry<IndustryType, List<Company>> industry : marketCompanies.entrySet())
+        {
+            for (Company company : industry.getValue())
+                marketanalysisDataStorage.addSupplierOffer(company, company.getPrice(), company.getLuxury());
+        }
+        marketanalysisDataStorage.calculateMarketAnalysis();
+        //Collect Budgets (may in getBestOffer)
+    }
+
     public void addPropertyChangeListener(PropertyChangeListener listener)
     {
         propertyChangeSupport.addPropertyChangeListener(listener);
@@ -45,7 +62,7 @@ public class Market
 
     public Company getBestOffer(IndustryType type, Integer budget)
     {
-        if(budget == 0)
+        if (budget == 0)
             return null;
         List<Company> companies = marketCompanies.get(type);
         Company bestCompany = null;
@@ -92,6 +109,9 @@ public class Market
         if (bestCompany != null)
             companySaleNumbers.put(bestCompany, companySaleNumbers.get(bestCompany) + 1);
         collectMarketDataForCompetitors(bestCompany, budget, type);
+
+        marketanalysisDataStorage.addCustomerBudget(type, budget);
+
         return bestCompany;
     }
 
@@ -104,7 +124,7 @@ public class Market
     {
         for (Company comparedCompany : marketCompanies.get(type))
         {
-            comparedCompany.getMarketanalysisData().addNewData(bestCompany, budget);
+            //comparedCompany.getMarketanalysisData().addNewData(bestCompany, budget);
         }
     }
 
@@ -113,7 +133,7 @@ public class Market
         IndustryType type = bestCompany.getIndustry();
         for (Company comparedCompany : marketCompanies.get(type))
         {
-            comparedCompany.getMarketanalysisData().addNewDataPlayer(bestCompany);
+            //comparedCompany.getMarketanalysisData().addNewDataPlayer(bestCompany);
         }
     }
 
@@ -132,6 +152,16 @@ public class Market
                 stringBuilder.append("\t" + company.baseData() + "\n");
         }
         stringBuilder.append(companySaleNumbers);
+        return stringBuilder.toString();
+    }
+
+    public String dataMarketAnalysis(IndustryType industryType)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(marketanalysisDataStorage.dataAnalysis());
+        /*List<MarketAnalysisData> data = marketanalysisDataStorage.getAnalysisData(industryType);
+        for(MarketAnalysisData marketAnalysisData : data)
+            stringBuilder.append(marketAnalysisData);*/
         return stringBuilder.toString();
     }
 

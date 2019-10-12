@@ -210,12 +210,15 @@ public class Economy
         if(companies.size()==0)
             return "Economy has no companies";
         StringBuilder tmp = new StringBuilder();
-        tmp.append("---- Analysis Data ----\n");
-        for(Company company : companies)
+        tmp.append("\n---- Analysis Data ----\n");
+        //TODO for all industries
+        tmp.append(Market.getMarket().dataMarketAnalysis(FOOD));
+
+        /*for(Company company : companies)
         {
             tmp.append(company.baseData() + "\n");
             tmp.append(company.getMarketanalysisData().dataAnalysis() + "\n");
-        }
+        }*/
         return tmp.toString();
     }
 
