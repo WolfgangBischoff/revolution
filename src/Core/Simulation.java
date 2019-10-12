@@ -83,7 +83,7 @@ public class Simulation
             System.out.println("Its: " + special);
 
         //Daily activities
-        //TODO Eco react
+        //TODO Eco calc prices
         System.out.println("Simulation SocietyShop()");
         society.shop();
 

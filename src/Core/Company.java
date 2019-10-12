@@ -21,7 +21,6 @@ public class Company
     private static final String COMPANYNAMESPATH = "./res/txt/names/companies/";
     private Integer luxury, price = -1, maxCapacity = MAX_CAPACITY_DEFAULT, usedCapacity = 0;
     private Integer baseCapacityCost = 1;
-    //private MarketanalysisDataStorage marketanalysisData = new MarketanalysisDataStorage(this);
 
     //Constructors
     public Company(String name)
@@ -73,13 +72,12 @@ public class Company
     public void initPeriod()
     {
         usedCapacity = 0;
-        //marketanalysisData.initNewDay();
         doMarketDecisions();
     }
 
     public void doMarketDecisions()
     {
-        //marketanalysisData.calculateMarketAnalysis();
+        //MarketAnalysisData marketAnalysisData = Market.getMarket().
     }
 
     private void calcPrice()
@@ -111,11 +109,6 @@ public class Company
     {
         Integer currentCap = usedCapacity + calcProductionEffort();
         return currentCap <= maxCapacity;
-    }
-
-    public Integer calcUnusedCapacity()
-    {
-        return maxCapacity - usedCapacity;
     }
 
     private void addDefaultWorkplaces()
@@ -174,7 +167,7 @@ public class Company
     {
         if (workposition.isWorkerAppropriate(p))
         {
-            workposition.setWorker(p); //workposition.worker = p;
+            workposition.setWorker(p);
             p.startAtWorkposition(workposition);
             return true;
         }
@@ -190,7 +183,7 @@ public class Company
 
     public void employeeQuitted(Workposition workposition)
     {
-        workposition.setWorker(null);//workposition.worker = null;
+        workposition.setWorker(null);
     }
 
     Integer calcNumberWorkers()
@@ -207,7 +200,7 @@ public class Company
         if (workposition.worker != null)
         {
             workposition.worker.getUnemployedAtWorkposition();
-            workposition.setWorker(null);//workposition.worker = null;
+            workposition.setWorker(null);
             return true;
         }
         else
@@ -321,10 +314,7 @@ public class Company
         return usedCapacity;
     }
 
-    /*public MarketanalysisDataStorage getMarketanalysisData()
-    {
-        return marketanalysisData;
-    }*/
+
 
     public Integer getMaxCapacity()
     {

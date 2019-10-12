@@ -207,18 +207,8 @@ public class Economy
 
     public String dataMarketAnalysis()
     {
-        if(companies.size()==0)
-            return "Economy has no companies";
         StringBuilder tmp = new StringBuilder();
-        tmp.append("\n---- Analysis Data ----\n");
-        //TODO for all industries
-        tmp.append(Market.getMarket().dataMarketAnalysis(FOOD));
-
-        /*for(Company company : companies)
-        {
-            tmp.append(company.baseData() + "\n");
-            tmp.append(company.getMarketanalysisData().dataAnalysis() + "\n");
-        }*/
+        tmp.append(Market.getMarket().dataMarketAnalysis());
         return tmp.toString();
     }
 

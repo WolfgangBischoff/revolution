@@ -79,14 +79,14 @@ public class MarketAnalysisData
 
     public void calculateMarketAnalysis()
     {
-       customersAtPrice = new TreeMap<>();
+        customersAtPrice = new TreeMap<>();
         revenueAtPrice = new TreeMap<>();
 
         Integer sumcustomers = marketTotalDemand;
         for (Map.Entry<Integer, Integer> budget : customerBudgets.entrySet())
         {
             Integer customerGroupProhibitivePrice = budget.getKey();
-            customersAtPrice.put(customerGroupProhibitivePrice, sumcustomers );
+            customersAtPrice.put(customerGroupProhibitivePrice, sumcustomers);
             revenueAtPrice.put(customerGroupProhibitivePrice, sumcustomers * customerGroupProhibitivePrice);
             sumcustomers -= budget.getValue();
         }
@@ -101,19 +101,18 @@ public class MarketAnalysisData
     @Override
     public String toString()
     {
-        System.out.println("At Price => Customer" + customersAtPrice);
-        System.out.println("At price => Revenue " + revenueAtPrice);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("--- " + date + " ---\n");
-            stringBuilder.append("Sold: " + numSold +
-                    "\nTotal Sold: " + marketTotalSold +
-                    "\nTotal Demand: " + marketTotalDemand +
-                    "\nCustomer budget Analysis: " + customerBudgets +
-                    "\nSupplier offer Analysis: "+ supplierOffers +
-                    "\n\tSame offer: " + numLostToIdenticalOffer +
-                    "\n\tPlayer: " + numPlayerBougt +
-                    "\n\tNo capacity: " + numLostToNoCapacity +
-                    "\n\tUnused Capacity: " + unusedCapacity + "\n");
+        stringBuilder.append(
+                "Total Demand: " + marketTotalDemand +
+                        "\nTotal Sold: " + marketTotalSold +
+                        "\nBudget => NumCustomers: " + customerBudgets +
+                        "\nCompOffer => NumCompanies: " + supplierOffers +
+                        "\nAt Price => num Customer: " + customersAtPrice +
+                        "\nAt price => Revenue: " + revenueAtPrice +
+                        "\nPlayer: " + numPlayerBougt +
+                        "\n"
+                        );
         return stringBuilder.toString();
     }
 

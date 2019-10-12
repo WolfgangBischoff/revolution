@@ -14,7 +14,6 @@ public class Market
     public static final String NUMBER_PRODUCTS_NAME = "numberProducts";
     private Map<IndustryType, List<Company>> marketCompanies = new TreeMap<>();
     private Map<Company, Integer> companySaleNumbers = new HashMap<>();
-
     private MarketanalysisDataStorage marketanalysisDataStorage = new MarketanalysisDataStorage();
 
     //Constructors
@@ -46,7 +45,6 @@ public class Market
                 marketanalysisDataStorage.addSupplierOffer(company, company.getPrice(), company.getLuxury());
         }
         marketanalysisDataStorage.calculateMarketAnalysis();
-        //Collect Budgets (may in getBestOffer)
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener)
@@ -108,9 +106,8 @@ public class Market
         //Update sold data
         if (bestCompany != null)
             companySaleNumbers.put(bestCompany, companySaleNumbers.get(bestCompany) + 1);
-        collectMarketDataForCompetitors(bestCompany, budget, type);
 
-        marketanalysisDataStorage.addCustomerBudget(type, budget);
+        marketanalysisDataStorage.addCustomerBudget(type, budget, bestCompany);
 
         return bestCompany;
     }
@@ -131,17 +128,14 @@ public class Market
     public void playerCollectMarketDataForCompetitors(Company bestCompany)
     {
         IndustryType type = bestCompany.getIndustry();
-        for (Company comparedCompany : marketCompanies.get(type))
-        {
-            //comparedCompany.getMarketanalysisData().addNewDataPlayer(bestCompany);
-        }
+        marketanalysisDataStorage.addNewDataPlayer(bestCompany);
     }
 
     //Prints
     public String dataMarketCompanies()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("----Market----\n");
+        stringBuilder.append("----Market Companies----\n");
         for (Map.Entry<IndustryType, List<Company>> industry : marketCompanies.entrySet())
         {
             if (industry.getValue().isEmpty())
@@ -155,13 +149,11 @@ public class Market
         return stringBuilder.toString();
     }
 
-    public String dataMarketAnalysis(IndustryType industryType)
+    public String dataMarketAnalysis()
     {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("----Market Analysis----\n");
         stringBuilder.append(marketanalysisDataStorage.dataAnalysis());
-        /*List<MarketAnalysisData> data = marketanalysisDataStorage.getAnalysisData(industryType);
-        for(MarketAnalysisData marketAnalysisData : data)
-            stringBuilder.append(marketAnalysisData);*/
         return stringBuilder.toString();
     }
 

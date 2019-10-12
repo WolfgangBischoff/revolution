@@ -45,8 +45,10 @@ public class MarketanalysisDataStorage
     }
 
     //Calc
-    public void addCustomerBudget(IndustryType type, Integer budget)
+    public void addCustomerBudget(IndustryType type, Integer budget, Company bestCompany)
     {
+        if(bestCompany != null)
+            data.get(type).get(0).marketTotalSold++;
         data.get(type).get(0).addCustomerBudget(budget);
     }
 
@@ -187,9 +189,7 @@ public class MarketanalysisDataStorage
      */
     public void addNewDataPlayer(Company bestCompany)
     {
-        MarketAnalysisData currentData = dataContainer.get(0);
-        if (owner == bestCompany)
-            currentData.numSold++;
+        MarketAnalysisData currentData = data.get(bestCompany.getIndustry()).get(0);
         currentData.marketTotalDemand++;
         currentData.marketTotalSold++;
         currentData.numPlayerBougt++;
@@ -197,20 +197,7 @@ public class MarketanalysisDataStorage
 
 
 
-    //Prints
-    /*
     public String dataAnalysis()
-    {
-        StringBuilder stringBuilder = new StringBuilder();
-        if (dataContainer.isEmpty())
-            stringBuilder.append("No Data");
-        for (int i = 0; i < dataContainer.size(); i++)
-            stringBuilder.append(dataAnalysis(i));
-        return stringBuilder.toString();
-    }*/
-
-
-    public String dataAnalysis()//Integer date
     {
         StringBuilder stringBuilder = new StringBuilder();
         if(data.isEmpty())
@@ -222,8 +209,6 @@ public class MarketanalysisDataStorage
             for(MarketAnalysisData marketAnalysisData : industry)
                 stringBuilder.append(marketAnalysisData);
         }
-        //MarketAnalysisData marketanalysisData = dataContainer.get(date);
-        //stringBuilder.append(marketanalysisData);
         return stringBuilder.toString();
     }
 
