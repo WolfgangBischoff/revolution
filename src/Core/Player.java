@@ -3,7 +3,6 @@ package Core;
 import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
@@ -60,7 +59,8 @@ public class Player extends Person
         company.produce();
         company.getPaid(company.getPrice());
 
-        Market.getMarket().playerCollectMarketDataForCompetitors(company);
+        Market.getMarket().playerCollectMarketData(company);
+
 
         propertyChangeSupport.firePropertyChange(PROPERTYNAME_DEPOSIT, oldDeposit, deposit);
     }

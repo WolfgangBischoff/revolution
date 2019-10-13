@@ -205,10 +205,29 @@ public class Economy
         return tmp.toString();
     }
 
-    public String dataMarketAnalysis()
+    /*public String dataMarketAnalysis()
     {
         StringBuilder tmp = new StringBuilder();
-        tmp.append(Market.getMarket().dataMarketAnalysis());
+        tmp.append(Market.getMarket().dataMarketAnalysis(null));
+        return tmp.toString();
+    }*/
+
+    public String dataMarketAnalysis(IndustryType type)
+    {
+        StringBuilder tmp = new StringBuilder();
+        tmp.append(Market.getMarket().dataMarketAnalysis(type));
+        return tmp.toString();
+    }
+
+    public String dataCompanyMarketAnalysis()
+    {
+        StringBuilder tmp = new StringBuilder();
+        if(companies.size()==0)
+            return "Economy has no companies";
+        for(Company company : companies)
+        {
+            tmp.append(company.dataAnalysis() + "\n");
+        }
         return tmp.toString();
     }
 

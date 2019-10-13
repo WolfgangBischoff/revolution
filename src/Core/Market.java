@@ -4,6 +4,7 @@ import Core.Enums.IndustryType;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -105,8 +106,10 @@ public class Market
 
         //Update sold data
         if (bestCompany != null)
+        {
+            bestCompany.addSellData();
             companySaleNumbers.put(bestCompany, companySaleNumbers.get(bestCompany) + 1);
-
+        }
         marketanalysisDataStorage.addCustomerBudget(type, budget, bestCompany);
 
         return bestCompany;
@@ -117,18 +120,15 @@ public class Market
         companySaleNumbers = new HashMap<>();
     }
 
-    private void collectMarketDataForCompetitors(Company bestCompany, Integer budget, IndustryType type)
+    public void playerCollectMarketData(Company bestCompany)
     {
-        for (Company comparedCompany : marketCompanies.get(type))
-        {
-            //comparedCompany.getMarketanalysisData().addNewData(bestCompany, budget);
-        }
+        marketanalysisDataStorage.addNewDataPlayer(bestCompany);
+        bestCompany.addSellDataPlayer();
     }
 
-    public void playerCollectMarketDataForCompetitors(Company bestCompany)
+    public MarketAnalysisData getMarketAnalysisData(IndustryType type, LocalDate date)
     {
-        IndustryType type = bestCompany.getIndustry();
-        marketanalysisDataStorage.addNewDataPlayer(bestCompany);
+        return marketanalysisDataStorage.getAnalysisData(type, date);
     }
 
     //Prints
@@ -149,11 +149,14 @@ public class Market
         return stringBuilder.toString();
     }
 
-    public String dataMarketAnalysis()
+    public String dataMarketAnalysis(IndustryType type)
     {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("----Market Analysis----\n");
-        stringBuilder.append(marketanalysisDataStorage.dataAnalysis());
+        if(type == null)
+            stringBuilder.append(marketanalysisDataStorage.dataAnalysis());
+        else
+            stringBuilder.append(marketanalysisDataStorage.dataAnalysis(type));
         return stringBuilder.toString();
     }
 

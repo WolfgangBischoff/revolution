@@ -46,6 +46,7 @@ public class Interpreter
     private Set<String> keywordsMarket = new HashSet<>(Arrays.asList("market", "mar"));
     private Set<String> keywordsTime = new HashSet<>(Arrays.asList("time"));
     private Set<String> keywordsNext = new HashSet<>(Arrays.asList("next"));
+    private Set<String> keywordsAnalysis = new HashSet<>(Arrays.asList("analysis", "anal"));
 
     private Map<InterpreterKeyword, Set<String>> keywords = new HashMap<>();
 
@@ -84,6 +85,7 @@ public class Interpreter
         keywords.put(InterpreterKeyword.MARKET, keywordsMarket);
         keywords.put(InterpreterKeyword.TIME, keywordsTime);
         keywords.put(InterpreterKeyword.NEXT, keywordsNext);
+        keywords.put(InterpreterKeyword.ANALYSIS, keywordsAnalysis);
     }
 
     public void setConsole(Console console)
@@ -554,7 +556,8 @@ public class Interpreter
     private void economyPrint(String[] inputArguments)
     {
         String methodname = "economyPrint()";
-        String possibleArguments = "[company, market]";
+        String possibleArguments = "[company, market, analysis]";
+        String[] residualInputArguments = cutFirstIndexPositions(inputArguments, 1);
         //Case no options
         if (inputArguments.length == 0)
         {
@@ -569,11 +572,28 @@ public class Interpreter
                     print(economy.economyBaseCompanyData());
                     return;
                 case MARKET:
-                    print(economy.dataMarketAnalysis());
+                    economyPrintMarket(residualInputArguments);
+                    return;
+                case ANALYSIS:
+                    print(economy.dataCompanyMarketAnalysis());
                     return;
             }
         throw new InterpreterInvalidArgumentException(methodname, inputArguments[0], possibleArguments);
 
+    }
+
+    private void economyPrintMarket(String[] inputArguments)
+    {
+        if(inputArguments.length == 0)
+        {
+            print(economy.dataMarketAnalysis(null));
+        }
+        else if(isKeyword(inputArguments[0]))
+        {
+            InterpreterKeyword interpreterKeyword = getKeyword(inputArguments[0]);
+            IndustryType industryType = IndustryType.valueOf(interpreterKeyword.toString());
+            print(economy.dataMarketAnalysis(industryType));
+        }
     }
 
     private void economyPopulate()

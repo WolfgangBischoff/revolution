@@ -1,7 +1,6 @@
 package Core;
 
 import Core.Enums.IndustryType;
-import javafx.util.Pair;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -14,16 +13,9 @@ public class MarketanalysisDataStorage
     private Map<IndustryType, List<MarketAnalysisData>> data = new TreeMap<>();
 
     //Constructor and Init
-    public MarketanalysisDataStorage(Company company)
-    {
-        owner = company;for(IndustryType industryType : IndustryType.values())
-    {
-        data.put(industryType, new ArrayList<MarketAnalysisData>());
-    }
-    }
     public MarketanalysisDataStorage()
     {
-        for(IndustryType industryType : IndustryType.values())
+        for (IndustryType industryType : IndustryType.values())
         {
             data.put(industryType, new ArrayList<MarketAnalysisData>());
         }
@@ -34,10 +26,8 @@ public class MarketanalysisDataStorage
     {
         System.out.println("MarketAnalyisStorage InitNewDay");
         dataContainer.add(0, new MarketAnalysisData(Simulation.getSingleton().getDate()));
-//        dataContainer.get(0).unusedCapacity = owner.getMaxCapacity();
-//        deleteOldData();
 
-        for(IndustryType industryType : IndustryType.values())
+        for (IndustryType industryType : IndustryType.values())
         {
             data.get(industryType).add(0, new MarketAnalysisData(Simulation.getSingleton().getDate()));
             deleteOldData(data.get(industryType));
@@ -47,7 +37,7 @@ public class MarketanalysisDataStorage
     //Calc
     public void addCustomerBudget(IndustryType type, Integer budget, Company bestCompany)
     {
-        if(bestCompany != null)
+        if (bestCompany != null)
             data.get(type).get(0).marketTotalSold++;
         data.get(type).get(0).addCustomerBudget(budget);
     }
@@ -60,7 +50,7 @@ public class MarketanalysisDataStorage
 
     public void calculateMarketAnalysis()
     {
-        for(IndustryType industryType : IndustryType.values())
+        for (IndustryType industryType : IndustryType.values())
         {
             List<MarketAnalysisData> industryData = data.get(industryType);
             //System.out.println("calculateMarketAnalysis() " + industryType);
@@ -100,6 +90,7 @@ public class MarketanalysisDataStorage
 
     }
 
+    /*
     public void addNewData(Company bestCompetitor, Integer customerBudget)
     {
         //Process Data right after market decision of customer
@@ -169,7 +160,7 @@ public class MarketanalysisDataStorage
                 currentData.numLostToNoCapacity++;
         }
 
-    }
+    }*/
 
     private void deleteOldData()
     {
@@ -185,6 +176,7 @@ public class MarketanalysisDataStorage
 
     /**
      * Variant if Player boughts goods.
+     *
      * @param bestCompany company the Player bought
      */
     public void addNewDataPlayer(Company bestCompany)
@@ -192,41 +184,51 @@ public class MarketanalysisDataStorage
         MarketAnalysisData currentData = data.get(bestCompany.getIndustry()).get(0);
         currentData.marketTotalDemand++;
         currentData.marketTotalSold++;
-        currentData.numPlayerBougt++;
+        currentData.numPlayerBought++;
     }
-
 
 
     public String dataAnalysis()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        if(data.isEmpty())
+        if (data.isEmpty())
             stringBuilder.append("No Data");
         for (IndustryType industryType : IndustryType.values())
         {
-            stringBuilder.append(industryType + ":\n");
-            List<MarketAnalysisData> industry = data.get(industryType);
-            for(MarketAnalysisData marketAnalysisData : industry)
-                stringBuilder.append(marketAnalysisData);
+            stringBuilder.append(dataAnalysis(industryType));
         }
+        return stringBuilder.toString();
+    }
+
+    public String dataAnalysis(IndustryType industryType)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (data.isEmpty())
+            stringBuilder.append("No Data");
+        List<MarketAnalysisData> industry = data.get(industryType);
+        stringBuilder.append(industryType + ":\n");
+
+        for (MarketAnalysisData marketAnalysisData : industry)
+            stringBuilder.append(marketAnalysisData);
         return stringBuilder.toString();
     }
 
     public MarketAnalysisData getAnalysisData(LocalDate date)
     {
-        for(MarketAnalysisData data : dataContainer)
+        for (MarketAnalysisData data : dataContainer)
         {
-            if(data.date.equals(date))
+            if (data.date.equals(date))
                 return data;
         }
         return null;
     }
+
     public MarketAnalysisData getAnalysisData(IndustryType type, LocalDate date)
     {
         List<MarketAnalysisData> industryData = data.get(type);
-        for(MarketAnalysisData data : industryData)
+        for (MarketAnalysisData data : industryData)
         {
-            if(data.date.equals(date))
+            if (data.date.equals(date))
                 return data;
         }
         return null;
@@ -234,7 +236,7 @@ public class MarketanalysisDataStorage
 
     public List<MarketAnalysisData> getAnalysisData(IndustryType type)
     {
-        return  data.get(type);
+        return data.get(type);
     }
 
 

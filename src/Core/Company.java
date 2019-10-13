@@ -21,6 +21,7 @@ public class Company
     private static final String COMPANYNAMESPATH = "./res/txt/names/companies/";
     private Integer luxury, price = -1, maxCapacity = MAX_CAPACITY_DEFAULT, usedCapacity = 0;
     private Integer baseCapacityCost = 1;
+    private CompanyMarketDataStorage companyMarketDataStorage = new CompanyMarketDataStorage(this);
 
     //Constructors
     public Company(String name)
@@ -72,12 +73,37 @@ public class Company
     public void initPeriod()
     {
         usedCapacity = 0;
+        companyMarketDataStorage.initNewDay();
         doMarketDecisions();
     }
 
+    public void addSellData()
+    {
+        companyMarketDataStorage.addSellData();
+    }
+
+    public void addSellDataPlayer()
+    {
+        companyMarketDataStorage.addSellDataPlayer();
+    }
+
+
     public void doMarketDecisions()
     {
-        //MarketAnalysisData marketAnalysisData = Market.getMarket().
+        System.out.println("Company.doMarketDecision(): ");
+        LocalDate yesterday = Simulation.getSingleton().getDate().minusDays(1);
+        MarketAnalysisData marketAnalysisData = Market.getMarket().getMarketAnalysisData(industry, yesterday);
+        if (marketAnalysisData == null)
+        {
+            System.out.println("No Market Data Found");
+            return;
+        }
+        System.out.println(baseData());
+        System.out.println(marketAnalysisData);
+
+        //check expected revenue
+        //check why not achieved
+
     }
 
     private void calcPrice()
@@ -258,6 +284,15 @@ public class Company
     public String baseData()
     {
         return "Name: " + name + " Workers: " + calcNumberWorkers() + " Deposit: " + deposit + " Price: " + price + " Luxury: " + luxury;
+    }
+
+    public String dataAnalysis()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(name + " Deposit:" + deposit);
+        for(CompanyMarketData companyMarketData : companyMarketDataStorage.dataContainer)
+            stringBuilder.append(companyMarketData.dataCompanyMarketData());
+        return stringBuilder.toString();
     }
 
     //Getter and Setter

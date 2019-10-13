@@ -70,7 +70,8 @@ public class mainMenuController
         Society.getSociety().populateSociety(2,3,4,1);
         //Simulation.getSingleton().getEconomy().populateEconomy(Util.DEFAULT_NUM_COMPANIES);
         //Simulation.getSingleton().getEconomy().populateEconomy("oneCheapCompany");
-        Simulation.getSingleton().getEconomy().populateEconomy("comp");
+        //Simulation.getSingleton().getEconomy().populateEconomy("comp");
+        Simulation.getSingleton().getEconomy().populateEconomy("twoCompetitors");
         Simulation.getSingleton().getEconomy().fillWorkplaces();
         Market.getMarket().calcState();
 

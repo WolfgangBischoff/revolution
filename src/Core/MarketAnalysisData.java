@@ -1,7 +1,5 @@
 package Core;
 
-import javafx.util.Pair;
-
 import java.time.LocalDate;
 import java.util.*;
 
@@ -50,14 +48,14 @@ public class MarketAnalysisData
     LocalDate date;
     Integer marketTotalDemand = 0;
     Integer marketTotalSold = 0;
-    Integer numLostToNoCapacity = 0;
-    Integer numSold = 0;
-    Integer numLostToIdenticalOffer = 0;
-    Integer numPlayerBougt = 0;
-    Integer unusedCapacity = 0;
-    List<Integer> toExpensive = new ArrayList();
-    Map<Integer, Integer> toCheap = new TreeMap<>();
-    List<Integer> qualityToBad = new ArrayList<>();
+    //Integer numLostToNoCapacity = 0;
+    //Integer numSold = 0;
+    //Integer numLostToIdenticalOffer = 0;
+    Integer numPlayerBought = 0;
+    //Integer unusedCapacity = 0;
+    //List<Integer> toExpensive = new ArrayList();
+    //Map<Integer, Integer> toCheap = new TreeMap<>();
+    //List<Integer> qualityToBad = new ArrayList<>();
 
 
     public void addCustomerBudget(Integer budget)
@@ -110,7 +108,7 @@ public class MarketAnalysisData
                         "\nCompOffer => NumCompanies: " + supplierOffers +
                         "\nAt Price => num Customer: " + customersAtPrice +
                         "\nAt price => Revenue: " + revenueAtPrice +
-                        "\nPlayer: " + numPlayerBougt +
+                        "\nPlayer: " + numPlayerBought +
                         "\n"
                         );
         return stringBuilder.toString();
