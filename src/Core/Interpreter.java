@@ -556,7 +556,7 @@ public class Interpreter
     private void economyPrint(String[] inputArguments)
     {
         String methodname = "economyPrint()";
-        String possibleArguments = "[company, market, analysis]";
+        String possibleArguments = "[company, market, analysis(type)]";
         String[] residualInputArguments = cutFirstIndexPositions(inputArguments, 1);
         //Case no options
         if (inputArguments.length == 0)
