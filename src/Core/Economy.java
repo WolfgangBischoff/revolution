@@ -205,12 +205,6 @@ public class Economy
         return tmp.toString();
     }
 
-    /*public String dataMarketAnalysis()
-    {
-        StringBuilder tmp = new StringBuilder();
-        tmp.append(Market.getMarket().dataMarketAnalysis(null));
-        return tmp.toString();
-    }*/
 
     public String dataMarketAnalysis(IndustryType type)
     {

@@ -2,6 +2,7 @@ package Core;
 
 import Core.Enums.IndustryType;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,5 +37,15 @@ public class CompanyMarketDataStorage
     {
         if (dataContainer.size() > PERIODS_REMEMBERED)
             dataContainer.remove(dataContainer.size() - 1);
+    }
+
+    public CompanyMarketData getAnalysisData(LocalDate date)
+    {
+        for (CompanyMarketData data : dataContainer)
+        {
+            if (data.date.equals(date))
+                return data;
+        }
+        return null;
     }
 }

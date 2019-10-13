@@ -63,7 +63,9 @@ public class Simulation
         market.initPeriod();
 
         //Day trigger
-        System.out.println(calender.dataDateWeekday());
+        System.out.println("------------------------------");
+        System.out.println("-----" + calender.dataDateWeekday() + "-----");
+        System.out.println("------------------------------");
         //End of Month
         if (calender.date.getDayOfMonth() == calender.date.lengthOfMonth())
         {
@@ -84,15 +86,15 @@ public class Simulation
 
         //Daily activities
         //TODO Eco calc prices
-        System.out.println("Simulation SocietyShop()");
+        //System.out.println("Simulation SocietyShop()");
         society.shop();
 
 
         //Not sure if need anymore
         society.calcSocietyDaily();
-        System.out.println("Simulation economy.calcState()");
+        //System.out.println("Simulation economy.calcState()");
         economy.calcState();
-        System.out.println("Simulation market.collectMarketData()");
+        //System.out.println("Simulation market.collectMarketData()");
         market.collectMarketData();
     }
 
@@ -123,7 +125,7 @@ public class Simulation
     public void addPropertyChangeListener(PropertyChangeListener listener)
     {
         propertyChangeSupport.addPropertyChangeListener(listener);
-        System.out.println("Simulation added Listener: " + listener);
+        //System.out.println("Simulation added Listener: " + listener);
     }
 
     public void removePropertyChangeListener(PropertyChangeListener listener)

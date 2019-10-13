@@ -35,6 +35,7 @@ public class Market
     public void initPeriod()
     {
         marketanalysisDataStorage.initNewDay();
+        companySaleNumbers.clear();
     }
 
     public void collectMarketData()

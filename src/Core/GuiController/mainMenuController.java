@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+import static Core.Util.*;
+
 
 public class mainMenuController
 {
@@ -67,7 +69,7 @@ public class mainMenuController
     protected void quickPop(ActionEvent event)
     {
         //Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
-        Society.getSociety().populateSociety(2,3,4,1);
+        Society.getSociety().populateSociety(NUM_BASIC_EDU,NUM_APP_EDU,NUM_HIGHER_EDU,NUM_UNIVERSITY_EDU);
         //Simulation.getSingleton().getEconomy().populateEconomy(Util.DEFAULT_NUM_COMPANIES);
         //Simulation.getSingleton().getEconomy().populateEconomy("oneCheapCompany");
         //Simulation.getSingleton().getEconomy().populateEconomy("comp");

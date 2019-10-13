@@ -90,19 +90,67 @@ public class Company
 
     public void doMarketDecisions()
     {
-        System.out.println("Company.doMarketDecision(): ");
         LocalDate yesterday = Simulation.getSingleton().getDate().minusDays(1);
         MarketAnalysisData marketAnalysisData = Market.getMarket().getMarketAnalysisData(industry, yesterday);
-        if (marketAnalysisData == null)
+        CompanyMarketData companyMarketData = companyMarketDataStorage.getAnalysisData(yesterday);
+        if (marketAnalysisData == null || companyMarketDataStorage == null)
         {
             System.out.println("No Market Data Found");
             return;
         }
-        System.out.println(baseData());
-        System.out.println(marketAnalysisData);
+        //System.out.println(baseData());
+        //System.out.println(marketAnalysisData);
 
         //check expected revenue
-        //check why not achieved
+        Integer expectedRevenue = 0;
+        for (Map.Entry<Integer, Integer> priceToRevenue : marketAnalysisData.revenueAtPrice.entrySet())
+        {
+            if (priceToRevenue.getKey() <= price)
+                expectedRevenue = priceToRevenue.getValue();
+        }
+        System.out.println("\n" + name + " Exprected: " + expectedRevenue + " real: " + companyMarketData.revenue + " price: " + price);
+
+        if (expectedRevenue == companyMarketData.revenue)
+            System.out.println("Maxed Revenue");
+        else
+        {
+            //check why not achieved
+
+            Integer luxuryCompetitor = -1;
+            Integer cheaperCompetitorWithSameLuxuryPrice = -1;
+            Integer numberSameOffer = 0;
+            for (Map.Entry<MarketAnalysisData.LuxuryPriceGroup, Integer> offer : marketAnalysisData.supplierOffers.entrySet())
+            {
+                if(offer.getKey().company == this)
+                    continue;
+
+                //is there competitor with more luxury?
+                if (luxuryCompetitor == -1 && offer.getKey().luxury > luxury)
+                {
+                    luxuryCompetitor = offer.getKey().luxury;
+                    //break;//Just the first better competitor
+                }
+                //is there a cheaper competitor with same qualiy?
+                if (offer.getKey().price < price && offer.getKey().luxury == luxury)
+                {
+                    cheaperCompetitorWithSameLuxuryPrice = offer.getKey().price;
+                }
+                //is there a equal offer?
+                if (offer.getKey().price == price && offer.getKey().luxury == luxury)
+                {
+                    numberSameOffer++;
+                }
+            }
+
+            System.out.println("CompLux: " + luxuryCompetitor);
+            System.out.println("CompPrice: " + cheaperCompetitorWithSameLuxuryPrice);
+            System.out.println("Same offer: " + numberSameOffer);
+
+            if(cheaperCompetitorWithSameLuxuryPrice != -1)
+                price = cheaperCompetitorWithSameLuxuryPrice;
+            System.out.println("New Price: " + price);
+
+        }
 
     }
 
@@ -290,7 +338,7 @@ public class Company
     {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(name + " Deposit:" + deposit);
-        for(CompanyMarketData companyMarketData : companyMarketDataStorage.dataContainer)
+        for (CompanyMarketData companyMarketData : companyMarketDataStorage.dataContainer)
             stringBuilder.append(companyMarketData.dataCompanyMarketData());
         return stringBuilder.toString();
     }
@@ -348,7 +396,6 @@ public class Company
     {
         return usedCapacity;
     }
-
 
 
     public Integer getMaxCapacity()

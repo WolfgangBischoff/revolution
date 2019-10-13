@@ -21,7 +21,7 @@ public class Player extends Person
     public void addPropertyChangeListener(PropertyChangeListener listener)
     {
         propertyChangeSupport.addPropertyChangeListener(listener);
-        System.out.println("Player added Listener: " +listener + " total: " + propertyChangeSupport.getPropertyChangeListeners().length);
+        //System.out.println("Player added Listener: " +listener + " total: " + propertyChangeSupport.getPropertyChangeListeners().length);
     }
 
     public void removePropertyChangeListener(PropertyChangeListener listener)

@@ -24,7 +24,7 @@ public class MarketanalysisDataStorage
 
     public void initNewDay()
     {
-        System.out.println("MarketAnalyisStorage InitNewDay");
+        //System.out.println("MarketAnalyisStorage InitNewDay");
         dataContainer.add(0, new MarketAnalysisData(Simulation.getSingleton().getDate()));
 
         for (IndustryType industryType : IndustryType.values())

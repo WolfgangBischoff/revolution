@@ -33,13 +33,13 @@ public class MarketAnalysisData
         public int compareTo(LuxuryPriceGroup other)
         {
             if (luxury > other.luxury)
-                return 1;
+                return -1;
             if (luxury < other.luxury)
-                return -1;
-            if (price < other.price)
                 return 1;
-            if (price > other.price)
+            if (price < other.price)
                 return -1;
+            if (price > other.price)
+                return 1;
             return 0;
         }
     }
