@@ -2,12 +2,10 @@ package Core;
 
 import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
-import javafx.util.Pair;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import static Core.Util.*;
@@ -93,6 +91,7 @@ public class Company
         LocalDate yesterday = Simulation.getSingleton().getDate().minusDays(1);
         MarketAnalysisData marketAnalysisData = Market.getMarket().getMarketAnalysisData(industry, yesterday);
         CompanyMarketData companyMarketData = companyMarketDataStorage.getAnalysisData(yesterday);
+        Integer plannedPrice = price;
         if (marketAnalysisData == null || companyMarketDataStorage == null)
         {
             System.out.println("No Market Data Found");
@@ -101,56 +100,76 @@ public class Company
         //System.out.println(baseData());
         //System.out.println(marketAnalysisData);
 
-        //check expected revenue
-        Integer expectedRevenue = 0;
+        //check market oppurtunities
+        Integer maxRevenueAtCurrentPrice = 0;
+        Integer maxRevenueMarket = 0;
+        Integer maxRevenueMarketPrice = 0;
         for (Map.Entry<Integer, Integer> priceToRevenue : marketAnalysisData.revenueAtPrice.entrySet())
         {
+            //max revenue at current price
             if (priceToRevenue.getKey() <= price)
-                expectedRevenue = priceToRevenue.getValue();
-        }
-        System.out.println("\n" + name + " Exprected: " + expectedRevenue + " real: " + companyMarketData.revenue + " price: " + price);
-
-        if (expectedRevenue == companyMarketData.revenue)
-            System.out.println("Maxed Revenue");
-        else
-        {
-            //check why not achieved
-
-            Integer luxuryCompetitor = -1;
-            Integer cheaperCompetitorWithSameLuxuryPrice = -1;
-            Integer numberSameOffer = 0;
-            for (Map.Entry<MarketAnalysisData.LuxuryPriceGroup, Integer> offer : marketAnalysisData.supplierOffers.entrySet())
+                maxRevenueAtCurrentPrice = priceToRevenue.getValue();
+            //max revenue on whole market
+            if (priceToRevenue.getValue() >= maxRevenueMarket)
             {
-                if(offer.getKey().company == this)
-                    continue;
-
-                //is there competitor with more luxury?
-                if (luxuryCompetitor == -1 && offer.getKey().luxury > luxury)
-                {
-                    luxuryCompetitor = offer.getKey().luxury;
-                    //break;//Just the first better competitor
-                }
-                //is there a cheaper competitor with same qualiy?
-                if (offer.getKey().price < price && offer.getKey().luxury == luxury)
-                {
-                    cheaperCompetitorWithSameLuxuryPrice = offer.getKey().price;
-                }
-                //is there a equal offer?
-                if (offer.getKey().price == price && offer.getKey().luxury == luxury)
-                {
-                    numberSameOffer++;
-                }
+                maxRevenueMarket = priceToRevenue.getValue();
+                maxRevenueMarketPrice = priceToRevenue.getKey();
             }
-
-            System.out.println("CompLux: " + luxuryCompetitor);
-            System.out.println("CompPrice: " + cheaperCompetitorWithSameLuxuryPrice);
-            System.out.println("Same offer: " + numberSameOffer);
-
-            if(cheaperCompetitorWithSameLuxuryPrice != -1)
-                price = cheaperCompetitorWithSameLuxuryPrice;
-            System.out.println("New Price: " + price);
-
         }
+
+        System.out.println("\n" + name + " Expected: " + maxRevenueAtCurrentPrice + " real: " + companyMarketData.revenue + " price: " + price);
+        System.out.println("max Revenue " + maxRevenueMarket + " at price " + maxRevenueMarketPrice);
+
+        if (maxRevenueAtCurrentPrice.equals(companyMarketData.revenue))
+            System.out.println("Maxed Revenue at price");
+        if (maxRevenueMarket == maxRevenueAtCurrentPrice)
+            System.out.println("Maxed Market revenue");
+        else
+            plannedPrice = maxRevenueMarketPrice;
+
+        //check capacity restrictions
+        //if we cannot max price because of cap we dont try
+
+        //check competitor constriaints
+        Integer luxuryCompetitor = -1;
+        Integer cheaperCompetitorWithSameLuxuryPrice = -1;
+        Integer numberSameOffer = 0;
+        System.out.println("Comps: " + marketAnalysisData.supplierOffers.entrySet());
+        //TODO Problem: market analysis just see same offers and does not save both, so we cannot differentiate (offer.getKey().company == this) because just one comp is saves
+        for (Map.Entry<MarketAnalysisData.LuxuryPriceGroup, Integer> offer : marketAnalysisData.supplierOffers.entrySet())
+        {
+            if (offer.getKey().company == this)
+                continue;
+
+            //is there competitor with more luxury?
+            if (luxuryCompetitor == -1 && offer.getKey().luxury > luxury)
+            {
+                luxuryCompetitor = offer.getKey().luxury;
+            }
+            //is there a cheaper competitor with same quality?
+            if (offer.getKey().price < plannedPrice && offer.getKey().luxury == luxury)
+              //  if (offer.getKey().price < price && offer.getKey().luxury == luxury)
+            {
+                cheaperCompetitorWithSameLuxuryPrice = offer.getKey().price;
+            }
+            //is there a equal offer?
+            System.out.println(offer.getKey().price + " == " +  price + " && " + offer.getKey().luxury +" == " + luxury);
+            if (offer.getKey().price == price && offer.getKey().luxury == luxury)
+            {
+                numberSameOffer++;
+            }
+        }
+
+        System.out.println("CompLux: " + luxuryCompetitor);
+        System.out.println("CompPrice: " + cheaperCompetitorWithSameLuxuryPrice);
+        System.out.println("Same offer: " + numberSameOffer);
+
+        if (cheaperCompetitorWithSameLuxuryPrice != -1)
+            plannedPrice = cheaperCompetitorWithSameLuxuryPrice;
+
+        price = plannedPrice;
+        System.out.println("New Price: " + plannedPrice);
+
 
     }
 
