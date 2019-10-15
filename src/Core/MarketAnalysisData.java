@@ -1,12 +1,18 @@
 package Core;
 
+import javafx.print.Collation;
+
 import java.time.LocalDate;
 import java.util.*;
 
 public class MarketAnalysisData
 {
+    LocalDate date;
+    Integer marketTotalDemand = 0;
+    Integer marketTotalSold = 0;
+    Integer numPlayerBought = 0;
     Map<Integer, Integer> customerBudgets = new TreeMap<>();
-    Map<LuxuryPriceGroup, Integer> supplierOffers = new TreeMap<>();
+    List<LuxuryPriceGroup> supplierOffers = new ArrayList<>();
     Map<Integer, Integer> customersAtPrice = new TreeMap<>();
     Map<Integer, Integer> revenueAtPrice = new TreeMap<>();
 
@@ -40,22 +46,16 @@ public class MarketAnalysisData
                 return -1;
             if (price > other.price)
                 return 1;
+            if (company.getName().hashCode() < other.company.getName().hashCode())
+                return -1;
+            if (company.getName().hashCode() > other.company.getName().hashCode())
+                return 1;
             return 0;
         }
     }
 
 
-    LocalDate date;
-    Integer marketTotalDemand = 0;
-    Integer marketTotalSold = 0;
-    //Integer numLostToNoCapacity = 0;
-    //Integer numSold = 0;
-    //Integer numLostToIdenticalOffer = 0;
-    Integer numPlayerBought = 0;
-    //Integer unusedCapacity = 0;
-    //List<Integer> toExpensive = new ArrayList();
-    //Map<Integer, Integer> toCheap = new TreeMap<>();
-    //List<Integer> qualityToBad = new ArrayList<>();
+
 
 
     public void addCustomerBudget(Integer budget)
@@ -69,9 +69,11 @@ public class MarketAnalysisData
     public void addSupplierOffer(Company company, Integer price, Integer luxury)
     {
         LuxuryPriceGroup tmp = new LuxuryPriceGroup(company, luxury, price);
-        if (!supplierOffers.containsKey(tmp))
-            supplierOffers.put(tmp, 0);
-        supplierOffers.put(tmp, supplierOffers.get(tmp) + 1);
+        //if (!supplierOffers.containsKey(tmp))
+         //   supplierOffers.put(tmp, 0);
+        //supplierOffers.put(tmp, supplierOffers.get(tmp) + 1);
+        supplierOffers.add(tmp);
+        Collections.sort(supplierOffers);
     }
 
 
@@ -110,7 +112,7 @@ public class MarketAnalysisData
                         "\nAt price => Revenue: " + revenueAtPrice +
                         "\nPlayer: " + numPlayerBought +
                         "\n"
-                        );
+        );
         return stringBuilder.toString();
     }
 

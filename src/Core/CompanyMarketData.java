@@ -12,13 +12,13 @@ public class CompanyMarketData
     Integer revenue = 0;
     Integer numLostToNoCapacity = 0;
     Integer numSold = 0;
-    Integer numLostToIdenticalOffer = 0;
+    //Integer numLostToIdenticalOffer = 0;
     Integer numPlayerBought = 0;
     Integer usedCapacity = 0;
     Integer unusedCapacity = 0;
-    List<Integer> toExpensive = new ArrayList();
-    Map<Integer, Integer> toCheap = new TreeMap<>();
-    List<Integer> qualityToBad = new ArrayList<>();
+    //List<Integer> toExpensive = new ArrayList();
+    //Map<Integer, Integer> toCheap = new TreeMap<>();
+    //List<Integer> qualityToBad = new ArrayList<>();
     Company owner;
 
     public CompanyMarketData(Company owner)

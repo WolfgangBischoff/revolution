@@ -133,36 +133,33 @@ public class Company
         //check competitor constriaints
         Integer luxuryCompetitor = -1;
         Integer cheaperCompetitorWithSameLuxuryPrice = -1;
-        Integer numberSameOffer = 0;
-        System.out.println("Comps: " + marketAnalysisData.supplierOffers.entrySet());
-        //TODO Problem: market analysis just see same offers and does not save both, so we cannot differentiate (offer.getKey().company == this) because just one comp is saves
-        for (Map.Entry<MarketAnalysisData.LuxuryPriceGroup, Integer> offer : marketAnalysisData.supplierOffers.entrySet())
+        Integer numberCompSameOffer = 0;
+        for (MarketAnalysisData.LuxuryPriceGroup offer : marketAnalysisData.supplierOffers)
         {
-            if (offer.getKey().company == this)
+            if (offer.company == this)
                 continue;
 
             //is there competitor with more luxury?
-            if (luxuryCompetitor == -1 && offer.getKey().luxury > luxury)
+            if (luxuryCompetitor == -1 && offer.luxury > luxury)
             {
-                luxuryCompetitor = offer.getKey().luxury;
+                luxuryCompetitor = offer.luxury;
             }
             //is there a cheaper competitor with same quality?
-            if (offer.getKey().price < plannedPrice && offer.getKey().luxury == luxury)
+            if (offer.price < plannedPrice && offer.luxury == luxury)
               //  if (offer.getKey().price < price && offer.getKey().luxury == luxury)
             {
-                cheaperCompetitorWithSameLuxuryPrice = offer.getKey().price;
+                cheaperCompetitorWithSameLuxuryPrice = offer.price;
             }
             //is there a equal offer?
-            System.out.println(offer.getKey().price + " == " +  price + " && " + offer.getKey().luxury +" == " + luxury);
-            if (offer.getKey().price == price && offer.getKey().luxury == luxury)
+            if (offer.price == price && offer.luxury == luxury)
             {
-                numberSameOffer++;
+                numberCompSameOffer++;
             }
         }
 
         System.out.println("CompLux: " + luxuryCompetitor);
         System.out.println("CompPrice: " + cheaperCompetitorWithSameLuxuryPrice);
-        System.out.println("Same offer: " + numberSameOffer);
+        System.out.println("Same offer: " + numberCompSameOffer);
 
         if (cheaperCompetitorWithSameLuxuryPrice != -1)
             plannedPrice = cheaperCompetitorWithSameLuxuryPrice;
