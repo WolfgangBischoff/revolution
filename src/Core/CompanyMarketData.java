@@ -12,19 +12,20 @@ public class CompanyMarketData
     Integer revenue = 0;
     Integer numLostToNoCapacity = 0;
     Integer numSold = 0;
-    //Integer numLostToIdenticalOffer = 0;
     Integer numPlayerBought = 0;
     Integer usedCapacity = 0;
-    Integer unusedCapacity = 0;
-    //List<Integer> toExpensive = new ArrayList();
-    //Map<Integer, Integer> toCheap = new TreeMap<>();
-    //List<Integer> qualityToBad = new ArrayList<>();
+    Integer capacityCostPerCustomer;
+    Integer maxCapacity;
+    Integer dLuxury;
     Company owner;
 
     public CompanyMarketData(Company owner)
     {
         this.owner = owner;
         this.date = Simulation.getSingleton().getDate();
+        maxCapacity = owner.getMaxCapacity();
+        capacityCostPerCustomer = owner.calcProductionEffort();
+        dLuxury = owner.getLuxury();
     }
 
     public void addSellData()

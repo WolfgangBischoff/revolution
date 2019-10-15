@@ -97,40 +97,48 @@ public class Company
             System.out.println("No Market Data Found");
             return;
         }
-        //System.out.println(baseData());
-        //System.out.println(marketAnalysisData);
 
         //check market oppurtunities
         Integer maxRevenueAtCurrentPrice = 0;
+        Integer maxCustomersAtCurrentPrice = 0;
+
         Integer maxRevenueMarket = 0;
         Integer maxRevenueMarketPrice = 0;
+        Integer maxRevenueNumCustomers = 0;
+        Integer capacityNeededForMaxRevenueCustomers =0;
         for (Map.Entry<Integer, Integer> priceToRevenue : marketAnalysisData.revenueAtPrice.entrySet())
         {
             //max revenue at current price
             if (priceToRevenue.getKey() <= price)
+            {
                 maxRevenueAtCurrentPrice = priceToRevenue.getValue();
+                maxCustomersAtCurrentPrice = priceToRevenue.getKey();
+            }
             //max revenue on whole market
             if (priceToRevenue.getValue() >= maxRevenueMarket)
             {
                 maxRevenueMarket = priceToRevenue.getValue();
                 maxRevenueMarketPrice = priceToRevenue.getKey();
+                maxRevenueNumCustomers = marketAnalysisData.customersAtPrice.get(maxRevenueMarketPrice);
             }
         }
 
-        System.out.println("\n" + name + " Expected: " + maxRevenueAtCurrentPrice + " real: " + companyMarketData.revenue + " price: " + price);
-        System.out.println("max Revenue " + maxRevenueMarket + " at price " + maxRevenueMarketPrice);
+        System.out.println("\n" + name + " Expected: " + maxRevenueAtCurrentPrice  + " maxCustomer at price "+ maxCustomersAtCurrentPrice + " real: " + companyMarketData.revenue + " price: " + price);
+        System.out.println("max Revenue " + maxRevenueMarket + " at price " + maxRevenueMarketPrice + " with customers " + maxRevenueNumCustomers);
 
         if (maxRevenueAtCurrentPrice.equals(companyMarketData.revenue))
             System.out.println("Maxed Revenue at price");
         if (maxRevenueMarket == maxRevenueAtCurrentPrice)
-            System.out.println("Maxed Market revenue");
+            System.out.println("Chose price that max Market revenue");
         else
             plannedPrice = maxRevenueMarketPrice;
 
-        //check capacity restrictions
-        //if we cannot max price because of cap we dont try
+        //check capacity problems
+        System.out.println("Used Capacity: " + companyMarketData.usedCapacity + " / " + companyMarketData.maxCapacity);
+        if(companyMarketData.usedCapacity + companyMarketData.capacityCostPerCustomer >= companyMarketData.maxCapacity)
+            System.out.println("Capacity limit met");
 
-        //check competitor constriaints
+        //check competitor constraints
         Integer luxuryCompetitor = -1;
         Integer cheaperCompetitorWithSameLuxuryPrice = -1;
         Integer numberCompSameOffer = 0;
@@ -146,7 +154,6 @@ public class Company
             }
             //is there a cheaper competitor with same quality?
             if (offer.price < plannedPrice && offer.luxury == luxury)
-              //  if (offer.getKey().price < price && offer.getKey().luxury == luxury)
             {
                 cheaperCompetitorWithSameLuxuryPrice = offer.price;
             }
@@ -164,6 +171,25 @@ public class Company
         if (cheaperCompetitorWithSameLuxuryPrice != -1)
             plannedPrice = cheaperCompetitorWithSameLuxuryPrice;
 
+        Integer expectedRevenuePriceChange = 0;
+        if(plannedPrice != price)
+        {
+            //expected dependen from numcustomer and companies at this price
+            //expectedRevenuePriceChange =
+        }
+
+        //TODO Check if revenue at price is higher with higher quality
+        //TODO or lower quality
+        Integer qualityGapToCompetitor = -1;
+        Integer expectedRevenueQualityIncrease = -1;
+        if(luxuryCompetitor != -1)
+        {
+            qualityGapToCompetitor = luxuryCompetitor - companyMarketData.dLuxury;
+            expectedRevenueQualityIncrease = (qualityGapToCompetitor + calcProductionEffort()) * maxCustomersAtCurrentPrice;
+            System.out.println("Quality Gap detected: " + qualityGapToCompetitor + " expected Rev: " + expectedRevenueQualityIncrease);
+        }
+
+        //TODO Decide which Action is best
         price = plannedPrice;
         System.out.println("New Price: " + plannedPrice);
 
