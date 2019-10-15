@@ -123,8 +123,9 @@ public class Company
             }
         }
 
-        System.out.println("\n" + name + " Expected: " + maxRevenueAtCurrentPrice  + " maxCustomer at price "+ maxCustomersAtCurrentPrice + " real: " + companyMarketData.revenue + " price: " + price);
-        System.out.println("max Revenue " + maxRevenueMarket + " at price " + maxRevenueMarketPrice + " with customers " + maxRevenueNumCustomers);
+        System.out.println("\n" + name + " Expected Rev: " + maxRevenueAtCurrentPrice  + " maxCustomer at price "+ maxCustomersAtCurrentPrice + " real Rev: " + companyMarketData.revenue + " at price: " + price);
+        System.out.println("MARKET OPPURTUNITIES");
+        System.out.println("Market maxRevenue " + maxRevenueMarket + " at price " + maxRevenueMarketPrice + " with customers " + maxRevenueNumCustomers);
 
         if (maxRevenueAtCurrentPrice.equals(companyMarketData.revenue))
             System.out.println("Maxed Revenue at price");
@@ -164,18 +165,26 @@ public class Company
             }
         }
 
-        System.out.println("CompLux: " + luxuryCompetitor);
-        System.out.println("CompPrice: " + cheaperCompetitorWithSameLuxuryPrice);
+
+        System.out.println("Found competitor with more Luxury: " + luxuryCompetitor);
+        System.out.println("Found competitor with less price: " + cheaperCompetitorWithSameLuxuryPrice);
         System.out.println("Same offer: " + numberCompSameOffer);
 
         if (cheaperCompetitorWithSameLuxuryPrice != -1)
             plannedPrice = cheaperCompetitorWithSameLuxuryPrice;
 
         Integer expectedRevenuePriceChange = 0;
+        Integer exprectedCustomersAtPlannedPrice = 0;
         if(plannedPrice != price)
         {
-            //expected dependen from numcustomer and companies at this price
-            //expectedRevenuePriceChange =
+            for (Map.Entry<Integer, Integer> priceToCustomer : marketAnalysisData.customersAtPrice.entrySet())
+                //max revenue at current price
+                if (priceToCustomer.getKey() <= plannedPrice)
+                    exprectedCustomersAtPlannedPrice = priceToCustomer.getValue();
+
+            //TODO expected dependen from numcustomer and companies at this price
+            expectedRevenuePriceChange = exprectedCustomersAtPlannedPrice * plannedPrice;
+            System.out.println("PlannedPrice: ExpRev " +expectedRevenuePriceChange +" with numCustomer " + exprectedCustomersAtPlannedPrice);
         }
 
         //TODO Check if revenue at price is higher with higher quality
@@ -357,7 +366,7 @@ public class Company
                 break;
         }
 
-        return names[Util.getRandom().nextInt(names.length)];
+        return names[Util.getRandom().nextInt(names.length)].trim();
     }
 
 
