@@ -1,7 +1,5 @@
 package Core;
 
-import javafx.print.Collation;
-
 import java.time.LocalDate;
 import java.util.*;
 
@@ -11,10 +9,12 @@ public class MarketAnalysisData
     Integer marketTotalDemand = 0;
     Integer marketTotalSold = 0;
     Integer numPlayerBought = 0;
-    Map<Integer, Integer> customerBudgets = new TreeMap<>();
+    Map<Integer, Integer> numCustomerPerBudget = new TreeMap<>();
+    Map<Integer, Integer> maxRevenueCustomerGroup = new TreeMap<>();
+    Map<Integer, List<LuxuryPriceGroup>> offersPerCustomerGroup = new TreeMap<>();
     List<LuxuryPriceGroup> supplierOffers = new ArrayList<>();
-    Map<Integer, Integer> customersAtPrice = new TreeMap<>();
-    Map<Integer, Integer> revenueAtPrice = new TreeMap<>();
+    Map<Integer, Integer> maxCustomersAtPrice = new TreeMap<>();
+    Map<Integer, Integer> maxRevenueAtPrice = new TreeMap<>();
 
     class LuxuryPriceGroup implements Comparable<LuxuryPriceGroup>
     {
@@ -55,41 +55,54 @@ public class MarketAnalysisData
     }
 
 
-
-
-
     public void addCustomerBudget(Integer budget)
     {
-        if (!customerBudgets.containsKey(budget))
-            customerBudgets.put(budget, 0);
-        customerBudgets.put(budget, customerBudgets.get(budget) + 1);
+        if (!numCustomerPerBudget.containsKey(budget))
+            numCustomerPerBudget.put(budget, 0);
+        numCustomerPerBudget.put(budget, numCustomerPerBudget.get(budget) + 1);
         marketTotalDemand++;
     }
 
     public void addSupplierOffer(Company company, Integer price, Integer luxury)
     {
         LuxuryPriceGroup tmp = new LuxuryPriceGroup(company, luxury, price);
-        //if (!supplierOffers.containsKey(tmp))
-         //   supplierOffers.put(tmp, 0);
-        //supplierOffers.put(tmp, supplierOffers.get(tmp) + 1);
         supplierOffers.add(tmp);
-        Collections.sort(supplierOffers);
     }
 
 
     public void calculateMarketAnalysis()
     {
-        customersAtPrice = new TreeMap<>();
-        revenueAtPrice = new TreeMap<>();
+        Collections.sort(supplierOffers);
+        maxCustomersAtPrice = new TreeMap<>();
+        maxRevenueAtPrice = new TreeMap<>();
 
         Integer sumcustomers = marketTotalDemand;
-        for (Map.Entry<Integer, Integer> budget : customerBudgets.entrySet())
+        for (Map.Entry<Integer, Integer> budget : numCustomerPerBudget.entrySet())
         {
             Integer customerGroupProhibitivePrice = budget.getKey();
-            customersAtPrice.put(customerGroupProhibitivePrice, sumcustomers);
-            revenueAtPrice.put(customerGroupProhibitivePrice, sumcustomers * customerGroupProhibitivePrice);
+            maxRevenueCustomerGroup.put(customerGroupProhibitivePrice, budget.getValue() * customerGroupProhibitivePrice);
+            maxCustomersAtPrice.put(customerGroupProhibitivePrice, sumcustomers);
+            maxRevenueAtPrice.put(customerGroupProhibitivePrice, sumcustomers * customerGroupProhibitivePrice);
             sumcustomers -= budget.getValue();
+
+            List offerListPerCustomerGroup = new ArrayList();
+            Integer tmpMaxLux = 0, tmpMinPrice=0;
+            for (LuxuryPriceGroup offer : supplierOffers)
+            {
+                //System.out.println(offer.luxury +">"+ tmpMaxLux +"&&"+ offer.price +"<="+ budget.getKey() +"||"+ offer.luxury +"=="+ tmpMaxLux +"&&"+ offer.price +"<"+ budget.getKey());
+                if((offer.luxury > tmpMaxLux && offer.price <= budget.getKey()) || (offer.luxury == tmpMaxLux && offer.price < budget.getKey()))
+                {
+                    tmpMaxLux = offer.luxury;
+                    tmpMinPrice = offer.price;
+                }
+                if(offer.price == tmpMinPrice && offer.luxury == tmpMaxLux)
+                    offerListPerCustomerGroup.add(offer);
+            }
+            offersPerCustomerGroup.put(budget.getKey(), offerListPerCustomerGroup);
         }
+
+
+
     }
 
 
@@ -106,10 +119,10 @@ public class MarketAnalysisData
         stringBuilder.append(
                 "Total Demand: " + marketTotalDemand +
                         "\nTotal Sold: " + marketTotalSold +
-                        "\nBudget => NumCustomers: " + customerBudgets +
+                        "\nBudget => NumCustomers: " + numCustomerPerBudget +
                         "\nCompOffer => NumCompanies: " + supplierOffers +
-                        "\nAt Price => num Customer: " + customersAtPrice +
-                        "\nAt price => Revenue: " + revenueAtPrice +
+                        "\nAt Price => num Customer: " + maxCustomersAtPrice +
+                        "\nAt price => Revenue: " + maxRevenueAtPrice +
                         "\nPlayer: " + numPlayerBought +
                         "\n"
         );

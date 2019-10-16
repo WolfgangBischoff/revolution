@@ -22,10 +22,10 @@ public class Util
     public static final Integer CALENDER_START_YEAR = 2019;
 
     //Society
-    public static final Integer NUM_BASIC_EDU = 5;
-    public static final Integer NUM_APP_EDU = 7;
-    public static final Integer NUM_HIGHER_EDU = 5;
-    public static final Integer NUM_UNIVERSITY_EDU = 3;
+    public static final Integer NUM_BASIC_EDU = 4;
+    public static final Integer NUM_APP_EDU = 5;
+    public static final Integer NUM_HIGHER_EDU = 2;
+    public static final Integer NUM_UNIVERSITY_EDU = 1;
 
     public static final Integer NUM_PERS_DEFAULT = 7; //Random gen
     public static final Integer RATION_BASIC_EDU = 20;

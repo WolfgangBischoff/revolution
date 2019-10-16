@@ -69,8 +69,8 @@ public class MarketanalysisDataStorage
             return;
 
         //analyze optimal prize ceteris paribus
-        List<Pair<Integer, Integer>> customersAtPrice = new ArrayList<>();
-        List<Pair<Integer, Integer>> revenueAtPrice = new ArrayList<>();
+        List<Pair<Integer, Integer>> maxCustomersAtPrice = new ArrayList<>();
+        List<Pair<Integer, Integer>> maxRevenueAtPrice = new ArrayList<>();
 
         Integer sumcustomers = previousDay.marketTotalDemand;//previousDay.numSold;
         Integer priceLastPeriod = owner.getPrice();
@@ -78,12 +78,12 @@ public class MarketanalysisDataStorage
         for (Map.Entry<Integer, Integer> deltaPriceAndNumberPersons : previousDay.toCheap.entrySet())
         {
             Integer customerGroupProhibitivePrice = deltaPriceAndNumberPersons.getKey() + priceLastPeriod;
-            customersAtPrice.add(new Pair<>(customerGroupProhibitivePrice, sumcustomers));
-            revenueAtPrice.add(new Pair<>(customerGroupProhibitivePrice, sumcustomers * (priceLastPeriod + deltaPriceAndNumberPersons.getKey())));
+            maxCustomersAtPrice.add(new Pair<>(customerGroupProhibitivePrice, sumcustomers));
+            maxRevenueAtPrice.add(new Pair<>(customerGroupProhibitivePrice, sumcustomers * (priceLastPeriod + deltaPriceAndNumberPersons.getKey())));
             sumcustomers -= deltaPriceAndNumberPersons.getValue();
         }
-        System.out.println("At Price => Customer" + customersAtPrice);
-        System.out.println("At price => Revenue " + revenueAtPrice);
+        System.out.println("At Price => Customer" + maxCustomersAtPrice);
+        System.out.println("At price => Revenue " + maxRevenueAtPrice);
 */
 
         //analyze to expensive

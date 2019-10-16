@@ -5,8 +5,7 @@ import Core.Enums.IndustryType;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 import static Core.Util.*;
 
@@ -91,6 +90,8 @@ public class Company
         LocalDate yesterday = Simulation.getSingleton().getDate().minusDays(1);
         MarketAnalysisData marketAnalysisData = Market.getMarket().getMarketAnalysisData(industry, yesterday);
         CompanyMarketData companyMarketData = companyMarketDataStorage.getAnalysisData(yesterday);
+        Map<Integer, Integer> priceOptionToExpectedRevenue = new TreeMap<>();
+
         Integer plannedPrice = price;
         if (marketAnalysisData == null || companyMarketDataStorage == null)
         {
@@ -98,6 +99,58 @@ public class Company
             return;
         }
 
+        //calc rev for all prices for all group considering competitors
+        //1 collect all budgets and competitor prices
+        List<Integer> possiblePrices = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> budgets : marketAnalysisData.maxRevenueAtPrice.entrySet())
+            possiblePrices.add(budgets.getKey());
+        for (MarketAnalysisData.LuxuryPriceGroup offer : marketAnalysisData.supplierOffers)
+            if (!possiblePrices.contains(offer.price))
+                possiblePrices.add(offer.price);
+        Collections.sort(possiblePrices);
+        System.out.println("Possible Prices: " + possiblePrices);
+
+        //2 check for all budget revenue at all prices considering competitors
+
+
+
+
+
+
+
+
+        /*
+        System.out.println("\n" + name + " real Rev: " + companyMarketData.revenue + " sold " + companyMarketData.numSold + " at price: " + price + " luxury: " + luxury);
+        System.out.println("Used Capacity: " + companyMarketData.usedCapacity + " / " + companyMarketData.maxCapacity);
+        for (Map.Entry<Integer, Integer> priceToRevenue : marketAnalysisData.maxRevenueCustomerGroup.entrySet())
+        {
+            System.out.println("Pricegroup: " + priceToRevenue.getKey() + " GroupRevenue: " + priceToRevenue.getValue());
+            System.out.println("Offers: " + marketAnalysisData.offersPerCustomerGroup.get(priceToRevenue.getKey()));
+
+            List<MarketAnalysisData.LuxuryPriceGroup> offersOfCustomerGroup = marketAnalysisData.offersPerCustomerGroup.get(priceToRevenue.getKey());
+            Integer totalCompetitors;
+            if(!offersOfCustomerGroup.isEmpty() && price == offersOfCustomerGroup.get(0).price)
+                totalCompetitors = marketAnalysisData.offersPerCustomerGroup.get(priceToRevenue.getKey()).size() -1;
+            else
+                totalCompetitors = marketAnalysisData.offersPerCustomerGroup.get(priceToRevenue.getKey()).size();
+
+            if(offersOfCustomerGroup.isEmpty() || luxury >= offersOfCustomerGroup.get(0).luxury)
+                priceOptionToExpectedRevenue.put(priceToRevenue.getKey(), (priceToRevenue.getValue() / ++totalCompetitors));
+        }
+        //System.out.println("Competitive Rev at possible Prices: " + priceOptionToExpectedRevenue);
+*/
+
+
+
+
+
+
+
+
+
+
+
+/*
         //check market oppurtunities
         Integer maxRevenueAtCurrentPrice = 0;
         Integer maxCustomersAtCurrentPrice = 0;
@@ -106,7 +159,7 @@ public class Company
         Integer maxRevenueMarketPrice = 0;
         Integer maxRevenueNumCustomers = 0;
         Integer capacityNeededForMaxRevenueCustomers =0;
-        for (Map.Entry<Integer, Integer> priceToRevenue : marketAnalysisData.revenueAtPrice.entrySet())
+        for (Map.Entry<Integer, Integer> priceToRevenue : marketAnalysisData.maxRevenueAtPrice.entrySet())
         {
             //max revenue at current price
             if (priceToRevenue.getKey() <= price)
@@ -119,7 +172,7 @@ public class Company
             {
                 maxRevenueMarket = priceToRevenue.getValue();
                 maxRevenueMarketPrice = priceToRevenue.getKey();
-                maxRevenueNumCustomers = marketAnalysisData.customersAtPrice.get(maxRevenueMarketPrice);
+                maxRevenueNumCustomers = marketAnalysisData.maxCustomersAtPrice.get(maxRevenueMarketPrice);
             }
         }
 
@@ -177,7 +230,7 @@ public class Company
         Integer exprectedCustomersAtPlannedPrice = 0;
         if(plannedPrice != price)
         {
-            for (Map.Entry<Integer, Integer> priceToCustomer : marketAnalysisData.customersAtPrice.entrySet())
+            for (Map.Entry<Integer, Integer> priceToCustomer : marketAnalysisData.maxCustomersAtPrice.entrySet())
                 //max revenue at current price
                 if (priceToCustomer.getKey() <= plannedPrice)
                     exprectedCustomersAtPlannedPrice = priceToCustomer.getValue();
@@ -202,7 +255,7 @@ public class Company
         price = plannedPrice;
         System.out.println("New Price: " + plannedPrice);
 
-
+*/
     }
 
     private void calcPrice()
