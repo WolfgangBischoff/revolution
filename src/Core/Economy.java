@@ -151,7 +151,6 @@ public class Economy
         companies.clear();
         createTest(testcase);
         economyStatistics.calcState();
-        //initPeriod()??
     }
 
 

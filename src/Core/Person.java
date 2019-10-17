@@ -38,7 +38,7 @@ public class Person // implements ProductOwner
 
     public Person(EducationalLayer definedEdu)
     {
-        this(new PersonName(chooseRandomFirstname(), chooseRandomLastname()), getRandom().nextInt(75), definedEdu, PERSON_DEFAULT_DEPOSIT);
+        this(new PersonName(chooseRandomFirstname(), chooseRandomLastname()), getRandom().nextInt(75), definedEdu, definedEdu.getInt() * definedEdu.getInt() * PERSON_DEFAULT_DEPOSIT);
     }
 
     public Person(PersonName name)

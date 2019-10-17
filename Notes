@@ -2,7 +2,8 @@
 KNOWN BUGS:
 
 TODOS:
-    improve market logic
+    MarketLogic, add Luxury change
+    Economy, change hire to more fitting workplaces and distribute equally over comps
     Save
     Wohnhouse, housing not just comsumer product but also owner
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)

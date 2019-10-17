@@ -98,7 +98,6 @@ public class Company
             return;
         }
 
-
         //Collect all customer prohibitive prices and competitor prices
         List<Integer> possiblePrices = new ArrayList<>();
         for (Map.Entry<Integer, Integer> budgets : marketAnalysisData.maxRevenueAtPrice.entrySet())
@@ -108,10 +107,46 @@ public class Company
                 possiblePrices.add(offer.price);
         Collections.sort(possiblePrices);
         System.out.println("\n" + name + " real Rev: " + companyMarketData.revenue + " sold " + companyMarketData.numSold + " at price: " + price + " luxury: " + luxury);
-        System.out.println("Possible Prices: " + possiblePrices);
         System.out.println("P\\B" + marketAnalysisData.maxRevenueAtPrice.keySet());
 
 
+        //Calc expected revenues per customer-budget group for all defined prices considering competitors and prohibitive prices
+        Map<Integer, List<Integer>> priceToCustomerGroupRevenues = calcExpectedRevenuePerCustomerBudgetGroupForPrices(possiblePrices, marketAnalysisData);
+
+        //Sum up customer budget groups per price
+        Map<Integer, Integer> priceToExpectedRevenue = new TreeMap<>();
+        for(Map.Entry<Integer, List<Integer>> priceData : priceToCustomerGroupRevenues.entrySet())
+        {
+            List<Integer> customerGroupData = priceData.getValue();
+            Integer sum = 0;
+            for(Integer entry : customerGroupData)
+                sum+=entry;
+            priceToExpectedRevenue.put(priceData.getKey(), sum);
+        }
+        System.out.println(priceToExpectedRevenue);
+
+        Integer max = 0;
+        Integer bestPrice = price;
+        for(Map.Entry<Integer, Integer> priceData : priceToExpectedRevenue.entrySet())
+        {
+            if(priceData.getValue() > max)
+            {
+                max = priceData.getValue();
+                bestPrice = priceData.getKey();
+            }
+        }
+        System.out.println("Set price to: " + bestPrice);
+        price = bestPrice;
+
+        //TODO Decide on price
+
+        //TODO Decide if luxury or capacity should be changed
+
+
+    }
+
+    private Map<Integer, List<Integer>> calcExpectedRevenuePerCustomerBudgetGroupForPrices(List<Integer> possiblePrices, MarketAnalysisData marketAnalysisData)
+    {
         //Calc expected revenues per customer-budget group for all defined prices considering competitors and prohibitive prices
         Map<Integer, List<Integer>> priceToCustomerGroupRevenues = new TreeMap<>();
         //Foreach given price
@@ -173,13 +208,7 @@ public class Company
             System.out.println(priceOption + ": " + revenuesAtPrice);
         }
 
-        //TODO Sum up customer budget groups per price
-
-        //TODO Decide on price
-
-        //TODO Decide if luxury or capacity should be changed
-
-
+        return priceToCustomerGroupRevenues;
     }
 
 
