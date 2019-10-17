@@ -95,7 +95,8 @@ public class MarketAnalysisData
                     tmpMaxLux = offer.luxury;
                     tmpMinPrice = offer.price;
                 }
-                if(offer.price == tmpMinPrice && offer.luxury == tmpMaxLux)
+                //if(offer.price == tmpMinPrice && offer.luxury == tmpMaxLux)
+                if(offer.price <= budget.getKey())
                     offerListPerCustomerGroup.add(offer);
             }
             offersPerCustomerGroup.put(budget.getKey(), offerListPerCustomerGroup);

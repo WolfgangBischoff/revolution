@@ -90,17 +90,16 @@ public class Company
         LocalDate yesterday = Simulation.getSingleton().getDate().minusDays(1);
         MarketAnalysisData marketAnalysisData = Market.getMarket().getMarketAnalysisData(industry, yesterday);
         CompanyMarketData companyMarketData = companyMarketDataStorage.getAnalysisData(yesterday);
-        Map<Integer, Integer> priceOptionToExpectedRevenue = new TreeMap<>();
 
-        Integer plannedPrice = price;
+        //Integer plannedPrice = price;
         if (marketAnalysisData == null || companyMarketDataStorage == null)
         {
             System.out.println("No Market Data Found");
             return;
         }
 
-        //calc rev for all prices for all group considering competitors
-        //1 collect all budgets and competitor prices
+
+        //Collect all customer prohibitive prices and competitor prices
         List<Integer> possiblePrices = new ArrayList<>();
         for (Map.Entry<Integer, Integer> budgets : marketAnalysisData.maxRevenueAtPrice.entrySet())
             possiblePrices.add(budgets.getKey());
@@ -108,170 +107,80 @@ public class Company
             if (!possiblePrices.contains(offer.price))
                 possiblePrices.add(offer.price);
         Collections.sort(possiblePrices);
-        System.out.println("Possible Prices: " + possiblePrices);
-
-        //2 check for all budget revenue at all prices considering competitors
-
-
-
-
-
-
-
-
-        /*
         System.out.println("\n" + name + " real Rev: " + companyMarketData.revenue + " sold " + companyMarketData.numSold + " at price: " + price + " luxury: " + luxury);
-        System.out.println("Used Capacity: " + companyMarketData.usedCapacity + " / " + companyMarketData.maxCapacity);
-        for (Map.Entry<Integer, Integer> priceToRevenue : marketAnalysisData.maxRevenueCustomerGroup.entrySet())
+        System.out.println("Possible Prices: " + possiblePrices);
+        System.out.println("P\\B" + marketAnalysisData.maxRevenueAtPrice.keySet());
+
+
+        //Calc expected revenues per customer-budget group for all defined prices considering competitors and prohibitive prices
+        Map<Integer, List<Integer>> priceToCustomerGroupRevenues = new TreeMap<>();
+        //Foreach given price
+        for (Integer priceOption : possiblePrices)
         {
-            System.out.println("Pricegroup: " + priceToRevenue.getKey() + " GroupRevenue: " + priceToRevenue.getValue());
-            System.out.println("Offers: " + marketAnalysisData.offersPerCustomerGroup.get(priceToRevenue.getKey()));
-
-            List<MarketAnalysisData.LuxuryPriceGroup> offersOfCustomerGroup = marketAnalysisData.offersPerCustomerGroup.get(priceToRevenue.getKey());
-            Integer totalCompetitors;
-            if(!offersOfCustomerGroup.isEmpty() && price == offersOfCustomerGroup.get(0).price)
-                totalCompetitors = marketAnalysisData.offersPerCustomerGroup.get(priceToRevenue.getKey()).size() -1;
-            else
-                totalCompetitors = marketAnalysisData.offersPerCustomerGroup.get(priceToRevenue.getKey()).size();
-
-            if(offersOfCustomerGroup.isEmpty() || luxury >= offersOfCustomerGroup.get(0).luxury)
-                priceOptionToExpectedRevenue.put(priceToRevenue.getKey(), (priceToRevenue.getValue() / ++totalCompetitors));
-        }
-        //System.out.println("Competitive Rev at possible Prices: " + priceOptionToExpectedRevenue);
-*/
-
-
-
-
-
-
-
-
-
-
-
-/*
-        //check market oppurtunities
-        Integer maxRevenueAtCurrentPrice = 0;
-        Integer maxCustomersAtCurrentPrice = 0;
-
-        Integer maxRevenueMarket = 0;
-        Integer maxRevenueMarketPrice = 0;
-        Integer maxRevenueNumCustomers = 0;
-        Integer capacityNeededForMaxRevenueCustomers =0;
-        for (Map.Entry<Integer, Integer> priceToRevenue : marketAnalysisData.maxRevenueAtPrice.entrySet())
-        {
-            //max revenue at current price
-            if (priceToRevenue.getKey() <= price)
+            //Foreach Customer Group
+            List<Integer> revenuesAtPrice = new ArrayList<>();
+            for (Map.Entry<Integer, Integer> customerGroup : marketAnalysisData.numCustomerPerBudget.entrySet())
             {
-                maxRevenueAtCurrentPrice = priceToRevenue.getValue();
-                maxCustomersAtCurrentPrice = priceToRevenue.getKey();
-            }
-            //max revenue on whole market
-            if (priceToRevenue.getValue() >= maxRevenueMarket)
-            {
-                maxRevenueMarket = priceToRevenue.getValue();
-                maxRevenueMarketPrice = priceToRevenue.getKey();
-                maxRevenueNumCustomers = marketAnalysisData.maxCustomersAtPrice.get(maxRevenueMarketPrice);
-            }
-        }
+                Integer budget = customerGroup.getKey();
+                Integer numCustomers = customerGroup.getValue();
+                Integer expRev = 0;
+                Integer totalCompetitors = 1;
+                List<MarketAnalysisData.LuxuryPriceGroup> offersOfCustomerGroup = marketAnalysisData.offersPerCustomerGroup.get(budget);
 
-        System.out.println("\n" + name + " Expected Rev: " + maxRevenueAtCurrentPrice  + " maxCustomer at price "+ maxCustomersAtCurrentPrice + " real Rev: " + companyMarketData.revenue + " at price: " + price);
-        System.out.println("MARKET OPPURTUNITIES");
-        System.out.println("Market maxRevenue " + maxRevenueMarket + " at price " + maxRevenueMarketPrice + " with customers " + maxRevenueNumCustomers);
+                //System.out.println("Price Option " + priceOption + " Budget " + budget);
+                //To expensive for customer group
+                if (priceOption > budget)
+                {
+                    expRev = 0;
+                }
+                //Affordable for customers and no Competitors
+                else if (offersOfCustomerGroup.isEmpty())
+                {
+                    expRev = numCustomers * priceOption;
+                }
+                //Affordable but have to consider competitors
+                else
+                {
+                    boolean betterCompetitor = false;
+                    //check all competitors (just affordable ones are in market data)
+                    for (MarketAnalysisData.LuxuryPriceGroup competitorOffer : offersOfCustomerGroup)
+                    {
+                        //System.out.println("is Competitor " + competitorOffer.luxury +" == "+ luxury +" && "+ competitorOffer.price +" == "+ priceOption +" && "+ (competitorOffer.company != this));
+                        //Better Competitor in customer group
+                        if (competitorOffer.luxury > luxury || (competitorOffer.luxury == luxury && competitorOffer.price < priceOption && competitorOffer.company != this))
+                        {
+                            betterCompetitor = true;
+                        }
+                        //Competitor on same level
+                        else if (competitorOffer.luxury == luxury && competitorOffer.price == priceOption && competitorOffer.company != this)
+                            totalCompetitors++;
+                        //Case were competitor has lower luxury or higher price not relevant
+                    }
 
-        if (maxRevenueAtCurrentPrice.equals(companyMarketData.revenue))
-            System.out.println("Maxed Revenue at price");
-        if (maxRevenueMarket == maxRevenueAtCurrentPrice)
-            System.out.println("Chose price that max Market revenue");
-        else
-            plannedPrice = maxRevenueMarketPrice;
+                    //System.out.println("Better Comp: " + betterCompetitor);
+                    //System.out.println("(" + numCustomers + " * " + priceOption + ")/ " + totalCompetitors);
+                    if (betterCompetitor)
+                        expRev = 0;
+                    else
+                        expRev = (numCustomers * priceOption) / totalCompetitors;
+                }
 
-        //check capacity problems
-        System.out.println("Used Capacity: " + companyMarketData.usedCapacity + " / " + companyMarketData.maxCapacity);
-        if(companyMarketData.usedCapacity + companyMarketData.capacityCostPerCustomer >= companyMarketData.maxCapacity)
-            System.out.println("Capacity limit met");
-
-        //check competitor constraints
-        Integer luxuryCompetitor = -1;
-        Integer cheaperCompetitorWithSameLuxuryPrice = -1;
-        Integer numberCompSameOffer = 0;
-        for (MarketAnalysisData.LuxuryPriceGroup offer : marketAnalysisData.supplierOffers)
-        {
-            if (offer.company == this)
-                continue;
-
-            //is there competitor with more luxury?
-            if (luxuryCompetitor == -1 && offer.luxury > luxury)
-            {
-                luxuryCompetitor = offer.luxury;
+                //System.out.println("Added: " + expRev);
+                revenuesAtPrice.add(expRev);
             }
-            //is there a cheaper competitor with same quality?
-            if (offer.price < plannedPrice && offer.luxury == luxury)
-            {
-                cheaperCompetitorWithSameLuxuryPrice = offer.price;
-            }
-            //is there a equal offer?
-            if (offer.price == price && offer.luxury == luxury)
-            {
-                numberCompSameOffer++;
-            }
+
+            priceToCustomerGroupRevenues.put(priceOption, revenuesAtPrice);
+            System.out.println(priceOption + ": " + revenuesAtPrice);
         }
 
 
-        System.out.println("Found competitor with more Luxury: " + luxuryCompetitor);
-        System.out.println("Found competitor with less price: " + cheaperCompetitorWithSameLuxuryPrice);
-        System.out.println("Same offer: " + numberCompSameOffer);
+        //TODO Decide on price
 
-        if (cheaperCompetitorWithSameLuxuryPrice != -1)
-            plannedPrice = cheaperCompetitorWithSameLuxuryPrice;
+        //TODO Decide if luxury or capacity should be changed
 
-        Integer expectedRevenuePriceChange = 0;
-        Integer exprectedCustomersAtPlannedPrice = 0;
-        if(plannedPrice != price)
-        {
-            for (Map.Entry<Integer, Integer> priceToCustomer : marketAnalysisData.maxCustomersAtPrice.entrySet())
-                //max revenue at current price
-                if (priceToCustomer.getKey() <= plannedPrice)
-                    exprectedCustomersAtPlannedPrice = priceToCustomer.getValue();
 
-            //TODO expected dependen from numcustomer and companies at this price
-            expectedRevenuePriceChange = exprectedCustomersAtPlannedPrice * plannedPrice;
-            System.out.println("PlannedPrice: ExpRev " +expectedRevenuePriceChange +" with numCustomer " + exprectedCustomersAtPlannedPrice);
-        }
-
-        //TODO Check if revenue at price is higher with higher quality
-        //TODO or lower quality
-        Integer qualityGapToCompetitor = -1;
-        Integer expectedRevenueQualityIncrease = -1;
-        if(luxuryCompetitor != -1)
-        {
-            qualityGapToCompetitor = luxuryCompetitor - companyMarketData.dLuxury;
-            expectedRevenueQualityIncrease = (qualityGapToCompetitor + calcProductionEffort()) * maxCustomersAtCurrentPrice;
-            System.out.println("Quality Gap detected: " + qualityGapToCompetitor + " expected Rev: " + expectedRevenueQualityIncrease);
-        }
-
-        //TODO Decide which Action is best
-        price = plannedPrice;
-        System.out.println("New Price: " + plannedPrice);
-
-*/
     }
 
-    private void calcPrice()
-    {
-        price = 5;
-    }
-
-    private void calcLuxury()
-    {
-        luxury = 3;
-    }
-
-    private void calcCapacity()
-    {
-
-    }
 
     public Integer calcProductionEffort()
     {
