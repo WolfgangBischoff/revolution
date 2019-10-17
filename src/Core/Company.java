@@ -173,6 +173,7 @@ public class Company
             System.out.println(priceOption + ": " + revenuesAtPrice);
         }
 
+        //TODO Sum up customer budget groups per price
 
         //TODO Decide on price
 
