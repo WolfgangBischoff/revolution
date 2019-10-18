@@ -394,13 +394,11 @@ public class Interpreter
     private void societyAdd(String[] inputOptions)
     {
         String methodname = "societyAdd()";
-        String possibleArguments = "[random]";
+        String possibleArguments = POSSIBLE_ARGUMENTS + "[\"firstname\" \"lastname\", random(num)]";
         //Case no options
         if (inputOptions.length == 0)
         {
-            Person newPerson = new Person();
-            society.addPerson(newPerson);
-            print("Added Person: " + newPerson);
+            print(possibleArguments);
             return;
         }
 
@@ -534,7 +532,6 @@ public class Interpreter
         throw new InterpreterInvalidArgumentException(methodname, inputArguments[0], possibleArguments);
     }
 
-
     private void societyCalc()
     {
         society.calcSocietyDaily();
@@ -557,7 +554,7 @@ public class Interpreter
     private void economyPrint(String[] inputArguments)
     {
         String methodname = "economyPrint()";
-        String possibleArguments = "[company, market, analysis(type)]";
+        String possibleArguments = "[company(detail), market, analysis(type)]";
         String[] residualInputArguments = cutFirstIndexPositions(inputArguments, 1);
         //Case no options
         if (inputArguments.length == 0)

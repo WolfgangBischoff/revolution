@@ -34,19 +34,11 @@ public class Company
     public Company(String name, IndustryType industry, Integer Initdeposit)
     {
         this(name, industry, Initdeposit, 5,0);
-        /*this.name = name;
-        deposit = Initdeposit;
-        this.industry = industry;
-        Market.getMarket().addCompany(this);*/
     }
 
     public Company(IndustryType type, Integer price, Integer luxury)
     {
         this(Economy.getEconomy().createUniqueCompanyName(getRandomCompanyName(type)), type, COMP_DEFAULT_DEPOSIT, price, luxury);
-      /*  this(Economy.getEconomy().createUniqueCompanyName(getRandomCompanyName(type)), type);
-        this.price = price;
-        this.luxury = luxury;
-        addDefaultWorkplaces();*/
     }
 
     public Company(String name, IndustryType industry, Integer Initdeposit, Integer price, Integer luxury)
@@ -60,25 +52,6 @@ public class Company
         addDefaultWorkplaces();
     }
 
-/*
-    public Company(String name, Integer base, Integer app, Integer high, Integer univ)
-    {
-        this(name, COMP_DEFAULT_INDUSTRY, base, app, high, univ);
-    }
-
-
-    public Company(String name, IndustryType industry, Integer base, Integer app, Integer high, Integer univ)
-    {
-        this(name, industry);
-        for (int i = 0; i < base; i++)
-            workpositions.add(new Workposition(this, EducationalLayer.EDU_BASE));
-        for (int i = 0; i < app; i++)
-            workpositions.add(new Workposition(this, EducationalLayer.EDU_APPRENTICESHIP));
-        for (int i = 0; i < high; i++)
-            workpositions.add(new Workposition(this, EducationalLayer.EDU_HIGHER));
-        for (int i = 0; i < univ; i++)
-            workpositions.add(new Workposition(this, EducationalLayer.EDU_UNIVERSITY));
-    }*/
 
     //Calculations
     public void initPeriod()
