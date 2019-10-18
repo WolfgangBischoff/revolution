@@ -38,7 +38,7 @@ public class Util
     public static final String DEFAULT_FIRSTNAME = "FIRSTNAME";
     public static final String DEFAULT_LASTNAME = "LASTNAME";
     public static final EducationalLayer DEFAULT_EDU = EducationalLayer.EDU_BASE;
-    public static final Integer PERSON_DEFAULT_DEPOSIT = 20000;
+    public static final Integer PERSON_DEFAULT_DEPOSIT = 1500;
     public static final int INIT_BASE_HAPPINESS = 100;
     public static final int THRESHOLD_VERY_POOR = 1000;
     public static final int THRESHOLD_POOR = 1400;
@@ -113,18 +113,22 @@ public class Util
     public static String[] readFirstLineFromTxt(String pathToCsv)
     {//Reads first line
         String row = null;
-        String[] data = null;
+        String[] rawdata = null;
         try
         {
             BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
             row = csvReader.readLine();
-            data = row.split(",");
+            rawdata = row.split(",");
             csvReader.close();
         } catch (IOException e)
         {
             e.printStackTrace();
         }
-        return data;
+        String[] trimmed = new String[rawdata.length];
+        for(int i=0; i<rawdata.length; i++)
+            trimmed[i] = rawdata[i].trim();
+
+        return trimmed;
     }
 
     public static List<String[]> readAllLineFromTxt(String pathToCsv, boolean ignoreFirstLine)

@@ -16,7 +16,6 @@ public class Workposition
     Integer incomeTaxWork = 0;
     Person worker = null;
     Company company;
-    //Integer daysToPay = 0;
     LocalDate hasWorkerSince;
 
 
@@ -47,19 +46,26 @@ public class Workposition
         switch (paygrade)
         {
             case A:
-                grossIncomeWork = PAYGRADE_GROSS_INCOME_A; break;
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_A;
+                break;
             case B:
-                grossIncomeWork = PAYGRADE_GROSS_INCOME_B; break;
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_B;
+                break;
             case C:
-                grossIncomeWork = PAYGRADE_GROSS_INCOME_C; break;
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_C;
+                break;
             case D:
-                grossIncomeWork = PAYGRADE_GROSS_INCOME_D; break;
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_D;
+                break;
             case E:
-                grossIncomeWork = PAYGRADE_GROSS_INCOME_E; break;
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_E;
+                break;
             case F:
-                grossIncomeWork = PAYGRADE_GROSS_INCOME_F; break;
+                grossIncomeWork = PAYGRADE_GROSS_INCOME_F;
+                break;
             default:
-                grossIncomeWork = 0; break;
+                grossIncomeWork = 0;
+                break;
         }
     }
 
@@ -73,10 +79,20 @@ public class Workposition
     public String toString()
     {
         return "\nWorkposition{" +
-                "neededEducation=" + neededEducation +
-                "netIncome=" + netIncomeWork +
-                ", worker=" + worker +
+                " neededEducation=" + neededEducation +
+                " netIncome=" + netIncomeWork +
                 '}';
+    }
+
+    public String dataBase()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("WP Needed: " + getNeededEducation() + " Gross: " + getGrossIncomeWork());
+        if (worker != null)
+            stringBuilder.append(" " + worker.name + " " + worker.getEducationalLayer());
+        else
+            stringBuilder.append(" No Worker");
+        return stringBuilder.toString();
     }
 
     public void setPaygrade()
@@ -88,7 +104,7 @@ public class Workposition
     public void setWorker(Person worker)
     {
         hasWorkerSince = Simulation.getSingleton().getDate();
-        if(worker == null)
+        if (worker == null)
         {
             hasWorkerSince = null;
         }

@@ -33,25 +33,39 @@ public class Company
 
     public Company(String name, IndustryType industry, Integer Initdeposit)
     {
-        this.name = name;
+        this(name, industry, Initdeposit, 5,0);
+        /*this.name = name;
         deposit = Initdeposit;
         this.industry = industry;
-
-        Market.getMarket().addCompany(this);
+        Market.getMarket().addCompany(this);*/
     }
 
     public Company(IndustryType type, Integer price, Integer luxury)
     {
-        this(Economy.getEconomy().createUniqueCompanyName(getRandomCompanyName(type)), type);
+        this(Economy.getEconomy().createUniqueCompanyName(getRandomCompanyName(type)), type, COMP_DEFAULT_DEPOSIT, price, luxury);
+      /*  this(Economy.getEconomy().createUniqueCompanyName(getRandomCompanyName(type)), type);
+        this.price = price;
+        this.luxury = luxury;
+        addDefaultWorkplaces();*/
+    }
+
+    public Company(String name, IndustryType industry, Integer Initdeposit, Integer price, Integer luxury)
+    {
+        this.name = name;
+        deposit = Initdeposit;
+        this.industry = industry;
+        Market.getMarket().addCompany(this);
         this.price = price;
         this.luxury = luxury;
         addDefaultWorkplaces();
     }
 
+/*
     public Company(String name, Integer base, Integer app, Integer high, Integer univ)
     {
         this(name, COMP_DEFAULT_INDUSTRY, base, app, high, univ);
     }
+
 
     public Company(String name, IndustryType industry, Integer base, Integer app, Integer high, Integer univ)
     {
@@ -64,7 +78,7 @@ public class Company
             workpositions.add(new Workposition(this, EducationalLayer.EDU_HIGHER));
         for (int i = 0; i < univ; i++)
             workpositions.add(new Workposition(this, EducationalLayer.EDU_UNIVERSITY));
-    }
+    }*/
 
     //Calculations
     public void initPeriod()
@@ -106,8 +120,8 @@ public class Company
             if (!possiblePrices.contains(offer.price))
                 possiblePrices.add(offer.price);
         Collections.sort(possiblePrices);
-        System.out.println("\n" + name + " real Rev: " + companyMarketData.revenue + " sold " + companyMarketData.numSold + " at price: " + price + " luxury: " + luxury);
-        System.out.println("P\\B" + marketAnalysisData.maxRevenueAtPrice.keySet());
+        //System.out.println("\n" + name + " real Rev: " + companyMarketData.revenue + " sold " + companyMarketData.numSold + " at price: " + price + " luxury: " + luxury);
+        //System.out.println("P\\B" + marketAnalysisData.maxRevenueAtPrice.keySet());
 
 
         //Calc expected revenues per customer-budget group for all defined prices considering competitors and prohibitive prices
@@ -123,7 +137,7 @@ public class Company
                 sum+=entry;
             priceToExpectedRevenue.put(priceData.getKey(), sum);
         }
-        System.out.println(priceToExpectedRevenue);
+        //System.out.println(priceToExpectedRevenue);
 
         Integer max = 0;
         Integer bestPrice = price;
@@ -135,10 +149,12 @@ public class Company
                 bestPrice = priceData.getKey();
             }
         }
-        System.out.println("Set price to: " + bestPrice);
+        //System.out.println("Set price to: " + bestPrice);
+
+
+        //Decide on price
         price = bestPrice;
 
-        //TODO Decide on price
 
         //TODO Decide if luxury or capacity should be changed
 
@@ -205,7 +221,7 @@ public class Company
             }
 
             priceToCustomerGroupRevenues.put(priceOption, revenuesAtPrice);
-            System.out.println(priceOption + ": " + revenuesAtPrice);
+            //System.out.println(priceOption + ": " + revenuesAtPrice);
         }
 
         return priceToCustomerGroupRevenues;
@@ -368,13 +384,20 @@ public class Company
     {
         return "\nCompany{" +
                 "name='" + name + '\'' +
-                ", workpositions=" + workpositions +
                 '}';
     }
 
-    public String baseData()
+    public String dataBase()
     {
         return "Name: " + name + " Workers: " + calcNumberWorkers() + " Deposit: " + deposit + " Price: " + price + " Luxury: " + luxury;
+    }
+
+    public String dataWorkpositions()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Workposition workposition : workpositions)
+            stringBuilder.append("\n"+ workposition.dataBase() );
+        return stringBuilder.toString();
     }
 
     public String dataAnalysis()

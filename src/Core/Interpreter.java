@@ -47,6 +47,7 @@ public class Interpreter
     private Set<String> keywordsTime = new HashSet<>(Arrays.asList("time"));
     private Set<String> keywordsNext = new HashSet<>(Arrays.asList("next"));
     private Set<String> keywordsAnalysis = new HashSet<>(Arrays.asList("analysis", "anal"));
+    private Set<String> keywordsDetail = new HashSet<>(Arrays.asList("detail","det"));
 
     private Map<InterpreterKeyword, Set<String>> keywords = new HashMap<>();
 
@@ -86,6 +87,7 @@ public class Interpreter
         keywords.put(InterpreterKeyword.TIME, keywordsTime);
         keywords.put(InterpreterKeyword.NEXT, keywordsNext);
         keywords.put(InterpreterKeyword.ANALYSIS, keywordsAnalysis);
+        keywords.put(InterpreterKeyword.DETAIL, keywordsDetail);
     }
 
     public void setConsole(Console console)
@@ -96,7 +98,6 @@ public class Interpreter
     //Helptext
     private void printGeneralHelp(String possibleArg)
     {
-
         print(
                 "Instructions:\n" +
                         possibleArg
@@ -569,7 +570,7 @@ public class Interpreter
             switch (getKeyword(inputArguments[0]))
             {
                 case COMPANY:
-                    print(economy.economyBaseCompanyData());
+                    economyPrintCompany(residualInputArguments);
                     return;
                 case MARKET:
                     economyPrintMarket(residualInputArguments);
@@ -580,6 +581,20 @@ public class Interpreter
             }
         throw new InterpreterInvalidArgumentException(methodname, inputArguments[0], possibleArguments);
 
+    }
+
+    private void economyPrintCompany(String[] inputArguments)
+    {
+        if(inputArguments.length == 0)
+        {
+            print(economy.economyBaseCompanyData(null));
+        }
+        else if(isKeyword(inputArguments[0]))
+        {
+            InterpreterKeyword interpreterKeyword = getKeyword(inputArguments[0]);
+            if(interpreterKeyword == InterpreterKeyword.DETAIL)
+                print(economy.economyBaseCompanyData(interpreterKeyword));
+        }
     }
 
     private void economyPrintMarket(String[] inputArguments)

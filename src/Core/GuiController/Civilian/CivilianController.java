@@ -36,7 +36,7 @@ public class CivilianController implements Controller
 
     public CivilianController()
     {
-        //load baseData fxml
+        //load dataBase fxml
         civilianBaseData = new CivilianBaseData();
         loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civilianBaseData.fxml"));
         loader.setController(civilianBaseData);

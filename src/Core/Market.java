@@ -144,7 +144,7 @@ public class Market
             stringBuilder.append(industry.getKey() + "\n");
             List<Company> companies = industry.getValue();
             for (Company company : companies)
-                stringBuilder.append("\t" + company.baseData() + "\n");
+                stringBuilder.append("\t" + company.dataBase() + "\n");
         }
         stringBuilder.append(companySaleNumbers);
         return stringBuilder.toString();

@@ -1,12 +1,11 @@
 package Core;
 
-import Core.Enums.BudgetPost;
 import Core.Enums.IndustryType;
+import Core.Enums.InterpreterKeyword;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Enums.IndustryType.FOOD;
 import static Core.Util.*;
 
 public class Economy
@@ -62,7 +61,7 @@ public class Economy
     public Company addCompany(String name)
     {
         String UniqueName = createUniqueCompanyName(name);
-        Company newCompany = new Company(UniqueName, NUM_BASE_EDU_WORKPLACES, NUM_APPR_EDU_WORKPLACES, NUM_HIGH_EDU_WORKPLACES, NUM_UNIV_EDU_WORKPLACES);
+        Company newCompany = new Company(UniqueName);
         companies.add(newCompany);
         return newCompany;
     }
@@ -158,7 +157,10 @@ public class Economy
     public void fillWorkplaces(Company company)
     {
         ArrayList<Person> worker = Society.getSociety().getPeople();
-        for(Workposition workposition : company.getWorkpositions())
+        ArrayList<Workposition> workpositions = company.getWorkpositions();
+
+
+        for(Workposition workposition : workpositions)
         {
             for(Person person : worker)
             {
@@ -171,6 +173,33 @@ public class Economy
 
     public void fillWorkplaces()
     {
+        //Forall persons beginning with workers
+        ArrayList<Person> worker = Society.getSociety().getPeople();
+        /*worker.sort(new Comparator<Person>()
+        {
+            @Override
+            public int compare(Person o1, Person o2)
+            {
+                if(o1.getEducationalLayer().getInt() > o2.getEducationalLayer().getInt())
+                    return -1;
+                if(o1.getEducationalLayer().getInt() < o2.getEducationalLayer().getInt())
+                    return 1;
+                return 0;
+
+            }
+        });*/
+        for(Person person : worker)
+        {
+            for(Company company : companies)
+            {
+                if(company.calcNumberFreeWorkpositions() > 0)
+                    person.applyToCompany(company);
+            }
+        }
+
+        //Apply at all companies with best Wp first
+
+
         for(Company company : companies)
         {
             fillWorkplaces(company);
@@ -192,18 +221,19 @@ public class Economy
         return "#Companies: " + companies.size() + " #FreeWorkplaces: " + calcNumberFreeWorkpositions() + " CompanyDeposits: " + economyStatistics.getSumCompanyDeposits();
     }
 
-    public String economyBaseCompanyData()
+    public String economyBaseCompanyData(InterpreterKeyword keyword)
     {
         if(companies.size()==0)
             return "Economy has no companies";
         StringBuilder tmp = new StringBuilder();
         for(Company company : companies)
         {
-            tmp.append(company.baseData() + "\n");
+            tmp.append("\n" + company.dataBase());
+            if(keyword == InterpreterKeyword.DETAIL)
+                tmp.append(company.dataWorkpositions() + "\n");
         }
         return tmp.toString();
     }
-
 
     public String dataMarketAnalysis(IndustryType type)
     {

@@ -3,7 +3,9 @@ package Core;
 import Core.Enums.*;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static Core.Enums.IndustryType.*;
@@ -174,7 +176,7 @@ public class Person // implements ProductOwner
                 bestSupplier.produce();
                 bestSupplier.getPaid(bestSupplier.getPrice());
 
-                //System.out.println(name + " Best " + bestSupplier.baseData());
+                //System.out.println(name + " Best " + bestSupplier.dataBase());
                 //System.out.println(consumeDataStorage.dataConsume());
             }
         }
@@ -215,13 +217,12 @@ public class Person // implements ProductOwner
 
     public String dataLayer()
     {
-        return "Edu: " + educationalLayer + " Eco: " + economicLayer + " Pol: " + politicalOpinion;
+        return "Edu: " + educationalLayer;
     }
 
     public String dataBudget()
     {
         return budgetPlan.budgetData()
-                //+ "\n" + budgetPlan.basicNeedsData()
                 ;
     }
 
@@ -253,6 +254,33 @@ public class Person // implements ProductOwner
             return worksAt.netIncomeWork;
         else
             return 0;
+    }
+
+    public void applyToCompany(Company company)
+    {
+        List<Workposition> vacancies = company.getFreeWorkpositions();
+        //Apply to UNIV workposition first
+        vacancies.sort(new Comparator<Workposition>()
+        {
+            @Override
+            public int compare(Workposition o1, Workposition o2)
+            {
+                if(o1.getNeededEducation().getInt() < o2.getNeededEducation().getInt())
+                    return 1;
+                else if (o1.getNeededEducation().getInt() > o2.getNeededEducation().getInt())
+                    return  -1;
+                else return 0;
+            }
+        });
+        //Apply to all position beginning with highest edu needed
+        for(Workposition workposition : vacancies)
+        {
+            if(workposition.isWorkerAppropriate(this))
+            {
+                company.employWorker(workposition, this);
+                break;
+            }
+        }
     }
 
     public void startAtWorkposition(Workposition workposition)
