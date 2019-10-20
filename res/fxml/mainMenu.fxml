@@ -60,30 +60,35 @@
                             onAction="#startAsCiv"
                     />
 
-                    <Button text="Society Overview" prefWidth="200"
+                    <Button text="Start as Company" prefWidth="200"
                             GridPane.columnIndex="1" GridPane.rowIndex="1"
+                            onAction="#startAsCompany"
+                    />
+
+                    <Button text="Society Overview" prefWidth="200"
+                            GridPane.columnIndex="1" GridPane.rowIndex="3"
                             onAction="#gotoSocietyButton"
                     />
 
 
                     <Button text="Economy Overview" prefWidth="200"
-                            GridPane.columnIndex="1" GridPane.rowIndex="2"
+                            GridPane.columnIndex="1" GridPane.rowIndex="4"
                             onAction="#gotoEconomyButton"
                     />
 
 
                     <Button text="Goverment Overview" prefWidth="200"
-                            GridPane.columnIndex="1" GridPane.rowIndex="3"
+                            GridPane.columnIndex="1" GridPane.rowIndex="5"
                             onAction="#gotoGovermentButton"
                     />
 
                     <Button text="Market Overview" prefWidth="200"
-                            GridPane.columnIndex="1" GridPane.rowIndex="4"
+                            GridPane.columnIndex="1" GridPane.rowIndex="6"
                             onAction="#gotoMarketButton"
                     />
 
                     <Button text="Quickstart" prefWidth="200"
-                            GridPane.columnIndex="1" GridPane.rowIndex="5"
+                            GridPane.columnIndex="1" GridPane.rowIndex="8"
                             onAction="#quickPop"
                     />
 

@@ -2,6 +2,7 @@ package Core.GuiController;
 
 import Core.Enums.EducationalLayer;
 import Core.*;
+import Core.Enums.IndustryType;
 import Core.GuiController.Civilian.CivilianController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -66,6 +67,23 @@ public class mainMenuController
     }
 
     @FXML
+    private void startAsCompany()
+    {
+        Company playerCompany;
+        if (Simulation.getSingleton().getPlayer() == null)
+        {
+            playerCompany = new Company("Wolfgangs Leckereiern", IndustryType.FOOD, 420000, 10, 10);
+        }
+        else
+            playerCompany = Simulation.getSingleton().getPlayerCompany();
+        if(!Economy.getEconomy().getCompanies().contains(playerCompany))
+            Economy.getEconomy().getCompanies().add(playerCompany);
+        Simulation.getSingleton().setPlayerCompany(playerCompany);
+
+        GameWindow.getSingleton().createNextScene("../fxml/company/comp.fxml");
+    }
+
+    @FXML
     protected void quickPop(ActionEvent event)
     {
         //Society.getSociety().populateSociety(Util.NUM_PERS_DEFAULT);
@@ -76,9 +94,6 @@ public class mainMenuController
         Simulation.getSingleton().getEconomy().populateEconomy("twoCompetitors");
         Simulation.getSingleton().getEconomy().fillWorkplaces();
         Market.getMarket().calcState();
-
         Simulation.getSingleton().nextPeriod();
-        //Simulation.getSingleton().getSociety().shop();
-
     }
 }

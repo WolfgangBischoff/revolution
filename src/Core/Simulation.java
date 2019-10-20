@@ -16,6 +16,7 @@ public class Simulation
     private Console console;
     private GameCalendar calender;
     private Player player;
+    private Company playerCompany;
     private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     public static final String PROPERTY_DATE = "date";
 
@@ -49,9 +50,19 @@ public class Simulation
         return player;
     }
 
+    public Company getPlayerCompany()
+    {
+        return playerCompany;
+    }
+
     public void setPlayer(Player player)
     {
         this.player = player;
+    }
+
+    public void setPlayerCompany(Company playerCompany)
+    {
+        this.playerCompany = playerCompany;
     }
 
     public void nextPeriod()
@@ -85,7 +96,6 @@ public class Simulation
             System.out.println("Its: " + special);
 
         //Daily activities
-        //TODO Eco calc prices
         //System.out.println("Simulation SocietyShop()");
         society.shop();
 

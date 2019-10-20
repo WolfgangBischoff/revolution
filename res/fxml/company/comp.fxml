@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.SubScene?>
+<?import javafx.scene.Node?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="borderPane"
+            fx:controller="Core.GuiController.Company.CompanyController"
+>
+
+    <stylesheets>
+        <URL value="@/css/civilian.css"/>
+    </stylesheets>
+
+    <padding>
+        <Insets top="10" right="25" bottom="10" left="5"/>
+    </padding>
+
+    <top>
+        <Pane fx:id="baseData"/>
+    </top>
+
+    <left>
+        <VBox xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="3">
+            <GridPane xmlns="http://javafx.com/javafx">
+                <Text text="Locations" GridPane.rowIndex="3"/>
+                <Button text="Planning" GridPane.rowIndex="3" prefWidth="150" onAction="#planning"/>
+                <Button text="Staff" GridPane.rowIndex="4" prefWidth="150"/>
+                <Button text="Market Analysis" GridPane.rowIndex="5" prefWidth="150"/>
+                <Button text="Next Day" GridPane.rowIndex="6" prefWidth="150" onAction="#nextDay"/>
+                <Button text="back" GridPane.rowIndex="7" prefWidth="150" onAction="#backToMenu" />
+            </GridPane>
+        </VBox>
+    </left>
+
+    <right>
+        <VBox alignment="CENTER">
+            <Text fx:id="test" text="Company assets and news"/>
+        </VBox>
+    </right>
+
+    <center>
+        <Pane fx:id="centerPane"/>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER">
+            <Text text="Information Log"/>
+        </HBox>
+    </bottom>
+
+
+</BorderPane>

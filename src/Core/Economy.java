@@ -173,21 +173,7 @@ public class Economy
 
     public void fillWorkplaces()
     {
-        //Forall persons beginning with workers
         ArrayList<Person> worker = Society.getSociety().getPeople();
-        /*worker.sort(new Comparator<Person>()
-        {
-            @Override
-            public int compare(Person o1, Person o2)
-            {
-                if(o1.getEducationalLayer().getInt() > o2.getEducationalLayer().getInt())
-                    return -1;
-                if(o1.getEducationalLayer().getInt() < o2.getEducationalLayer().getInt())
-                    return 1;
-                return 0;
-
-            }
-        });*/
         for(Person person : worker)
         {
             for(Company company : companies)
@@ -197,9 +183,7 @@ public class Economy
             }
         }
 
-        //Apply at all companies with best Wp first
-
-
+        //TODO This is strange, double apply
         for(Company company : companies)
         {
             fillWorkplaces(company);
