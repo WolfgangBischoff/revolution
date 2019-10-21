@@ -13,7 +13,9 @@ public class GovermentViewController
     @FXML
     Text partyAtPower, deposit;
     @FXML
-    ImageView rulingPartyIcon;
+    ImageView rulingPartyIcon, sprite;
+
+    AnimatedSprite animatedSprite;
 
     @FXML
     private void initialize()
@@ -22,6 +24,9 @@ public class GovermentViewController
         partyAtPower.setText(Government.getGoverment().getRulingParty().toString());
         deposit.setText(Government.getGoverment().getDeposit().toString());
         setImageBasedOnPartyOnPower();
+
+        animatedSprite = new AnimatedSprite(sprite);
+        animatedSprite.start();
     }
 
     private void setImageBasedOnPartyOnPower()
@@ -52,5 +57,6 @@ public class GovermentViewController
     {
         //unlisten
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
+        animatedSprite.stop();
     }
 }

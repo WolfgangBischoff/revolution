@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 public class Main extends Application
 {
     // https://stackoverflow.com/questions/33494052/javafx-redirect-console-output-to-textarea-that-is-created-in-scenebuilder
+    private GameLoop gameLoop;
+
     public static void main(String[] args)
     {
         launch(args);
@@ -33,47 +35,25 @@ public class Main extends Application
         gameWindowController.createNextScene("../fxml/mainMenu.fxml");
         gameWindowController.showWindow();
 
+        gameLoop = new GameLoop();
+        gameLoop.start();
+    }
 
+    private class GameLoop extends AnimationTimer
+    {
 
+        private long before = System.nanoTime();
+        private float delta;
 
-
-/*
-        Stage theStage = new Stage();
-        theStage.setTitle("Timeline Example");
-
-        Group root = new Group();
-        Scene theScene = new Scene(root);
-        theStage.setScene(theScene);
-
-        Canvas canvas = new Canvas(512, 512);
-        root.getChildren().add(canvas);
-
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        Image earth = new Image("img/pen.png");
-        Image sun = new Image("img/food.png");
-        Image space = new Image("img/background.jpg");
-
-        final long startNanoTime = System.nanoTime();
-
-        new AnimationTimer()
+        @Override
+        public void handle(long now)
         {
-            public void handle(long currentNanoTime)
-            {
-                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
-                double x = 232 + 128 * Math.cos(t);
-                double y = 232 + 128 * Math.sin(t);
+            delta = (float) ((now - before) / 1E9);
 
-                // background image clears canvas
-                gc.drawImage(space, 0, 0);
-                gc.drawImage(earth, x, y);
-                gc.drawImage(sun, 196, 196);
-            }
-        }.start();
+            //System.out.println(this + " " + delta);
 
-        theStage.show();
-*/
-
+            before = now;
+        }
     }
 }

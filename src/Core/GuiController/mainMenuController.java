@@ -4,6 +4,7 @@ import Core.Enums.EducationalLayer;
 import Core.*;
 import Core.Enums.IndustryType;
 import Core.GuiController.Civilian.CivilianController;
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -96,4 +97,5 @@ public class mainMenuController
         Market.getMarket().calcState();
         Simulation.getSingleton().nextPeriod();
     }
+
 }

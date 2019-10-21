@@ -26,4 +26,6 @@
         <Image url="@/img/capital.png" backgroundLoading="true"/>
     </ImageView>
 
+    <ImageView fx:id="sprite" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+
 </GridPane>

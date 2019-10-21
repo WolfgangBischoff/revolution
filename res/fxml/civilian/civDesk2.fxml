@@ -5,13 +5,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.canvas.Canvas?>
 <StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           fx:controller="Core.GuiController.Civilian.CivDesk"
-           prefHeight="200.0" prefWidth="300.0">
-
-    <ImageView translateY="-250" translateX="150" preserveRatio="true" fitHeight="200">
-        <Image url="@/img/landscape.png" />
-    </ImageView>
+           xmlns:fx="http://javafx.com/fxml">
 
     <ImageView>
         <Image url="@/img/desk.png" />
@@ -29,17 +23,10 @@
         <Image url="@/img/diffuser.png" />
     </ImageView>
 
-    <ImageView fx:id="smokeSprite" translateX="-170" translateY="-85" preserveRatio="true" fitHeight="135"/>
-
-    <Canvas fx:id="diffusercloud" translateY="-150" translateX="-180" height="300" width="300"/>
-
+    <ImageView fx:id="smokeSprite" translateY="-185" translateX="-150" preserveRatio="true" fitHeight="80"/>
 
     <ImageView translateY="10" translateX="-20" preserveRatio="true">
         <Image  url="@/img/mobilephone.png"/>
     </ImageView>
-
-
-
-    <Canvas fx:id="canvas" translateX="10" translateY="-20" height="500" width="500" />
 
 </StackPane>

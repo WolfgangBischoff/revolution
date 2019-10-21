@@ -3,6 +3,7 @@ package Core.GuiController;
 import Core.Enums.IndustryType;
 import Core.Enums.ViewPerspective;
 import Core.GameWindow;
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -13,7 +14,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class IndustryOverviewController
+public class IndustryOverviewController extends AnimationTimer
 {
     FXMLLoader loader;
     Controller parentController;
@@ -35,6 +36,14 @@ public class IndustryOverviewController
         this.parentController = parentController;
         this.perspective = perspective;
     }
+
+    @Override
+    public void handle(long l)
+    {
+        System.out.println(this + " INDUST");
+    }
+
+
 
     @FXML
     private void initialize()

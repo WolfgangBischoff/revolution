@@ -1,6 +1,7 @@
 package Core;
 
 import Core.Enums.SpecialDayOfYear;
+import javafx.animation.AnimationTimer;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -19,6 +20,7 @@ public class Simulation
     private Company playerCompany;
     private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     public static final String PROPERTY_DATE = "date";
+    public AnimationTimer animationTimer;
 
     public Society getSociety()
     {

@@ -18,9 +18,6 @@ import java.io.IOException;
 
 public class CivilianController implements Controller
 {
-
-
-    FXMLLoader loader;
     @FXML
     BorderPane borderPane;
     @FXML
@@ -28,7 +25,8 @@ public class CivilianController implements Controller
 
     ViewPerspective perspective = ViewPerspective.GENERAL;
     HBox centerHbox;
-
+    FXMLLoader loader;
+    CivDeskController civDeskController = new CivDeskController();
     IndustryOverviewController industryOverviewController;
     CivilianBaseData civilianBaseData;
     CivBoughtToday civBoughtToday = new CivBoughtToday();
@@ -44,19 +42,17 @@ public class CivilianController implements Controller
         centerHbox = new HBox();
         centerHbox.setSpacing(3);
         centerHbox.setStyle("-fx-border-style: solid inside;"); //For debugging
-
-
     }
 
     @FXML
     private void initialize() throws IOException
     {
-        borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
+        borderPane.setCenter(civDeskController.load());
         borderPane.setTop(loader.load());
     }
 
     @FXML
-    public void job(javafx.event.ActionEvent event) throws IOException
+    public void job(javafx.event.ActionEvent event)
     {
         perspective = ViewPerspective.JOBSEEKING;
         removeListeners();
@@ -70,17 +66,17 @@ public class CivilianController implements Controller
     }
 
     @FXML
-    private void desk() throws IOException
+    private void desk()
     {
-        borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
+        borderPane.setCenter(civDeskController.load());
         borderPane.setRight(null);
     }
 
     @FXML
     private void backToMenu()
     {
+        removeListeners();
         civilianBaseData.removePropertyListeners(); //Just remove here, is valid in all other menues
-        civBoughtToday.removePropertyListeners();
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
     }
 
@@ -95,11 +91,13 @@ public class CivilianController implements Controller
         centerHbox.setPadding(new Insets(0, 0, 0, 50)); //public Insets(double top, double right, double bottom,double left)
         centerHbox.getChildren().add(industryOverviewController.load());
 
+
         //load today consume
         loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civBoughtToday.fxml"));
         loader.setController(civBoughtToday);
         borderPane.setRight(loader.load());
         borderPane.setCenter(centerHbox);
+
     }
 
     @FXML
@@ -140,6 +138,7 @@ public class CivilianController implements Controller
     private void removeListeners()
     {
         civBoughtToday.removePropertyListeners();
+        civDeskController.stopSprites();
     }
 
 }
