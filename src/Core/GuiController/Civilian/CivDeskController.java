@@ -24,7 +24,7 @@ public class CivDeskController
     @FXML
     private void initialize()
     {
-        animatedSprite = new AnimatedSprite(smokeSprite, 0.5f);
+        animatedSprite = new AnimatedSprite(smokeSprite, "diffuserSmokeSprites.png", 8, 6, 6, 1, 120, 140);
         animatedSprite.start();
     }
 

@@ -24,9 +24,6 @@ public class GovermentViewController
         partyAtPower.setText(Government.getGoverment().getRulingParty().toString());
         deposit.setText(Government.getGoverment().getDeposit().toString());
         setImageBasedOnPartyOnPower();
-
-        animatedSprite = new AnimatedSprite(sprite,0.5f);
-        animatedSprite.start();
     }
 
     private void setImageBasedOnPartyOnPower()
@@ -57,6 +54,5 @@ public class GovermentViewController
     {
         //unlisten
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
-        animatedSprite.stop();
     }
 }

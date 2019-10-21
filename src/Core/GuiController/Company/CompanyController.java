@@ -21,22 +21,11 @@ public class CompanyController
     @FXML
     Pane baseData, centerPane;
 
-    //ViewPerspective perspective = ViewPerspective.GENERAL;
     HBox centerHbox;
     CompPlanningController compPlanningController;
 
-
-    //CivilianBaseData civilianBaseData;
-
-
-
     public CompanyController()
     {
-        //load dataBase fxml
-        //civilianBaseData = new CivilianBaseData();
-        //loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civilianBaseData.fxml"));
-        //loader.setController(civilianBaseData);
-
         centerHbox = new HBox();
         centerHbox.setSpacing(3);
         centerHbox.setStyle("-fx-border-style: solid inside;"); //For debugging

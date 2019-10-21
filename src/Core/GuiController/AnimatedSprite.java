@@ -1,6 +1,7 @@
 package Core.GuiController;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -9,31 +10,29 @@ public class AnimatedSprite extends AnimationTimer
     //https://stackoverflow.com/questions/10708642/javafx-2-0-an-approach-to-game-sprite-animation
     private final ImageView imageView; //Image view that will display our sprite
     private final float fps; //frames per second I.E. 24
-    Image[] imageArray = new Image[3];
-
-    /*
     private final int totalFrames; //Total number of frames in the sequence
-
     private final int cols; //Number of columns on the sprite sheet
     private final int rows; //Number of rows on the sprite sheet
     private final int frameWidth; //Width of an individual frame
     private final int frameHeight; //Height of an individual frame
     private int currentCol = 0;
-    private int currentRow = 0;*/
+    private int currentRow = 0;
     private long lastFrame = 0;
 
-    public AnimatedSprite(ImageView imageView, float fps)
+    public AnimatedSprite(ImageView imageView, String imagepath, float fps, int totalFrames, int cols, int rows, int frameWidth, int frameHeight)
     {
         this.imageView = imageView;
+        imageView.setImage(new Image("img/"+imagepath));
+        imageView.setViewport(new Rectangle2D(0, 0, frameWidth, frameHeight));
         this.fps = fps;
-        imageArray[0] = new Image("img/diffuserSmoke.png");
-        imageArray[1] = new Image("img/diffuserSmoke0.png");
-        imageArray[2] = new Image("img/diffuserSmoke1.png");
+        this.totalFrames = totalFrames;
+        this.cols = cols;
+        this.rows = rows;
+        this.frameWidth = frameWidth;
+        this.frameHeight = frameHeight;
+
+        lastFrame = System.nanoTime();
     }
-
-
-    long lastTime = System.nanoTime();
-    int idx = 0;
 
     public void handle(long now)
     {
@@ -42,10 +41,8 @@ public class AnimatedSprite extends AnimationTimer
         if (frameJump >= 1)
         {
             lastFrame = now;
-            System.out.println("CHANGE");
-           /*
-            int addRows = (int) Math.floor((float) frameJump / (float) cols);
 
+            int addRows = (int) Math.floor((float) frameJump / (float) cols);
             int frameAdd = frameJump - (addRows * cols);
 
             if (currentCol + frameAdd >= cols)
@@ -68,20 +65,8 @@ public class AnimatedSprite extends AnimationTimer
             }
 
             imageView.setViewport(new Rectangle2D(currentCol * frameWidth, currentRow * frameHeight, frameWidth, frameHeight));
-            */
+
         }
-
-
-
-        double time = (now - lastTime);
-        if (time > 400000000)
-        {
-            idx++;
-            idx = idx % imageArray.length;
-            lastTime = now;
-        }
-        //System.out.println("Animated Sprite: " + this);
-        imageView.setImage(imageArray[idx]);
     }
 
 }

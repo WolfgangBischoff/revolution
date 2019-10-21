@@ -23,7 +23,7 @@
         <Image url="@/img/diffuser.png" />
     </ImageView>
 
-    <ImageView fx:id="smokeSprite" translateY="-185" translateX="-150" preserveRatio="true" fitHeight="80"/>
+    <ImageView fx:id="smokeSprite" translateY="-205" translateX="-145" preserveRatio="true" fitHeight="120"/>
 
     <ImageView translateY="10" translateX="-20" preserveRatio="true">
         <Image  url="@/img/mobilephone.png"/>
