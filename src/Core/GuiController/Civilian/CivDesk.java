@@ -37,8 +37,8 @@ public class CivDesk
     @FXML
     private void initialize()
     {
-        animatedSprite = new AnimatedSprite(smokeSprite);
-        animatedSprite.start();
+        //animatedSprite = new AnimatedSprite(smokeSprite);
+        //animatedSprite.start();
 
         imageArray[0] = new Image( "img/diffuserSmoke.png" );
         imageArray[1] = new Image( "img/diffuserSmoke0.png" );

@@ -25,7 +25,7 @@ public class GovermentViewController
         deposit.setText(Government.getGoverment().getDeposit().toString());
         setImageBasedOnPartyOnPower();
 
-        animatedSprite = new AnimatedSprite(sprite);
+        animatedSprite = new AnimatedSprite(sprite,0.5f);
         animatedSprite.start();
     }
 
