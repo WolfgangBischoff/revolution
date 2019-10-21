@@ -212,6 +212,7 @@ public class Economy
         StringBuilder tmp = new StringBuilder();
         for(Company company : companies)
         {
+            System.out.println("Economy baseData: " + company);
             tmp.append("\n" + company.dataBase());
             if(keyword == InterpreterKeyword.DETAIL)
                 tmp.append(company.dataWorkpositions() + "\n");

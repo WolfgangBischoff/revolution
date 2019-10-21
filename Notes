@@ -1,8 +1,7 @@
 
 KNOWN BUGS:
-
+    Start as Civ and then Start as Comp
 TODOS:
-    Rework Beesprite, delete CivDesk with fxml, implement AnimatedSprite
     Add GUI: Company Detail with Market Analysis, Set Options, Start as Company
     MarketLogic, add Luxury change
     Save
