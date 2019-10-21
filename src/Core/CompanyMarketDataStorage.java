@@ -30,6 +30,8 @@ public class CompanyMarketDataStorage
 
     public void addSellDataPlayer()
     {
+        if(dataContainer.isEmpty())
+            initNewDay();
         dataContainer.get(0).addSellDataPlayer();
     }
 

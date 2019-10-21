@@ -80,6 +80,7 @@ public class mainMenuController
         if(!Economy.getEconomy().getCompanies().contains(playerCompany))
             Economy.getEconomy().getCompanies().add(playerCompany);
         Simulation.getSingleton().setPlayerCompany(playerCompany);
+        Economy.getEconomy().calcState();
 
         GameWindow.getSingleton().createNextScene("../fxml/company/comp.fxml");
     }

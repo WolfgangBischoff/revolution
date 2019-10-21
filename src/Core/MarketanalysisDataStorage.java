@@ -181,6 +181,8 @@ public class MarketanalysisDataStorage
      */
     public void addNewDataPlayer(Company bestCompany)
     {
+        if(data.get(bestCompany.getIndustry()).isEmpty())
+            initNewDay();
         MarketAnalysisData currentData = data.get(bestCompany.getIndustry()).get(0);
         currentData.marketTotalDemand++;
         currentData.marketTotalSold++;

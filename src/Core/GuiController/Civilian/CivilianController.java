@@ -68,8 +68,9 @@ public class CivilianController implements Controller
     @FXML
     private void desk()
     {
-        borderPane.setCenter(civDeskController.load());
         borderPane.setRight(null);
+        civDeskController = new CivDeskController();
+        borderPane.setCenter(civDeskController.load());
     }
 
     @FXML
@@ -90,7 +91,6 @@ public class CivilianController implements Controller
         centerHbox.getChildren().clear();
         centerHbox.setPadding(new Insets(0, 0, 0, 50)); //public Insets(double top, double right, double bottom,double left)
         centerHbox.getChildren().add(industryOverviewController.load());
-
 
         //load today consume
         loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civBoughtToday.fxml"));

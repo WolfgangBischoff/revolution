@@ -2,6 +2,7 @@ package Core.GuiController.Company;
 
 
 import Core.GameWindow;
+import Core.GuiController.Civilian.CivDeskController;
 import Core.Simulation;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ public class CompanyController
 
     HBox centerHbox;
     CompPlanningController compPlanningController;
+    CivDeskController civDeskController = new CivDeskController();
 
     public CompanyController()
     {
@@ -34,8 +36,21 @@ public class CompanyController
     @FXML
     private void initialize() throws IOException
     {
-        borderPane.setCenter(FXMLLoader.load(getClass().getResource("/fxml/civilian/civDesk.fxml")));
+        borderPane.setCenter(civDeskController.load());
         //borderPane.setTop(loader.load());
+    }
+
+    public Pane load()
+    {
+        try
+        {
+            return loader.load();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @FXML

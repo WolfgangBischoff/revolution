@@ -29,4 +29,6 @@
         <Image  url="@/img/mobilephone.png"/>
     </ImageView>
 
+    <Canvas fx:id="canvas" translateX="10" translateY="-20" height="500" width="500" />
+
 </StackPane>
