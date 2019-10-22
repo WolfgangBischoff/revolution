@@ -25,7 +25,7 @@ public class CivDeskController extends AnimationTimer
 
     public CivDeskController()
     {
-        loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civDesk2.fxml"));
+        loader = new FXMLLoader(getClass().getResource("/fxml/civilian/civDesk.fxml"));
         loader.setController(this);
     }
 

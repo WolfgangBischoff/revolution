@@ -25,6 +25,8 @@ public class CompanyMarketDataStorage
 
     public void addSellData()
     {
+        if(dataContainer.isEmpty())
+            initNewDay();
         dataContainer.get(0).addSellData();
     }
 

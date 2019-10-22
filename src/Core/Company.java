@@ -43,6 +43,7 @@ public class Company
 
     public Company(String name, IndustryType industry, Integer Initdeposit, Integer price, Integer luxury)
     {
+        //Economy.getEconomy().getCompanies().add(this);
         this.name = name;
         deposit = Initdeposit;
         this.industry = industry;
