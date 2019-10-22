@@ -20,7 +20,7 @@ public class Simulation
     private PlayerCompany playerCompany;
     private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     public static final String PROPERTY_DATE = "date";
-    public AnimationTimer animationTimer;
+
 
     public Society getSociety()
     {

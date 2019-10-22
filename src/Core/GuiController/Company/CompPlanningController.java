@@ -40,7 +40,8 @@ public class CompPlanningController
         try
         {
             return loader.load();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
         }
@@ -52,25 +53,16 @@ public class CompPlanningController
     {
 
         setPrice.setOnAction(
-                new EventHandler<ActionEvent>()
-                {
-                    @Override
-                    public void handle(ActionEvent event)
-                    {
-                        System.out.println("Price: " + priceInputField.getText());
-                        if (Util.tryParseInt(priceInputField.getText()))
-                            company.setPrice(Integer.parseInt(priceInputField.getText()));
-                    }
+                event -> {
+                    System.out.println("Price: " + priceInputField.getText());
+                    if (Util.tryParseInt(priceInputField.getText()))
+                        company.setPrice(Integer.parseInt(priceInputField.getText()));
                 }
         );
 
-        increaseLuxury.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent event)
-            {
-                System.out.println("Increase Quality");
-            }
+        increaseLuxury.setOnAction(event -> {
+            company.setLuxury(company.getLuxury() + 1);
+            System.out.println("Increase Quality");
         });
     }
 

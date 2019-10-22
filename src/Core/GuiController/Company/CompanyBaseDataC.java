@@ -14,6 +14,8 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 import static Core.PlayerCompany.PROPERTY_DEPOSIT;
+import static Core.PlayerCompany.PROPERTY_LUXURY;
+import static Core.PlayerCompany.PROPERTY_PRICE;
 
 public class CompanyBaseDataC implements PropertyChangeListener
 {
@@ -29,7 +31,7 @@ public class CompanyBaseDataC implements PropertyChangeListener
         loader = new FXMLLoader(getClass().getResource("/fxml/company/companyBaseData.fxml"));
         loader.setController(this);
         company = Simulation.getSingleton().getPlayerCompany();
-        ((PlayerCompany)company).addPropertyChangeListener(this);
+        ((PlayerCompany) company).addPropertyChangeListener(this);
     }
 
     //For other Comp
@@ -47,11 +49,9 @@ public class CompanyBaseDataC implements PropertyChangeListener
         deposit.setText(company.getDeposit().toString());
         date.setText(Simulation.getSingleton().getCalender().dataDateWeekday());
         capacity.setText(company.getUsedCapacity().toString() + " / " + company.getMaxCapacity());
-        freeWorkplaces.setText(""+company.getFreeWorkpositions().size()+" free jobs");
+        freeWorkplaces.setText("" + company.getFreeWorkpositions().size() + " free jobs");
         price.setText(company.getPrice().toString());
         luxury.setText(company.getLuxury().toString());
-        //player.addPropertyChangeListener(this);
-        //Simulation.getSingleton().addPropertyChangeListener(this);
     }
 
     public Pane load()
@@ -59,7 +59,8 @@ public class CompanyBaseDataC implements PropertyChangeListener
         try
         {
             return loader.load();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
         }
@@ -69,12 +70,19 @@ public class CompanyBaseDataC implements PropertyChangeListener
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
-        if(evt.getPropertyName() == PROPERTY_DEPOSIT)
-            deposit.setText(company.getDeposit().toString());
+        if (evt.getPropertyName() == PROPERTY_DEPOSIT)
+            deposit.setText(evt.getNewValue().toString());
+        else if (evt.getPropertyName() == PROPERTY_PRICE)
+            price.setText(evt.getNewValue().toString());
+        else if (evt.getPropertyName() == PROPERTY_LUXURY)
+            luxury.setText(evt.getNewValue().toString());
+
     }
 
     public void removePropertyListeners()
     {
-        ((PlayerCompany)company).removePropertyChangeListener(this);
+        ((PlayerCompany) company).removePropertyChangeListener(this);
     }
+
+
 }

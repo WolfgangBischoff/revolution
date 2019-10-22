@@ -19,6 +19,7 @@ public class Company
     private Integer luxury, price = -1, maxCapacity = MAX_CAPACITY_DEFAULT, usedCapacity = 0;
     private Integer baseCapacityCost = 1;
     private CompanyMarketDataStorage companyMarketDataStorage = new CompanyMarketDataStorage(this);
+    Map<Integer, Integer> priceToExpectedRevenue = new HashMap<>();
 
     //Constructors
     public Company(String name)
@@ -33,7 +34,7 @@ public class Company
 
     public Company(String name, IndustryType industry, Integer Initdeposit)
     {
-        this(name, industry, Initdeposit, 5,0);
+        this(name, industry, Initdeposit, 5, 0);
     }
 
     public Company(IndustryType type, Integer price, Integer luxury)
@@ -75,9 +76,16 @@ public class Company
 
     public void doMarketDecisions()
     {
+        calcMarketAnalysis();
+        decideForPrice();
+        //TODO Decide if luxury or capacity should be changed
+    }
+
+    void calcMarketAnalysis()
+    {
         LocalDate yesterday = Simulation.getSingleton().getDate().minusDays(1);
         MarketAnalysisData marketAnalysisData = Market.getMarket().getMarketAnalysisData(industry, yesterday);
-        CompanyMarketData companyMarketData = companyMarketDataStorage.getAnalysisData(yesterday);
+        //CompanyMarketData companyMarketData = companyMarketDataStorage.getAnalysisData(yesterday);
 
         //Integer plannedPrice = price;
         if (marketAnalysisData == null || companyMarketDataStorage == null)
@@ -97,27 +105,29 @@ public class Company
         //System.out.println("\n" + name + " real Rev: " + companyMarketData.revenue + " sold " + companyMarketData.numSold + " at price: " + price + " luxury: " + luxury);
         //System.out.println("P\\B" + marketAnalysisData.maxRevenueAtPrice.keySet());
 
-
         //Calc expected revenues per customer-budget group for all defined prices considering competitors and prohibitive prices
         Map<Integer, List<Integer>> priceToCustomerGroupRevenues = calcExpectedRevenuePerCustomerBudgetGroupForPrices(possiblePrices, marketAnalysisData);
 
         //Sum up customer budget groups per price
-        Map<Integer, Integer> priceToExpectedRevenue = new TreeMap<>();
-        for(Map.Entry<Integer, List<Integer>> priceData : priceToCustomerGroupRevenues.entrySet())
+        priceToExpectedRevenue = new TreeMap<>();
+        for (Map.Entry<Integer, List<Integer>> priceData : priceToCustomerGroupRevenues.entrySet())
         {
             List<Integer> customerGroupData = priceData.getValue();
             Integer sum = 0;
-            for(Integer entry : customerGroupData)
-                sum+=entry;
+            for (Integer entry : customerGroupData)
+                sum += entry;
             priceToExpectedRevenue.put(priceData.getKey(), sum);
         }
         //System.out.println(priceToExpectedRevenue);
+    }
 
+    private void decideForPrice()
+    {
         Integer max = 0;
         Integer bestPrice = price;
-        for(Map.Entry<Integer, Integer> priceData : priceToExpectedRevenue.entrySet())
+        for (Map.Entry<Integer, Integer> priceData : priceToExpectedRevenue.entrySet())
         {
-            if(priceData.getValue() > max)
+            if (priceData.getValue() > max)
             {
                 max = priceData.getValue();
                 bestPrice = priceData.getKey();
@@ -125,14 +135,8 @@ public class Company
         }
         //System.out.println("Set price to: " + bestPrice);
 
-
         //Decide on price
         price = bestPrice;
-
-
-        //TODO Decide if luxury or capacity should be changed
-
-
     }
 
     private Map<Integer, List<Integer>> calcExpectedRevenuePerCustomerBudgetGroupForPrices(List<Integer> possiblePrices, MarketAnalysisData marketAnalysisData)
@@ -372,8 +376,8 @@ public class Company
     public String dataWorkpositions()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        for(Workposition workposition : workpositions)
-            stringBuilder.append("\n"+ workposition.dataBase() );
+        for (Workposition workposition : workpositions)
+            stringBuilder.append("\n" + workposition.dataBase());
         return stringBuilder.toString();
     }
 
@@ -426,6 +430,11 @@ public class Company
         return luxury;
     }
 
+    public  void setLuxury(Integer newLuxury)
+    {
+        luxury = newLuxury;
+    }
+
     public Integer getPrice()
     {
         if (price == null)
@@ -453,5 +462,15 @@ public class Company
     public Integer getMaxCapacity()
     {
         return maxCapacity;
+    }
+
+    public CompanyMarketDataStorage getCompanyMarketDataStorage()
+    {
+        return companyMarketDataStorage;
+    }
+
+    public Map<Integer, Integer> getPriceToExpectedRevenue()
+    {
+        return priceToExpectedRevenue;
     }
 }

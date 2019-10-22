@@ -35,7 +35,7 @@
                 <Text text="Locations" GridPane.rowIndex="3"/>
                 <Button text="Planning" GridPane.rowIndex="3" prefWidth="150" onAction="#planning"/>
                 <Button text="Staff" GridPane.rowIndex="4" prefWidth="150"/>
-                <Button text="Market Analysis" GridPane.rowIndex="5" prefWidth="150"/>
+                <Button text="Market Analysis" GridPane.rowIndex="5" prefWidth="150" onAction="#marketanalysis"/>
                 <Button text="Next Day" GridPane.rowIndex="6" prefWidth="150" onAction="#nextDay"/>
                 <Button text="back" GridPane.rowIndex="7" prefWidth="150" onAction="#backToMenu" />
             </GridPane>

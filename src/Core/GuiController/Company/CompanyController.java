@@ -62,11 +62,18 @@ public class CompanyController
     }
 
     @FXML
-    private void planning() throws IOException
+    private void planning()
     {
         System.out.println("Planning");
         compPlanningController = new CompPlanningController();
         borderPane.setCenter(compPlanningController.load());
+    }
+
+    @FXML
+    private void marketanalysis()
+    {
+    System.out.println("Market Analysis");
+    System.out.println(Simulation.getSingleton().getPlayerCompany().getPriceToExpectedRevenue().toString());
     }
 
 

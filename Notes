@@ -1,10 +1,9 @@
 
 KNOWN BUGS:
-    Company property change deposit
+
 TODOS:
-    Add GUI: Company Detail with Market Analysis, Set Options, Start as Company
+    Add GUI: Last Revenue / used Capacity Avg; Show Market Analysis; Decrease Luxury
     MarketLogic, add Luxury change
-    Save
     Wohnhouse, housing not just comsumer product but also owner
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
 

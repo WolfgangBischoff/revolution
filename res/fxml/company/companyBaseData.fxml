@@ -21,7 +21,7 @@
         <Label fx:id="deposit" prefWidth="80"  alignment="CENTER" text="deposit"/>
         <Label fx:id="capacity" prefWidth="250"  alignment="CENTER" text="Workplace"/>
         <Label fx:id="freeWorkplaces" alignment="CENTER" prefWidth="150"/>
-        <Label alignment="CENTER" text="Price" prefWidth="150"/><Label fx:id="price" alignment="CENTER" prefWidth="150"/>
-        <Label alignment="CENTER" text="Luxury" prefWidth="150"/><Label fx:id="luxury" alignment="CENTER" prefWidth="150"/>
+        <Label fx:id="labelprice" alignment="CENTER" text="Price" prefWidth="150"/><Label fx:id="price" alignment="CENTER" prefWidth="150"/>
+        <Label fx:id="labelluxury" alignment="CENTER" text="Luxury" prefWidth="150"/><Label fx:id="luxury" alignment="CENTER" prefWidth="150"/>
     </HBox>
 </VBox>
