@@ -1,8 +1,8 @@
 package Core.GuiController.Company;
 
 import Core.Company;
-import Core.Player;
 import Core.Simulation;
+import Core.Util;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,17 +16,23 @@ import java.io.IOException;
 public class CompPlanningController
 {
     FXMLLoader loader;
+    Company company;
 
     @FXML
     TextField priceInputField;
     @FXML
     Button setPrice, increaseLuxury;
 
-    public CompPlanningController()
+    public CompPlanningController(Company company)
     {
-
+        this.company = company;
         loader = new FXMLLoader(getClass().getResource("/fxml/company/compPlanning.fxml"));
         loader.setController(this);
+    }
+
+    public CompPlanningController()
+    {
+        this(Simulation.getSingleton().getPlayerCompany());
     }
 
     public Pane load()
@@ -52,11 +58,14 @@ public class CompPlanningController
                     public void handle(ActionEvent event)
                     {
                         System.out.println("Price: " + priceInputField.getText());
+                        if (Util.tryParseInt(priceInputField.getText()))
+                            company.setPrice(Integer.parseInt(priceInputField.getText()));
                     }
                 }
         );
 
-        increaseLuxury.setOnAction(new EventHandler<ActionEvent>() {
+        increaseLuxury.setOnAction(new EventHandler<ActionEvent>()
+        {
             @Override
             public void handle(ActionEvent event)
             {
@@ -64,7 +73,6 @@ public class CompPlanningController
             }
         });
     }
-
 
 
 }

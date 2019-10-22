@@ -761,7 +761,7 @@ public class Interpreter
 
     private void marketPrint(String[] inputArgs)
     {
-        // print(Market.getMarket().dataMarketAnalysis());
+        print(Market.getMarket().dataMarketCompanies());
     }
 
     //Helper

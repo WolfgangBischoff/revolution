@@ -70,19 +70,17 @@ public class mainMenuController
     @FXML
     private void startAsCompany()
     {
-        Company playerCompany;
+        PlayerCompany playerCompany;
 
         if (Simulation.getSingleton().getPlayerCompany() == null)
         {
-            playerCompany = new Company("Wolfgangs Leckereiern", IndustryType.FOOD, 420000, 10, 10);
+            playerCompany = new PlayerCompany("Wolfgangs Leckereiern", IndustryType.FOOD, 420000, 10, 10);
         }
         else
             playerCompany = Simulation.getSingleton().getPlayerCompany();
         if(!Economy.getEconomy().getCompanies().contains(playerCompany))
             Economy.getEconomy().getCompanies().add(playerCompany);
         Simulation.getSingleton().setPlayerCompany(playerCompany);
-
-        System.out.println("mainController: " + Economy.getEconomy().getCompanies());
         Economy.getEconomy().calcState();
 
         GameWindow.getSingleton().createNextScene("../fxml/company/comp.fxml");

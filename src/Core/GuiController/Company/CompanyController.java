@@ -15,8 +15,6 @@ import java.io.IOException;
 public class CompanyController
 {
 
-
-    FXMLLoader loader;
     @FXML
     BorderPane borderPane;
     @FXML
@@ -25,6 +23,8 @@ public class CompanyController
     HBox centerHbox;
     CompPlanningController compPlanningController;
     CivDeskController civDeskController = new CivDeskController();
+    CompanyBaseDataC companyBaseDataC = new CompanyBaseDataC();
+
 
     public CompanyController()
     {
@@ -34,13 +34,13 @@ public class CompanyController
     }
 
     @FXML
-    private void initialize() throws IOException
+    private void initialize()
     {
         borderPane.setCenter(civDeskController.load());
-        //borderPane.setTop(loader.load());
+        borderPane.setTop(companyBaseDataC.load());
     }
 
-    public Pane load()
+   /* public Pane load()
     {
         try
         {
@@ -51,13 +51,13 @@ public class CompanyController
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 
     @FXML
     private void backToMenu()
     {
         //civilianBaseData.removePropertyListeners(); //Just remove here, is valid in all other menues
-        //civBoughtToday.removePropertyListeners();
+        companyBaseDataC.removePropertyListeners();
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
     }
 

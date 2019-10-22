@@ -17,7 +17,7 @@ public class Simulation
     private Console console;
     private GameCalendar calender;
     private Player player;
-    private Company playerCompany;
+    private PlayerCompany playerCompany;
     private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     public static final String PROPERTY_DATE = "date";
     public AnimationTimer animationTimer;
@@ -52,7 +52,7 @@ public class Simulation
         return player;
     }
 
-    public Company getPlayerCompany()
+    public PlayerCompany getPlayerCompany()
     {
         return playerCompany;
     }
@@ -62,7 +62,7 @@ public class Simulation
         this.player = player;
     }
 
-    public void setPlayerCompany(Company playerCompany)
+    public void setPlayerCompany(PlayerCompany playerCompany)
     {
         this.playerCompany = playerCompany;
     }
@@ -76,9 +76,9 @@ public class Simulation
         market.initPeriod();
 
         //Day trigger
-        System.out.println("------------------------------");
+        System.out.println("-----------------------------------");
         System.out.println("-----" + calender.dataDateWeekday() + "-----");
-        System.out.println("------------------------------");
+        System.out.println("-----------------------------------");
         //End of Month
         if (calender.date.getDayOfMonth() == calender.date.lengthOfMonth())
         {

@@ -18,7 +18,7 @@
 >
 
     <stylesheets>
-        <URL value="@/css/civilian.css"/>
+        <URL value="@/css/company.css"/>
     </stylesheets>
 
     <padding>

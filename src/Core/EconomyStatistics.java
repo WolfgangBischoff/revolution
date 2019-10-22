@@ -49,7 +49,6 @@ public class EconomyStatistics extends Statistics
         Integer sum = 0;
         for(Company company : companyList)
         {
-            System.out.println("EcoStat calcSumCompanyDep " + companyList);
             sum += company.getDeposit();
         }
         propertyChangeSupport.firePropertyChange(NAME_SUM_COMPANY_DEPOSITS, sumCompanyDeposits, sum);

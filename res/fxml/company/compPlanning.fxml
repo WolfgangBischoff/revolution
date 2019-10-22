@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml">
+            xmlns:fx="http://javafx.com/fxml" alignment="CENTER">
 
     <Label text="New Price: " GridPane.rowIndex="0" GridPane.columnIndex="0"/>
     <TextField fx:id="priceInputField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>

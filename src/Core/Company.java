@@ -232,7 +232,8 @@ public class Company
 
     public void getPaid(Integer amount)
     {
-        deposit += amount;
+        setDeposit(deposit + amount);
+        //deposit += amount;
     }
 
 
@@ -258,7 +259,9 @@ public class Company
 
         workposition.worker.receiveSalary(nett);
         Government.getGoverment().raiseIncomeTax(tax);
-        deposit -= gross;
+
+        setDeposit(deposit - gross);
+        //deposit -= gross;
     }
 
     public Integer calcNumberFreeWorkpositions()
@@ -437,6 +440,15 @@ public class Company
         return usedCapacity;
     }
 
+    public void setPrice(Integer price)
+    {
+        this.price = price;
+    }
+
+    public void setDeposit(Integer deposit)
+    {
+        this.deposit = deposit;
+    }
 
     public Integer getMaxCapacity()
     {
