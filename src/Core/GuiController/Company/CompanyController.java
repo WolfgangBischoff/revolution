@@ -5,12 +5,9 @@ import Core.GameWindow;
 import Core.GuiController.Civilian.CivDeskController;
 import Core.Simulation;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import java.io.IOException;
 
 public class CompanyController
 {
@@ -21,10 +18,10 @@ public class CompanyController
     Pane baseData, centerPane;
 
     HBox centerHbox;
-    CompPlanningController compPlanningController;
-    CivDeskController civDeskController = new CivDeskController();
     CompanyBaseDataC companyBaseDataC = new CompanyBaseDataC();
-
+    CivDeskController civDeskController = new CivDeskController();
+    CompPlanningController compPlanningController;
+    CompMarketAnalysisC compMarketAnalysisC;
 
     public CompanyController()
     {
@@ -56,8 +53,7 @@ public class CompanyController
     @FXML
     private void backToMenu()
     {
-        //civilianBaseData.removePropertyListeners(); //Just remove here, is valid in all other menues
-        companyBaseDataC.removePropertyListeners();
+        companyBaseDataC.removePropertyListeners(); //Just remove if leaving the whole menu
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
     }
 
@@ -72,10 +68,11 @@ public class CompanyController
     @FXML
     private void marketanalysis()
     {
-    System.out.println("Market Analysis");
-    System.out.println(Simulation.getSingleton().getPlayerCompany().getPriceToExpectedRevenue().toString());
+        System.out.println("Market Analysis");
+        compMarketAnalysisC = new CompMarketAnalysisC();
+        borderPane.setCenter(compMarketAnalysisC.load());
+        System.out.println(Simulation.getSingleton().getPlayerCompany().getPriceToExpectedRevenue().toString());
     }
-
 
 
     @FXML

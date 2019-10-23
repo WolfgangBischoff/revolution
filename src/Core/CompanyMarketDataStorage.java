@@ -43,6 +43,11 @@ public class CompanyMarketDataStorage
             dataContainer.remove(dataContainer.size() - 1);
     }
 
+    public List<CompanyMarketData> getAnalysisData()
+    {
+        return dataContainer;
+    }
+
     public CompanyMarketData getAnalysisData(LocalDate date)
     {
         for (CompanyMarketData data : dataContainer)

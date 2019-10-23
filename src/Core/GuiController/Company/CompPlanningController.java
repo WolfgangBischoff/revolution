@@ -19,9 +19,9 @@ public class CompPlanningController
     Company company;
 
     @FXML
-    TextField priceInputField;
+    TextField priceInputField, luxuryInputField;
     @FXML
-    Button setPrice, increaseLuxury;
+    Button setPrice, setLuxury;
 
     public CompPlanningController(Company company)
     {
@@ -60,9 +60,10 @@ public class CompPlanningController
                 }
         );
 
-        increaseLuxury.setOnAction(event -> {
-            company.setLuxury(company.getLuxury() + 1);
-            System.out.println("Increase Quality");
+        setLuxury.setOnAction(event -> {
+            System.out.println("Luxury: " + luxuryInputField.getText());
+            if (Util.tryParseInt(luxuryInputField.getText()))
+                company.setLuxury(Integer.parseInt(luxuryInputField.getText()));
         });
     }
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <top>
+        <Text text="Market Analysis Data"/>
+    </top>
+
+    <center>
+        <ListView fx:id="marketData" prefWidth="300">
+            <placeholder>
+                <Label text="No Data"/>
+            </placeholder>
+        </ListView>
+    </center>
+
+</BorderPane>

@@ -11,7 +11,9 @@
 
     <Label text="New Price: " GridPane.rowIndex="0" GridPane.columnIndex="0"/>
     <TextField fx:id="priceInputField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-    <Button text="Finish" fx:id="setPrice" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+    <Button text="Ok" fx:id="setPrice" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
 
-    <Button text="Increase Quality" fx:id="increaseLuxury" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <Label text="Luxury Goal: " GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <TextField fx:id="luxuryInputField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <Button text="Ok" fx:id="setLuxury" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
 </GridPane>
