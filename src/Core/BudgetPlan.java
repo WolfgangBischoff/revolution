@@ -78,7 +78,7 @@ public class BudgetPlan
     public void calcBudget()
     {
         calcMonthlyBudgetPosts();
-        calcDailyBudgets();
+        //calcDailyBudgets();
     }
 
     public boolean hasBudget(LocalDate date)

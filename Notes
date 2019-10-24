@@ -2,7 +2,7 @@
 KNOWN BUGS:
 
 TODOS:
-    Change need grow over days, if > 1 shop; dayly bud = (monthly/avg need per month)
+    Check if new daily budget works, add GUI sold units
     MarketLogic, add Luxury change
     Wohnhouse, housing not just comsumer product but also owner
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
