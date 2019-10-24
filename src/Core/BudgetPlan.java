@@ -85,13 +85,11 @@ public class BudgetPlan
     {
         for (DaylyBudget daylyBudget : dailyBudgetsOfMonth)
         {
-
             if (daylyBudget.date.equals(date))
             {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -171,7 +169,6 @@ public class BudgetPlan
             dayOfMonth = dayOfMonth.plusDays(1);
         }
 
-
         //for monthly budget posts
         for (Map.Entry<BudgetPost, Integer> monthlyPost : monthBudget.entrySet())
         {
@@ -189,9 +186,9 @@ public class BudgetPlan
             weightingPerWeekday.put(FRIDAY, 1);
             weightingPerWeekday.put(SATURDAY, 0);
             weightingPerWeekday.put(SUNDAY, 1);
-            List<Integer> weightingPerMonthDay = new ArrayList<>();
 
             //Distribute weekday pattern to month
+            List<Integer> weightingPerMonthDay = new ArrayList<>();
             for (int i = 0; i < numDays; i++)
             {
                 DayOfWeek day = dailyBudgetsOfMonth.get(i).getDate().getDayOfWeek();
@@ -210,94 +207,7 @@ public class BudgetPlan
         }
 
 
-
-
-
-
-
-
-
-
-
-
-/*
-        //init list of daily budgets
-        for (int i = 0; i < numberOfDays; i++)
-        {
-            dailyBudgets.add(new TreeMap<BudgetPost, Integer>());
-            dailyBudgetSums.add(0);
-        }
-
-        //for monthly budget posts
-        for (Map.Entry<BudgetPost, Integer> monthlyPost : monthBudget.entrySet())
-        {
-            Integer residualMonthlyBudgetPost = monthlyPost.getValue();
-            BudgetPost budgetPost = monthlyPost.getKey();
-
-
-            //Weightning per day can be random in future
-            Map<DayOfWeek, Integer> weightingPerDay = new HashMap<>();
-            weightingPerDay.put(MONDAY, 2);
-            weightingPerDay.put(TUESDAY, 4);
-            weightingPerDay.put(WEDNESDAY, 0);
-            weightingPerDay.put(THURSDAY, 2);
-            weightingPerDay.put(FRIDAY, 2);
-            weightingPerDay.put(SATURDAY, 2);
-            weightingPerDay.put(SUNDAY, 0);
-            Map<DayOfWeek, Double> weightingPerDayPercent = Statistics.calcPercFromEnumCount(weightingPerDay);
-
-            //Assign daily budget for each weekday
-            for (int i = 0; i < numberOfDays; i++)
-            {
-                Map<BudgetPost, Integer> daylyBudget = dailyBudgets.get(i);
-                Integer daylybudget = (int) (monthlyPost.getValue() * weightingPerDayPercent.get(DayOfWeek.of(i + 1)));
-                residualMonthlyBudgetPost -= (int) (monthlyPost.getValue() * weightingPerDayPercent.get(DayOfWeek.of(i + 1))); //For decimal problem
-
-                //fill in even distributen
-                if (i != numberOfDays - 1)
-                {
-                    daylyBudget.put(budgetPost, daylybudget);
-                    dailyBudgetSums.set(i, dailyBudgetSums.get(i) + daylybudget);
-                }
-                else
-                {
-                    daylyBudget.put(budgetPost, residualMonthlyBudgetPost); //last day gets cut decimals
-                    dailyBudgetSums.set(i, dailyBudgetSums.get(i) + residualMonthlyBudgetPost);
-                }
-            }
-        }*/
     }
-/*
-    private Map<IndustryType, Integer> createShoppingBudget()
-    {
-        Map<IndustryType, Integer> shoppingCart = new TreeMap<>();
-        //Fetch daily budget
-        Map<BudgetPost, Integer> todaysBudget = dailyBudgets.get(0); //weekday
-        shoppingCart.put(IndustryType.FOOD, todaysBudget.get(BudgetPost.FOOD));
-        shoppingCart.put(IndustryType.CLOTHS, todaysBudget.get(BudgetPost.CLOTHS));
-        shoppingCart.put(IndustryType.HOUSING, todaysBudget.get(BudgetPost.HOUSING));
-        shoppingCart.put(IndustryType.ENERGY, todaysBudget.get(BudgetPost.ENERGY));
-        shoppingCart.put(IndustryType.ELECTRONICS, todaysBudget.get(BudgetPost.ELECTRONICS));
-        shoppingCart.put(IndustryType.HEALTH, todaysBudget.get(BudgetPost.HEALTH));
-        shoppingCart.put(IndustryType.TRAFFIC, todaysBudget.get(BudgetPost.TRAFFIC));
-        shoppingCart.put(IndustryType.EDUCATION, todaysBudget.get(BudgetPost.EDUCATION));
-        shoppingCart.put(IndustryType.SPARETIME, todaysBudget.get(BudgetPost.SPARETIME));
-        return shoppingCart;
-    }
-
-
-    private int sumBudgetPosts()
-    {
-        return foodBudget + clothsBudget + housingBudget
-                + energyBudget +
-                electronicsBudget +
-                healthBudget +
-                trafficBudget +
-                educationBudget +
-                sparetimeBudget +
-                savingsBudget +
-                otherAndServices;
-    }*/
 
     private int sumBudgetPostsWithoutSaving()
     {

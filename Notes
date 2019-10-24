@@ -2,7 +2,7 @@
 KNOWN BUGS:
 
 TODOS:
-    Count Market Demand if budget is 0 but demand exist. (count not if no budget because no demand)
+    Change need grow over days, if > 1 shop; dayly bud = (monthly/avg need per month)
     MarketLogic, add Luxury change
     Wohnhouse, housing not just comsumer product but also owner
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)
