@@ -62,8 +62,11 @@ public class Market
 
     public Company getBestOffer(IndustryType type, Integer budget)
     {
+        /*
         if (budget == 0)
             return null;
+        */
+
         List<Company> companies = marketCompanies.get(type);
         Company bestCompany = null;
 
@@ -130,6 +133,11 @@ public class Market
     public MarketAnalysisData getMarketAnalysisData(IndustryType type, LocalDate date)
     {
         return marketanalysisDataStorage.getAnalysisData(type, date);
+    }
+
+    public List<MarketAnalysisData> getMarketAnalysisData(IndustryType type)
+    {
+        return marketanalysisDataStorage.getAnalysisData(type);
     }
 
     //Prints

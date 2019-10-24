@@ -16,6 +16,7 @@ import java.io.IOException;
 import static Core.PlayerCompany.PROPERTY_DEPOSIT;
 import static Core.PlayerCompany.PROPERTY_LUXURY;
 import static Core.PlayerCompany.PROPERTY_PRICE;
+import static Core.Simulation.PROPERTY_DATE;
 
 public class CompanyBaseDataC implements PropertyChangeListener
 {
@@ -32,6 +33,7 @@ public class CompanyBaseDataC implements PropertyChangeListener
         loader.setController(this);
         company = Simulation.getSingleton().getPlayerCompany();
         ((PlayerCompany) company).addPropertyChangeListener(this);
+        Simulation.getSingleton().addPropertyChangeListener(this);
     }
 
     //For other Comp
@@ -76,12 +78,15 @@ public class CompanyBaseDataC implements PropertyChangeListener
             price.setText(evt.getNewValue().toString());
         else if (evt.getPropertyName() == PROPERTY_LUXURY)
             luxury.setText(evt.getNewValue().toString());
+        else if (evt.getPropertyName() == PROPERTY_DATE)
+            date.setText(Simulation.getSingleton().getCalender().dataDateWeekday());
 
     }
 
     public void removePropertyListeners()
     {
         ((PlayerCompany) company).removePropertyChangeListener(this);
+        Simulation.getSingleton().removePropertyChangeListener(this);
     }
 
 

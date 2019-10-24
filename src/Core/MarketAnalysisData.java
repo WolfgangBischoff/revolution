@@ -130,4 +130,53 @@ public class MarketAnalysisData
         return stringBuilder.toString();
     }
 
+    public LocalDate getDate()
+    {
+        return date;
+    }
+
+    public Integer getMarketTotalDemand()
+    {
+        return marketTotalDemand;
+    }
+
+    public Integer getMarketTotalSold()
+    {
+        return marketTotalSold;
+    }
+
+    public Integer getNumPlayerBought()
+    {
+        return numPlayerBought;
+    }
+
+    public Map<Integer, Integer> getNumCustomerPerBudget()
+    {
+        return numCustomerPerBudget;
+    }
+
+    public Map<Integer, Integer> getMaxRevenueCustomerGroup()
+    {
+        return maxRevenueCustomerGroup;
+    }
+
+    public Map<Integer, List<LuxuryPriceGroup>> getOffersPerCustomerGroup()
+    {
+        return offersPerCustomerGroup;
+    }
+
+    public List<LuxuryPriceGroup> getSupplierOffers()
+    {
+        return supplierOffers;
+    }
+
+    public Map<Integer, Integer> getMaxCustomersAtPrice()
+    {
+        return maxCustomersAtPrice;
+    }
+
+    public Map<Integer, Integer> getMaxRevenueAtPrice()
+    {
+        return maxRevenueAtPrice;
+    }
 }

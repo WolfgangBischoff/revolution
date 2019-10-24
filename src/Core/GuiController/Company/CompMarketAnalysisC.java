@@ -1,16 +1,12 @@
 package Core.GuiController.Company;
 
-import Core.Company;
-import Core.CompanyMarketData;
-import Core.GuiController.Civilian.civCompanyListCellConsumer;
-import Core.Simulation;
+import Core.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
@@ -23,9 +19,9 @@ public class CompMarketAnalysisC
     Company company;
 
     @FXML
-    ListView marketData;
-    private ObservableList observableListData = FXCollections.observableArrayList();
-    private List<CompanyMarketData> companyMarketData;
+    ListView<MarketAnalysisData> marketData;
+    private ObservableList<MarketAnalysisData> observableListData = FXCollections.observableArrayList();
+    private List<MarketAnalysisData> marketAnalysisData;
 
     //For Player
     CompMarketAnalysisC()
@@ -46,21 +42,20 @@ public class CompMarketAnalysisC
     @FXML
     private void initialize()
     {
-        companyMarketData = company.getCompanyMarketDataStorage().getAnalysisData();
+        marketAnalysisData = Market.getMarket().getMarketAnalysisData(company.getIndustry());
         setListView();
     }
 
     public void setListView()
     {
-        observableListData.setAll(companyMarketData);
+        observableListData.setAll(marketAnalysisData);
         marketData.setItems(observableListData);
-        //TODO create analysis object
-        marketData.setCellFactory(new Callback<ListView<Company>, ListCell<Company>>()
+        marketData.setCellFactory(new Callback<ListView<MarketAnalysisData>, ListCell<MarketAnalysisData>>()
         {
             @Override
-            public ListCell<Company> call(ListView<Company> param)
+            public ListCell<MarketAnalysisData> call(ListView<MarketAnalysisData> param)
             {
-                return new TextFieldListCell<>();
+                return new CompMarketAnalysisListCellC();
             }
         });
     }
