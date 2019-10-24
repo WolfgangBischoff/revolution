@@ -25,7 +25,8 @@ public class Person // implements ProductOwner
     private final static String PERSONNAMESPATH = "./res/txt/names/persons/";
 
     //Malus if less, just to reache but not more. Luxury for more
-    Map<IndustryType, Integer> needs = new HashMap<>();
+    Map<IndustryType, Double> needs = new HashMap<>();
+    Map<IndustryType, Double> needsGrow = new HashMap<>();
 
     EconomicLayer economicLayer;
     EducationalLayer educationalLayer;
@@ -61,6 +62,21 @@ public class Person // implements ProductOwner
         educationalLayer = edu;
         this.deposit = deposit;
 
+        for(IndustryType industryType : IndustryType.values())
+        {
+            needs.put(industryType, 0d);
+        }
+        needsGrow.put(FOOD, .8);
+        needsGrow.put(CLOTHS, .2);
+        needsGrow.put(HOUSING, 1.0);
+        needsGrow.put(ENERGY, 1.0);
+        needsGrow.put(ELECTRONICS, .2);
+        needsGrow.put(HEALTH, .05);
+        needsGrow.put(TRAFFIC, .3);
+        needsGrow.put(EDUCATION, .01);
+        needsGrow.put(SPARETIME, .5);
+
+        /*
         needs.put(FOOD, 11);
         needs.put(CLOTHS, 2);
         needs.put(HOUSING, 1);
@@ -70,6 +86,7 @@ public class Person // implements ProductOwner
         needs.put(TRAFFIC, 15);
         needs.put(EDUCATION, 1);
         needs.put(SPARETIME, 10);
+        */
         initState();
     }
 
@@ -90,12 +107,23 @@ public class Person // implements ProductOwner
         calculateEconomicLayer();
         calcEffectiveHappiness();
         calcPoliticalOpinion();
-        //budgetPlan.calcBudget();
+        calcNeeds();
     }
 
     void calcStateMonthly()
     {
         budgetPlan.calcBudget();
+    }
+
+    void calcNeeds()
+    {
+        for(Map.Entry<IndustryType, Double> need : needs.entrySet())
+        {
+            Double newValue = roundTwoDigits(need.getValue() + needsGrow.get(need.getKey()));
+            need.setValue(newValue);
+        }
+        System.out.println("Person calcNeeds");
+        System.out.println(needs);
     }
 
     void calculateEconomicLayer()
