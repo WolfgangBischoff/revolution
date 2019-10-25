@@ -186,9 +186,13 @@ public class Person // implements ProductOwner
 
                 //Calc Budget based on residual buget
                 Integer residualBudgetMonth = budgetPlan.monthBudget.get(budgetPost);
+                Integer residualDaysMonth = today.lengthOfMonth() - today.getDayOfMonth() +1;
                 Double estimatedNumberOfNeedsMonth = today.lengthOfMonth() * needsGrow.get(industryType);
-                //System.out.println("Person shop " + today.lengthOfMonth() +"*"+ needsGrow.get(industryType) + " " + estimatedNumberOfNeedsMonth + " " + industryType);
+                Double estimatedNumberOfNeedsResidualMonth = residualDaysMonth * needsGrow.get(industryType);
+                //Integer budgetToday = (int)(residualBudgetMonth / estimatedNumberOfNeedsResidualMonth);
+                //System.out.println("Person shop " + residualDaysMonth +" * "+ needsGrow.get(industryType) + " " + estimatedNumberOfNeedsResidualMonth + " " + industryType);
                 Integer budgetToday = (int)(residualBudgetMonth / estimatedNumberOfNeedsMonth);
+                System.out.println("Person shop " + residualDaysMonth +" * "+ needsGrow.get(industryType) + " " + estimatedNumberOfNeedsMonth);
                 System.out.println("Person shop residualBudget " + residualBudgetMonth  + " budgetTod " + budgetToday);
                 //Try Buy
                 Company bestSupplier = Market.getMarket().getBestOffer(industryType, budgetToday);
