@@ -49,8 +49,8 @@ public class CompMarketAnalysisListCellC extends ListCell<MarketAnalysisData>
     {
         date.setText(marketAnalysisData.getDate().toString());
         totalDemand.setText(marketAnalysisData.getMarketTotalDemand().toString());
-        customerBudgets.setText(marketAnalysisData.getNumCustomerPerBudget().toString());
         marketOffers.setText(marketAnalysisData.getOffersPerCustomerGroup().toString());
+        customerBudgets.setText(marketAnalysisData.getNumCustomerPerBudget().toString());
     }
 
 }

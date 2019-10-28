@@ -32,6 +32,7 @@ public class Person // implements ProductOwner
     EducationalLayer educationalLayer;
     PoliticalOpinion politicalOpinion;
     BudgetPlan budgetPlan;
+    Integer consumeBudget = 0;
 
     //Constructor and Creators
     public Person()
@@ -173,8 +174,17 @@ public class Person // implements ProductOwner
 
     public void shop()
     {
-        //check if there is budget for today
         LocalDate today = Simulation.getSingleton().getDate();
+
+        //update consume budget
+        Integer increaseToday = budgetPlan.dailyConsumebudget;
+        if(deposit >= increaseToday)
+            consumeBudget+= increaseToday;
+        else
+            consumeBudget+= deposit;
+
+        System.out.println("Person shop " + getName() + " " + getNettIncome());
+        System.out.println("Consume Budget: " + consumeBudget);
 
         //for(IndustryType industryType : IndustryType.values())
         IndustryType industryType = FOOD;
@@ -182,18 +192,10 @@ public class Person // implements ProductOwner
             BudgetPost budgetPost = BudgetPost.fromIndustryType(industryType);
             if(needs.get(industryType) >= 1)
             {
-                //Note Demand
-
                 //Calc Budget based on residual buget
-                Integer residualBudgetMonth = budgetPlan.monthBudget.get(budgetPost);
-                Integer residualDaysMonth = today.lengthOfMonth() - today.getDayOfMonth() +1;
-                Double estimatedNumberOfNeedsMonth = today.lengthOfMonth() * needsGrow.get(industryType);
-                Double estimatedNumberOfNeedsResidualMonth = residualDaysMonth * needsGrow.get(industryType);
-                //Integer budgetToday = (int)(residualBudgetMonth / estimatedNumberOfNeedsResidualMonth);
-                //System.out.println("Person shop " + residualDaysMonth +" * "+ needsGrow.get(industryType) + " " + estimatedNumberOfNeedsResidualMonth + " " + industryType);
-                Integer budgetToday = (int)(residualBudgetMonth / estimatedNumberOfNeedsMonth);
-                System.out.println("Person shop " + residualDaysMonth +" * "+ needsGrow.get(industryType) + " " + estimatedNumberOfNeedsMonth);
-                System.out.println("Person shop residualBudget " + residualBudgetMonth  + " budgetTod " + budgetToday);
+                Integer budgetToday = (int)(consumeBudget * budgetPlan.percentageWeighted.get(budgetPost));
+                System.out.println("Budget " + budgetPost + ": " + consumeBudget + " * " + budgetPlan.percentageWeighted.get(budgetPost) +"= " + budgetToday);
+
                 //Try Buy
                 Company bestSupplier = Market.getMarket().getBestOffer(industryType, budgetToday);
 
@@ -202,13 +204,14 @@ public class Person // implements ProductOwner
                 {
                     consumeDataStorage.consume(industryType, bestSupplier.getLuxury());
                     deposit -= bestSupplier.getPrice();
+                    consumeBudget -= bestSupplier.getPrice();
                     bestSupplier.produce();
                     bestSupplier.getPaid(bestSupplier.getPrice());
 
                     //Decrease need and budget
                     needs.put(industryType, needs.get(industryType)-1);
-                    budgetPlan.monthBudget.put(budgetPost, residualBudgetMonth-bestSupplier.getPrice());
-                    System.out.println("Person shop residualBudget " + budgetPlan.monthBudget.get(budgetPost) + " price " + bestSupplier.getPrice());
+                    //budgetPlan.monthBudget.put(budgetPost, residualBudgetMonth-bestSupplier.getPrice());
+                    System.out.println("Bought " + bestSupplier.getName() + " price " + bestSupplier.getPrice()+ " Residual Budget " + consumeBudget );
                 }
             }
         }

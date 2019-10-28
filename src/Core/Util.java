@@ -22,10 +22,10 @@ public class Util
     public static final Integer CALENDER_START_YEAR = 2019;
 
     //Society
-    public static final Integer NUM_BASIC_EDU = 3;
-    public static final Integer NUM_APP_EDU = 4;
-    public static final Integer NUM_HIGHER_EDU = 3;
-    public static final Integer NUM_UNIVERSITY_EDU = 2;
+    public static final Integer NUM_BASIC_EDU = 1;
+    public static final Integer NUM_APP_EDU = 1;
+    public static final Integer NUM_HIGHER_EDU = 1;
+    public static final Integer NUM_UNIVERSITY_EDU = 1;
     public static final Integer NUM_PERS_DEFAULT = 7; //Random gen
     //Society Education
     public static final Integer RATION_BASIC_EDU = 20;
@@ -46,15 +46,15 @@ public class Util
     public static final int THRESHOLD_RICH = 3500;
 
     //Who much they want to spend
-    public static final Integer BUDGET_DEFAULT_WEIGHT_FOOD = 13;
-    public static final Integer BUDGET_DEFAULT_WEIGHT_CLOTHS = 4;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_FOOD = 60;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_CLOTHS = 10;
     public static final Integer BUDGET_DEFAULT_WEIGHT_HOUSING = 20;
     public static final Integer BUDGET_DEFAULT_WEIGHT_ENERGY = 13;
-    public static final Integer BUDGET_DEFAULT_WEIGHT_ELECTRONICS = 5;
-    public static final Integer BUDGET_DEFAULT_WEIGHT_HEALTH = 5;
-    public static final Integer BUDGET_DEFAULT_WEIGHT_TRAFFIC = 14;
-    public static final Integer BUDGET_DEFAULT_WEIGHT_EDUCATION = 1;
-    public static final Integer BUDGET_DEFAULT_WEIGHT_SPARETIME = 16;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_ELECTRONICS = 10;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_HEALTH = 10;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_TRAFFIC = 10;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_EDUCATION = 10;
+    public static final Integer BUDGET_DEFAULT_WEIGHT_SPARETIME = 10;
     public static final Integer BUDGET_DEFAULT_WEIGHT_SAVING = 6;
     public static final Integer BUDGET_DEFAULT_WEIGHT_OTHER_AND_SERVICES = 3;
 

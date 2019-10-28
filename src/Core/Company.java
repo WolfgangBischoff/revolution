@@ -44,7 +44,6 @@ public class Company
 
     public Company(String name, IndustryType industry, Integer Initdeposit, Integer price, Integer luxury)
     {
-        //Economy.getEconomy().getCompanies().add(this);
         this.name = name;
         deposit = Initdeposit;
         this.industry = industry;
@@ -83,14 +82,14 @@ public class Company
 
     void calcMarketAnalysis()
     {
+        //System.out.println("Company calcMarketAnalysis " + getName());
         LocalDate yesterday = Simulation.getSingleton().getDate().minusDays(1);
         MarketAnalysisData marketAnalysisData = Market.getMarket().getMarketAnalysisData(industry, yesterday);
-        //CompanyMarketData companyMarketData = companyMarketDataStorage.getAnalysisData(yesterday);
 
         //Integer plannedPrice = price;
         if (marketAnalysisData == null || companyMarketDataStorage == null)
         {
-            System.out.println("No Market Data Found");
+            System.out.println("Company calcMarketAnalysis - No Market Data Found");
             return;
         }
 
@@ -384,7 +383,8 @@ public class Company
     public String dataAnalysis()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(name + " Deposit:" + deposit);
+        stringBuilder.append("\n" + dataBase());
+        stringBuilder.append("\nPrice => ExpRev " + priceToExpectedRevenue);
         for (CompanyMarketData companyMarketData : companyMarketDataStorage.dataContainer)
             stringBuilder.append(companyMarketData.dataCompanyMarketData());
         return stringBuilder.toString();

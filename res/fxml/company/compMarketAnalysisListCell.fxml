@@ -15,6 +15,6 @@
 
     <Label text="Market Offers" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
     <Label fx:id="marketOffers" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-    <Label text="Customer Budgets" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <Label text="Budget => Customer" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
     <Label fx:id="customerBudgets" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 </GridPane>
