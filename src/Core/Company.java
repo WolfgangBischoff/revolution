@@ -2,7 +2,10 @@ package Core;
 
 import Core.Enums.EducationalLayer;
 import Core.Enums.IndustryType;
+import Core.GuiController.Company.CompanyBaseDataC;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -20,6 +23,10 @@ public class Company
     private Integer baseCapacityCost = 1;
     private CompanyMarketDataStorage companyMarketDataStorage = new CompanyMarketDataStorage(this);
     Map<Integer, Integer> priceToExpectedRevenue = new HashMap<>();
+    PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+    public static final String PROPERTY_DEPOSIT = "deposit";
+    public static final String PROPERTY_PRICE = "price";
+    public static final String PROPERTY_LUXURY = "luxury";
 
     //Constructors
     public Company(String name)
@@ -432,6 +439,7 @@ public class Company
 
     public  void setLuxury(Integer newLuxury)
     {
+        propertyChangeSupport.firePropertyChange(PROPERTY_LUXURY, getLuxury(), newLuxury);
         luxury = newLuxury;
     }
 
@@ -449,9 +457,10 @@ public class Company
         return usedCapacity;
     }
 
-    public void setPrice(Integer price)
+    public void setPrice(Integer newPrice)
     {
-        this.price = price;
+        propertyChangeSupport.firePropertyChange(PROPERTY_PRICE, getPrice(), newPrice);
+        this.price = newPrice;
     }
 
     public void setDeposit(Integer deposit)
@@ -472,5 +481,16 @@ public class Company
     public Map<Integer, Integer> getPriceToExpectedRevenue()
     {
         return priceToExpectedRevenue;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener)
+    {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+        System.out.println("Company added Listener: " + listener + " total: " + propertyChangeSupport.getPropertyChangeListeners().length);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener)
+    {
+        propertyChangeSupport.removePropertyChangeListener(listener);
     }
 }

@@ -4,6 +4,7 @@ import Core.Enums.EducationalLayer;
 import Core.*;
 import Core.Enums.IndustryType;
 import Core.GuiController.Civilian.CivilianController;
+import Core.GuiController.Company.CompanyController;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -83,7 +84,9 @@ public class mainMenuController
         Simulation.getSingleton().setPlayerCompany(playerCompany);
         Economy.getEconomy().calcState();
 
-        GameWindow.getSingleton().createNextScene("../fxml/company/comp.fxml");
+        CompanyController companyController = new CompanyController(playerCompany);
+        GameWindow.getSingleton().createNextScene(companyController.load());
+        //GameWindow.getSingleton().createNextScene("../fxml/company/comp.fxml");
     }
 
     @FXML

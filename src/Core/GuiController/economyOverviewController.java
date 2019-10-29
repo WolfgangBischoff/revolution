@@ -14,7 +14,7 @@ public class economyOverviewController implements PropertyChangeListener
     Economy economy = Simulation.getSingleton().getEconomy();
 
     @FXML
-    Text numberCompanies, depositsCompanies, productsOnMarket;
+    Text numberCompanies, depositsCompanies;
 
     @FXML
     private void initialize()

@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class companyListController
     private Economy economy;
     private ArrayList<Company> companies;
     private ObservableList<Company> observableListCompany = FXCollections.observableArrayList();
+
 
     @FXML
     private void initialize()

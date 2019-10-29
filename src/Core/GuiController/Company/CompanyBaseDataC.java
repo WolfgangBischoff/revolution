@@ -13,9 +13,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
-import static Core.PlayerCompany.PROPERTY_DEPOSIT;
-import static Core.PlayerCompany.PROPERTY_LUXURY;
-import static Core.PlayerCompany.PROPERTY_PRICE;
+import static Core.Company.*;
 import static Core.Simulation.PROPERTY_DATE;
 
 public class CompanyBaseDataC implements PropertyChangeListener
@@ -32,8 +30,7 @@ public class CompanyBaseDataC implements PropertyChangeListener
         loader = new FXMLLoader(getClass().getResource("/fxml/company/companyBaseData.fxml"));
         loader.setController(this);
         company = Simulation.getSingleton().getPlayerCompany();
-        ((PlayerCompany) company).addPropertyChangeListener(this);
-        Simulation.getSingleton().addPropertyChangeListener(this);
+
     }
 
     //For other Comp
@@ -42,6 +39,8 @@ public class CompanyBaseDataC implements PropertyChangeListener
         this.company = company;
         loader = new FXMLLoader(getClass().getResource("/fxml/company/companyBaseData.fxml"));
         loader.setController(this);
+        company.addPropertyChangeListener(this);
+        Simulation.getSingleton().addPropertyChangeListener(this);
     }
 
     @FXML
@@ -80,12 +79,11 @@ public class CompanyBaseDataC implements PropertyChangeListener
             luxury.setText(evt.getNewValue().toString());
         else if (evt.getPropertyName() == PROPERTY_DATE)
             date.setText(Simulation.getSingleton().getCalender().dataDateWeekday());
-
     }
 
     public void removePropertyListeners()
     {
-        ((PlayerCompany) company).removePropertyChangeListener(this);
+        company.removePropertyChangeListener(this);
         Simulation.getSingleton().removePropertyChangeListener(this);
     }
 

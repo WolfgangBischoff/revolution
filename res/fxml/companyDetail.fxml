@@ -10,15 +10,9 @@
         <URL value="@/css/grayBackgroundAndButton.css"/>
     </stylesheets>
 
-    <Text fx:id="name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-    <Label text="Employees:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <Text fx:id="numberEmployees" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Label text="Deposit:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <Text fx:id="deposit" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    <Label text="Number free workplaces:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <Text fx:id="numberFreeWorkplaces" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <Pane fx:id="stat"/>
 
-    <Button fx:id="back" text="back" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+
 
 
 </GridPane>

@@ -1,13 +1,17 @@
 package Core.GuiController.Company;
 
 
+import Core.Company;
 import Core.GameWindow;
 import Core.GuiController.Civilian.CivDeskController;
 import Core.Simulation;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+
+import java.io.IOException;
 
 public class CompanyController
 {
@@ -18,17 +22,24 @@ public class CompanyController
     Pane baseData, centerPane;
 
     HBox centerHbox;
-    CompanyBaseDataC companyBaseDataC = new CompanyBaseDataC();
+    CompanyBaseDataC companyBaseDataC;
     CivDeskController civDeskController = new CivDeskController();
     CompPlanningController compPlanningController;
     CompMarketAnalysisC compMarketAnalysisC;
+    Company company;
+    FXMLLoader loader;
 
-    public CompanyController()
+    public CompanyController(Company company)
     {
+        this.company = company;
+        loader = new FXMLLoader(getClass().getResource("/fxml/company/comp.fxml"));
+        loader.setController(this);
+        companyBaseDataC = new CompanyBaseDataC(company);
         centerHbox = new HBox();
         centerHbox.setSpacing(3);
         centerHbox.setStyle("-fx-border-style: solid inside;"); //For debugging
     }
+
 
     @FXML
     private void initialize()
@@ -37,7 +48,7 @@ public class CompanyController
         borderPane.setTop(companyBaseDataC.load());
     }
 
-   /* public Pane load()
+    public Pane load()
     {
         try
         {
@@ -48,7 +59,7 @@ public class CompanyController
             e.printStackTrace();
         }
         return null;
-    }*/
+    }
 
     @FXML
     private void backToMenu()
@@ -60,18 +71,15 @@ public class CompanyController
     @FXML
     private void planning()
     {
-        System.out.println("Planning");
-        compPlanningController = new CompPlanningController();
+        compPlanningController = new CompPlanningController(company);
         borderPane.setCenter(compPlanningController.load());
     }
 
     @FXML
     private void marketanalysis()
     {
-        System.out.println("Market Analysis");
-        compMarketAnalysisC = new CompMarketAnalysisC();
+        compMarketAnalysisC = new CompMarketAnalysisC(company);
         borderPane.setCenter(compMarketAnalysisC.load());
-        System.out.println(Simulation.getSingleton().getPlayerCompany().getPriceToExpectedRevenue().toString());
     }
 
 

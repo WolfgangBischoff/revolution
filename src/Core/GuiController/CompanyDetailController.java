@@ -2,6 +2,7 @@ package Core.GuiController;
 
 import Core.Company;
 import Core.GameWindow;
+import Core.GuiController.Company.CompanyController;
 import Core.Person;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,11 +16,7 @@ public class CompanyDetailController
 {
     Company company;
     FXMLLoader loader;
-    @FXML
-    private Button back;
-    @FXML
-    private Text name, deposit, numberEmployees, numberFreeWorkplaces;
-
+    @FXML Pane stat;
 
     public CompanyDetailController(Company company)
     {
@@ -43,14 +40,8 @@ public class CompanyDetailController
 
     @FXML
     private void initialize()
-    {//Is used by fxml after this is set as Controller
-        back.setOnAction((event) -> {
-            GameWindow.getSingleton().createNextScene("../fxml/companyList.fxml");
-        });
-
-        name.setText(company.getName());
-        deposit.setText(company.getDeposit().toString());
-        numberEmployees.setText(company.getNumberEmployees().toString());
-        numberFreeWorkplaces.setText(company.calcNumberFreeWorkpositions().toString());
+    {
+        CompanyController companyController = new CompanyController(company);
+        stat.getChildren().add(companyController.load());
     }
 }
