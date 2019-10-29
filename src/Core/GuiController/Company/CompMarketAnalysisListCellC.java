@@ -1,12 +1,14 @@
 package Core.GuiController.Company;
 
 import Core.CompanyMarketData;
+import Core.GuiController.Graphs.BarChartController;
 import Core.MarketAnalysisData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 

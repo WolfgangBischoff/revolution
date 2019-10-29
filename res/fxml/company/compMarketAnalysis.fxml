@@ -4,6 +4,8 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
 
@@ -12,11 +14,19 @@
     </top>
 
     <center>
-        <ListView fx:id="marketData" prefWidth="300">
-            <placeholder>
-                <Label text="No Data"/>
-            </placeholder>
-        </ListView>
+        <HBox>
+            <Pane fx:id="customerBudgets"/>
+
+            <ListView fx:id="marketData" prefWidth="300">
+                <placeholder>
+                    <Label text="No Data"/>
+                </placeholder>
+            </ListView>
+        </HBox>
     </center>
+
+    <bottom>
+
+    </bottom>
 
 </BorderPane>

@@ -1,10 +1,12 @@
 package Core.GuiController.Company;
 
 import Core.*;
+import Core.GuiController.Graphs.BarChartController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
@@ -22,14 +24,7 @@ public class CompMarketAnalysisC
     ListView<MarketAnalysisData> marketData;
     private ObservableList<MarketAnalysisData> observableListData = FXCollections.observableArrayList();
     private List<MarketAnalysisData> marketAnalysisData;
-
-    //For Player
-    CompMarketAnalysisC()
-    {
-        loader = new FXMLLoader(getClass().getResource("/fxml/company/compMarketAnalysis.fxml"));
-        loader.setController(this);
-        company = Simulation.getSingleton().getPlayerCompany();
-    }
+    @FXML Pane customerBudgets;
 
     //For other Comp
     CompMarketAnalysisC(Company company)
@@ -44,6 +39,7 @@ public class CompMarketAnalysisC
     {
         marketAnalysisData = Market.getMarket().getMarketAnalysisData(company.getIndustry());
         setListView();
+        customerBudgets.getChildren().add(new BarChartController().load());
     }
 
     public void setListView()

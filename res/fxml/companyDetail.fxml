@@ -12,7 +12,4 @@
 
     <Pane fx:id="stat"/>
 
-
-
-
 </GridPane>
