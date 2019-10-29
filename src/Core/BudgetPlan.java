@@ -48,22 +48,11 @@ class DaylyBudget
 
 public class BudgetPlan
 {
-
-    private Integer foodBudget;
-    private Integer clothsBudget;
-    private Integer housingBudget;
-    private Integer energyBudget;
-    private Integer electronicsBudget;
-    private Integer healthBudget;
-    private Integer trafficBudget;
-    private Integer educationBudget;
-    private Integer sparetimeBudget;
-    private Integer savingsBudget;
-    private Integer otherAndServices;
     Integer monthlyBudgetSum;
     Map<BudgetPost, Integer> monthBudget = new TreeMap<>();
     List<DaylyBudget> dailyBudgetsOfMonth = new ArrayList<>();
     private Map<BudgetPost, Integer> totalResidualBudgetMonth = new HashMap<>();
+    Map<BudgetPost, Integer> weighting = new HashMap<>();
     Person person;
 
     public Map<BudgetPost, Double> percentageWeighted;
@@ -110,7 +99,7 @@ public class BudgetPlan
      */
     public void calcMonthlyBudgetPosts()
     {
-        Map<BudgetPost, Integer> weighting = new HashMap<>();
+
         if (person.getDeposit() < person.getNettIncome())
             monthlyBudgetSum = person.getDeposit();
         else
@@ -119,8 +108,6 @@ public class BudgetPlan
         LocalDate today = Simulation.getSingleton().getDate();
         consumeBudget = monthlyBudgetSum - energyAndHousingCost;
         dailyConsumebudget = consumeBudget / today.lengthOfMonth();
-        System.out.println("BudgetPlan: DailyIncrease " + dailyConsumebudget);
-        System.out.println(dailyConsumebudget +" = "+ consumeBudget +" / "+ today.lengthOfMonth());
 
         weighting.put(FOOD, BUDGET_DEFAULT_WEIGHT_FOOD);
         weighting.put(CLOTHS, BUDGET_DEFAULT_WEIGHT_CLOTHS);
@@ -135,32 +122,7 @@ public class BudgetPlan
         //weighting.put(OTHER_AND_SERVICES, BUDGET_DEFAULT_WEIGHT_OTHER_AND_SERVICES);
 
         percentageWeighted = Statistics.calcPercFromEnumCount(weighting);
-/*
-        foodBudget = (int) (percentageWeighted.get(FOOD) * monthlyBudgetSum);
-        clothsBudget = (int) (percentageWeighted.get(CLOTHS) * monthlyBudgetSum);
-        housingBudget = (int) (percentageWeighted.get(HOUSING) * monthlyBudgetSum);
-        energyBudget = (int) (percentageWeighted.get(ENERGY) * monthlyBudgetSum);
-        electronicsBudget = (int) (percentageWeighted.get(ELECTRONICS) * monthlyBudgetSum);
-        healthBudget = (int) (percentageWeighted.get(HEALTH) * monthlyBudgetSum);
-        trafficBudget = (int) (percentageWeighted.get(TRAFFIC) * monthlyBudgetSum);
-        educationBudget = (int) (percentageWeighted.get(EDUCATION) * monthlyBudgetSum);
-        sparetimeBudget = (int) (percentageWeighted.get(SPARETIME) * monthlyBudgetSum);
-        otherAndServices = (int) (percentageWeighted.get(OTHER_AND_SERVICES) * monthlyBudgetSum);
-        savingsBudget = monthlyBudgetSum - sumBudgetPostsWithoutSaving();
 
-        //For convinience
-        this.monthBudget.put(BudgetPost.FOOD, foodBudget);
-        this.monthBudget.put(BudgetPost.CLOTHS, clothsBudget);
-        this.monthBudget.put(BudgetPost.HOUSING, housingBudget);
-        this.monthBudget.put(BudgetPost.ENERGY, energyBudget);
-        this.monthBudget.put(BudgetPost.ELECTRONICS, electronicsBudget);
-        this.monthBudget.put(BudgetPost.HEALTH, healthBudget);
-        this.monthBudget.put(BudgetPost.TRAFFIC, trafficBudget);
-        this.monthBudget.put(BudgetPost.EDUCATION, educationBudget);
-        this.monthBudget.put(BudgetPost.SPARETIME, sparetimeBudget);
-        this.monthBudget.put(BudgetPost.OTHER_AND_SERVICES, otherAndServices);
-        this.monthBudget.put(BudgetPost.SAVING, savingsBudget);
-        */
     }
 
     /**
@@ -224,17 +186,6 @@ public class BudgetPlan
 */
     }
 
-    private int sumBudgetPostsWithoutSaving()
-    {
-        return foodBudget + clothsBudget + housingBudget
-                + energyBudget +
-                electronicsBudget +
-                healthBudget +
-                trafficBudget +
-                educationBudget +
-                sparetimeBudget +
-                otherAndServices;
-    }
 
     //Prints
     public String daylyBudgetData()
@@ -257,24 +208,5 @@ public class BudgetPlan
                 "Residual Budget Month: " + totalResidualBudgetMonth + "\n" +
                 daylyBudgetData();
     }
-
-    @Override
-    public String toString()
-    {
-        return "BudgetPlan{" +
-                "foodBudget=" + foodBudget +
-                ", clothsBudget=" + clothsBudget +
-                ", housingBudget=" + housingBudget +
-                ", energyBudget=" + energyBudget +
-                ", electronicsBudget=" + electronicsBudget +
-                ", healthBudget=" + healthBudget +
-                ", trafficBudget=" + trafficBudget +
-                ", educationBudget=" + educationBudget +
-                ", sparetimeBudget=" + sparetimeBudget +
-                ", savingsBudget=" + savingsBudget +
-                ", otherAndServices=" + otherAndServices; //+
-        //    " SUM: " + sumBudgetPosts();
-    }
-
 
 }

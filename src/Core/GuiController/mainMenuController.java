@@ -74,7 +74,7 @@ public class mainMenuController
 
         if (Simulation.getSingleton().getPlayerCompany() == null)
         {
-            playerCompany = new PlayerCompany("Wolfgangs Leckereiern", IndustryType.FOOD, 420000, 10, 10);
+            playerCompany = new PlayerCompany("Wolfgangs Leckereiern", IndustryType.FOOD, 420000, 99999, 0);
         }
         else
             playerCompany = Simulation.getSingleton().getPlayerCompany();

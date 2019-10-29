@@ -22,9 +22,9 @@ public class Util
     public static final Integer CALENDER_START_YEAR = 2019;
 
     //Society
-    public static final Integer NUM_BASIC_EDU = 1;
-    public static final Integer NUM_APP_EDU = 1;
-    public static final Integer NUM_HIGHER_EDU = 1;
+    public static final Integer NUM_BASIC_EDU = 2;
+    public static final Integer NUM_APP_EDU = 2;
+    public static final Integer NUM_HIGHER_EDU = 2;
     public static final Integer NUM_UNIVERSITY_EDU = 1;
     public static final Integer NUM_PERS_DEFAULT = 7; //Random gen
     //Society Education
@@ -75,6 +75,7 @@ public class Util
 
     //Economy
     public static final Integer DEFAULT_NUM_COMPANIES = 4;//IndustryType.getEnumSize();
+    public static final Integer MARKET_ANAL_PERIODS_REMEMBERED = 15;
 
     //Government
 

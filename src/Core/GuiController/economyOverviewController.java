@@ -37,9 +37,9 @@ public class economyOverviewController implements PropertyChangeListener
             case EconomyStatistics.NAME_SUM_COMPANY_DEPOSITS:
                 depositsCompanies.setText(evt.getNewValue().toString());
                 break;
-            case Market.NUMBER_PRODUCTS_NAME:
-                productsOnMarket.setText(evt.getNewValue().toString());
-                break;
+            //case Market.NUMBER_PRODUCTS_NAME:
+            //    productsOnMarket.setText(evt.getNewValue().toString());
+             //   break;
             default:
                 throw new RuntimeException("PropertyChange() don´t know: " + evt.getPropertyName());
         }

@@ -12,7 +12,7 @@ public class Market
 {
     private static Market singleton;
     private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-    public static final String NUMBER_PRODUCTS_NAME = "numberProducts";
+    //public static final String NUMBER_PRODUCTS_NAME = "numberProducts";
     private Map<IndustryType, List<Company>> marketCompanies = new TreeMap<>();
     private Map<Company, Integer> companySaleNumbers = new HashMap<>();
     private MarketanalysisDataStorage marketanalysisDataStorage = new MarketanalysisDataStorage();

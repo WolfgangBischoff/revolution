@@ -1,6 +1,9 @@
 package Core;
 
-import Core.Enums.*;
+import Core.Enums.EconomicLayer;
+import Core.Enums.EducationalLayer;
+import Core.Enums.IndustryType;
+import Core.Enums.PoliticalOpinion;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -63,14 +66,14 @@ public class Person // implements ProductOwner
         educationalLayer = edu;
         this.deposit = deposit;
 
-        for(IndustryType industryType : IndustryType.values())
+        for (IndustryType industryType : IndustryType.values())
         {
             needs.put(industryType, 0d);
         }
         needsGrow.put(FOOD, .8);
         needsGrow.put(CLOTHS, .2);
-        needsGrow.put(HOUSING, 1.0);
-        needsGrow.put(ENERGY, 1.0);
+        needsGrow.put(HOUSING, 0d);
+        needsGrow.put(ENERGY, 0d);
         needsGrow.put(ELECTRONICS, .2);
         needsGrow.put(HEALTH, .05);
         needsGrow.put(TRAFFIC, .3);
@@ -118,7 +121,7 @@ public class Person // implements ProductOwner
 
     void calcNeeds()
     {
-        for(Map.Entry<IndustryType, Double> need : needs.entrySet())
+        for (Map.Entry<IndustryType, Double> need : needs.entrySet())
         {
             Double newValue = roundTwoDigits(need.getValue() + needsGrow.get(need.getKey()));
             need.setValue(newValue);
@@ -174,46 +177,44 @@ public class Person // implements ProductOwner
 
     public void shop()
     {
-        LocalDate today = Simulation.getSingleton().getDate();
-
         //update consume budget
         Integer increaseToday = budgetPlan.dailyConsumebudget;
-        if(deposit >= increaseToday)
-            consumeBudget+= increaseToday;
+        if (deposit >= increaseToday)
+            consumeBudget += increaseToday;
         else
-            consumeBudget+= deposit;
+            consumeBudget += deposit;
 
-        System.out.println("Person shop " + getName() + " " + getNettIncome());
-        System.out.println("Consume Budget: " + consumeBudget);
+        System.out.println("Person shop " + getName() + " " + " increase: " + increaseToday);
 
-        //for(IndustryType industryType : IndustryType.values())
-        IndustryType industryType = FOOD;
+        Map<IndustryType, Integer> todayWeighting = new HashMap<>();
+        for (Map.Entry<IndustryType, Double> need : needs.entrySet())
         {
-            BudgetPost budgetPost = BudgetPost.fromIndustryType(industryType);
-            if(needs.get(industryType) >= 1)
+            if (need.getValue() >= 1)
+                todayWeighting.put(need.getKey(), 1); //TODO Budget Weighting
+        }
+        Map<IndustryType, Double> todayWeightingPer = Statistics.calcPercFromEnumCount(todayWeighting);
+        System.out.println("Today Needs: " + todayWeightingPer);
+
+        for (Map.Entry<IndustryType, Double> need : todayWeightingPer.entrySet())
+        {
+            IndustryType industryType = need.getKey();
+            Integer budgetToday = (int) (consumeBudget * need.getValue());
+            Company bestSupplier = Market.getMarket().getBestOffer(industryType, budgetToday);
+
+            //Pay Company and consume
+            if (bestSupplier != null)
             {
-                //Calc Budget based on residual buget
-                Integer budgetToday = (int)(consumeBudget * budgetPlan.percentageWeighted.get(budgetPost));
-                System.out.println("Budget " + budgetPost + ": " + consumeBudget + " * " + budgetPlan.percentageWeighted.get(budgetPost) +"= " + budgetToday);
+                consumeDataStorage.consume(industryType, bestSupplier.getLuxury());
+                deposit -= bestSupplier.getPrice();
+                consumeBudget -= bestSupplier.getPrice();
+                bestSupplier.produce();
+                bestSupplier.getPaid(bestSupplier.getPrice());
 
-                //Try Buy
-                Company bestSupplier = Market.getMarket().getBestOffer(industryType, budgetToday);
-
-                //Pay Company and consume
-                if(bestSupplier != null)
-                {
-                    consumeDataStorage.consume(industryType, bestSupplier.getLuxury());
-                    deposit -= bestSupplier.getPrice();
-                    consumeBudget -= bestSupplier.getPrice();
-                    bestSupplier.produce();
-                    bestSupplier.getPaid(bestSupplier.getPrice());
-
-                    //Decrease need and budget
-                    needs.put(industryType, needs.get(industryType)-1);
-                    //budgetPlan.monthBudget.put(budgetPost, residualBudgetMonth-bestSupplier.getPrice());
-                    System.out.println("Bought " + bestSupplier.getName() + " price " + bestSupplier.getPrice()+ " Residual Budget " + consumeBudget );
-                }
+                //Decrease need and budget
+                needs.put(industryType, needs.get(industryType) - 1);
+                System.out.println("Bought " + bestSupplier.getName() + " price " + bestSupplier.getPrice() + " Residual Budget " + consumeBudget);
             }
+
         }
 
 
@@ -273,8 +274,6 @@ public class Person // implements ProductOwner
             }
         }*/
     }
-
-
 
 
     //Prints
@@ -357,17 +356,17 @@ public class Person // implements ProductOwner
             @Override
             public int compare(Workposition o1, Workposition o2)
             {
-                if(o1.getNeededEducation().getInt() < o2.getNeededEducation().getInt())
+                if (o1.getNeededEducation().getInt() < o2.getNeededEducation().getInt())
                     return 1;
                 else if (o1.getNeededEducation().getInt() > o2.getNeededEducation().getInt())
-                    return  -1;
+                    return -1;
                 else return 0;
             }
         });
         //Apply to all position beginning with highest edu needed
-        for(Workposition workposition : vacancies)
+        for (Workposition workposition : vacancies)
         {
-            if(workposition.isWorkerAppropriate(this))
+            if (workposition.isWorkerAppropriate(this))
             {
                 company.employWorker(workposition, this);
                 break;

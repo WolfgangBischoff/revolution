@@ -5,9 +5,11 @@ import Core.Enums.IndustryType;
 import java.time.LocalDate;
 import java.util.*;
 
+import static Core.Util.MARKET_ANAL_PERIODS_REMEMBERED;
+
 public class MarketanalysisDataStorage
 {
-    private final Integer PERIODS_REMEMBERED = 5;
+    private final Integer PERIODS_REMEMBERED = MARKET_ANAL_PERIODS_REMEMBERED;
     private Company owner;
     private List<MarketAnalysisData> dataContainer = new ArrayList<>(); //old
     private Map<IndustryType, List<MarketAnalysisData>> data = new TreeMap<>();
