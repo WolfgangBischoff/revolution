@@ -26,7 +26,7 @@ public class AreaChartSample
         this.company = company;
         List<MarketAnalysisData> marketAnalysisData = Market.getMarket().getMarketAnalysisData(company.getIndustry());
 
-        xAxis = new NumberAxis(1, Society.getSociety().getPeople().size(), 1);
+        xAxis = new NumberAxis(0, Society.getSociety().getPeople().size(), 1);
         yAxis = new NumberAxis();
         ac = new AreaChart<Number, Number>(xAxis, yAxis);
 
@@ -41,18 +41,23 @@ public class AreaChartSample
             MarketAnalysisData current = dayentry;
             TreeMap<Integer, Integer> customerData = current.getNumCustomerPerBudget();
             s1.setName(current.getDate().toString());
-            Integer sumPersons = 0;
-            s1.getData().add(new XYChart.Data(0, 0));
+            Integer sumPersons = Society.getSociety().getPeople().size();
+            Integer maxBudget = 0;
+
+
             for (Map.Entry<Integer, Integer> entry : customerData.entrySet())
             {
                 //System.out.println("Key: " + entry.getKey() +" value"+ entry.getValue());
-                sumPersons += entry.getValue();
                 s1.getData().add(new XYChart.Data(sumPersons, entry.getKey()));
+                if(entry.getKey() > maxBudget)
+                    maxBudget = entry.getKey();
+                sumPersons -= entry.getValue();
             }
+            s1.getData().add(new XYChart.Data(0, maxBudget));
         }
 
 
-        ac.setTitle("Temperature Monitoring (in Degrees C)");
+        ac.setTitle("Market Demand");
         for (XYChart.Series series : seriesList)
             ac.getData().addAll(series);
         /*

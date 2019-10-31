@@ -75,7 +75,7 @@ public class Util
 
     //Economy
     public static final Integer DEFAULT_NUM_COMPANIES = 4;//IndustryType.getEnumSize();
-    public static final Integer MARKET_ANAL_PERIODS_REMEMBERED = 15;
+    public static final Integer MARKET_ANAL_PERIODS_REMEMBERED = 5;
 
     //Government
 
