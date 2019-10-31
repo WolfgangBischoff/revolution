@@ -9,7 +9,7 @@ public class MarketAnalysisData
     Integer marketTotalDemand = 0;
     Integer marketTotalSold = 0;
     Integer numPlayerBought = 0;
-    Map<Integer, Integer> numCustomerPerBudget = new TreeMap<>();
+    TreeMap<Integer, Integer> numCustomerPerBudget = new TreeMap<>();
     Map<Integer, Integer> maxRevenueCustomerGroup = new TreeMap<>();
     Map<Integer, List<LuxuryPriceGroup>> offersPerCustomerGroup = new TreeMap<>();
     List<LuxuryPriceGroup> supplierOffers = new ArrayList<>();
@@ -150,7 +150,7 @@ public class MarketAnalysisData
         return numPlayerBought;
     }
 
-    public Map<Integer, Integer> getNumCustomerPerBudget()
+    public TreeMap<Integer, Integer> getNumCustomerPerBudget()
     {
         return numCustomerPerBudget;
     }

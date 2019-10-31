@@ -1,10 +1,16 @@
 package Core.GuiController.Graphs;
 
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import Core.Company;
+import Core.Market;
+import Core.MarketAnalysisData;
+import javafx.scene.chart.*;
 import javafx.scene.layout.Pane;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BarChartController
 {
@@ -18,8 +24,15 @@ public class BarChartController
     final NumberAxis yAxis = new NumberAxis();
     final BarChart<String, Number> bc = new BarChart<String, Number>(xAxis, yAxis);
 
-    public BarChartController()
+private Company company;
+    final CategoryAxis x = new CategoryAxis();
+    final NumberAxis y = new NumberAxis();
+final BarChart<String, Number> budgetsBarChart = new BarChart<String, Number>(x,y);
+
+    public BarChartController(Company company)
     {
+        this.company = company;
+
         bc.setTitle("Country Summary");
         xAxis.setLabel("Country");
         yAxis.setLabel("Value");
