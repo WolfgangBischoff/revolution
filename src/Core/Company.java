@@ -459,6 +459,8 @@ public class Company
 
     public void setPrice(Integer newPrice)
     {
+        if(price < 0)
+            return;
         propertyChangeSupport.firePropertyChange(PROPERTY_PRICE, getPrice(), newPrice);
         this.price = newPrice;
     }

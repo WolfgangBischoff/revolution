@@ -108,6 +108,8 @@ public class BudgetPlan
         LocalDate today = Simulation.getSingleton().getDate();
         consumeBudget = monthlyBudgetSum - energyAndHousingCost;
         dailyConsumebudget = consumeBudget / today.lengthOfMonth();
+        if(dailyConsumebudget < 0)
+            dailyConsumebudget = 0;
 
         weighting.put(FOOD, BUDGET_DEFAULT_WEIGHT_FOOD);
         weighting.put(CLOTHS, BUDGET_DEFAULT_WEIGHT_CLOTHS);

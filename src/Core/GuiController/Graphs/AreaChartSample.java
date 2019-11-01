@@ -3,16 +3,12 @@ package Core.GuiController.Graphs;
 import Core.Company;
 import Core.Market;
 import Core.MarketAnalysisData;
-import Core.Society;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class AreaChartSample
 {
@@ -20,82 +16,86 @@ public class AreaChartSample
     final NumberAxis yAxis;
     final AreaChart<Number, Number> ac;
     Company company;
+    Map<Integer, List<Integer>> avgData = new TreeMap();
+    Integer maxTotalDemandVisible = 0;
+    int consideredPeriods = 3;
 
     public AreaChartSample(Company company)
     {
         this.company = company;
         List<MarketAnalysisData> marketAnalysisData = Market.getMarket().getMarketAnalysisData(company.getIndustry());
-
-        xAxis = new NumberAxis(0, Society.getSociety().getPeople().size(), 1);
-        yAxis = new NumberAxis();
-        ac = new AreaChart<Number, Number>(xAxis, yAxis);
-
         List<XYChart.Series> seriesList = new ArrayList<>();
 
+        if (marketAnalysisData.size() < consideredPeriods)
+            consideredPeriods = marketAnalysisData.size();
 
-        //System.out.println("AREA CHART");
-        for (MarketAnalysisData dayentry : marketAnalysisData)
+        for (int i = 0; i < consideredPeriods; i++)
         {
+            MarketAnalysisData current = marketAnalysisData.get(i);
             XYChart.Series s1 = new XYChart.Series();
-            seriesList.add(s1);
-            MarketAnalysisData current = dayentry;
             TreeMap<Integer, Integer> customerData = current.getNumCustomerPerBudget();
             s1.setName(current.getDate().toString());
-            Integer sumPersons = Society.getSociety().getPeople().size();
-            Integer maxBudget = 0;
+            seriesList.add(s1);
 
+            if (current.getMarketTotalDemand() > maxTotalDemandVisible)
+                maxTotalDemandVisible = current.getMarketTotalDemand();
 
+            Integer sumPersons = current.getMarketTotalDemand();
             for (Map.Entry<Integer, Integer> entry : customerData.entrySet())
             {
-                //System.out.println("Key: " + entry.getKey() +" value"+ entry.getValue());
-                s1.getData().add(new XYChart.Data(sumPersons, entry.getKey()));
-                if(entry.getKey() > maxBudget)
-                    maxBudget = entry.getKey();
-                sumPersons -= entry.getValue();
+                for (int n = 0; n < entry.getValue(); n++)
+                {
+                    s1.getData().add(new XYChart.Data(sumPersons, entry.getKey()));
+                    addAvgData(sumPersons, entry.getKey());
+                    sumPersons--;
+                }
             }
-            s1.getData().add(new XYChart.Data(0, maxBudget));
+
         }
 
+        xAxis = new NumberAxis(0.5, maxTotalDemandVisible + 0.5, 1);
+        xAxis.setLabel("Demand");
+        yAxis = new NumberAxis();
+        yAxis.setLabel("Budget");
+        ac = new AreaChart<Number, Number>(xAxis, yAxis);
+        ac.getData().add(calcAvgData());
 
-        ac.setTitle("Market Demand");
-        for (XYChart.Series series : seriesList)
-            ac.getData().addAll(series);
-        /*
-        XYChart.Series seriesApril = new XYChart.Series();
-        seriesApril.setName("April");
-        seriesApril.getData().add(new XYChart.Data(1, 4));
-        seriesApril.getData().add(new XYChart.Data(3, 10));
-        seriesApril.getData().add(new XYChart.Data(6, 15));
-        seriesApril.getData().add(new XYChart.Data(9, 8));
-        seriesApril.getData().add(new XYChart.Data(12, 5));
-        seriesApril.getData().add(new XYChart.Data(15, 18));
-        seriesApril.getData().add(new XYChart.Data(18, 15));
-        seriesApril.getData().add(new XYChart.Data(21, 13));
-        seriesApril.getData().add(new XYChart.Data(24, 19));
-        seriesApril.getData().add(new XYChart.Data(27, 21));
-        seriesApril.getData().add(new XYChart.Data(30, 21));
+        ac.setTitle("Market Budgets");
+        for (int i = 0; i < consideredPeriods; i++)
+        {
+            ac.getData().addAll(seriesList.get(i));
+        }
 
-        XYChart.Series seriesMay = new XYChart.Series();
-        seriesMay.setName("May");
-        seriesMay.getData().add(new XYChart.Data(1, 20));
-        seriesMay.getData().add(new XYChart.Data(3, 15));
-        seriesMay.getData().add(new XYChart.Data(6, 13));
-        seriesMay.getData().add(new XYChart.Data(9, 12));
-        seriesMay.getData().add(new XYChart.Data(12, 14));
-        seriesMay.getData().add(new XYChart.Data(15, 18));
-        seriesMay.getData().add(new XYChart.Data(18, 25));
-        seriesMay.getData().add(new XYChart.Data(21, 25));
-        seriesMay.getData().add(new XYChart.Data(24, 23));
-        seriesMay.getData().add(new XYChart.Data(27, 26));
-        seriesMay.getData().add(new XYChart.Data(31, 26));
+    }
 
-        ac.getData().addAll(seriesApril, seriesMay);*/
+    private XYChart.Series calcAvgData()
+    {
+        XYChart.Series avg = new XYChart.Series();
+        avg.setName("Average Budgets");
+        for (Map.Entry<Integer, List<Integer>> dataPoints : avgData.entrySet())
+        {
+            List<Integer> current = dataPoints.getValue();
+            Integer sum = 0;
+            for (Integer data : current)
+                sum += data;
+            Integer dataAvg = sum / current.size();
+            avg.getData().add(new XYChart.Data(dataPoints.getKey(), dataAvg));
+        }
+        return avg;
+    }
 
+    private void addAvgData(Integer sumPersons, Integer budget)
+    {
+        if (!avgData.containsKey(sumPersons))
+            avgData.put(sumPersons, new ArrayList<>());
+        avgData.get(sumPersons).add(budget);
     }
 
     public Pane load()
     {
-        return new Pane(ac);
+        Pane pane = new Pane(ac);
+        pane.getStylesheets().add("css/areaChartSample.css");
+        return pane;
     }
 }
 
