@@ -2,7 +2,7 @@
 KNOWN BUGS:
 
 TODOS:
-    Add Graph part view, number considered periods
+    Add Graph part view, number considered periods; apply css
     MarketLogic, add Luxury change
     Wohnhouse, housing not just comsumer product but also owner
     Add hapiness: (if needs unfulfilled --hapiness, if budget dont fit because of prices -hapiness)

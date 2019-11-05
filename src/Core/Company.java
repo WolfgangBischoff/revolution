@@ -93,7 +93,6 @@ public class Company
         LocalDate yesterday = Simulation.getSingleton().getDate().minusDays(1);
         MarketAnalysisData marketAnalysisData = Market.getMarket().getMarketAnalysisData(industry, yesterday);
 
-        //Integer plannedPrice = price;
         if (marketAnalysisData == null || companyMarketDataStorage == null)
         {
             System.out.println("Company calcMarketAnalysis - No Market Data Found");
@@ -104,11 +103,10 @@ public class Company
         List<Integer> possiblePrices = new ArrayList<>();
         for (Map.Entry<Integer, Integer> budgets : marketAnalysisData.maxRevenueAtPrice.entrySet())
             possiblePrices.add(budgets.getKey());
-        for (MarketAnalysisData.LuxuryPriceGroup offer : marketAnalysisData.supplierOffers)
+        for (LuxuryPriceGroup offer : marketAnalysisData.supplierOffers)
             if (!possiblePrices.contains(offer.price))
                 possiblePrices.add(offer.price);
         Collections.sort(possiblePrices);
-        //System.out.println("\n" + name + " real Rev: " + companyMarketData.revenue + " sold " + companyMarketData.numSold + " at price: " + price + " luxury: " + luxury);
         //System.out.println("P\\B" + marketAnalysisData.maxRevenueAtPrice.keySet());
 
         //Calc expected revenues per customer-budget group for all defined prices considering competitors and prohibitive prices
@@ -160,7 +158,7 @@ public class Company
                 Integer numCustomers = customerGroup.getValue();
                 Integer expRev = 0;
                 Integer totalCompetitors = 1;
-                List<MarketAnalysisData.LuxuryPriceGroup> offersOfCustomerGroup = marketAnalysisData.offersPerCustomerGroup.get(budget);
+                List<LuxuryPriceGroup> offersOfCustomerGroup = marketAnalysisData.offersPerCustomerGroup.get(budget);
 
                 //System.out.println("Price Option " + priceOption + " Budget " + budget);
                 //To expensive for customer group
@@ -178,7 +176,7 @@ public class Company
                 {
                     boolean betterCompetitor = false;
                     //check all competitors (just affordable ones are in market data)
-                    for (MarketAnalysisData.LuxuryPriceGroup competitorOffer : offersOfCustomerGroup)
+                    for (LuxuryPriceGroup competitorOffer : offersOfCustomerGroup)
                     {
                         //System.out.println("is Competitor " + competitorOffer.luxury +" == "+ luxury +" && "+ competitorOffer.price +" == "+ priceOption +" && "+ (competitorOffer.company != this));
                         //Better Competitor in customer group

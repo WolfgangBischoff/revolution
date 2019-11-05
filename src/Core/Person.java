@@ -184,7 +184,7 @@ public class Person // implements ProductOwner
         else
             consumeBudget += deposit;
 
-        System.out.println("Person shop " + getName() + " " + " increase: " + increaseToday);
+        //System.out.println("Person shop " + getName() + " " + " increase: " + increaseToday);
 
         Map<IndustryType, Integer> todayWeighting = new HashMap<>();
         for (Map.Entry<IndustryType, Double> need : needs.entrySet())
@@ -193,7 +193,7 @@ public class Person // implements ProductOwner
                 todayWeighting.put(need.getKey(), 1); //TODO Budget Weighting
         }
         Map<IndustryType, Double> todayWeightingPer = Statistics.calcPercFromEnumCount(todayWeighting);
-        System.out.println("Today Needs: " + todayWeightingPer);
+        //System.out.println("Today Needs: " + todayWeightingPer);
 
         for (Map.Entry<IndustryType, Double> need : todayWeightingPer.entrySet())
         {
@@ -212,7 +212,7 @@ public class Person // implements ProductOwner
 
                 //Decrease need and budget
                 needs.put(industryType, needs.get(industryType) - 1);
-                System.out.println("Bought " + bestSupplier.getName() + " price " + bestSupplier.getPrice() + " Residual Budget " + consumeBudget);
+                //System.out.println("Bought " + bestSupplier.getName() + " price " + bestSupplier.getPrice() + " Residual Budget " + consumeBudget);
             }
 
         }
