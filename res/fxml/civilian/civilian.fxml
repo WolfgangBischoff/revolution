@@ -33,13 +33,14 @@
 
               alignment="CENTER" spacing="3">
 
-            <GridPane xmlns="http://javafx.com/javafx">
+            <GridPane xmlns="http://javafx.com/javafx" vgap="5">
                 <Text text="Locations" GridPane.rowIndex="3"/>
                 <Button text="Market" GridPane.rowIndex="3" prefWidth="150" onAction="#showMarket"/>
                 <Button text="Job Market" GridPane.rowIndex="4" prefWidth="150" onAction="#job"/>
-                <Button text="Housing Market" GridPane.rowIndex="5" prefWidth="150" onAction="#desk"/>
-                <Button text="Next Day" GridPane.rowIndex="6" prefWidth="150" onAction="#nextDay"/>
-                <Button text="back" GridPane.rowIndex="7" prefWidth="150" onAction="#backToMenu" />
+                <Button text="Argument" GridPane.rowIndex="5" prefWidth="150" onAction="#argument"/>
+                <Button text="Housing Market" GridPane.rowIndex="6" prefWidth="150" onAction="#desk"/>
+                <Button text="Next Day" GridPane.rowIndex="7" prefWidth="150" onAction="#nextDay"/>
+                <Button text="back" GridPane.rowIndex="8" prefWidth="150" onAction="#backToMenu" />
             </GridPane>
         </VBox>
     </left>

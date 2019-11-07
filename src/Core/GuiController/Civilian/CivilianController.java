@@ -2,6 +2,7 @@ package Core.GuiController.Civilian;
 
 import Core.Company;
 import Core.Enums.ViewPerspective;
+import Core.Game.ArgumentGame.ArgumentGame;
 import Core.GameWindow;
 import Core.GuiController.Controller;
 import Core.GuiController.IndustryOverviewController;
@@ -79,6 +80,15 @@ public class CivilianController implements Controller
         removeListeners();
         civilianBaseData.removePropertyListeners(); //Just remove here, is valid in all other menues
         GameWindow.getSingleton().createNextScene("../fxml/mainMenu.fxml");
+    }
+
+    @FXML
+    private void argument()
+    {
+        System.out.println("Argument");
+        borderPane.setRight(null);
+        ArgumentGame argumentGame = new ArgumentGame();
+        borderPane.setCenter(argumentGame.load());
     }
 
     @FXML
