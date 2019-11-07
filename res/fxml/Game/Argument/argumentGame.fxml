@@ -6,9 +6,12 @@
             xmlns:fx="http://javafx.com/fxml">
     <center>
         <VBox alignment="CENTER">
-            <HBox fx:id="opponent" alignment="CENTER"/>
-            <Label fx:id="reaction" text="Argument"/>
+            <HBox fx:id="hboxopponent" alignment="CENTER"/>
+            <Label fx:id="reactionColor" text="Argument"/>
+            <Label fx:id="reactionRotation" text="Argument"/>
+            <Label fx:id="reactionShape" text="Argument"/>
             <HBox fx:id="hboxOptions" alignment="CENTER" spacing="10"/>
+            <Label fx:id="scoreLabel"/>
         </VBox>
     </center>
 

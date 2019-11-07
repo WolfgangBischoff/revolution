@@ -19,28 +19,30 @@ public class ArgumentGame
     FXMLLoader loader;
     Pane pane;
     List<Option> argumentsoptions = new ArrayList<>();
+    Option opponent;
+    int score = 0;
     @FXML
-    HBox hboxOptions, opponent;
+    HBox hboxOptions, hboxopponent;
     @FXML
-    Label reaction;
+    Label reactionColor, reactionRotation, reactionShape, scoreLabel;
 
 
     public ArgumentGame()
     {
         loader = new FXMLLoader(getClass().getResource("../../../fxml/Game/Argument/argumentGame.fxml"));
         loader.setController(this);
-
-
     }
 
     private void init()
     {
-        reaction.setText("TODO");
-        opponent.getChildren().add(new Option(30, Color.YELLOW).load());
-        argumentsoptions.add(new Option(30, Color.RED));
-        argumentsoptions.add(new Option(45, Color.BLACK));
-        argumentsoptions.add(new Option(45, Color.ALICEBLUE));
-        argumentsoptions.add(new Option(0, Color.YELLOW));
+        opponent = new Option(0,30, Color.YELLOW);
+        hboxopponent.getChildren().add(opponent.load());
+        argumentsoptions.add(new Option(0,30, Color.RED));
+        argumentsoptions.add(new Option(1,30, Color.BLACK));
+        argumentsoptions.add(new Option(1,45, Color.ALICEBLUE));
+        argumentsoptions.add(new Option(0,0, Color.YELLOW));
+        score = 0;
+        scoreLabel.setText("Score: " + score);
 
         for (int i = 0; i < argumentsoptions.size(); i++)
         {
@@ -59,15 +61,20 @@ public class ArgumentGame
         }
     }
 
-    private int checkChosen(String txt)
+    private void checkChosen(String txt)
     {
-        reaction.setText(argumentsoptions.get(Integer.parseInt(txt)).color.toString());
-        /*
-        if (txt.equals(opponent.getText()))
-            reaction.setText("Positive");
-        else
-            reaction.setText("Negative");
-        */return 0;
+        score = 0;
+        Option chosen = argumentsoptions.get(Integer.parseInt(txt));
+        reactionColor.setText("Same Color: " + (chosen.color == opponent.color));
+        reactionRotation.setText("Rotation: " + chosen.rotation + " " + opponent.rotation);
+        reactionShape.setText("Shape: " + (chosen.shape.getClass() == opponent.shape.getClass()));
+        if(chosen.color == opponent.color)
+            score++;
+        if(chosen.rotation == opponent.rotation)
+            score++;
+        if(chosen.shape.getClass() == opponent.shape.getClass())
+            score++;
+        scoreLabel.setText("Score: " + score);
     }
 
     public Pane load()
