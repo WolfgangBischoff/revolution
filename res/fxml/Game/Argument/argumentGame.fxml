@@ -10,6 +10,7 @@
             <Label fx:id="reactionColor" text="Argument"/>
             <Label fx:id="reactionRotation" text="Argument"/>
             <Label fx:id="reactionShape" text="Argument"/>
+            <Label fx:id="reactionCircle" text="Argument"/>
             <HBox fx:id="hboxOptions" alignment="CENTER" spacing="10"/>
             <Label fx:id="scoreLabel"/>
         </VBox>

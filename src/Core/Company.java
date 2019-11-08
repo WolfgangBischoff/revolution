@@ -160,7 +160,7 @@ public class Company
                 Integer totalCompetitors = 1;
                 List<LuxuryPriceGroup> offersOfCustomerGroup = marketAnalysisData.offersPerCustomerGroup.get(budget);
 
-                //System.out.println("Price Option " + priceOption + " Budget " + budget);
+                //System.out.println("Price ShapeOption " + priceOption + " Budget " + budget);
                 //To expensive for customer group
                 if (priceOption > budget)
                 {
